@@ -1,6 +1,6 @@
 const Users = require('../services/users.js');
 
-const getAll = async (req, res) => {
+const getAll = async (_req, res) => {
   const { status, data, message } = await Users.getAll();
   if (message) return res.status(status).json(message);
 
