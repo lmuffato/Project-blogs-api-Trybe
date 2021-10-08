@@ -5,15 +5,12 @@
 */ 
 
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    displayName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    image: DataTypes.STRING,
+  const Category = sequelize.define('Category', {
+    name: DataTypes.STRING,
   }, {
-    tableName: 'Users',
+    tableName: 'Categories',
     timestamps: false,
   });
 
-  return User;
+  return Category;
 };
