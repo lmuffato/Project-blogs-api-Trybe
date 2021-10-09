@@ -3,6 +3,7 @@ const express = require('express');
 const Users = require('./src/controllers/users');
 const Login = require('./src/controllers/login');
 const Categories = require('./src/controllers/categories');
+const Posts = require('./src/controllers/posts');
 const { authToken } = require('./src/middlewares/authToken');
 
 const app = express();
@@ -28,3 +29,8 @@ app.post('/login', Login.userLogin);
 // Categories
 app.post('/categories', authToken, Categories.create);
 app.get('/categories', authToken, Categories.getAll);
+
+// Posts
+app.post('/post', authToken, Posts.create);
+app.get('/post', authToken, Posts.getAll);
+app.get('/post/:id', authToken, Posts.getById);

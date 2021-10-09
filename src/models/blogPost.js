@@ -1,11 +1,6 @@
-/**
-* @param {import('sequelize').Sequelize} sequelize 
-* @param {import('sequelize').DataTypes} DataTypes 
-* @return 
-*/ 
-
 module.exports = (sequelize, DataTypes) => {
-  const BlogPosts = sequelize.define('BlogPost', {
+  const Posts = sequelize.define('Post', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     published: DataTypes.DATE,
@@ -13,12 +8,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     tableName: 'BlogPosts',
     timestamps: false,
-    underscored: true,
   });
 
-  BlogPosts.associate = ({ User }) => {
-    BlogPosts.belongsTo(User, { foreignKey: 'userId', as: 'users' });
+  Posts.associate = ({ User }) => {
+    Posts.belongsTo(User, { foreignKey: 'userId', as: 'user' });
   };
   
-  return BlogPosts;
+  return Posts;
 };
