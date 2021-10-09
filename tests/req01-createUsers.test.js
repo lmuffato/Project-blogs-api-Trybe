@@ -9,7 +9,7 @@ describe('1 - Sua aplicação deve ter o endpoint POST `/user`', () => {
     shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate $');
   });
 
-  it.skip('Será validado que é possível cadastrar um usuário com sucesso', async () => {
+  it('Será validado que é possível cadastrar um usuário com sucesso', async () => {
     await frisby
       .post(`${url}/user`,
         {
@@ -25,7 +25,7 @@ describe('1 - Sua aplicação deve ter o endpoint POST `/user`', () => {
       });
   });
 
-  it.skip('Será validado que não é possível cadastrar usuário com o campo `displayName` menor que 8 caracteres', async () => {
+  it('Será validado que não é possível cadastrar usuário com o campo `displayName` menor que 8 caracteres', async () => {
     await frisby
       .post(`${url}/user`,
         {
@@ -41,7 +41,7 @@ describe('1 - Sua aplicação deve ter o endpoint POST `/user`', () => {
       });
   });
 
-  it.skip('Será validado que não é possível cadastrar usuário com o campo `email` com formato `email: rubinho`', async () => {
+  it('Será validado que não é possível cadastrar usuário com o campo `email` com formato `email: rubinho`', async () => {
     await frisby
       .post(`${url}/user`,
         {
@@ -57,7 +57,7 @@ describe('1 - Sua aplicação deve ter o endpoint POST `/user`', () => {
       });
   });
 
-  it.skip('Será validado que não é possível cadastrar usuário com o campo `email` com formato `email: @gmail.com`', async () => {
+  it('Será validado que não é possível cadastrar usuário com o campo `email` com formato `email: @gmail.com`', async () => {
     await frisby
       .post(`${url}/user`,
         {
@@ -73,7 +73,7 @@ describe('1 - Sua aplicação deve ter o endpoint POST `/user`', () => {
       });
   });
 
-  it.skip('Será validado que o campo `email` é obrigatório', async () => {
+  it('Será validado que o campo `email` é obrigatório', async () => {
     await frisby
       .post(`${url}/user`,
         {
@@ -88,7 +88,7 @@ describe('1 - Sua aplicação deve ter o endpoint POST `/user`', () => {
       });
   });
 
-  it.skip('Será validado que não é possível cadastrar usuário com o campo `password` menor que 6 caracteres', async () => {
+  it('Será validado que não é possível cadastrar usuário com o campo `password` menor que 6 caracteres', async () => {
     await frisby
       .post(`${url}/user`,
         {
@@ -104,7 +104,7 @@ describe('1 - Sua aplicação deve ter o endpoint POST `/user`', () => {
       });
   });
 
-  it.skip('Será validado que o campo `password` é obrigatório', async () => {
+  it('Será validado que o campo `password` é obrigatório', async () => {
     await frisby
       .post(`${url}/user`,
         {
