@@ -119,7 +119,7 @@ describe('1 - Sua aplicação deve ter o endpoint POST `/user`', () => {
       });
   });
 
-  it.skip('Validar que não é possível cadastrar um usuário com email já existente', async () => {
+  it('Validar que não é possível cadastrar um usuário com email já existente', async () => {
     await frisby
       .post(`${url}/user`,
         {

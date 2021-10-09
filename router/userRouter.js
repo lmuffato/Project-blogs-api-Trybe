@@ -1,9 +1,9 @@
 const express = require('express');
 const userController = require('../controller/userController');
-const { validateUser } = require('../middlewares/userValidate');
+const { validateUser, verifyIfAlreadyExists } = require('../middlewares/userValidate');
 
 const userRouter = express.Router();
 
-userRouter.post('/', validateUser, userController.create);
+userRouter.post('/', validateUser, verifyIfAlreadyExists, userController.create);
 
 module.exports = userRouter;

@@ -17,6 +17,20 @@ const create = async (displayName, email, password, image) => {
   }
 };
 
+const findByEmail = async (email1) => {
+  try {
+    const user = await User.findAll({
+      where: {
+        email: email1,
+      },
+    });
+    return user;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 module.exports = {
   create,
+  findByEmail,
 };
