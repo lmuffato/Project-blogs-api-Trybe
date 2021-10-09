@@ -27,3 +27,4 @@ app.post('/login', Login.userLogin);
 
 // Categories
 app.post('/categories', authToken, Categories.create);
+app.get('/categories', authToken, Categories.getAll);
