@@ -10,7 +10,7 @@ const getAll = async (_req, res) => {
 const getById = async (req, res) => {
   const { id } = req.params;
   const { status, data, message } = await Users.getById(id);
-  if (message) return res.status(status).json(message);
+  if (message) return res.status(status).json({ message });
 
   res.status(status).json(data);
 };

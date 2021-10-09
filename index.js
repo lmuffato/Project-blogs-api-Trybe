@@ -19,6 +19,7 @@ app.get('/', (request, response) => {
 // User
 app.post('/user', Users.create);
 app.get('/user', authToken, Users.getAll);
+app.get('/user/:id', authToken, Users.getById);
 
 // Login
 app.post('/login', Login.userLogin);
