@@ -17,7 +17,7 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
   const { status, data, message } = await Users.create(req.body);
-  if (message) return res.status(status).json(message);
+  if (message) return res.status(status).json({ message });
 
   res.status(status).json(data);
 };
