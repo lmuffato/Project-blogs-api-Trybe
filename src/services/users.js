@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const Schema = require('../utils/schema');
 
-const SECRET = 'Vaitentando123';
+const { SECRET } = process.env;
 
 const create = async (data) => {
   const { error } = Schema.User.validate(data);
