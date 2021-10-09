@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const Users = require('./src/controllers/users');
 const Login = require('./src/controllers/login');
+const Categories = require('./src/controllers/categories');
 const { authToken } = require('./src/middlewares/authToken');
 
 const app = express();
@@ -23,3 +24,6 @@ app.get('/user/:id', authToken, Users.getById);
 
 // Login
 app.post('/login', Login.userLogin);
+
+// Categories
+app.post('/categories', authToken, Categories.create);
