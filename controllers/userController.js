@@ -4,7 +4,7 @@ const { User } = require('../models');
 const getById = async (req, res) => {
   const { status, data, message } = await userService.getById(req.params.id);
 
-  if (message) return res.status(status).json(message);
+  if (message) return res.status(status).json({ message });
 
   return res.status(status).json(data);
 };
