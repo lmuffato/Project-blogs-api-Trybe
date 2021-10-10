@@ -5,8 +5,7 @@ const create = async (req, res, next) => {
   try {
     const data = req.body;
     const check = userService.check(data);
-
-  if (check) return res.status(check.error).json({ message: check.err.message });
+  if (check) return res.status(check.status).json({ message: check.message });
   const { displayName, email, password, image } = data;
 
   const haveUser = await User.findOne({ where: { email } });
