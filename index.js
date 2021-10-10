@@ -33,6 +33,7 @@ app.get('/categories', authToken, Categories.getAll);
 
 // Posts
 app.post('/post', authToken, Posts.create);
+app.get('/post/search', authToken, Posts.getQueryParams);
 app.get('/post', authToken, Posts.getAll);
 app.get('/post/:id', authToken, Posts.getById);
 app.put('/post/:id', authToken, Posts.update);

@@ -37,10 +37,19 @@ const remove = async (req, res) => {
   res.status(status).send();
 };
 
+const getQueryParams = async (req, res) => {
+  const { q } = req.query;
+  const { status, data, message } = await Posts.getQueryParams(q);
+  if (message) return res.status(status).json({ message });
+
+  res.status(status).json(data);
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
   remove,
+  getQueryParams,
 };
