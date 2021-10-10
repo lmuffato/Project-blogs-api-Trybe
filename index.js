@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const userController = require('./controllers/userController');
 const loginController = require('./controllers/login');
 const errorMiddleware = require('./middlewares/error');
+const { authToken } = require('./middlewares/token');
 
 const app = express();
 app.use(bodyParser.json());
@@ -15,6 +16,7 @@ app.get('/', (request, response) => {
 });
 
 app.post('/user', userController.create);
+app.get('/user', authToken, userController.getAll);
 
 app.post('/login', loginController.userLogin);
 

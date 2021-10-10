@@ -1,6 +1,14 @@
 const userService = require('../services/userService');
 const { User } = require('../models');
 
+const getAll = async (_req, res) => {
+  const { status, data, message } = await userService.getAll();
+  console.log('testada a aplicação');
+  if (message) return res.status(status).json(message);
+
+  return res.status(status).json(data);
+};
+
 const create = async (req, res, next) => {
   try {
     const data = req.body;
@@ -21,4 +29,5 @@ const create = async (req, res, next) => {
 
 module.exports = {
   create,
+  getAll,
 };
