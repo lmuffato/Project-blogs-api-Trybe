@@ -14,7 +14,6 @@ const verifyIfAlreadyExists = async (req, _res, next) => {
   const { email } = req.body;
   const users = await userServices.findByEmail(email);
   const long = users.length;
-  console.log(long);
   if (long > 0) {
     return next({
       err: { message: 'User already registered' },
