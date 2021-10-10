@@ -29,9 +29,18 @@ const update = async (req, res) => {
   res.status(status).json(data);
 };
 
+const remove = async (req, res) => {
+  const { id } = req.params;
+  const { status, message } = await Posts.remove(id, req.user);
+  if (message) return res.status(status).json({ message });
+
+  res.status(status).send();
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
+  remove,
 };

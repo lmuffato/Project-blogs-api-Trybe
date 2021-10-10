@@ -35,3 +35,4 @@ app.post('/post', authToken, Posts.create);
 app.get('/post', authToken, Posts.getAll);
 app.get('/post/:id', authToken, Posts.getById);
 app.put('/post/:id', authToken, Posts.update);
+app.delete('/post/:id', authToken, Posts.remove);
