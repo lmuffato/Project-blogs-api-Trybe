@@ -1,16 +1,25 @@
 const { Post, User, Category } = require('../models');
 const Schema = require('../utils/schema');
 
-const create = async (data, { id: _userId }) => {
+const create = async (data, { id: userId }) => {
   const { error } = Schema.Posts.validate(data);
   if (error) return { status: 400, message: error.details[0].message };
   
-  // const { categoryIds, title, content } = data;
-  // console.log(userId);
-  // const post = await Post.create({ title, content, userId });
-  // console.log(post);
+  const { categoryIds, title, content } = data;
+  const post = await Post
+    .create({ title, content, userId, published: new Date(), updated: new Date() });
   
-  return { status: 201, data: 1 };
+  // categoryIds.forEach(async (e) => {
+  //   await Category.create({ postId: post.id, categoryId: e });
+  // });
+
+  const getCategories = await Category.findAll({ where: { id: categoryIds } });
+
+  if (getCategories.length !== categoryIds.length) {
+    return { status: 400, message: '"categoryIds" not found' };
+  }
+
+  return { status: 201, data: post };
 };
 
 const getAll = async () => {
