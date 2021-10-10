@@ -27,6 +27,7 @@ app.post('/categories', authToken, categoriesController.create);
 app.get('/categories', authToken, categoriesController.getAll);
 
 app.post('/post', authToken, postController.create);
+app.get('/post', authToken, postController.getAll);
 
 app.use(errorMiddleware);
 

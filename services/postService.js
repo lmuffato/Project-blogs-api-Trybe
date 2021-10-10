@@ -1,5 +1,16 @@
 const Schema = require('../utils/schema');
-const { Post, Category } = require('../models');
+const { Post, User, Category } = require('../models');
+
+const getAll = async () => {
+  const posts = await Post.findAll({ 
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return { status: 200, data: posts };
+};
 
 const create = async (data, { id: userId }) => {
   const { error } = Schema.Posts.validate(data);
@@ -20,4 +31,5 @@ const create = async (data, { id: userId }) => {
 
 module.exports = {
   create,
+  getAll,
 };
