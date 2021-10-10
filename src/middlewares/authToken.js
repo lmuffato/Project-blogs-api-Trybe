@@ -7,7 +7,7 @@ const authToken = (req, res, next) => {
   if (!token) return res.status(401).json({ message: 'Token not found' });
 
   try {
-    const { data } = jwt.verify(token, SECRET);
+    const { data } = jwt.verify(token, JWT_SECRET);
     req.user = data;
 
     return next();
