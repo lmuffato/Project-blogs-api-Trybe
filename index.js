@@ -23,7 +23,7 @@ app.get('/user/:id', authToken, userController.getById);
 app.post('/login', loginController.userLogin);
 
 app.post('/categories', authToken, categoriesController.create);
-app.post('/categories', authToken, categoriesController.getAll);
+app.get('/categories', authToken, categoriesController.getAll);
 
 app.use(errorMiddleware);
 
