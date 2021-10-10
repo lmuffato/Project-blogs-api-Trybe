@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const Schema = require('../utils/schema');
 
-const { SECRET } = process.env;
+const { JWT_SECRET = 'Vaitentando123' } = process.env;
 
 const userLogin = async (data) => {
   const { error } = Schema.Login.validate(data);
