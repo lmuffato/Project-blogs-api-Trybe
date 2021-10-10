@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const userController = require('./controllers/userController');
 const loginController = require('./controllers/login');
 const categoriesController = require('./controllers/categoriesController');
+const postController = require('./controllers/postController');
 const errorMiddleware = require('./middlewares/error');
 const { authToken } = require('./middlewares/token');
 
@@ -24,6 +25,8 @@ app.post('/login', loginController.userLogin);
 
 app.post('/categories', authToken, categoriesController.create);
 app.get('/categories', authToken, categoriesController.getAll);
+
+app.post('/post', authToken, postController.create);
 
 app.use(errorMiddleware);
 
