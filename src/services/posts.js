@@ -46,8 +46,26 @@ const getById = async (id) => {
   return { status: 200, data: post };
 };
 
+const update = async (id, data, { id: userId }) => {
+  const { categoryIds, ...dataEdit } = data;
+  if (categoryIds) return { status: 400, message: 'Categories cannot be edited' };
+
+  const { error } = Schema.PostUpdate.validate(dataEdit);
+  if (error) return { status: 400, message: error.details[0].message };
+
+  if (userId !== Number(id)) return { status: 401, message: 'Unauthorized user' };
+
+  await Post.update({ ...dataEdit }, { where: { id } });
+
+  const post = await Post
+    .findByPk(id, { include: { model: Category, as: 'categories', through: { attributes: [] } } });
+
+  return { status: 200, data: post };
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  update,
 };

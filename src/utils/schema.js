@@ -22,9 +22,15 @@ const Posts = Joi.object({
   categoryIds: Joi.array().required(),
 });
 
+const PostUpdate = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+});
+
 module.exports = {
   User,
   Login,
   Categories,
   Posts,
+  PostUpdate,
 };
