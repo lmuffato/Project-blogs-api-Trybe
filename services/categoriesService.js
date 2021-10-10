@@ -1,6 +1,12 @@
 const { Category } = require('../models');
 const Schema = require('../utils/schema');
 
+const getAll = async () => {
+  const categories = await Category.findAll();
+
+  return { status: 200, data: categories };
+};
+
 const create = async (data) => {
   const { error } = Schema.Categories.validate(data);
   if (error) return { status: 400, message: error.details[0].message };
@@ -12,4 +18,5 @@ const create = async (data) => {
 
 module.exports = {
   create,
+  getAll,
 }; 
