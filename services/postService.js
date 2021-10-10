@@ -1,4 +1,4 @@
-const Schema = require('../utils/schema');
+const schema = require('../utils/schema');
 const { Post, User, Category } = require('../models');
 
 const getAll = async () => {
@@ -13,7 +13,7 @@ const getAll = async () => {
 };
 
 const create = async (data, { id: userId }) => {
-  const { error } = Schema.Posts.validate(data);
+  const { error } = schema.Posts.validate(data);
   if (error) return { status: 400, message: error.details[0].message };
 
   const { categoryIds, title, content } = data;
