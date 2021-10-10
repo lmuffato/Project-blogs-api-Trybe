@@ -30,8 +30,16 @@ const getById = async (id) => {
   return { status: 200, data: user };
 };
 
+const remove = async (id) => {
+  const user = await User.findByPk(id);
+  await user.destroy();
+
+  return { status: 204 };
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  remove,
 };

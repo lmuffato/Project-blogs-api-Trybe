@@ -23,8 +23,8 @@ const create = async (req, res) => {
 };
 
 const remove = async (req, res) => {
-  const { id } = req.params;
-  const { status, data, message } = await Users.remove(id);
+  const { id: userId } = req.user;
+  const { status, data, message } = await Users.remove(userId);
   if (message) return res.status(status).json(message);
 
   res.status(status).json(data);

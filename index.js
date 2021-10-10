@@ -22,6 +22,7 @@ app.get('/', (request, response) => {
 app.post('/user', Users.create);
 app.get('/user', authToken, Users.getAll);
 app.get('/user/:id', authToken, Users.getById);
+app.delete('/user/me', authToken, Users.remove);
 
 // Login
 app.post('/login', Login.userLogin);
