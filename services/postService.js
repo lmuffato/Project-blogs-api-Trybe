@@ -22,14 +22,17 @@ const updateById = async (id, data) => {
   
   if (error) return { status: 400, message: error.details[0].message };
 
+  const getpost = await getById(id);
+  const { userId } = getpost.data.dataValues;  
+
+if (Number(userId) !== Number(id)) return { status: 401, message: 'Unauthorized user' };
+
   await Post.update({ title, content },
    {
      where: {
       id,
     },
   });
-
-  const getpost = await getById(id);
 
   return { status: 200, data: getpost };
 };
