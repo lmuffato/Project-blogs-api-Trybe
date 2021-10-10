@@ -12,7 +12,7 @@ const create = async (data) => {
   if (checkedEmail) return { status: 409, message: 'User already registered' };
 
   const user = await User.create(data);
-  const token = jwt.sign({ data: user.dataValues }, SECRET);
+  const token = jwt.sign({ data: user.dataValues }, JWT_SECRET);
 
   return { status: 201, data: { token } };
 };
