@@ -1,6 +1,13 @@
 const schema = require('../utils/schema');
 const { User } = require('../models');
 
+const getById = async (id) => {
+  const user = await User.findByPk(id);
+  if (!user) return { status: 404, message: 'User does not exist' };
+
+  return { status: 200, data: user };
+};
+
 const getAll = async () => {
   const users = await User.findAll();
   return { status: 200, data: users };
@@ -15,4 +22,5 @@ const check = (data) => {
 module.exports = {
   check,
   getAll,
+  getById,
 };

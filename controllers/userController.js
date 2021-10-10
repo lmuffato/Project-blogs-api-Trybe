@@ -1,9 +1,17 @@
 const userService = require('../services/userService');
 const { User } = require('../models');
 
+const getById = async (req, res) => {
+  const { status, data, message } = await userService.getById(req.params.id);
+
+  if (message) return res.status(status).json(message);
+
+  return res.status(status).json(data);
+};
+
 const getAll = async (_req, res) => {
   const { status, data, message } = await userService.getAll();
-  console.log('testada a aplicação');
+
   if (message) return res.status(status).json(message);
 
   return res.status(status).json(data);
@@ -30,4 +38,5 @@ const create = async (req, res, next) => {
 module.exports = {
   create,
   getAll,
+  getById,
 };
