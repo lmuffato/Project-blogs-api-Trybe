@@ -9,9 +9,7 @@ const create = async (req, res, next) => {
   if (check) return res.status(check.error).json({ message: check.err.message });
   const { displayName, email, password, image } = data;
 
-  const allUsers = await User.findAll();
-
-  const haveUser = allUsers.find((user) => email === user.email);
+  const haveUser = await User.findOne({ where: { email } });
 
   if (haveUser) return res.status(409).json({ message: 'User already registered' });
 
