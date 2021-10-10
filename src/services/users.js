@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const Schema = require('../utils/schema');
 
-const { SECRET } = process.env;
+const { JWT_SECRET = 'Vaitentando123' } = process.env;
 
 const create = async (data) => {
   const { error } = Schema.User.validate(data);
@@ -12,7 +12,7 @@ const create = async (data) => {
   if (checkedEmail) return { status: 409, message: 'User already registered' };
 
   const user = await User.create(data);
-  const token = jwt.sign({ data: user.dataValues }, SECRET);
+  const token = jwt.sign({ data: user.dataValues }, JWT_SECRET);
 
   return { status: 201, data: { token } };
 };
