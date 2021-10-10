@@ -9,7 +9,7 @@ const { authToken } = require('./src/middlewares/authToken');
 const app = express();
 app.use(bodyParser.json());
 
-const { PORT } = process.env;
+const { PORT = 3000 } = process.env;
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
