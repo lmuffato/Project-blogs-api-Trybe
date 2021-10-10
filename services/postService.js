@@ -14,6 +14,26 @@ const getById = async (id) => {
   return { status: 200, data: post };
 };
 
+// src:https://sequelize.org/master/manual/model-querying-basics.html#simple-update-queries
+const updateById = async (id, data) => {
+  const { title, content } = data;
+  const newData = { categoryIds: [id], title, content };
+  const { error } = schema.Posts.validate(newData);
+  
+  if (error) return { status: 400, message: error.details[0].message };
+
+  await Post.update({ title, content },
+   {
+     where: {
+      id,
+    },
+  });
+
+  const getpost = await getById(id);
+
+  return { status: 200, data: getpost };
+};
+
 const getAll = async () => {
   const posts = await Post.findAll({ 
     include: [
@@ -46,4 +66,5 @@ module.exports = {
   create,
   getAll,
   getById,
+  updateById,
 };
