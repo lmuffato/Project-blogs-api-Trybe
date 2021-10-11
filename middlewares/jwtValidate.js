@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const STATUS = require('../util/status');
 require('dotenv').config();
 
-const { env: { SECRET } } = process;
+const secret = process.env.SECRET || '123456';
 
 const verifyToken = async (req, _res, next) => {
   try {
@@ -13,7 +13,7 @@ const verifyToken = async (req, _res, next) => {
         statusCode: STATUS.STATUS_401_UNAUTHORIZED,
       });
     }
-    const decodedInfo = jwt.verify(token, SECRET);
+    const decodedInfo = jwt.verify(token, secret);
     req.userId = decodedInfo.data.id;
     next();
   } catch (e) {
