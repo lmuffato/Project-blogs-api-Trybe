@@ -33,7 +33,13 @@ const findByEmail = async (email1) => {
 const getAll = async () => {
   try {
     const users = await User.findAll();
-    return users;
+    const usersWithOutPass = users.map((e) => ({
+      id: e.id,
+      displayName: e.displayName,
+      email: e.email,
+      image: e.image,
+    }));
+    return usersWithOutPass;
   } catch (e) {
     console.log(e);
   }
