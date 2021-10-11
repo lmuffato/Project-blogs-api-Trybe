@@ -1,6 +1,20 @@
 const schema = require('../utils/schema');
 const { User } = require('../models');
 
+const deleteByUser = async (id) => {
+  const user = await User.findByPk(id);
+  if (!user) return { status: 404, message: 'User does not exist' };
+
+  const deletedUser = User.destroy({
+    where:
+    {
+      id,
+    },
+  });
+
+  return { status: 204, data: deletedUser };
+};
+
 const getById = async (id) => {
   const user = await User.findByPk(id);
   if (!user) return { status: 404, message: 'User does not exist' };
@@ -23,4 +37,5 @@ module.exports = {
   check,
   getAll,
   getById,
+  deleteByUser,
 };

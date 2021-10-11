@@ -1,6 +1,15 @@
 const userService = require('../services/userService');
 const { User } = require('../models');
 
+const deleteByUser = async (req, res) => {
+  const { id } = req.user;
+  const { status, data, message } = await userService.deleteByUser(id);
+
+  if (message) return res.status(status).json({ message });
+
+  return res.status(status).json(data);
+};
+
 const getById = async (req, res) => {
   const { status, data, message } = await userService.getById(req.params.id);
 
@@ -39,4 +48,5 @@ module.exports = {
   create,
   getAll,
   getById,
+  deleteByUser,
 };
