@@ -1,5 +1,14 @@
 const post = require('../services/postService');
 
+const deleteById = async (req, res) => {
+  const { id: currUserId } = req.user;
+
+  const { status, data, message } = await post.deleteById(req.params.id, currUserId);
+  if (message) return res.status(status).json({ message });
+
+  res.status(status).json(data);
+};
+
 const updateById = async (req, res) => {
   const { id } = req.params;
   const { id: currUserId } = req.user;
@@ -43,4 +52,5 @@ module.exports = {
   getAll,
   getById,
   updateById,
+  deleteById,
 }; 

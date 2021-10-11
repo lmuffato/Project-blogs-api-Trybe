@@ -1,6 +1,24 @@
 const schema = require('../utils/schema');
 const { Post, User, Category } = require('../models');
 
+const deleteById = async (id, currUserId) => {
+  const getpost = await Post.findByPk(id);
+
+  if (!getpost) return { status: 404, message: 'Post does not exist' };
+
+  if (Number(currUserId) !== Number(id)) {
+    return { status: 401, message: 'Unauthorized user' };
+  }
+
+  const post = await Post.destroy({
+    where: {
+      id,
+    },
+  });
+
+  return { status: 204, data: post };
+};
+
 const getById = async (id) => {
   const post = await Post.findByPk(id, { 
     include: [
@@ -67,4 +85,5 @@ module.exports = {
   getAll,
   getById,
   updateById,
+  deleteById,
 };

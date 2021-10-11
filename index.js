@@ -30,6 +30,7 @@ app.post('/post', authToken, postController.create);
 app.get('/post', authToken, postController.getAll);
 app.get('/post/:id', authToken, postController.getById);
 app.put('/post/:id', authToken, postController.updateById);
+app.delete('/post/:id', authToken, postController.deleteById);
 
 app.use(errorMiddleware);
 
