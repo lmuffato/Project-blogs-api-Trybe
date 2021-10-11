@@ -6,6 +6,9 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     published: DataTypes.STRING,
     updated: DataTypes.STRING,
+  },
+  {
+    tableName: 'blogPosts',
   });
   return BlogPost;
 };

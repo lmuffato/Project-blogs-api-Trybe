@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     timestamp: false,
+    tableName: 'users',
   });
   return User;
 };
