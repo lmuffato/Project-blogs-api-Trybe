@@ -12,3 +12,7 @@ app.listen(PORT, () => console.log(`Ouvindo a porta ${PORT}!`));
 app.get('/', (request, response) => {
   response.send();
 });
+
+const userRouter = require('./router/UserRouter');
+
+app.use('/user', userRouter);
