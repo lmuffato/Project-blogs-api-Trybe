@@ -17,4 +17,6 @@ app.get('/', (request, response) => {
 
 const { env: { PORT } } = process;
 
-app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
+const port = PORT || 3000;
+
+app.listen(port, () => console.log(`ouvindo porta ${port}!`));
