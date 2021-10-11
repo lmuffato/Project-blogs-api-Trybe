@@ -7,12 +7,6 @@ const secret = process.env.SECRET || '123456';
 const verifyToken = async (req, _res, next) => {
   try {
     const token = req.headers.authorization;
-    if (!token) {
-      return next({
-        err: { message: 'jwt malformed' },
-        statusCode: STATUS.STATUS_401_UNAUTHORIZED,
-      });
-    }
     const decodedInfo = jwt.verify(token, secret);
     req.userId = decodedInfo.data.id;
     next();
