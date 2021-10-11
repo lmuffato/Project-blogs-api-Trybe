@@ -30,7 +30,17 @@ const findByEmail = async (email1) => {
   }
 };
 
+const getAll = async () => {
+  try {
+    const users = await User.findAll();
+    return users;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 module.exports = {
   create,
   findByEmail,
+  getAll,
 };
