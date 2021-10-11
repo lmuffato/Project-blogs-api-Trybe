@@ -4,6 +4,8 @@ const {
   error3,
   error4,
   error5,
+  error7,
+  error8,
 } = require('./errors');
 
 const nameValidator = (req, res, next) => {
@@ -42,8 +44,25 @@ const passwordValidator = (req, res, next) => {
   next();
 };
 
+const loginValidator = (req, res, next) => {
+  const { email, password } = req.body;
+
+ if (email === '') {
+  return res.status(error7.error.status).json({ message: error7.error.message });
+} if (password === '') {
+  return res.status(error8.error.status).json({ message: error8.error.message });
+} if (!email) {
+  return res.status(error3.error.status).json({ message: error3.error.message });
+} if (!password) {
+  return res.status(error5.error.status).json({ message: error5.error.message });
+}
+
+  next();
+};
+
 module.exports = {
   nameValidator,
   emailValidator,
   passwordValidator,
+  loginValidator,
 };

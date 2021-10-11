@@ -57,7 +57,7 @@ const error8 = {
 const error9 = {
   error: {
     status: 400,
-    message: 'invalid fields', 
+    message: 'Invalid fields', 
   },
 };
 

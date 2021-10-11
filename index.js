@@ -16,3 +16,7 @@ app.get('/', (request, response) => {
 const userRouter = require('./router/UserRouter');
 
 app.use('/user', userRouter);
+
+const loginRouter = require('./router/LoginRouter');
+
+app.use('/login', loginRouter);
