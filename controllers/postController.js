@@ -1,5 +1,14 @@
 const post = require('../services/postService');
 
+const getByQuery = async (req, res) => {
+  const { q } = req.query;
+
+  const { status, data, message } = await post.getByQuery(q);
+  if (message) return res.status(status).json({ message });
+
+  res.status(status).json(data);
+};
+
 const deleteById = async (req, res) => {
   const { id: currUserId } = req.user;
 
@@ -53,4 +62,5 @@ module.exports = {
   getById,
   updateById,
   deleteById,
+  getByQuery,
 }; 

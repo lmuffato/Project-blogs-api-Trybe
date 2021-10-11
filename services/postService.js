@@ -1,5 +1,24 @@
+const { Op } = require('sequelize');
 const schema = require('../utils/schema');
 const { Post, User, Category } = require('../models');
+
+// src: https://stackoverflow.com/questions/20695062/sequelize-or-condition-object/32543638
+const getByQuery = async (query) => {
+  const posts = await Post.findAll({
+    where: {
+      [Op.or]: [
+        { title: { [Op.like]: `%${query}%` } },
+        { content: { [Op.like]: `%${query}%` } },
+      ],
+    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return { status: 200, data: posts };
+};
 
 const deleteById = async (id, currUserId) => {
   const getpost = await Post.findByPk(id);
@@ -86,4 +105,5 @@ module.exports = {
   getById,
   updateById,
   deleteById,
+  getByQuery,
 };
