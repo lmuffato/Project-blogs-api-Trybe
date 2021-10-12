@@ -1,6 +1,6 @@
 const { User } = require('../models');
 const { createToken } = require('../auth/tokenCreation');
-const { error9 } = require('../utils/errors');
+const { error9, error12 } = require('../utils/errors');
 
 const create = (req, res) => {
   const { displayName, email, password, image } = req.body;
@@ -39,7 +39,17 @@ const getUsers = async (_req, res) => {
     })
     .catch((e) => {
       console.log(e.message);
-      res.status(500).json({ message: 'Algo deu errado' });
+      res.status(500).json({ message: 'Deu ruim' });
+    });
+};
+const getUser = async (req, res) => {
+  User.findByPk(req.params.id)
+    .then((user) => {
+      const { id, displayName, email, image } = user;
+      res.status(200).json({ id, displayName, email, image });
+    })
+    .catch(() => {
+      res.status(error12.error.status).json({ message: error12.error.message });
     });
 };
  
@@ -47,4 +57,5 @@ module.exports = {
   create,
   login,
   getUsers,
+  getUser,
 };

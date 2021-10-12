@@ -16,4 +16,8 @@ router.get('/',
 tokenAuth,
 usersController.getUsers);
 
+router.get('/:id',
+tokenAuth,
+usersController.getUser);
+
 module.exports = router;
