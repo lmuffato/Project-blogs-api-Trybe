@@ -2,7 +2,7 @@ const { User } = require('../models');
 const { createToken } = require('../auth/tokenCreation');
 const { error9, error12 } = require('../utils/errors');
 
-const create = (req, res) => {
+const create = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   const user = { email, password };
 

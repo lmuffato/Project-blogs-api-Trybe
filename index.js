@@ -20,3 +20,7 @@ app.use('/user', userRouter);
 const loginRouter = require('./router/LoginRouter');
 
 app.use('/login', loginRouter);
+
+const categoryRouter = require('./router/CategoryRouter');
+
+app.use('/categories', categoryRouter);
