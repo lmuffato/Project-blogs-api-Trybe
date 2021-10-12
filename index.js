@@ -24,3 +24,7 @@ app.use('/login', loginRouter);
 const categoryRouter = require('./router/CategoryRouter');
 
 app.use('/categories', categoryRouter);
+
+const postRouter = require('./router/PostRouter');
+
+app.use('/post', postRouter);

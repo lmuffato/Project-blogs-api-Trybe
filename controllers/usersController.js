@@ -17,15 +17,17 @@ const create = async (req, res) => {
     });
 };
 
+const findUser = async (email) => User.findOne({ where: { email } });
+ 
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = { email, password };
 
   const token = createToken(user);
 
-  const findUser = await User.findOne({ where: { email } });
+  const userData = findUser(email);
   
-  if (findUser === null) {
+  if (userData === null) {
     return res.status(error9.error.status).json({ message: error9.error.message }); 
   }
 
@@ -53,10 +55,11 @@ const getUser = async (req, res) => {
       res.status(error12.error.status).json({ message: error12.error.message });
     });
 };
- 
+
 module.exports = {
   create,
   login,
   getUsers,
   getUser,
+  findUser,
 };

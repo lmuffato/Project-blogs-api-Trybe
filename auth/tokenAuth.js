@@ -25,4 +25,4 @@ const tokenAuth = (req, res, next) => {
   }
 };
 
-module.exports = { tokenAuth };
+module.exports = { tokenAuth, verify };

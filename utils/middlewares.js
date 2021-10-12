@@ -6,7 +6,12 @@ const {
   error5,
   error7,
   error8,
+  error14,
+  error15,
+  error16,
+  error17,
 } = require('./errors');
+const { findCategory } = require('../controllers/categoriesController');
 
 const nameValidator = (req, res, next) => {
   const { displayName } = req.body;
@@ -60,9 +65,35 @@ const loginValidator = (req, res, next) => {
   next();
 };
 
+const postValidator = (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
+
+ if (!title) {
+  return res.status(error14.error.status).json({ message: error14.error.message });
+} if (!content) {
+  return res.status(error15.error.status).json({ message: error15.error.message });
+} if (!categoryIds) {
+  return res.status(error16.error.status).json({ message: error16.error.message });
+}
+
+  next();
+};
+
+const categoryValidator = (req, res, next) => {
+  const { categoryIds } = req.body;
+
+  categoryIds.every(async (id) => {
+    if (await findCategory(id) === null) {
+      return res.status(error17.error.status).json({ message: error17.error.message });
+    } return next();
+  });
+};
+
 module.exports = {
   nameValidator,
   emailValidator,
   passwordValidator,
   loginValidator,
+  postValidator,
+  categoryValidator,
 };

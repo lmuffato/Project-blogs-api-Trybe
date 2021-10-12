@@ -106,7 +106,7 @@ const error15 = {
 const error16 = {
   error: {
     status: 400,
-    message: '"categoryId" is required',
+    message: '"categoryIds" is required',
   },
 };
 
