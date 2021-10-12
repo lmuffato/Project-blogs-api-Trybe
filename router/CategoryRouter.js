@@ -7,4 +7,7 @@ const router = Router();
 router.post('/', tokenAuth,
 categoryController.create);
 
+router.get('/', tokenAuth,
+categoryController.getCategories);
+
 module.exports = router;

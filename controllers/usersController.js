@@ -42,6 +42,7 @@ const getUsers = async (_req, res) => {
       res.status(500).json({ message: 'Deu ruim' });
     });
 };
+
 const getUser = async (req, res) => {
   User.findByPk(req.params.id)
     .then((user) => {

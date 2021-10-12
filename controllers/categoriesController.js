@@ -13,6 +13,18 @@ const create = async (req, res) => {
   res.status(201).json(category);
 };
 
+const getCategories = async (_req, res) => {
+  Category.findAll()
+    .then((categories) => {
+      res.status(200).json(categories);
+    })
+    .catch((e) => {
+      console.log(e.message);
+      res.status(500).json({ message: 'Deu ruim' });
+    });
+};
+
 module.exports = {
   create,
+  getCategories,
 };
