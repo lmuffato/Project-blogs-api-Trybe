@@ -19,6 +19,18 @@ const create = async (req, res) => {
   res.status(201).json(post);
 };
 
+const getPosts = async (_req, res) => {
+  BlogPost.findAll()
+    .then((posts) => {
+      res.status(200).json(posts);
+    })
+    .catch((e) => {
+      console.log(e.message);
+      res.status(500).json({ message: 'Deu ruim' });
+    });
+};
+
 module.exports = {
   create,
+  getPosts,
 };

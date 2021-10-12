@@ -11,4 +11,8 @@ postValidator,
 categoryValidator,
 postsController.create);
 
+router.get('/', 
+tokenAuth,
+postsController.getPosts);
+
 module.exports = router;
