@@ -13,6 +13,7 @@ module.exports = {
       content: Sequelize.TEXT,
       userId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
@@ -20,14 +21,8 @@ module.exports = {
           key: 'id',
         },
       },
-      createdAt: { 
-        type: Sequelize.DATE, 
-        field: 'published' 
-      },
-      updatedAt: { 
-        type: Sequelize.DATE, 
-        field: 'updated' 
-      },
+      published: Sequelize.DATE, 
+      updated: Sequelize.DATE, 
     });
   },
 

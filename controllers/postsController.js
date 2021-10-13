@@ -1,4 +1,4 @@
-const { BlogPost } = require('../models');
+const { BlogPost, User } = require('../models');
 const { verify } = require('../auth/tokenAuth');
 const { findUser } = require('./usersController');
 
@@ -20,8 +20,9 @@ const create = async (req, res) => {
 };
 
 const getPosts = async (_req, res) => {
-  BlogPost.findAll()
+  BlogPost.findAll({ include: { model: User, as: 'user' } })
     .then((posts) => {
+      console.log(posts);
       res.status(200).json(posts);
     })
     .catch((e) => {
