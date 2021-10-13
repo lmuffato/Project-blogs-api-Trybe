@@ -53,4 +53,4 @@ const checkPostInfo = async (req, res, next) => {
   next();
 };
 
-module.exports = { checkPostInfo };
+module.exports = { checkPostInfo, validateInfo };
