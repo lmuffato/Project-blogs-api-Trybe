@@ -7,8 +7,6 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    console.log(req.body, 'controller');
-
     const user = await loginService.login(email, password);
     
     console.log(user, 'controller');

@@ -73,4 +73,9 @@ const createUser = async ({ displayName, email, password, image }) => {
   return newUser;
 };
 
-module.exports = { createUser };
+const getUser = async () => {
+  const getAll = await Users.findAll();
+  return getAll;
+};
+
+module.exports = { createUser, getUser };
