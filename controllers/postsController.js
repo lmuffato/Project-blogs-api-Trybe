@@ -1,6 +1,7 @@
 const { BlogPost, User, Category } = require('../models');
 const { verify } = require('../auth/tokenAuth');
 const { findUser } = require('./usersController');
+const { error18 } = require('../utils/errors');
 
 const create = async (req, res) => {
   const { title, content, categoryIds } = req.body;
@@ -31,7 +32,18 @@ const getPosts = async (_req, res) => {
     });
 };
 
+const getPost = async (req, res) => {
+  const { id } = req.params;
+  const result = await BlogPost.findByPk(id, { include: [{ model: User, as: 'user' },
+   { model: Category, as: 'categories', atributes: ['id', 'name'] }] });
+
+   if (result === null) {
+    return res.status(error18.error.status).json({ message: error18.error.message });
+   } return res.status(200).json(result);
+};
+
 module.exports = {
   create,
   getPosts,
+  getPost,
 };
