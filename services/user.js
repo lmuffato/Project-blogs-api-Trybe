@@ -124,7 +124,7 @@ const verifyLoginDataFormat = (email, password) => {
   if (!isEmailValid.check || !isPasswordValid.check) {
     return { 
       codeError: 'wrong request format',
-      message: !isEmailValid.check ? isEmailValid.message : isPasswordValid.message,
+      message: !isEmailValid.chec ? isEmailValid.message : isPasswordValid.message,
       check: false,
     };
   }
