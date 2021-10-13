@@ -41,7 +41,6 @@ const verifyEmail = (email) => {
 const verifyEmailAvaliability = async (email) => {
   const isEmailAvaliable = await User.findOne({ where: { email } })
     .catch((error) => console.log('DEU RUIMM!!!', error.message));
-  console.log(isEmailAvaliable.displayName);
   if (isEmailAvaliable !== null) {
     return {
       message: 'User already registered',
@@ -124,7 +123,7 @@ const verifyLoginDataFormat = (email, password) => {
   if (!isEmailValid.check || !isPasswordValid.check) {
     return { 
       codeError: 'wrong request format',
-      message: !isEmailValid.chec ? isEmailValid.message : isPasswordValid.message,
+      message: !isEmailValid.check ? isEmailValid.message : isPasswordValid.message,
       check: false,
     };
   }
