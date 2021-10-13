@@ -2,6 +2,7 @@
   "name": "blogs-api",
   "version": "0.1.0",
   "private": true,
+  "main": "./src/api/server.js",
   "dependencies": {
     "dotenv": "8.2.0",
     "express": "4.17.1",
@@ -12,12 +13,12 @@
   },
   "scripts": {
     "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate $",
-    "start": "node index.js",
+    "start": "node .",
     "drop": "npx sequelize-cli db:drop $",
     "seed": "npx sequelize-cli db:seed:all $",
     "test": "jest --runInBand",
     "test-coverage": "jest --runInBand --coverage",
-    "debug": "nodemon index.js",
+    "debug": "nodemon .",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
   },
   "devDependencies": {
@@ -26,6 +27,7 @@
     "eslint-plugin-import": "2.22.1",
     "frisby": "2.1.2",
     "jest": "26.0.1",
+    "nodemon": "^2.0.13",
     "sequelize-cli": "6.2.0",
     "supertest": "4.0.2"
   }
