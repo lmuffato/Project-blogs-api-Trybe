@@ -11,7 +11,7 @@ const { User } = require('../models');
 
 const router = express.Router();
 const jwtConfig = {
-  expiresIn: '7d',
+  expiresIn: '1d',
   algorithm: 'HS256',
 };
 
