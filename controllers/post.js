@@ -17,10 +17,13 @@ const getAll = async (_req, res) => {
     const posts = await BlogPost.findAll({
       include: [
         { model: User, as: 'user' },
-        { model: Category, as: 'categories' },
+        { 
+          model: Category, 
+          as: 'categories', 
+          attributes: ['id', 'name'], 
+        },
       ],
     });
-    console.log(posts);
     return res.status(200).json(posts);
   } catch (e) {
     console.log(e.message);
@@ -28,4 +31,22 @@ const getAll = async (_req, res) => {
   }
 };
 
-module.exports = { create, getAll };
+const findById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const post = await BlogPost.findOne({
+      where: { id },
+      include: [
+        { model: User, as: 'user' },
+        { model: Category, as: 'categories', attributes: ['id', 'name'] },
+      ],
+    });
+    if (post === null) return res.status(404).json({ message: 'Post does not exist' });
+    return res.status(200).json(post);
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).json({ message: 'Algo deu errado' });
+  }
+};
+
+module.exports = { create, getAll, findById };
