@@ -1,0 +1,17 @@
+const STATUS_BAD_REQUEST = 400;
+const STATUS_CONFLICT = 409;
+const STATUS_CREATED = 201;
+const STATUS_OK = 200;
+const STATUS_NO_CONTENT = 204;
+
+const MSG_ALREADY_REG = 'User already registered';
+
+const CONFLICT_ERROR = { status: STATUS_CONFLICT, message: MSG_ALREADY_REG };
+
+module.exports = {
+  STATUS_BAD_REQUEST,
+  CONFLICT_ERROR,
+  STATUS_CREATED,
+  STATUS_OK,
+  STATUS_NO_CONTENT,
+};
