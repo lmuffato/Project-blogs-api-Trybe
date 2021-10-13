@@ -1,5 +1,5 @@
 const PostCategory = (sequelize, DataTypes) => {
-  const PostCategory = sequelize.define("PostCategory", {
+  const postcategory = sequelize.define('PostCategory', {
     postId: DataTypes.INTEGER,
     name: DataTypes.STRING,
   }, {
@@ -7,7 +7,7 @@ const PostCategory = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  return PostCategory;
+  return postcategory;
 };
 
 module.exports = PostCategory;
