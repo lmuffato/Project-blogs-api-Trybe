@@ -2,7 +2,7 @@ const Joi = require('joi');
 const rescue = require('express-rescue');
 const validate = require('../middlewares/validate');
 const UserService = require('../services/UserServices');
-const validateJWT = require('../middlewares/validate');
+const validateJWT = require('../middlewares/validateJWS');
 
 const createUser = [
   validate(Joi.object({
