@@ -25,6 +25,7 @@ app.get('/', (request, response) => {
 
 app.use(bodyParser.json());
 app.use('/user', routes.user);
+app.use('/login', routes.login);
 
 app.use(middlewares.error);
 

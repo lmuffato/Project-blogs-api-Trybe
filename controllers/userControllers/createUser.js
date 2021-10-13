@@ -32,8 +32,6 @@ module.exports = [
       where: { email },
     });
 
-    console.log('user', user);
-
     if (user.length > 0) {
       next({ 
         message: 'User already registered',
@@ -50,7 +48,6 @@ module.exports = [
     User.create({ displayName, email, password, image })
     .then((newUser) => {
       const token = jwt.sign({ data: newUser }, secret, jwtConfig);
-      // res.status(201).json({ what: newUser });
       res.status(CREATED).json({ token });
       })
       .catch((e) => {
