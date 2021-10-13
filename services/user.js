@@ -105,7 +105,6 @@ const create = async (displayName, email, password, image) => {
   }
   try {
     const { id } = await User.create({ displayName, email, password, image });
-    console.log('id retornado do comando create', id);
     const token = generateToken(id, displayName, email);
     return { token };
   } catch (e) {
