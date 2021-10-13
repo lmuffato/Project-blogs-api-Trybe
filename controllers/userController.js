@@ -3,19 +3,14 @@ const { StatusCodes: { CREATED, OK } } = require('http-status-codes');
 const service = require('../services/userService');
 
 const createUser = rescue(async (req, res) => {
-  // try {
-    const { displayName, email, password, image } = req.body;
-      const result = await service.createUser({
-        displayName,
-        email,
-        password,
-        image,
-      });
-      res.status(CREATED).json(result);
-  // } catch (error) {
-  //   console.log(error.message);
-  //   res.status(500).json({ message: 'Algo deu errado' });
-  // }
+  const { displayName, email, password, image } = req.body;
+    const result = await service.createUser({
+      displayName,
+      email,
+      password,
+      image,
+    });
+    res.status(CREATED).json(result);
 });
 
 const findAll = rescue(async (req, res) => {
@@ -23,7 +18,7 @@ const findAll = rescue(async (req, res) => {
     res.status(OK).json(result);
 });
 
-module.exports = { 
+module.exports = {
   createUser,
   findAll,
 };
