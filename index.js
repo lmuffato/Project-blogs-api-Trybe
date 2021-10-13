@@ -1,9 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-require('dotenv').config();
+require('dotenv/config');
 
-const { PORT } = process.env;
+const PORT = process.env.PORT || 3000;
 
 const routes = require('./routes');
 const middlewares = require('./middlewares');
