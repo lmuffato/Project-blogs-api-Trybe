@@ -10,6 +10,7 @@ const {
   error15,
   error16,
   error17,
+  error19,
 } = require('./errors');
 const { findCategory } = require('../controllers/categoriesController');
 
@@ -89,6 +90,19 @@ const categoryValidator = (req, res, next) => {
   });
 };
 
+const updateValidator = (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
+
+ if (!title) {
+  return res.status(error14.error.status).json({ message: error14.error.message });
+} if (!content) {
+  return res.status(error15.error.status).json({ message: error15.error.message });
+} if (categoryIds) {
+  return res.status(error19.error.status).json({ message: error19.error.message });
+}
+  next();
+};
+
 module.exports = {
   nameValidator,
   emailValidator,
@@ -96,4 +110,5 @@ module.exports = {
   loginValidator,
   postValidator,
   categoryValidator,
+  updateValidator,
 };

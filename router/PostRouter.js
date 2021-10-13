@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const postsController = require('../controllers/postsController');
 const { tokenAuth } = require('../auth/tokenAuth');
-const { postValidator, categoryValidator } = require('../utils/middlewares');
+const { postValidator, categoryValidator, updateValidator } = require('../utils/middlewares');
 
 const router = Router();
 
@@ -18,5 +18,10 @@ postsController.getPosts);
 router.get('/:id', 
 tokenAuth,
 postsController.getPost);
+
+router.put('/:id', 
+tokenAuth,
+updateValidator,
+postsController.updatePost);
 
 module.exports = router;
