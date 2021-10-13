@@ -31,14 +31,13 @@ module.exports = [
       
     if (!alreadyExist) next();
 
-    if (alreadyExist.error) {
+    if (alreadyExist) {
       return next(alreadyExist.error);
     }
   }),
 
   rescue(async (req, res) => {
     const { email } = req.body;
-    console.log('xablau');
     
     const token = jwt.sign({ data: email }, secret, jwtConfig);
     res.status(OK).json({ token });
