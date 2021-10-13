@@ -6,5 +6,6 @@ const Categorie = require('../controllers/categorieController');
 const CategorieRouter = express.Router();
 
 CategorieRouter.post('/', authToken, validateCategories, Categorie.createCategorie);
+CategorieRouter.get('/', authToken, Categorie.getAllCategorie);
 
 module.exports = CategorieRouter;
