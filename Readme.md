@@ -1,0 +1,2 @@
+- Instala JWT
+  - npm install jsonwebtoken
