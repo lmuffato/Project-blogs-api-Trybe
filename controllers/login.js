@@ -1,14 +1,13 @@
-// const loginService = require('../services/loginService');
-// const { validateToken } = require('../services/loginService');
+const userService = require('../services/user');
 
-// const makeLogin = async (req, res) => {
-//   const { email, password } = req.body;
-//   if (!email || !password) {
-//     return res.status(401).json({ message: 'All fields must be filled' });
-//   }
-//   const { status, response } = await loginService.askLogin(email, password);
-//   return res.status(status).json(response);
-// };
+const makeLogin = async (req, res) => {
+  const { email, password } = req.body;
+  const { message, token } = await userService.askLogin(email, password);
+  if (token) {
+    return res.status(200).json({ token });
+  }
+  return res.status(400).json({ message });
+};
 
 // const userAuthentication = (req, res, next) => {
 //   const token = req.headers.authorization;
@@ -23,4 +22,4 @@
 //   next();
 // };
 
-// module.exports = { makeLogin, userAuthentication };
+module.exports = { makeLogin };
