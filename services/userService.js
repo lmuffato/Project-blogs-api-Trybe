@@ -45,8 +45,18 @@ const getAll = async () => {
   }
 };
 
+const getById = async (id) => {
+  try {
+    const user = await User.findByPk(id);
+    return user;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 module.exports = {
   create,
   findByEmail,
   getAll,
+  getById,
 };

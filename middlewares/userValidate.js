@@ -36,7 +36,24 @@ const validateUser = (req, _res, next) => {
   next();
 };
 
+const verifyExistById = async (req, _res, next) => {
+  try {
+    const { id } = req.params;
+    const user = await userServices.getById(id);
+    if (!user) {
+      return next({
+        err: { message: 'User does not exist' },
+        statusCode: STATUS.STATUS_404_NOT_FOUND,
+      });
+    }
+    next();
+  } catch (e) {
+    next(e);
+  }
+};
+
 module.exports = {
   validateUser,
   verifyIfAlreadyExists,
+  verifyExistById,
 };
