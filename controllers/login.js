@@ -9,17 +9,17 @@ const makeLogin = async (req, res) => {
   return res.status(400).json({ message });
 };
 
-// const userAuthentication = (req, res, next) => {
-//   const token = req.headers.authorization;
-//   if (!token) {
-//     return res.status(401).json({ message: 'missing auth token' });
-//   }
-//   const dataToken = validateToken(token);
-//   if (!dataToken.isValid) {
-//    return res.status(401).json({ message: 'jwt malformed' });
-//   }
-//   req.user = dataToken.user;
-//   next();
-// };
+const userAuthentication = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+  const dataToken = userService.validateToken(token);
+  if (!dataToken.isValid) {
+   return res.status(401).json({ message: 'Expired or invalid token' });
+  }
+  req.user = dataToken.user;
+  return next();
+};
 
-module.exports = { makeLogin };
+module.exports = { makeLogin, userAuthentication };

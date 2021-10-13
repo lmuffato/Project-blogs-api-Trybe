@@ -147,6 +147,21 @@ const validateLoginData = async (email, password) => {
   };
 };
 
+const validateToken = (token) => {
+  try {
+    const { data } = jwt.verify(token, secret);
+    return { 
+      user: data,
+      isValid: true,
+     };
+  } catch (error) {
+    return {
+      errorMessage: error.message,
+      isValid: false,
+    };
+  }
+};
+
 const askLogin = async (email, password) => {
   const isFormatValid = verifyLoginDataFormat(email, password);
   if (!isFormatValid.check) {
@@ -166,4 +181,5 @@ const askLogin = async (email, password) => {
 module.exports = {
   create,
   askLogin,
+  validateToken,
 };
