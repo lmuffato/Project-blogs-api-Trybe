@@ -1,7 +1,7 @@
 const BlogPost = (sequelize, DataTypes) => {
   const blogPost = sequelize.define('BlogPost', {
     title: DataTypes.STRING,
-    content: DataTypes.STRING,
+    content: DataTypes.TEXT,
     userId: DataTypes.INTEGER,
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
