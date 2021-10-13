@@ -59,7 +59,6 @@ const updatePost = async (req, res) => {
   await BlogPost.update({ title, content }, { where: { id } });
   const updatedPost = await BlogPost.findByPk(id, { include: 
   { model: Category, as: 'categories', atributes: ['id', 'name'] } });
-  console.log(updatedPost);
   return res.status(200).json(updatedPost);
 };
 
