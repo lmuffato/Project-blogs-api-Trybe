@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    name: DataTypes.string,
+    name: DataTypes.STRING,
   }, { timestamps: false });
 
   return Categories;

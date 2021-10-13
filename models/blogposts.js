@@ -5,11 +5,11 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },  
-    title: DataTypes.string,
-    content: DataTypes.string,
-    userId: DataTypes.integer,
-    published: DataTypes.string,
-    updated: DataTypes.string,
+    title: DataTypes.STRING,
+    content: DataTypes.STRING,
+    userId: DataTypes.INTEGER,
+    published: DataTypes.STRING,
+    updated: DataTypes.STRING,
   }, { timestamps: false });
 
   BlogPosts.associate = (models) => {
