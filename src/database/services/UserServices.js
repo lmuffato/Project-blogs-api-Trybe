@@ -1,12 +1,5 @@
-const jwt = require('jsonwebtoken');
+const tokenGenerator = require('../../helpers/tokenGeneration');
 const { User } = require('../models');
-
-const SECRET = 'segredo_mais_secreto';
-
-const jwtConfig = {
-  expiresIn: '1h',
-  algorithm: 'HS256',
-};
 
 const createUser = async (userData) => {
   const { email } = userData;
@@ -24,11 +17,29 @@ const createUser = async (userData) => {
 
   await User.create(userData);
 
-  const token = jwt.sign({ data: userData }, SECRET, jwtConfig);
+  const token = tokenGenerator(userData);
+
+  return token;
+};
+
+const userLogin = async ({ email, password }) => {
+  const user = await User.findOne({ where: { email, password } });
+
+  if (!user) {
+    return {
+      error: {
+        code: 'badRequest',
+        message: 'Invalid fields',
+      },
+    };
+  }
+
+  const token = tokenGenerator({ email, password });
 
   return token;
 };
 
 module.exports = {
   createUser,
+  userLogin,
 };

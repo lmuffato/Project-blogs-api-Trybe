@@ -1,5 +1,6 @@
 const STATUS_CODE = {
   conflict: 409,
+  badRequest: 400,
 };
 
 module.exports = (err, _req, res, _next) => {

@@ -1,18 +1,19 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const UserRoutes = require('./routes/UserRoutes');
+const UserController = require('./database/controllers/UserController');
 const ErrorMiddleware = require('./database/middlewares/error');
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
 });
 
-app.use('/user', UserRoutes);
+app.post('/user', UserController.createUser);
+
+app.post('/login', UserController.userLogin);
 
 app.use(ErrorMiddleware);
 
