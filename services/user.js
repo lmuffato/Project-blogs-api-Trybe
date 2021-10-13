@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const UserModel = require('../models/User');
+const { User } = require('../models');
 
 require('dotenv/config');
 
@@ -12,67 +12,84 @@ const jwtConfig = {
 };
 
 const verifyDisplayName = (displayName) => {
-  if (displayName === null || displayName.length < 8) {
+  if (displayName === undefined || displayName.length < 8) {
     return {
       message: '"displayName" length must be at least 8 characters long',
+      check: false,
     };
   }
+  return { check: true };
 };
 
 const verifyEmail = (email) => {
-  if (email === null) {
+  if (email === undefined) {
     return {
       message: '"email" is required',
+      check: false,
     };
   }
   const regexEmailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
   if (!regexEmailFormat.test(email)) {
     return {
       message: '"email" must be a valid email',
+      check: false,
     };
   }
+  return { check: true };
 };
 
 const verifyEmailAvaliability = async (email) => {
-  const isEmailAvaliable = await UserModel.findOne({ where: { email } });
-  if (!isEmailAvaliable) {
+  const isEmailAvaliable = await User.findOne({ where: { email } })
+    .catch((error) => console.log('DEU RUIMM!!!', error.message)); 
+  if (isEmailAvaliable !== null) {
     return {
       message: 'User already registered',
+      check: false,
     };
   }
+  return { check: true };
 };
 
 const verifyPassword = (password) => {
-  if (password === null) {
+  if (password === undefined) {
     return {
       message: '"password" is required',
+      check: false,
     };
   }
   if (password.length < 6) {
     return {
-      message: '"password" length must be at least 6 characters long',
+      message: '"password" length must be 6 characters long',
+      check: false,
     };
   }
+  return { check: true };
 };
 
 const verifyRequiredFilds = (displayName, email, password) => {
   const isDisplayNameValid = verifyDisplayName(displayName);
-  if (!isDisplayNameValid) { return { message: isDisplayNameValid.message }; }
+  if (!isDisplayNameValid.check) { return { message: isDisplayNameValid.message, check: false }; }
   const isEmailValid = verifyEmail(email);
-  if (!isEmailValid) { return { message: isEmailValid.message }; }
+  if (!isEmailValid.check) { return { message: isEmailValid.message, check: false }; }
   const isPasswordValid = verifyPassword(password);
-  if (!isPasswordValid) { return { message: isPasswordValid.message }; }
+  if (!isPasswordValid.check) { return { message: isPasswordValid.message, check: false }; }
+  return { check: true };
 };
 
 const validateNewUser = async (displayName, email, password) => {
   const isRequiredFieldFilled = verifyRequiredFilds(displayName, email, password);
-  if (!isRequiredFieldFilled) {
-    return { message: isRequiredFieldFilled.message, codeError: 'wrong request format' };
+  if (!isRequiredFieldFilled.check) {
+    return { 
+      message: isRequiredFieldFilled.message,
+      codeError: 'wrong request format',
+      check: false,
+    };
   }
   const isEmailAvaliable = await verifyEmailAvaliability(email);
-  if (!isEmailAvaliable) {
-    return { message: isEmailAvaliable.message, codeError: 'conflict detected' };
+  if (!isEmailAvaliable.check) {
+    return { message: isEmailAvaliable.message, codeError: 'conflict detected', check: false };
   }
+  return { check: true };
 };
 
 const generateToken = (id, displayName, email) => {
@@ -83,11 +100,12 @@ const generateToken = (id, displayName, email) => {
 
 const create = async (displayName, email, password, image) => {
   const isAllowedToCreate = await validateNewUser(displayName, email, password);
-  if (!isAllowedToCreate) {
+  if (!isAllowedToCreate.check) {
     return { message: isAllowedToCreate.message, codeError: isAllowedToCreate.codeError };
   }
   try {
-    const { id } = await UserModel.create({ displayName, email, password, image });
+    const { id } = await User.create({ displayName, email, password, image });
+    console.log('id retornado do comando create', id);
     const token = generateToken(id, displayName, email);
     return { token };
   } catch (e) {

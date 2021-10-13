@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+const UserModel = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     displayName: DataTypes.STRING,
@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
   {
     timestamps: false, // remove a obrigatoriedade de utilizar os campos `createdAt` e `updatedAt`
     tableName: 'Users',
-    underscored: true,
   });
 
   User.associate = (models) => {
@@ -19,3 +18,5 @@ module.exports = (sequelize, DataTypes) => {
 
   return User;
 };
+
+module.exports = UserModel;

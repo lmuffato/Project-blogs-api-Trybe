@@ -1,7 +1,6 @@
 const modelConfig = {
   timestamps: false, 
   tableName: 'PostsCategories',
-  underscored: true,
 };
 
 module.exports = (sequelize, _DataTypes) => {
