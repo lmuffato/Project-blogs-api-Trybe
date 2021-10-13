@@ -19,7 +19,7 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING
-      },
+      }
     });
   },
   down: async (queryInterface, Sequelize) => {
