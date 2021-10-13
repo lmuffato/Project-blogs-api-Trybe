@@ -5,7 +5,7 @@ const {
   nameRequired, 
   nameLength, 
   passwordLength, 
-  passwordRequired
+  passwordRequired,
 } = require('./errorsList');
 
 const joiEmail = Joi.string().email().required();
