@@ -30,11 +30,10 @@ module.exports = [
       const alreadyExist = await loginServices.validateUser(email, password);
       
     if (!alreadyExist) next();
-    
+
     if (alreadyExist.error) {
       return next(alreadyExist.error);
     }
-    
   }),
 
   rescue(async (req, res) => {
