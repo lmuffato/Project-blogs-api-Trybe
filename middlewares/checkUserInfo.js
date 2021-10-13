@@ -44,7 +44,7 @@ const validateUser = async (email) => {
   return false;
 };
 
-const checkInfo = async (req, res, next) => {
+const checkUserInfo = async (req, res, next) => {
   const { displayName, email, password } = req.body;
 
   const validatedName = validateName(displayName, 8);
@@ -74,4 +74,4 @@ const checkInfo = async (req, res, next) => {
   next();
 };
 
-module.exports = { checkInfo };
+module.exports = { checkUserInfo };

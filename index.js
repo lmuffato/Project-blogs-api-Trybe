@@ -1,10 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { checkInfo } = require('./middlewares/checkUserInfo');
-const { createUser, findAllUsers, findUser } = require('./controllers/userController');
+const { checkUserInfo } = require('./middlewares/checkUserInfo');
 const { checkLogin } = require('./middlewares/checkLogin');
-const { login } = require('./controllers/loginController');
 const { validateToken } = require('./middlewares/validateToken');
+const { checkCategoryInfo } = require('./middlewares/checkCategoryInfo');
+const {
+  userController: { createUser, findAllUsers, findUser },
+  loginController: { login },
+  categoryControler: { createCategory },
+} = require('./controllers');
 
 const app = express();
 
@@ -18,9 +22,11 @@ app.get('/', (request, response) => {
 });
 
 app.route('/user')
-  .post(checkInfo, createUser)
+  .post(checkUserInfo, createUser)
   .get(validateToken, findAllUsers);
 
 app.get('/user/:id', validateToken, findUser);
 
 app.post('/login', checkLogin, login);
+
+app.post('/categories', validateToken, checkCategoryInfo, createCategory);
