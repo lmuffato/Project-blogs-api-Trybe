@@ -24,4 +24,8 @@ tokenAuth,
 updateValidator,
 postsController.updatePost);
 
+router.delete('/:id', 
+tokenAuth,
+postsController.deletePost);
+
 module.exports = router;
