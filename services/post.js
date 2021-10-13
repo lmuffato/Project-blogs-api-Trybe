@@ -1,5 +1,4 @@
-const { BlogPost } = require('../models');
-const { Category } = require('../models');
+const { BlogPost, Category } = require('../models');
 
 const validateFieldsFilled = (title, content, categoryIds) => {
   if (title === undefined) {
@@ -17,16 +16,12 @@ const validateFieldsFilled = (title, content, categoryIds) => {
 const areCategoriesExists = async (categoryIds) => (
   categoryIds.reduce(async (check, id) => {
     const category = await Category.findOne({ where: { id } });
-    console.log('category o id fornecido ', category, id);
     if (category === null) return false;
     return check; 
   }, true)  
 );
 const create = async (title, content, categoryIds, userId) => {
-  console.log('o que tem no categoryIds', categoryIds);
   const isFielsFilled = validateFieldsFilled(title, content, categoryIds);
-  console.log("🚀 ~ file: post.js ~ line 26 ~ create ~ isFielsFilled", isFielsFilled);
-  
   if (!isFielsFilled.check) {
     const { message } = isFielsFilled;
     return { message };
