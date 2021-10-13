@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { User, BlogPost } = require('../models');
+const { User, BlogPost, Category } = require('../models');
 
 const { JWT_SECRET } = process.env;
 
@@ -14,6 +14,18 @@ const createPost = async ({ body: { title, content }, headers: { authorization }
   return newPost;
 };
 
+const getAllPosts = async () => BlogPost.findAll({
+  include: [
+    {
+      model: User, as: 'user',
+    },
+    {
+      model: Category, as: 'categories',
+    },
+],
+});
+
 module.exports = {
   createPost,
+  getAllPosts,
 };

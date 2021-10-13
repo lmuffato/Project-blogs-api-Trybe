@@ -4,13 +4,13 @@ const { checkUserInfo } = require('./middlewares/checkUserInfo');
 const { checkLogin } = require('./middlewares/checkLogin');
 const { validateToken } = require('./middlewares/validateToken');
 const { checkCategoryInfo } = require('./middlewares/checkCategoryInfo');
+const { checkPostInfo } = require('./middlewares/checkPostInfo');
 const {
   userController: { createUser, findAllUsers, findUser },
   loginController: { login },
   categoryControler: { createCategory, findAllCategories },
-  postController: { createPost },
+  postController: { createPost, getAllPosts },
 } = require('./controllers');
-const { checkPostInfo } = require('./middlewares/checkPostInfo');
 
 const app = express();
 
@@ -36,4 +36,5 @@ app.route('/categories')
   .get(validateToken, findAllCategories);
 
 app.route('/post')
-  .post(validateToken, checkPostInfo, createPost);
+  .post(validateToken, checkPostInfo, createPost)
+  .get(validateToken, getAllPosts);
