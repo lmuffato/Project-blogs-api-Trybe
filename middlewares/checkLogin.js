@@ -2,9 +2,12 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 
 const { JWT_SECRET = 'teste' } = process.env;
+const jwtConfig = {
+  expiresIn: '15m',
+  algorithm: 'HS256',
+};
 
 const checkEmail = (email) => {
-  console.log('🚀 ~ file: checkLogin.js ~ line 7 ~ checkEmail ~ email', email);
   if (email === undefined) return ({ status: 400, message: '"email" is required' });
 
   if (email.length === 0) {
@@ -13,7 +16,6 @@ const checkEmail = (email) => {
 };
 
 const checkPassword = (password) => {
-console.log('🚀 ~ file: checkLogin.js ~ line 16 ~ checkPassword ~ password', password);
   if (password === undefined) return ({ status: 400, message: '"password" is required' });
 
   if (password.length === 0) { 
@@ -44,9 +46,9 @@ const checkLogin = async (req, res, next) => {
 
   if (!checkedUser) return res.status(400).json({ message: 'Invalid fields' });
 
-  const token = jwt.sign({ email }, JWT_SECRET);
+  const token = jwt.sign({ email }, JWT_SECRET, jwtConfig);
 
-  req.user = token;
+  req.user = { token };
 
   next();
 };
