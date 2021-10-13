@@ -3,6 +3,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const repeatsEmail = require('../middlewares/repeatsEmail.js');
 const validateEmail = require('../middlewares/validateEmail.js');
+const validateJWT = require('../middlewares/validateJWT.js');
 const validateName = require('../middlewares/validateName.js');
 const validatePassword = require('../middlewares/validatePassword.js');
 
@@ -22,6 +23,16 @@ router.post('/', validateName, validateEmail, validatePassword, repeatsEmail, as
     await User.create({ displayName, email, password, image });
     const token = jwt.sign({ user }, secret, jwtConfig);
     return res.status(201).json({ token });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: `Erro: ${e.message}` });
+  }
+});
+
+router.get('/', validateJWT, async (req, res) => {
+  try {
+    const users = await User.findAll();
+    return res.status(200).json(users);
   } catch (e) {
     console.log(e);
     return res.status(500).json({ message: `Erro: ${e.message}` });
