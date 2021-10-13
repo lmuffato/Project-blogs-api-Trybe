@@ -16,4 +16,20 @@ const validateCreateUser = (req, _res, next) => {
   next();
 };
 
-module.exports = { validateCreateUser };
+const validateLogin = (req, _res, next) => {
+    const numberPassword = 6;
+  
+    const { error } = Joi.object({
+      email: Joi.string().email({ minDomainSegments: 2 }).required(),
+      password: Joi.string().length(numberPassword).required(),
+    }).validate(req.body);
+  
+    if (error) return next(error);
+  
+    next();
+  };
+
+module.exports = {
+  validateCreateUser,
+  validateLogin,
+};
