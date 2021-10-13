@@ -5,7 +5,7 @@ const createUser = async (req, res) => {
   
   if (!newUser) return (res.status(400).json({ message: 'Unable to create new user' }));
   
-  return (res.status(201).json(newUser));
+  return res.status(201).json(newUser);
 };
 
 const findAllUsers = async (_req, res) => {

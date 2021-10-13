@@ -7,7 +7,7 @@ const { checkCategoryInfo } = require('./middlewares/checkCategoryInfo');
 const {
   userController: { createUser, findAllUsers, findUser },
   loginController: { login },
-  categoryControler: { createCategory },
+  categoryControler: { createCategory, findAllCategories },
 } = require('./controllers');
 
 const app = express();
@@ -29,4 +29,6 @@ app.get('/user/:id', validateToken, findUser);
 
 app.post('/login', checkLogin, login);
 
-app.post('/categories', validateToken, checkCategoryInfo, createCategory);
+app.route('/categories')
+  .post(validateToken, checkCategoryInfo, createCategory)
+  .get(validateToken, findAllCategories);
