@@ -29,13 +29,25 @@ router.post('/', validateName, validateEmail, validatePassword, repeatsEmail, as
   }
 });
 
-router.get('/', validateJWT, async (req, res) => {
+router.get('/', validateJWT, async (_req, res) => {
   try {
     const users = await User.findAll();
     return res.status(200).json(users);
   } catch (e) {
     console.log(e);
     return res.status(500).json({ message: `Erro: ${e.message}` });
+  }
+});
+
+router.get('/:id', validateJWT, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findOne({ where: { id } });
+    console.log('User por id', user);
+    return res.status(200).json(user.dataValues);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).json({ message: 'User does not exist' });
   }
 });
 module.exports = router;
