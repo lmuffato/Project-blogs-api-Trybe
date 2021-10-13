@@ -25,7 +25,8 @@ const login = async (req, res) => {
 
   const token = createToken(user);
 
-  const userData = findUser(email);
+  const userData = await findUser(email);
+  console.log(userData);
   
   if (userData === null) {
     return res.status(error9.error.status).json({ message: error9.error.message }); 
