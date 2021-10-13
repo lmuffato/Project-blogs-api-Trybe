@@ -1,5 +1,6 @@
 const { User } = require('../models');
 const { createToken } = require('../auth/tokenCreation');
+const { verify } = require('../auth/tokenAuth');
 const { error9, error12 } = require('../utils/errors');
 
 const create = async (req, res) => {
@@ -56,10 +57,23 @@ const getUser = async (req, res) => {
     });
 };
 
+const deleteMe = async (req, res) => {
+  const { authorization } = req.headers;
+
+  const payload = verify(authorization);
+  const userEmail = payload.email;
+  const userData = await findUser(userEmail);
+  const userId = userData.id;
+
+  await User.destroy({ where: { id: userId } });
+  return res.status(204).json();
+};
+
 module.exports = {
   create,
   login,
   getUsers,
   getUser,
   findUser,
+  deleteMe,
 };

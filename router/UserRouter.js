@@ -20,4 +20,8 @@ router.get('/:id',
 tokenAuth,
 usersController.getUser);
 
+router.delete('/me',
+tokenAuth,
+usersController.deleteMe);
+
 module.exports = router;
