@@ -8,7 +8,9 @@ const {
   userController: { createUser, findAllUsers, findUser },
   loginController: { login },
   categoryControler: { createCategory, findAllCategories },
+  postController: { createPost },
 } = require('./controllers');
+const { checkPostInfo } = require('./middlewares/checkPostInfo');
 
 const app = express();
 
@@ -32,3 +34,6 @@ app.post('/login', checkLogin, login);
 app.route('/categories')
   .post(validateToken, checkCategoryInfo, createCategory)
   .get(validateToken, findAllCategories);
+
+app.route('/post')
+  .post(validateToken, checkPostInfo, createPost);
