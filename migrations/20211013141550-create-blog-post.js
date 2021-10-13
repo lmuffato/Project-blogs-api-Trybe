@@ -9,18 +9,30 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       content: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        defaultValue: 1,
       },
       published: {
+        allowNull: false,
         type: Sequelize.DATE
       },
       updated: {
+        allowNull: false,
         type: Sequelize.DATE
       }
     });

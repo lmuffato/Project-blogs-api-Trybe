@@ -1,8 +1,8 @@
-const BlogPosts = (sequelize, DataTypes) => {
-  const blogposts = sequelize.define('BlogPosts', {
+module.exports = (sequelize, DataTypes) => {
+  const BlogPosts = sequelize.define('BlogPost', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    userId: DataTypes.INTEGER,
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
   }, {
@@ -10,7 +10,9 @@ const BlogPosts = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  return blogposts;
-};
+  BlogPosts.associate = ({ User }) => {
+    BlogPosts.hasMany(User, { foreignKey: 'userId', as: 'user' });
+  };
 
-module.exports = BlogPosts;
+  return BlogPosts;
+};
