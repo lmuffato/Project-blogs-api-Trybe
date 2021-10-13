@@ -16,6 +16,4 @@ const create = async (data) => {
   return { token };
 };
 
-module.exports = {
-  create,
-};
+module.exports = create;
