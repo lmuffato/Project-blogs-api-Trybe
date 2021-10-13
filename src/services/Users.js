@@ -26,6 +26,13 @@ const create = async (displayName, email, password, image) => {
   return { status: 201, result: { token } };
 };
 
+const findAll = async () => {
+  const result = await User.findAll();
+
+  return { result };
+};
+
 module.exports = {
   create,
+  findAll,
 };

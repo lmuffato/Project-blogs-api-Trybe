@@ -1,5 +1,6 @@
 const express = require('express');
 const { Users } = require('../services');
+const checkAuthentication = require('../middlewares/checkAuthentication');
 
 const router = express.Router();
 
@@ -13,6 +14,17 @@ router.post('/', async (req, res, next) => {
 
     return res.status(status).json(result);
   } catch (e) {
+    next(e);
+  }
+});
+
+router.get('/', checkAuthentication, async (_req, res, next) => {
+  try {
+    const { result } = await Users.findAll();
+
+    return res.status(200).json(result);
+  } catch (e) {
+    console.log(e);
     next(e);
   }
 });
