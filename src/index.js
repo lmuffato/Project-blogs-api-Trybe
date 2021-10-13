@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const userControllers = require('./src/controllers/userControllers');
+const userControllers = require('./controllers/userControllers');
+const authenticateControllers = require('./controllers/authenticateControllers');
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', userControllers);
+app.use('/login', authenticateControllers);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

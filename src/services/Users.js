@@ -1,6 +1,6 @@
 const Joi = require('joi');
-const jwt = require('jsonwebtoken');
 const { User } = require('../models');
+const { generateToken } = require('./Authenticate');
 require('dotenv').config();
 
 const userSchema = Joi.object({
@@ -17,27 +17,13 @@ const create = async (displayName, email, password, image) => {
 
   const checkEmail = await User.findAll({ where: { email } });
 
-  console.log('checkemail', checkEmail);
-
   if (checkEmail.length) return { status: 409, message: 'User already registered' };
 
   const createdUser = await User.create(value);
 
-  const jwtConfig = {
-    expiresIn: '7d',
-    algorithm: 'HS256',
-  };
+  const token = generateToken(createdUser);
 
-  const data = {
-    id: createdUser.id,
-    displayName: createdUser.displayName,
-    email: createdUser.email,
-    image: createdUser.image || '',
-  };
-
-  const result = jwt.sign(data, process.env.JWT_SECRET, jwtConfig);
-
-  return { status: 201, result: { token: result } };
+  return { status: 201, result: { token } };
 };
 
 module.exports = {
