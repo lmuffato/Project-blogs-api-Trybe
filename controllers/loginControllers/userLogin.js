@@ -38,8 +38,8 @@ module.exports = [
 
   rescue(async (req, res) => {
     const { email } = req.body;
-    
-    const token = jwt.sign({ data: email }, secret, jwtConfig);
+    const payload = { email };
+    const token = jwt.sign(payload, secret, jwtConfig);
     res.status(OK).json({ token });
   }),
 ];

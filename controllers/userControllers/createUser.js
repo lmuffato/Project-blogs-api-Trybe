@@ -47,7 +47,8 @@ module.exports = [
     
     User.create({ displayName, email, password, image })
     .then((newUser) => {
-      const token = jwt.sign({ data: newUser }, secret, jwtConfig);
+      const payload = { newUser };
+      const token = jwt.sign(payload, secret, jwtConfig);
       res.status(CREATED).json({ token });
       })
       .catch((e) => {

@@ -13,20 +13,20 @@ module.exports = async (req, res, next) => {
 
   if (!token) {
     return res.status(UNAUTHORIZED)
-      .json({ message: 'missing auth token' });
+      .json({ message: 'Token not found' });
   }
 
   try {
     const decoded = jwt.verify(token, secret);
-    const user = await User.findAll({ where: { email: decoded.email } });
+    const user = await User.findOne({ where: { email: decoded.email } });
     if (!user) {
       return res.status(UNAUTHORIZED)
-        .json({ message: 'jwt malformed' });    
+        .json({ message: 'Expired or invalid token' });    
     }
 
     req.user = user;
     next();
   } catch (err) {
-    return res.status(UNAUTHORIZED).json({ message: err.message });
+    return res.status(UNAUTHORIZED).json({ message: 'Expired or invalid token' });
   }
 };
