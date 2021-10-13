@@ -4,8 +4,16 @@ const { User } = require('../models');
 
 const findById = async (req, res) => {
   const { id } = req.params;
-  const result = await userService.findById(id);
-  return res.status(result.status).json(result.response);
+  try {
+    const user = await User.findOne({ where: { id } });
+    if (!user) {
+      return res.status(404).json({ message: 'User does not exist' });
+    }
+    return res.status(200).json(user);
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).json({ message: 'Algo deu errado' });
+  }
 };
 
 const create = async (req, res) => {
