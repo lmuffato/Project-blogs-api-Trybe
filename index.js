@@ -7,8 +7,8 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use('/user', routes.User);
-
 app.use('/login', routes.Login);
+app.use('/categories', routes.Categories);
 
 app.use(erroMiddleware);
 
