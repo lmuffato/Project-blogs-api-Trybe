@@ -1,13 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const Joi = require('../Joi/templates');
-
-const secret = 'meusegredo';
-
-const jwtConfig = {
-  expiresIn: '7d',
-  algorithm: 'HS256',
-};
+const { jwtConfig, secret } = require('../utils/jwtConfig');
 
 const findUserByEmail = async (email) => {
   const user = await User.findOne((
