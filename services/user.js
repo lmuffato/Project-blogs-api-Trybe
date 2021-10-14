@@ -20,7 +20,7 @@ const createUser = async (body) => {
 
   await User.create(body);
   const token = jwt.sign({ data: body.email }, secret, jwtConfig);
-  
+
   return token;
 };
 
@@ -29,7 +29,15 @@ const getAllUsers = async () => {
   return users;
 };
 
+const getUserById = async (id) => {
+  const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
+
+  if (!user) return { code: 404, message: 'User does not exist' };
+  return user;
+};
+
 module.exports = {
   createUser,
   getAllUsers,
+  getUserById,
 };
