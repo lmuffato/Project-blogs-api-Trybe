@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { validateInfo } = require('../middlewares/checkPostInfo');
 const { User, BlogPost, Category } = require('../models');
 const { getUserId } = require('../utils/getUserId');
@@ -26,10 +27,10 @@ const getPostById = async (id) => BlogPost.findOne({
   where: { id },
   include: [
     {
-      model: User, as: 'user',
+      model: User, as: 'user', attributes: { exclude: ['password'] },
     },
     {
-      model: Category, as: 'categories',
+      model: Category, as: 'categories', through: { attributes: [] },
     },
 ],
 });
@@ -73,10 +74,32 @@ const deletePost = async (id, authorization) => {
   return deletedPost;
 };
 
+const findByQuery = async (query) => {
+  const posts = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        { title: { [Op.like]: `%${query}%` } },
+        { content: { [Op.like]: `%${query}%` } },
+      ],
+    },
+    include: [
+      {
+        model: User, as: 'user', attributes: { exclude: ['password'] },
+      },
+      {
+        model: Category, as: 'categories', through: { attributes: [] },
+      },
+    ],
+  });
+
+  return posts;
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   updatePost,
   deletePost,
+  findByQuery,
 };

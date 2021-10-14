@@ -9,7 +9,7 @@ const {
   userController: { createUser, findAllUsers, findUser, deleteUser },
   loginController: { login },
   categoryControler: { createCategory, findAllCategories },
-  postController: { createPost, getAllPosts, getPostById, updatePost, deletePost },
+  postController: { createPost, getAllPosts, getPostById, updatePost, deletePost, findByQuery },
 } = require('./controllers');
 
 const app = express();
@@ -29,11 +29,15 @@ app.route('/user')
 
 app.get('/user/:id', validateToken, findUser);
 
+app.delete('/user/me', validateToken, deleteUser);
+
 app.post('/login', checkLogin, login);
 
 app.route('/categories')
   .post(validateToken, checkCategoryInfo, createCategory)
   .get(validateToken, findAllCategories);
+
+  app.get('/post/search', validateToken, findByQuery);
 
 app.route('/post')
   .post(validateToken, checkPostInfo, createPost)
@@ -43,5 +47,3 @@ app.route('/post/:id')
   .get(validateToken, getPostById)
   .put(validateToken, updatePost)
   .delete(validateToken, deletePost);
-
-app.delete('/user/me', validateToken, deleteUser);

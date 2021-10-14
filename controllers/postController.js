@@ -69,10 +69,20 @@ const deletePost = async (req, res) => {
   }
 };
 
+const findByQuery = async (req, res) => {
+  const { q } = req.query;
+  const query = await postServices.findByQuery(q);
+
+  if (!query) return res.status(404).json({ message: 'Post not found' });
+
+  return res.status(200).json(query);
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   updatePost,
   deletePost,
+  findByQuery,
 };
