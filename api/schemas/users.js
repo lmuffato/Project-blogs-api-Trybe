@@ -21,7 +21,12 @@ const userSchema = Joi.object({
     .empty()
     .min(PASSWORD_LENGTH)
     .max(PASSWORD_LENGTH)
+    .messages(({
+      'string.min': '"password" length must be 6 characters long', 
+    }))
     .required(),
+  image: Joi.string()
+  .uri(),
 });
 
 module.exports = userSchema;
