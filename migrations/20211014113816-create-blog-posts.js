@@ -1,5 +1,4 @@
 'use strict';
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('BlogPosts', {
@@ -10,20 +9,21 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
-        allowNull: false,
+        type: Sequelize.STRING
+      },
+      content: {
         type: Sequelize.STRING
       },
       userId: {
         type: Sequelize.INTEGER,
-        field: 'user_id',
+        allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        defaultValue: 1,
         references: {
           model: 'Users',
           key: 'id',
-        },
-        allowNull: 'false',
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        primaryKey: true,
+        }
       },
       published: {
         allowNull: false,
@@ -35,7 +35,6 @@ module.exports = {
       }
     });
   },
-
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('BlogPosts');
   }
