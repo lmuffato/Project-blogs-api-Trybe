@@ -9,7 +9,7 @@ const {
   userController: { createUser, findAllUsers, findUser },
   loginController: { login },
   categoryControler: { createCategory, findAllCategories },
-  postController: { createPost, getAllPosts, getPostById, updatePost },
+  postController: { createPost, getAllPosts, getPostById, updatePost, deletePost },
 } = require('./controllers');
 
 const app = express();
@@ -41,4 +41,5 @@ app.route('/post')
 
 app.route('/post/:id')
   .get(validateToken, getPostById)
-  .put(validateToken, updatePost);
+  .put(validateToken, updatePost)
+  .delete(validateToken, deletePost);
