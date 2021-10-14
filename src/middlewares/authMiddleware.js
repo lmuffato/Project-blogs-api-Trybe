@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
 
-    if (!token) return res.status(401).json({ message: 'missing auth token' });
+    if (!token) return res.status(401).json({ message: 'Token not found' });
 
     const { email } = jwt.verify(token, JWT_SECRET);
     const user = await User.findOne({ email });
@@ -17,6 +17,6 @@ module.exports = async (req, res, next) => {
 
     next();
   } catch (_e) {
-    res.status(401).json({ message: 'jwt malformed' });
+    res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
