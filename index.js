@@ -44,3 +44,4 @@ app.post('/categories', validateJWT, categoryController.createNewCategory);
 app.get('/categories', validateJWT, categoryController.listCategories);
 app.post('/post', validateJWT, postValidFields, validCategory, postController.createNewPost);
 app.get('/post', validateJWT, postController.listPosts);
+app.get('/post/:id', validateJWT, postController.findPost);

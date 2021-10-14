@@ -37,7 +37,26 @@ const listPosts = async (_req, res) => {
   }
 };
 
+const findPost = async (req, res) => {
+  const { id } = req.params;
+  
+  try { 
+    const result = await BlogPost.findOne({ 
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories' },
+      ],
+      where: { id },
+    });
+    if (!result) return res.status(404).json({ message: 'Post does not exist' });
+    res.status(200).json(result);
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+};
+
 module.exports = {
   createNewPost,
   listPosts,
+  findPost,
 };
