@@ -10,7 +10,14 @@ const findUsers = async (_req, res) => {
   return res.status(200).json(finded);
 };
 
+const findById = async (req, res) => {
+  const { id } = req.params;
+  const findUserId = await userService.findById(id);
+  return res.status(200).json(findUserId);
+};
+
 module.exports = {
   createUser,
   findUsers,
+  findById,
 };

@@ -56,9 +56,17 @@ const validateToken = (req, res, next) => {
   next();
 };
 
+const validateUserExists = async (req, res, next) => {
+  const { id } = req.params;
+  const findUserId = await Users.findByPk(id);
+  if (!findUserId) return res.status(404).json({ message: 'User does not exist' });
+  next();
+};
+
 module.exports = {
   validateEmail,
   validateName,
   validatePassword,
   validateToken,
+  validateUserExists,
 };
