@@ -7,8 +7,10 @@ module.exports = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
 
-    if (token === undefined) return res.status(401).json({ message: 'Token not found' });
-  
+    if (token === undefined || token === '') {
+      return res.status(401).json({ message: 'Token not found' });
+    }
+
     const payload = jwt.verify(token, SECRET);
   
     const user = await Users.findOne({ where: { email: payload.email } });

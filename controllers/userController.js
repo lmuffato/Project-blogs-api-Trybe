@@ -8,7 +8,7 @@ const getAll = async (_req, res) => {
   try {
     const response = await userService.findAll();
 
-    return res.status(HTTP_CREATED_STATUS).json(response);
+    return res.status(HTTP_OK_STATUS).json(response);
   } catch (error) {
     return res.status(HTTP_BAD_STATUS).json({ error });
   }
