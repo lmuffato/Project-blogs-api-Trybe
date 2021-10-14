@@ -5,7 +5,7 @@ const login = async (req, res, next) => {
 
   if (response.code) return next(response);
 
-  return res.status(200).json(response);
+  return res.status(200).json({ token: response });
 };
 
 module.exports = {
