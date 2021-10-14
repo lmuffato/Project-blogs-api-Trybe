@@ -14,6 +14,17 @@ const schemaCreateUser = Joi.object({
   image: Joi.string(),
 });
 
+const schemaLogin = Joi.object({
+  email: Joi.string()
+      .email()
+      .required(),
+  password: Joi.string()
+      .required()
+      .min(6)
+      .message('"password" length must be 6 characters long'),
+});
+
 module.exports = {
   schemaCreateUser,
+  schemaLogin,
 };

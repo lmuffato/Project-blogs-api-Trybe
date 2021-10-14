@@ -1,4 +1,4 @@
-const { schemaCreateUser } = require('../validations/validations');
+const { schemaCreateUser, schemaLogin } = require('../validations/validations');
 
 const validationCreateUser = async (req, res, next) => {
   const { error } = schemaCreateUser.validate(req.body);
@@ -9,6 +9,16 @@ const validationCreateUser = async (req, res, next) => {
     next();
 };
 
+const validationLogin = async (req, res, next) => {
+  const { error } = schemaLogin.validate(req.body);
+  if (error) {
+    return res.status(400)
+    .json({ message: error.message });
+  }
+    next();
+};
+
 module.exports = {
   validationCreateUser,
+  validationLogin,
 }; 

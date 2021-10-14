@@ -12,7 +12,6 @@ const getEmail = async (email) => {
 
 const createUser = async ({ displayName, email, password, image }) => {
   const isExist = await getEmail(email);
-  console.log(email, 'service');
 
   if (isExist !== null) {
     return {
@@ -31,7 +30,28 @@ const createUser = async ({ displayName, email, password, image }) => {
   return { token };
 };
 
+const loginUser = async ({ email, password }) => {
+  const user = await User.findOne({ where: { email, password } });
+
+  if (user === null) {
+    return {
+    err: { message: 'Invalid fields' } };
+}
+
+const jwtConfig = {
+  expiresIn: '15m',
+  algorithm: 'HS256',
+};
+
+delete user.dataValues.password;
+
+const token = jwt.sign(user.dataValues, secret, jwtConfig);
+
+return { token };
+};
+
 module.exports = {
   createUser,
   getEmail,
+  loginUser,
 };
