@@ -16,17 +16,11 @@ const insert = async (name) => {
   return dataValues;
 };
 
-// const findAll = async () => {
-//   const users = await Users.findAll();
-//   const response = [];
+const findAll = async () => {
+  const categories = await Categories.findAll();
 
-//   users.forEach((user) => {
-//     const { id, displayName, email, image } = user;
-//     response.push({ id, displayName, email, image });
-//   });
-
-//   return response;
-// };
+  return categories;
+};
 
 // const findByID = async (receivedId) => {
 //   const user = await Users.findByPk(receivedId);
@@ -41,6 +35,6 @@ const insert = async (name) => {
 
 module.exports = {
   insert,
-  // findAll,
+  findAll,
   // findByID,
 };
