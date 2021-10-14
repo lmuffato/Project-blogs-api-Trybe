@@ -6,7 +6,7 @@ const { validateToken } = require('./middlewares/validateToken');
 const { checkCategoryInfo } = require('./middlewares/checkCategoryInfo');
 const { checkPostInfo } = require('./middlewares/checkPostInfo');
 const {
-  userController: { createUser, findAllUsers, findUser },
+  userController: { createUser, findAllUsers, findUser, deleteUser },
   loginController: { login },
   categoryControler: { createCategory, findAllCategories },
   postController: { createPost, getAllPosts, getPostById, updatePost, deletePost },
@@ -43,3 +43,5 @@ app.route('/post/:id')
   .get(validateToken, getPostById)
   .put(validateToken, updatePost)
   .delete(validateToken, deletePost);
+
+app.delete('/user/me', validateToken, deleteUser);

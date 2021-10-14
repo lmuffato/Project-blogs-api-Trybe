@@ -26,8 +26,19 @@ const findUser = async (req, res) => {
   return res.status(200).json(user);
 };
 
+const deleteUser = async (req, res) => {
+  const { authorization } = req.headers;
+
+  const user = await userService.deleteUser(authorization);
+
+  if (!user) return res.status(404).json({ message: 'User not found' });
+  
+  return res.status(204).json(user);
+};
+
 module.exports = {
   createUser,
   findAllUsers,
   findUser,
+  deleteUser,
 };
