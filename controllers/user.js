@@ -16,10 +16,19 @@ module.exports = {
 
   async get(req, res) {
     try {
+      const { id } = req.params;
+      if (id) {
+        const users = await User.findAll({
+          where: { id },
+          attributes: { exclude: ['password'] },
+        });
+        if (!users.length) throw new Error('User does not exist');
+        return res.status(200).json(users[0]);
+      }
       const users = await User.findAll({ attributes: { exclude: ['password'] } });
       return res.status(200).json(users);
     } catch (error) {
-      return res.status(400).json({ message: error.message });
+      return res.status(404).json({ message: error.message });
     }
   },
 };

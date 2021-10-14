@@ -12,5 +12,6 @@ routes.post(
 );
 
 routes.get('/', validateToken, userController.get);
+routes.get('/:id', validateToken, userController.get);
 
 module.exports = routes;
