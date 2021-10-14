@@ -20,7 +20,7 @@ const verifyCategoryIds = async (req, _res, next) => {
   try {
     const { categoryIds } = req.body;
     const categories = await Promise.all(categoryIds.map(
-      async (id) => await categoryService.getById(id)
+     (id) => categoryService.getById(id),
     ));
     if (categories.includes(null)) {
       return next({
@@ -30,11 +30,11 @@ const verifyCategoryIds = async (req, _res, next) => {
     }
     next();
   } catch (e) {
-    next (e);
+    next(e);
   }
 };
 
 module.exports = {
   validatePost,
   verifyCategoryIds,
-}
+};
