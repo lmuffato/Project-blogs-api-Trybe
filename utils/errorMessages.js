@@ -41,7 +41,7 @@ const PASSWORD_NOT_EMPTY = {
 };
 
 const EMAIL_ALREADY_EXISTS = {
-  status: httpStatus.BAD_REQUEST,
+  status: httpStatus.CONFLICT,
   message: 'User already registered',
 };
 
