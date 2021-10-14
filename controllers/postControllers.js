@@ -14,7 +14,7 @@ const createNewPost = async (req, res) => {
 
     return res.status(201).json(result);
   } catch ({ message }) {
-    res.status(500).json({ message });
+    console.log(message);
   }
 };
 
