@@ -5,7 +5,7 @@ function blogPost(sequelize, DataTypes) {
         userId: DataTypes.INTEGER,
         published: DataTypes.DATE,
         updated: DataTypes.DATE,
-    });
+    }, { timestamps: false });
     BlogPost.associate = (models) => { 
         BlogPost.belongsTo(models.User, { foreignKey: 'userId', as: 'users' });
         BlogPost.hasOne(models.PostCategory, { foreignKey: 'categoryId', as: 'postCategory' });

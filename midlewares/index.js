@@ -1,5 +1,6 @@
 const validateEmailFormat = require('./validateEmailFormat');
 const validateEmailLogin = require('./validateEmailLogin');
+const validateCategoryName = require('./validateGeneralName');
 const validateName = require('./validateName');
 const validatePassword = require('./validatePassword');
 const validatePasswordLogin = require('./validatePasswordLogin');
@@ -12,4 +13,5 @@ validateEmailFormat,
 validateEmailLogin,
 validatePasswordLogin,
 validateToken,
+validateCategoryName,
 };
