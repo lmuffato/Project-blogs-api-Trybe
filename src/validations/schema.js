@@ -12,4 +12,8 @@ const loginSchema = Joi.object({
   password: Joi.string().required(),
 });
 
-module.exports = { userSchema, loginSchema };
+const categorySchema = Joi.object({
+  name: Joi.string().required(),
+});
+
+module.exports = { userSchema, loginSchema, categorySchema };

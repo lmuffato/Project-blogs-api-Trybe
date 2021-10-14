@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { error } = require('./src/middlewares');
-const { userRouter, loginRouter } = require('./src/routes');
+const { userRouter, loginRouter, categoriesRouter } = require('./src/routes');
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,7 +19,9 @@ app.get('/', (request, response) => {
 app.get('/ping', (req, res) => {
   res.status(200).json({ message: 'Pong' });
 });
+
 app.use('/user', userRouter);
 app.use('/login', loginRouter);
+app.use('/categories', categoriesRouter);
 
 app.use(error);
