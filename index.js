@@ -2,6 +2,10 @@ const express = require('express');
 
 const app = express();
 
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
