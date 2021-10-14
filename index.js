@@ -38,3 +38,4 @@ app.post(
 app.get('/user', validateJWT, userController.listUsers);
 app.get('/user/:id', validateJWT, userController.findUser);
 app.post('/categories', validateJWT, categoryController.createNewCategory);
+app.get('/categories', validateJWT, categoryController.listCategories);
