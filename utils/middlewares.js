@@ -76,7 +76,6 @@ const validCategory = (req, res, next) => {
 const postValidFields = (req, res, next) => {
   const { categoryIds, content, title } = req.body;
 
-  
   if (!categoryIds) return res.status(requiredCategoryId.status).json(requiredCategoryId.message);
   if (!title) return res.status(requiredTitle.status).json(requiredTitle.message);
   if (!content) return res.status(requiredContent.status).json(requiredContent.message);

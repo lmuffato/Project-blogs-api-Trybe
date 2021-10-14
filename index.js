@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userController = require('./controllers/userControllers');
 const categoryController = require('./controllers/categoryControllers');
+const postController = require('./controllers/postControllers');
 const { 
   validEmail, 
   validName, 
@@ -41,4 +42,5 @@ app.get('/user', validateJWT, userController.listUsers);
 app.get('/user/:id', validateJWT, userController.findUser);
 app.post('/categories', validateJWT, categoryController.createNewCategory);
 app.get('/categories', validateJWT, categoryController.listCategories);
-app.post('/post', validateJWT, postValidFields, validCategory, categoryController.createNewPost);
+app.post('/post', validateJWT, postValidFields, validCategory, postController.createNewPost);
+app.get('/post', validateJWT, postController.listPosts);
