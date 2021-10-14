@@ -7,6 +7,14 @@ const createUser = async (req, res) => {
   return res.status(status).json(token);
 };
 
+const userLogin = async (req, res) => {
+  const data = req.body;
+  const { status, message, token } = await Users.userLogin(data);
+  if (message) return res.status(status).json({ message });
+  return res.status(status).json(token);
+};
+
 module.exports = {
   createUser,
+  userLogin,
 };

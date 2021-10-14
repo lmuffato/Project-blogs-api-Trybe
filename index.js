@@ -20,3 +20,9 @@ app.post('/user', [
   Validations.validatePassword,
   Users.createUser,
 ]);
+
+app.post('/login', [
+  Validations.validateEmail,
+  Validations.validatePassword,
+  Users.userLogin,
+]);
