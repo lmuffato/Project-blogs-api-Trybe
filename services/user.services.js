@@ -15,3 +15,13 @@ exports.create = async ({ displayName, email, password, image }) => {
   const token = jwt.sign({ email }, process.env.JWT_SECRET);
   return { code: StatusCodes.CREATED, response: { token } };
 };
+exports.readAll = async ({ token }) => {
+  if (!token) return { code: StatusCodes.UNAUTHORIZED, response: { message: 'Token not found' } };
+  try {
+    jwt.verify(token, process.env.JWT_SECRET);
+    const users = await User.findAll();
+    return { code: StatusCodes.OK, response: users };
+  } catch (e) {
+    return { code: StatusCodes.UNAUTHORIZED, response: { message: 'Expired or invalid token' } };
+  }
+};
