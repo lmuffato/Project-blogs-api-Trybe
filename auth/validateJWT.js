@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
     const user = await User.findOne({ where: { email } });
     if (!user) {
       return res.status(UNAUTHORIZED)
-        .json({ message: 'Expired or invalid token' });
+        .json({ message: 'User does not exist' });
     }
     req.user = user;
     // verificação do payload feita com ajuda da Marília

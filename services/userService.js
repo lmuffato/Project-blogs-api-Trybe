@@ -11,7 +11,14 @@ const findAll = async () => {
   return result;
 };
 
+const findById = async (id) => {
+  const result = await User.findByPk(id);
+  const { password: _, ...user } = result.dataValues;
+  return user;
+};
+
 module.exports = {
   createUser,
   findAll,
+  findById,
 };

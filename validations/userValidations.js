@@ -11,7 +11,7 @@ const validateUser = rescue(async (req, _res, next) => {
 
   const emailAlreadyExists = await User.findOne({ where: { email } });
   if (emailAlreadyExists) {
-    return next({ message: 'User already registered', statusCode: CONFLICT });
+    next({ message: 'User already registered', statusCode: CONFLICT });
   }
   
   next();
