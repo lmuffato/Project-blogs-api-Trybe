@@ -1,17 +1,16 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const jwtConfig = {
   expiresIn: '7d',
   algorithm: 'HS256',
 };
 
-const secret = 'secret';
-const HTTP_STATUS_CREATED = 201;
+const secret = process.env.JWT_SECRET;
 
 const generateToken = (data) => {
   const token = jwt.sign({ data }, secret, jwtConfig);
   return ({
-    code: HTTP_STATUS_CREATED,
     token,
   });
 };
