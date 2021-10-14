@@ -1,7 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userController = require('./controllers/userControllers');
-const { validEmail, validName, validPassword, validLogin } = require('./utils/middlewares');
+const { 
+  validEmail, 
+  validName, 
+  validPassword, 
+  validLogin,
+} = require('./utils/middlewares');
+
+const validateJWT = require('./auth/validateJWT');
 
 const app = express();
 app.use(bodyParser.json());
@@ -26,3 +33,5 @@ app.post(
   validLogin,
   userController.login,
 );
+
+app.get('/user', validateJWT, userController.listUsers);
