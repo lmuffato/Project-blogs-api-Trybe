@@ -46,3 +46,5 @@ app.post('/post', [
   Validations.checkToken,
   BlogPosts.createPost,
 ]);
+
+app.get('/post', Validations.checkToken, BlogPosts.getPosts);
