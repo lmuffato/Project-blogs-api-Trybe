@@ -2,8 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const users = require('./Routes/users');
+const categories = require('./Routes/categories');
+
 const { handleErrors } = require('./Middlewares/errors');
 const { validateLogin } = require('./Middlewares/user');
+
 const UserController = require('./Controllers/userController');
 
 const app = express();
@@ -17,6 +20,7 @@ app.get('/', (request, response) => {
 app.post('/login', validateLogin, UserController.login);
 
 app.use('/user', users);
+app.use('/categories', categories);
 app.use(handleErrors);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
