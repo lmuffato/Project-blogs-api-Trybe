@@ -7,7 +7,7 @@ const { JWT_SECRET } = process.env;
 module.exports = async (email, password) => {
   const userSearch = await User.findOne({ where: { email, password } });
 
-  if (!userSearch) return { status: 401, message: 'invalid fields' };
+  if (!userSearch) return { status: 400, message: 'invalid fields' };
 
   const { password: _, ...userPayload } = userSearch;
 
