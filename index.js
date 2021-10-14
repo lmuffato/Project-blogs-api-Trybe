@@ -35,3 +35,4 @@ app.post(
 );
 
 app.get('/user', validateJWT, userController.listUsers);
+app.get('/user/:id', validateJWT, userController.findUser);

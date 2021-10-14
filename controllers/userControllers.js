@@ -46,8 +46,21 @@ const listUsers = async (_req, res) => {
   }
 };
 
+const findUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await User.findOne({ where: { id } });
+    if (!user) return res.status(404).json({ message: 'User does not exist' });
+    res.status(200).json(user);
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+};
+
 module.exports = {
   createNewUser,
   login,
   listUsers,
+  findUser,
 };
