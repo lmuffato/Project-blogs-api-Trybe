@@ -4,8 +4,8 @@ require('dotenv').config();
 const secret = process.env.JWT_SECRET;
 
 const createToken = (user) => {
-  const { id, email, role } = user;
-  const payload = { id, email, role };
+  const { displayName, email } = user;
+  const payload = { displayName, email };
   const jwtConfig = {
     expiresIn: '14d',
     algorithm: 'HS256',

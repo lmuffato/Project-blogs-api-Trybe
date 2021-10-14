@@ -6,10 +6,13 @@
     "dotenv": "8.2.0",
     "eslint-config-trybe-backend": "1.0.3",
     "express": "4.17.1",
+    "express-rescue": "^1.1.31",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "2.1.0",
+    "nodemon": "^2.0.13",
     "sequelize": "^6.3.4",
-    "shelljs": "0.8.4"
+    "shelljs": "0.8.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate $",
