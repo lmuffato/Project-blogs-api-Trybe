@@ -9,7 +9,9 @@ const {
   validPassword, 
   validLogin,
   validCategory,
-  postValidFields,
+  validCategoryIds,
+  validTitle,
+  validContent,
 } = require('./utils/middlewares');
 
 const validateJWT = require('./auth/validateJWT');
@@ -39,9 +41,25 @@ app.post(
 );
 
 app.get('/user', validateJWT, userController.listUsers);
+
 app.get('/user/:id', validateJWT, userController.findUser);
+
 app.post('/categories', validateJWT, categoryController.createNewCategory);
+
 app.get('/categories', validateJWT, categoryController.listCategories);
-app.post('/post', validateJWT, postValidFields, validCategory, postController.createNewPost);
+
+app.post(
+  '/post', 
+  validateJWT, 
+  validCategoryIds, 
+  validTitle, 
+  validContent, 
+  validCategory, 
+  postController.createNewPost,
+);
+
 app.get('/post', validateJWT, postController.listPosts);
+
 app.get('/post/:id', validateJWT, postController.findPost);
+
+app.put('/post/:id', validateJWT, validTitle, validContent, postController.editPost);
