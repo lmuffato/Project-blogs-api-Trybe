@@ -5,10 +5,8 @@ const Category = (sequelize, DataTypes) => {
     },
     {
       timestamps: false,
-      underscored: true,
-      tableName: 'Categories',
     });
-    return category;
+  return category;
 };
 
 module.exports = Category;
