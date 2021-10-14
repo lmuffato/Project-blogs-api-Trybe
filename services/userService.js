@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
-const path = require('path');
 const { User } = require('../models');
-require('dotenv').config({ path: path.resolve(__dirname, '..', '.env') });
+require('dotenv/config');
 
 const secret = process.env.JWT_SECRET;
 
@@ -50,8 +49,14 @@ const token = jwt.sign(user.dataValues, secret, jwtConfig);
 return { token };
 };
 
+const getAllUser = async () => {
+  const result = await User.findAll({});
+  return result;
+};
+
 module.exports = {
   createUser,
   getEmail,
   loginUser,
+  getAllUser,
 };
