@@ -8,34 +8,32 @@ const loginSchema = Joi.object({
   password: Joi.string().length(6).required(),
 });
 
-const generateToken = (user) => {
+const generateToken = ({ dataValues }) => {
   const jwtConfig = {
     expiresIn: '7d',
     algorithm: 'HS256',
   };
 
   const data = {
-    id: user.id,
-    displayName: user.displayName,
-    email: user.email,
-    image: user.image || '',
+    id: dataValues.id,
+    displayName: dataValues.displayName,
+    email: dataValues.email,
+    image: dataValues.image || '',
   };
 
-  const result = jwt.sign(data, process.env.JWT_SECRET, jwtConfig);
+  const result = jwt.sign({ data }, process.env.JWT_SECRET, jwtConfig);
 
   return result;
 };
 
 const login = async (email, password) => {
   const { error } = loginSchema.validate({ email, password });
-
-  console.log(error);
   
   if (error) return { status: 400, message: error.message };
 
-  const getUser = await User.findAll({ where: { email, password } });
+  const getUser = await User.findOne({ where: { email, password } });
 
-  if (getUser.length === 1) {
+  if (getUser) {
     const token = generateToken(getUser);
 
     return { status: 200, result: { token } };

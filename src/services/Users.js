@@ -15,9 +15,9 @@ const create = async (displayName, email, password, image) => {
   
   if (error) return { status: 400, message: error.message };
 
-  const checkEmail = await User.findAll({ where: { email } });
+  const checkEmail = await User.findOne({ where: { email } });
 
-  if (checkEmail.length) return { status: 409, message: 'User already registered' };
+  if (checkEmail) return { status: 409, message: 'User already registered' };
 
   const createdUser = await User.create(value);
 
