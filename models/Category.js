@@ -1,9 +1,12 @@
-const Category = (sequelize, DataTypes) => {
-    const category = {
-        id: DataTypes.INTEGER,
+module.exports = (sequelize, DataTypes) => {
+    const Category = sequelize.define('Category', {
         name: DataTypes.STRING,
-    };
-    return category;
+    });
+    Category.associate = (models) => {
+        Category.hasMany(models.PostCategory, {
+            foreignKey: 'categoryId',
+            as: 'postsCategories',
+        });
+    };    
+    return Category;
 };
-
-module.exports = Category;
