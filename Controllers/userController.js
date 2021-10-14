@@ -25,7 +25,20 @@ const login = async (req, res, next) => {
   }
 };
 
+const listAll = async (req, res, next) => {
+  try {
+    const result = await User.listAll(req.body);
+    if (result.message) return next(result);
+
+    return res.status(200).json(result);
+  } catch (e) {
+    console.log(e.message);
+    next(builtError(500, 'Internal Error'));
+  }
+};
+
 module.exports = {
   addNew,
   login,
+  listAll,
 };
