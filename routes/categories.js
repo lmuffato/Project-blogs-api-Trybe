@@ -13,4 +13,6 @@ routes.post(
   categoriesController.create,
 );
 
+routes.get('/', validateToken, categoriesController.get);
+
 module.exports = routes;
