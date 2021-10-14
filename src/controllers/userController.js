@@ -1,5 +1,5 @@
 const { StatusCodes: { CREATED, OK } } = require('http-status-codes');
-const { create, listAllUsers } = require('../services/userService');
+const { create, listAllUsers, getUserById } = require('../services/userService');
 const login = require('../services/loginService');
 
 const createNewUser = async (req, res, next) => {
@@ -23,8 +23,17 @@ const loginUser = async (req, res, next) => {
 const getEveryone = async (_req, res, next) => {
   try {
     const allUsers = await listAllUsers();
-    // console.log('📓 ~ file: userController.js ~ line 26 ~ getEveryone ~ allUsers', allUsers);
     return res.status(OK).json(allUsers);
+  } catch (e) {
+    next(e);
+  }
+};
+
+const getByID = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const oneUser = await getUserById(id);
+    return res.status(OK).json(oneUser);
   } catch (e) {
     next(e);
   }
@@ -34,4 +43,5 @@ module.exports = {
   createNewUser,
   loginUser,
   getEveryone,
+  getByID,
 };

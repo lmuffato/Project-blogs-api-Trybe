@@ -1,5 +1,5 @@
 const error = require('./error');
-const validUser = require('./user');
+const { validUser, checkIfUserExists } = require('./user');
 const login = require('./login');
 const Auth = require('./Authentication');
 
@@ -8,4 +8,5 @@ module.exports = {
   validUser,
   login,
   Auth,
+  checkIfUserExists,
 };

@@ -21,4 +21,9 @@ const listAllUsers = async () => {
   return allUsers;
 };
 
-module.exports = { create, listAllUsers };
+const getUserById = async (id) => {
+  const user = await User.findByPk(id);
+  return user;
+};
+
+module.exports = { create, listAllUsers, getUserById };

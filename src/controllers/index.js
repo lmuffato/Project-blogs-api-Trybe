@@ -1,7 +1,8 @@
-const { createNewUser, loginUser, getEveryone } = require('./userController');
+const { createNewUser, loginUser, getEveryone, getByID } = require('./userController');
 
 module.exports = {
   createNewUser,
   loginUser,
   getEveryone,
+  getByID,
 };
