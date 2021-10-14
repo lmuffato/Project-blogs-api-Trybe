@@ -12,12 +12,12 @@ const createNewCategory = async (req, res, next) => {
 
 const getAllCategories = async (req, res, next) => {
   try {
-    const allCategories = await listAllCategories()
-    return res.status(OK).json(allCategories)
+    const allCategories = await listAllCategories();
+    return res.status(OK).json(allCategories);
   } catch (e) {
-    next(e)
+    next(e);
   }
-}
+};
 
 module.exports = {
   createNewCategory,
