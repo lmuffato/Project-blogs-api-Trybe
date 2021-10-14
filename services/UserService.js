@@ -25,7 +25,7 @@ const createUser = async (data) => {
 const userLogin = async (data) => {
   const { email } = data;
   const findUser = await User.findOne({ where: { email } });
-  if (findUser === null) return { status: 400, message: 'Invalid fields' };
+  if (!findUser) return { status: 400, message: 'Invalid fields' };
 
   const jwtConfig = {
     expiresIn: '7d',
@@ -37,7 +37,20 @@ const userLogin = async (data) => {
   return { status: 200, token };
 };
 
+const getUsers = async () => {
+  const users = await User.findAll();
+  return { status: 200, data: users };
+};
+
+const getUserById = async (id) => {
+  const user = await User.findByPk(id);
+  if (!user) return { status: 404, message: 'User does not exist' };
+  return { status: 200, data: user };
+};
+
 module.exports = {
   createUser,
   userLogin,
+  getUsers,
+  getUserById,
 };
