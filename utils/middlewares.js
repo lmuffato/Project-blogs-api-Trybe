@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const { findCategory } = require('../controllers/categoryControllers');
 const { 
   invalidEmail, 
   emailRequired, 
@@ -8,6 +9,10 @@ const {
   passwordRequired,
   emptyEmail,
   emptyPassword,
+  categoryIdNotFound,
+  requiredTitle,
+  requiredContent,
+  requiredCategoryId,
 } = require('./errorsList');
 
 const joiEmail = Joi.string().email().required();
@@ -58,9 +63,32 @@ const validLogin = (req, res, next) => {
   next();
 };
 
+const validCategory = (req, res, next) => {
+  const { categoryIds } = req.body;
+  categoryIds.forEach(async (id) => {
+    const category = await findCategory(id);
+    if (!category) return res.status(categoryIdNotFound.status).json(categoryIdNotFound.message);
+  });
+  
+  next();
+};
+
+const postValidFields = (req, res, next) => {
+  const { categoryIds, content, title } = req.body;
+
+  
+  if (!categoryIds) return res.status(requiredCategoryId.status).json(requiredCategoryId.message);
+  if (!title) return res.status(requiredTitle.status).json(requiredTitle.message);
+  if (!content) return res.status(requiredContent.status).json(requiredContent.message);
+
+  next();
+};
+
 module.exports = {
   validEmail,
   validName,
   validPassword,
   validLogin,
+  validCategory,
+  postValidFields,
 };

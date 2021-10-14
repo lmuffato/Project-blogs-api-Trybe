@@ -38,6 +38,26 @@ const emptyPassword = {
   message: { message: '"password" is not allowed to be empty' },
 };
 
+const categoryIdNotFound = {
+  status: 400,
+  message: { message: '"categoryIds" not found' },
+};
+
+const requiredTitle = {
+  status: 400,
+  message: { message: '"title" is required' },
+};
+
+const requiredContent = {
+  status: 400,
+  message: { message: '"content" is required' },
+};
+
+const requiredCategoryId = {
+  status: 400,
+  message: { message: '"categoryIds" is required' },
+};
+
 module.exports = {
   invalidEmail,
   emailRequired,
@@ -47,4 +67,8 @@ module.exports = {
   passwordRequired,
   emptyEmail,
   emptyPassword,
+  categoryIdNotFound,
+  requiredTitle,
+  requiredContent,
+  requiredCategoryId,
 };

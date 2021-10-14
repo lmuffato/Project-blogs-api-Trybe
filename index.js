@@ -7,6 +7,8 @@ const {
   validName, 
   validPassword, 
   validLogin,
+  validCategory,
+  postValidFields,
 } = require('./utils/middlewares');
 
 const validateJWT = require('./auth/validateJWT');
@@ -39,3 +41,4 @@ app.get('/user', validateJWT, userController.listUsers);
 app.get('/user/:id', validateJWT, userController.findUser);
 app.post('/categories', validateJWT, categoryController.createNewCategory);
 app.get('/categories', validateJWT, categoryController.listCategories);
+app.post('/post', validateJWT, postValidFields, validCategory, categoryController.createNewPost);
