@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 
 const users = require('./Routes/users');
 const { handleErrors } = require('./Middlewares/errors');
+const { validateLogin } = require('./Middlewares/user');
+const UserController = require('./Controllers/userController');
 
 const app = express();
 
@@ -11,6 +13,8 @@ app.use(bodyParser.json());
 app.get('/', (request, response) => {
   response.send();
 });
+
+app.post('/login', validateLogin, UserController.login);
 
 app.use('/user', users);
 app.use(handleErrors);
