@@ -29,4 +29,19 @@ router.get('/', checkAuthentication, async (_req, res, next) => {
   }
 });
 
+router.get('/:id', checkAuthentication, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const { status, message, result } = await Users.findOne(id);
+
+    if (message) return res.status(status).json({ message });
+
+    return res.status(status).json(result);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
 module.exports = router;
