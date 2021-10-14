@@ -1,0 +1,11 @@
+const CREATED_STATUS = 201;
+const BAD_REQUEST = 400;
+const CONFLICT = 409;
+const UNAUTHORIZED = 401;
+
+module.exports = {
+  CREATED_STATUS,
+  BAD_REQUEST,
+  CONFLICT,
+  UNAUTHORIZED,
+};
