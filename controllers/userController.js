@@ -1,4 +1,6 @@
-const { Users } = require('../models');
+const userService = require('../services/userService');
+
+const HTTP_CREATED_STATUS = 201;
 
 // const getAll = (req, res, next) => {
 //   User.findAll()
@@ -28,20 +30,18 @@ const { Users } = require('../models');
 //     });
 // };
 
-const create = (req, res) => {
+const create = async (req, res) => {
   const { displayName, email, password, image } = req.body;
 
-  Users.create({ displayName, email, password, image })
-    .then((newUser) => {
-      // Separamos a senha do restante do objeto, para que ela não seja retornada na API
-      const { id } = newUser;
+  const response = await userService.insertUser({ displayName, email, password, image });
 
-      res.status(200).json({ id, displayName, email, image });
-    })
-    .catch((e) => {
-      console.log(e.message);
-      res.status(500).send({ message: 'Algo deu errado' });
+  if (response.code) {
+    return res.status(response.code).json({
+        message: response.message,
     });
+}
+
+  return res.status(HTTP_CREATED_STATUS).json(response);
 };
 
 // const update = async (req, res) => {
