@@ -19,11 +19,17 @@ const createUser = async (body) => {
   if (userAlreadyExists) return { code: 409, message: 'User already registered' };
 
   await User.create(body);
-  const token = jwt.sign({ data: body }, secret, jwtConfig);
+  const token = jwt.sign({ data: body.email }, secret, jwtConfig);
   
   return token;
 };
 
+const getAllUsers = async () => {
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+  return users;
+};
+
 module.exports = {
   createUser,
+  getAllUsers,
 };
