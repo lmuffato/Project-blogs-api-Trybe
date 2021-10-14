@@ -1,8 +1,8 @@
-const { Categorie } = require('../models');
+const { Category } = require('../models');
 
 const create = async (name) => {
   try {
-    const created = await Categorie.create({ name });
+    const created = await Category.create({ name });
     return created;
   } catch (e) {
     console.log(e);
@@ -11,7 +11,7 @@ const create = async (name) => {
 
 const getAll = async () => {
   try {
-    const allCategories = await Categorie.findAll();
+    const allCategories = await Category.findAll();
     return allCategories;
   } catch (e) {
     console.log(e);
