@@ -32,8 +32,8 @@ const login = async (req, res) => {
     if (!user) return res.status(400).json({ message: 'Invalid fields' });
 
     res.status(200).json({ token });
-  } catch (e) {
-    return res.status(500).json({ message: e.message });
+  } catch ({ message }) {
+    res.status(500).json({ message });
   }
 };
 
@@ -41,8 +41,8 @@ const listUsers = async (_req, res) => {
   try {
     const users = await User.findAll({ attributes: ['id', 'displayName', 'email', 'image'] });
     res.status(200).json(users);
-  } catch (e) {
-    return res.status(500).json({ message: e.message });
+  } catch ({ message }) {
+    res.status(500).json({ message });
   }
 };
 
@@ -53,8 +53,8 @@ const findUser = async (req, res) => {
     const user = await User.findOne({ where: { id } });
     if (!user) return res.status(404).json({ message: 'User does not exist' });
     res.status(200).json(user);
-  } catch (e) {
-    return res.status(500).json({ message: e.message });
+  } catch ({ message }) {
+    res.status(500).json({ message });
   }
 };
 

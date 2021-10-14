@@ -42,6 +42,6 @@ app.get('/user', validateJWT, userController.listUsers);
 app.get('/user/:id', validateJWT, userController.findUser);
 app.post('/categories', validateJWT, categoryController.createNewCategory);
 app.get('/categories', validateJWT, categoryController.listCategories);
-app.post('/post', postValidFields, validCategory, validateJWT, postController.createNewPost);
+app.post('/post', validateJWT, postValidFields, validCategory, postController.createNewPost);
 app.get('/post', validateJWT, postController.listPosts);
 app.get('/post/:id', validateJWT, postController.findPost);

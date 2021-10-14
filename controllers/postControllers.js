@@ -13,8 +13,8 @@ const createNewPost = async (req, res) => {
       title, content, categoryIds, userId });
 
     return res.status(201).json(result);
-  } catch (err) {
-    console.log(err);
+  } catch ({ message }) {
+    res.status(500).json({ message });
   }
 };
 
@@ -49,8 +49,8 @@ const findPost = async (req, res) => {
     });
     if (!result) return res.status(404).json({ message: 'Post does not exist' });
     return res.status(200).json(result);
-  } catch (err) {
-    return res.status(500).json(err);
+  } catch ({ message }) {
+    res.status(500).json({ message });
   }
 };
 
