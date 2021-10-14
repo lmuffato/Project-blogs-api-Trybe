@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { secret } = require('../utils/jwtConfig');
+const { User } = require('../models');
 
 const auth = async (req, res, next) => {
   const token = req.headers.authorization;
@@ -7,7 +8,11 @@ const auth = async (req, res, next) => {
   if (!token) return res.status(401).json({ message: 'Token not found' });
 
   try {
-    jwt.verify(token, secret);
+    const { data } = jwt.verify(token, secret);
+    const { dataValues } = await User.findOne(
+      { where: { email: data }, attributes: { exclude: ['password'] } },
+    );
+    req.user = dataValues;
     return next();
   } catch (err) {
     console.log(err.message);
