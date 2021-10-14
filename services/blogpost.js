@@ -1,4 +1,4 @@
-const { BlogPost, Category } = require('../models/index');
+const { BlogPost, Category, User } = require('../models/index');
 const Joi = require('../Joi/templates');
 
 const createPost = async (body, user) => {
@@ -18,6 +18,11 @@ const createPost = async (body, user) => {
   return result;
 };
 
+const getAllPosts = async () => BlogPost.findAll(
+  { include: [{ model: User, as: 'user' }, { model: Category, as: 'categories' }] },
+);
+
 module.exports = {
   createPost,
+  getAllPosts,
 };
