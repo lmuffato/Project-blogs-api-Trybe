@@ -1,5 +1,6 @@
 const status = {
   BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
   HTTP_STATUS_CONFLICT: 409,
   HTTP_STATUS_CREATED: 201,
   HTTP_STATUS_OK: 200,
@@ -12,6 +13,8 @@ const status = {
   PASSWORD_EMPTY: '"password" is not allowed to be empty',
   ERROR_MESSAGE: 'User already registered',
   ERROR_LOGIN: 'Invalid fields',
+  ERROR_TOKEN: 'Token not found',
+  EXPIRED_TOKEN: 'Expired or invalid token',
 };
 
 module.exports = {
