@@ -19,7 +19,12 @@ const createPost = async (body, user) => {
 };
 
 const getAllPosts = async () => BlogPost.findAll(
-  { include: [{ model: User, as: 'user' }, { model: Category, as: 'categories' }] },
+  {
+    include: [
+      { model: User, as: 'user' },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  },
 );
 
 module.exports = {
