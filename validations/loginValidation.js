@@ -8,8 +8,8 @@ const validateLogin = rescue(async (req, _res, next) => {
   // console.log(error, 'ERROOOOOOOOOOR');
   if (error) next({ message: error.details[0].message, status: 400 });
 
-  const { email } = req.body;
-  const userExists = await User.findOne({ where: { email } });
+  const { email, password } = req.body;
+  const userExists = await User.findOne({ where: { email, password } });
   
   if (!userExists) {
     next({ message: 'Invalid fields', status: 400 });
