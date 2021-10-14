@@ -17,21 +17,21 @@ module.exports = {
         type: Sequelize.STRING
       },
       password: {
-        allowNull: true,
+        // allowNull: true,
         type: Sequelize.STRING
       },
       image: {
         // allowNull: true,
         type: Sequelize.STRING
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
+      // createdAt: {
+      //   allowNull: false,
+      //   type: Sequelize.DATE
+      // },
+      // updatedAt: {
+      //   allowNull: false,
+      //   type: Sequelize.DATE
+      // }
     });
   },
   down: async (queryInterface, Sequelize) => {
