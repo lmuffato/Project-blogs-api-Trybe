@@ -6,13 +6,13 @@ const { login } = require('../controllers/loginController');
 const validateUser = require('../validations/userValidations');
 const validateLogin = require('../validations/loginValidations');
 
-// const validateJWT = require('../auth/validateJWT');
+const validateJWT = require('../auth/validateJWT');
 
 const routes = Router();
 
 routes.post('/user', validateUser, createUser); // requisito 1
 routes.post('/login', validateLogin, login); // requisito 2
-routes.get('/user', findAll); // requisito 3
+routes.get('/user', validateJWT, findAll); // requisito 3
 // routes.get('/user/:id', createUser); // requisito 4
 // routes.post('/categories', createUser); // requisito 5
 // routes.get('/categories', createUser); // requisito 6
