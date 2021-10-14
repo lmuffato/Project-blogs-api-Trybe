@@ -15,4 +15,9 @@ const createUser = async (newUser) => {
   return createToken(user);
 };
 
-module.exports = { createUser };
+const getAllUsers = async () => {
+  const users = await User.findAll();
+  return users;
+};
+
+module.exports = { createUser, getAllUsers };

@@ -5,7 +5,9 @@ const userRouter = express.Router();
 
 const users = require('../controllers/userControllers');
 const userValidation = require('../middlewares/userValidation');
+const tokenValidation = require('../middlewares/tokenValidation');
 
 userRouter.post('/', userValidation, rescue(users.createUser));
+userRouter.get('/', tokenValidation, rescue(users.getAllUsers));
 
 module.exports = userRouter;

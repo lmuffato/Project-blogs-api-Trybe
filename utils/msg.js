@@ -1,4 +1,5 @@
 const STATUS_BAD_REQUEST = 400;
+const STATUS_UNAUTHORIZED = 401;
 const STATUS_CONFLICT = 409;
 const STATUS_CREATED = 201;
 const STATUS_OK = 200;
@@ -6,15 +7,20 @@ const STATUS_NO_CONTENT = 204;
 
 const MSG_ALREADY_REG = 'User already registered';
 const MSG_INVALID_FIELDS = 'Invalid fields';
+const MSG_TOKEN_NOT_FOUND = 'Token not found';
+const MSG_TOKEN_EXPIRED = 'Expired or invalid token';
 
 const CONFLICT_ERROR = { status: STATUS_CONFLICT, message: MSG_ALREADY_REG };
 const INVALID_FIELDS = { status: STATUS_BAD_REQUEST, message: MSG_INVALID_FIELDS };
 
 module.exports = {
   STATUS_BAD_REQUEST,
+  STATUS_UNAUTHORIZED,
   CONFLICT_ERROR,
   STATUS_CREATED,
   STATUS_OK,
   STATUS_NO_CONTENT,
   INVALID_FIELDS,
+  MSG_TOKEN_NOT_FOUND,
+  MSG_TOKEN_EXPIRED,
 };

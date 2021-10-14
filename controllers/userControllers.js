@@ -1,5 +1,5 @@
 const users = require('../services/usersService');
-const { STATUS_CREATED } = require('../utils/msg');
+const { STATUS_CREATED, STATUS_OK } = require('../utils/msg');
 
 const createUser = async (req, res) => {
   const newUser = req.body;
@@ -7,4 +7,9 @@ const createUser = async (req, res) => {
   return res.status(STATUS_CREATED).json(user);
 };
 
-module.exports = { createUser };
+const getAllUsers = async (_req, res) => {
+  const user = await users.getAllUsers();
+  return res.status(STATUS_OK).json(user);
+};
+
+module.exports = { createUser, getAllUsers };
