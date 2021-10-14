@@ -1,6 +1,6 @@
 const { tokenGenerator } = require('../token/tokenGenerator');
 
-const loginService = async ({ email, password }) => {
+const loginService = ({ email, password }) => {
   // console.log(email, password, 'loginService');
   const token = tokenGenerator({ email, password });
 
