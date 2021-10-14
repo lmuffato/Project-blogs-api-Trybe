@@ -10,6 +10,15 @@ const create = async (name) => {
   }
 };
 
+const listAll = async () => {
+  try {
+    return Category.findAll();
+  } catch (e) {
+    return builtError(500, e.message);
+  }
+};
+
 module.exports = {
   create,
+  listAll,
 };
