@@ -8,6 +8,7 @@ const create = async (displayName, email, password, image) => {
       displayName: user.displayName,
       email: user.email,
       image: user.image,
+      id: user.id,
     };
     const token = tokenGenerator(data);
 

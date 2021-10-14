@@ -13,6 +13,7 @@ const postLogin = async (email1) => {
       displayName: user.displayName,
       email: user.email,
       image: user.image,
+      id: user.id,
     };
     const token = tokenGenerator(data);
 
