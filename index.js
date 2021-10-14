@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const user = require('./routes/userRouters');
 const login = require('./routes/loginRouter');
+const categories = require('./routes/categoryRouters');
 
 const PORT = process.env.PORT || 3000;
 
@@ -10,9 +11,10 @@ app.use(bodyParser.json());
 
 app.use('/user', user);
 app.use('/login', login);
+app.use('/categories', categories);
 
 app.use((error, _req, res, _next) => {
-  // console.log(error);
+  console.log(error);
   res.status(error.status).json({ message: error.message });
 });
 
