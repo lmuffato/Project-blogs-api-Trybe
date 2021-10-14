@@ -1,10 +1,14 @@
 const { User } = require('../../models');
-const UserSchema = require('../../schemas/UserSchema');
+const UserSchema = require('../../schemas/user');
 
 module.exports = async (newUserData) => {
-  const { error } = UserSchema(newUserData);
+  const { error } = UserSchema.UserValidations(newUserData);
 
-  if (error) return { code: 400, message: error.details[0].message };
+  // const userExists = UserSchema.userEmailExists(newUserData.email);
+
+  // if (userExists.message) return userExists;
+
+  if (error) return { status: 400, message: error.details[0].message };
 
   const createdUser = await User.create(newUserData);
   return createdUser;
