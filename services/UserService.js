@@ -19,18 +19,28 @@ const createUsers = async (displayName, email, password, image) => {
 const loginUsers = async (email, password) => {
   const validateInsertedBodyError = validations
   .validateBodyLoginUsers({ email, password });
-if (validateInsertedBodyError) {
-  return { numberStatus: 400, message: validateInsertedBodyError.details[0].message };
-}
+  if (validateInsertedBodyError) {
+    return { numberStatus: 400, message: validateInsertedBodyError.details[0].message };
+  }
 
-const validateIfExistsUser = await validations
-  .validateAlreadyExistsUserByEmail(email);
-if (!validateIfExistsUser) {
-  return { numberStatus: 400, message: 'Invalid fields' };
-}
+  const validateIfExistsUser = await validations
+    .validateAlreadyExistsUserByEmail(email);
+  if (!validateIfExistsUser) {
+    return { numberStatus: 400, message: 'Invalid fields' };
+  }
+};
+
+const getAllUsersCheck = async (token) => {
+  const validateToken = validations
+  .validateToken(token);
+  if (validateToken) {
+    return { numberStatus: 401, message: validateToken.message };
+  }
+  return false;
 };
 
 module.exports = {
   createUsers,
   loginUsers,
+  getAllUsersCheck,
 };

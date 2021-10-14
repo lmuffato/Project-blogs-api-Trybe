@@ -1,4 +1,8 @@
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
+const JWTSECRET = process.env.JWT_SECRET;
 
 const { Users } = require('../models');
 
@@ -31,8 +35,19 @@ const validateBodyLoginUsers = (body) => {
   return false;
 };
 
+const validateToken = (token) => {
+  if (!token) return { message: 'Token not found' };
+  try {
+    jwt.verify(token, JWTSECRET);
+    return false;
+  } catch (_err) {
+    return { message: 'Expired or invalid token' };
+  }
+};
+
 module.exports = {
   validateBodyCreateUsers,
   validateAlreadyExistsUserByEmail,
   validateBodyLoginUsers,
+  validateToken,
 };
