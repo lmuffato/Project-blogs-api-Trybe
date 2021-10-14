@@ -1,9 +1,9 @@
-const BlogPosts = require('../services/BlogPostService');
+// const BlogPosts = require('../services/BlogPostService');
 
-const createPost = (req, res) => {
+const createPost = (_req, _res) => {
 
 };
 
 module.exports = {
-  
-}
+  createPost,
+};
