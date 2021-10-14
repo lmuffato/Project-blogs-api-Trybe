@@ -8,7 +8,7 @@ const {
   validatePasswordLogin,
   validateToken,
 } = require('./midlewares');
-const { postUser, postLogin, getUser } = require('./controllers');
+const { postUser, postLogin, getUser, getOneUser } = require('./controllers');
 
 const app = express();
 
@@ -24,5 +24,7 @@ app.get('/', (request, response) => {
 app.post('/user', validateEmailFormat, validateName, validatePassword, postUser);
 
 app.get('/user', validateToken, getUser);
+
+app.get('/user/:id', validateToken, getOneUser);
 
 app.post('/login', validateEmailLogin, validatePasswordLogin, postLogin);
