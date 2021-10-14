@@ -20,3 +20,4 @@ app.get('/', (request, response) => {
 app.post('/user', validationCreateUser, userController.create);
 app.post('/login', validationLogin, userController.login);
 app.get('/user', validationtoken, userController.getAll);
+app.get('/user/:id', validationtoken, userController.getById);
