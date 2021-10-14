@@ -1,4 +1,4 @@
-const { BlogPost } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 
 const create = async (title, content, userId) => {
   try {
@@ -21,6 +21,27 @@ const create = async (title, content, userId) => {
   }
 };
 
+// tutorial do uso do include https://sequelize.org/master/manual/eager-loading.html
+
+const getAll = async () => {
+  try {
+    const posts = await BlogPost.findAll({
+      include: [
+        {
+          model: Category, as: 'categories',
+        },
+        {
+          model: User, as: 'user',
+        },
+      ],
+    });
+    return posts;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 module.exports = {
   create,
+  getAll,
 };

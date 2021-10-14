@@ -10,4 +10,6 @@ const postRouter = express.Router();
 postRouter.post('/', ...tokenValidation,
   validatePost, verifyCategoryIds, postController.create);
 
+postRouter.get('/', ...tokenValidation, postController.getAll);
+
 module.exports = postRouter;
