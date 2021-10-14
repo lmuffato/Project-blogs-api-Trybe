@@ -18,7 +18,7 @@ const create = async (payload) => {
 const login = async ({ email, password }) => {
   try {
     const user = await User.findOne({ where: { email } });
-    if (!user || user.password !== password) return builtError(400, 'Campos inválidos');
+    if (!user || user.password !== password) return builtError(400, 'Invalid fields');
     return { token: generateToken({ email }) };
   } catch (e) {
     return builtError(500, e.message);
