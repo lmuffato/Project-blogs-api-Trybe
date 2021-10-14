@@ -2,17 +2,17 @@ const userService = require('../services/userService');
 
 const HTTP_OK_STATUS = 200;
 const HTTP_CREATED_STATUS = 201;
+const HTTP_BAD_STATUS = 400;
 
-// const getAll = (req, res, next) => {
-//   User.findAll()
-//     .then((users) => {
-//       res.status(200).json(users);
-//     })
-//     .catch((e) => {
-//       console.log(e.message);
-//       res.status(500).json({ message: 'Algo deu errado' });
-//     });
-// };
+const getAll = async (_req, res) => {
+  try {
+    const response = await userService.findAll();
+
+    return res.status(HTTP_CREATED_STATUS).json(response);
+  } catch (error) {
+    return res.status(HTTP_BAD_STATUS).json({ error });
+  }
+};
 
 // const getById = (req, res) => {
 //   User.findByPk(req.params.id)
@@ -99,6 +99,7 @@ module.exports = {
   // getById,
   create,
   login,
+  getAll,
   // update,
   // remove,
 }; 

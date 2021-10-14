@@ -41,7 +41,20 @@ const login = async ({ email, password }) => {
   return { token };
 };
 
+const findAll = async () => {
+  const users = await Users.findAll();
+  const response = [];
+
+  users.forEach((user) => {
+    const { id, displayName, email, image } = user;
+    response.push({ id, displayName, email, image });
+  });
+
+  return response;
+};
+
 module.exports = {
   insertUser,
   login,
+  findAll,
 };

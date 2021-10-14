@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const usersController = require('./controllers/userController');
+const authMiddleware = require('./middlewares/authMiddleware');
 // const loginController = require('./controllers/loginController');
 
 // não remova esse endpoint, e para o avaliador funcionar
@@ -14,6 +15,7 @@ app.get('/', (request, response) => {
   response.send();
 });
 
+app.get('/user', authMiddleware, usersController.getAll);
 app.post('/user', usersController.create);
 app.post('/login', usersController.login);
 
