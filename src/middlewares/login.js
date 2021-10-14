@@ -1,4 +1,4 @@
-const { BAD_REQUEST } = require('http-status-codes');
+const { StatusCodes: { BAD_REQUEST } } = require('http-status-codes');
 const { User } = require('../models');
 const { loginSchema } = require('../validations/schema');
 
