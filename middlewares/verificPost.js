@@ -15,4 +15,23 @@ const existPost = async (req, res, next) => {
   next();
 };
 
-module.exports = { existPost };
+const isValidUser = async (req, res, next) => {
+    const { id } = req.params;
+    const { id: userId } = req.user;
+  
+    const { dataValues } = await BlogPosts.findOne({ where: { id } });
+  
+    if (dataValues.userId !== userId) {
+      return next({
+        code: 401,
+        message: 'Unauthorized user',
+      });
+    }
+  
+    next();
+  };
+
+  module.exports = {
+    existPost,
+    isValidUser,
+  };

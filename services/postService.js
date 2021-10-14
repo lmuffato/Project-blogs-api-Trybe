@@ -35,8 +35,26 @@ const getById = async (id) => {
     return getPost;
 };
 
+const editPost = async (id, title, content) => {
+    await BlogPosts.update({ title, content }, { where: { id } });
+  
+    const allCategories = await BlogPosts.findOne({
+      where: { id },
+      attributes: { exclude: ['id', 'published', 'updated'] },
+      include: [{ model: Categories, as: 'categories', through: { attributes: [] } }],
+    });
+  
+    return allCategories;
+};
+
+const deletePost = async (id) => {
+  await BlogPosts.destroy({ where: { id } });  
+};
+  
 module.exports = {
-    createPost,
-    getAllPost,
-    getById,
+  createPost,
+  getAllPost,
+  getById,
+  editPost,
+  deletePost,
 };

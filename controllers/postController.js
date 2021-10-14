@@ -23,8 +23,27 @@ const getById = async (req, res, _next) => {
     return res.status(200).json(getPost);
 };
 
+const editPost = async (req, res, _next) => {
+    const { id } = req.params;
+    const { title, content } = req.body;
+  
+    const newPost = await postService.editPost(id, title, content);
+  
+    return res.status(200).json(newPost);
+};
+
+const deletePost = async (req, res, _next) => {
+  const { id } = req.params;
+  
+  await postService.deletePost(id);
+
+  return res.status(204).end();
+};
+
 module.exports = {
-    createPost,
-    getAllPost,
-    getById,
+  createPost,
+  getAllPost,
+  getById,
+  editPost,
+  deletePost,
 };
