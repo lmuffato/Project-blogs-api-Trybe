@@ -33,8 +33,19 @@ const listAll = async () => {
   }
 };
 
+const listById = async (id) => {
+  try {
+    const user = await User.findOne({ where: { id }, attributes: { exclude: ['password'] } });
+    if (!user) return builtError(404, 'User does not exist');
+    return user;
+  } catch (e) {
+    return builtError(500, e.message);
+  }
+};
+
 module.exports = {
   create,
   login,
   listAll,
+  listById,
 };
