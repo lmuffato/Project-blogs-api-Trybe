@@ -15,6 +15,10 @@ router.get('/',
 tokenAuth,
 postsController.getPosts);
 
+router.get('/search', 
+tokenAuth,
+postsController.searchPost);
+
 router.get('/:id', 
 tokenAuth,
 postsController.getPost);
