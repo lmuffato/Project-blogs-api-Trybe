@@ -14,22 +14,19 @@ const getAll = async (_req, res) => {
   }
 };
 
-// const getById = (req, res) => {
-//   User.findByPk(req.params.id)
-//     .then(async (user) => {
-//       if (user === null) {
-//         res.status(404).send({ message: 'Usuário não encontrado' });
-//       }
+const getById = async (req, res) => {
+  const { id } = req.params;
 
-//       const products = await user.getProducts();
+  const response = await userService.findByID(id);
 
-//       res.status(200).json({ ...user.dataValues, products });
-//     })
-//     .catch((e) => {
-//       console.log(e.message);
-//       res.status(500).json({ message: 'Algo deu errado' });
-//     });
-// };
+  if (response.code) {
+    return res.status(response.code).json({
+        message: response.message,
+    });
+}
+
+  return res.status(HTTP_OK_STATUS).json(response);
+};
 
 const create = async (req, res) => {
   const { displayName, email, password, image } = req.body;
@@ -59,47 +56,9 @@ const login = async (req, res) => {
   return res.status(HTTP_OK_STATUS).json(response);
 };
 
-// const update = async (req, res) => {
-//   const { name, username, email, password } = req.body;
-
-//   User.update(
-//     { name, username, email, password },
-//     {
-//       where: {
-//         id: req.params.id,
-//       },
-//     }
-//   )
-//     .then((users) => {
-//       res.status(200).send({ message: 'Usuário atualizado com sucesso.' });
-//     })
-//     .catch((e) => {
-//       console.log(e.message);
-//       res.status(500).send({ message: 'Algo deu errado' });
-//     });
-// };
-
-// const remove = async (req, res) => {
-//   User.destroy({
-//     where: {
-//       id: req.params.id,
-//     },
-//   })
-//     .then((users) => {
-//       res.status(200).send({ message: 'Usuário excluído com sucesso.' });
-//     })
-//     .catch((e) => {
-//       console.log(e.message);
-//       res.status(500).send({ message: 'Algo deu errado' });
-//     });
-// };
-
 module.exports = {
-  // getAll,
-  // getById,
   create,
   login,
   getAll,
-  // update,
-  // remove,
+  getById,
 }; 

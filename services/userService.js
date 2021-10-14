@@ -4,6 +4,10 @@ const userSchema = require('../schema/userSchema');
 
 const SECRET = 'Trybe';
 
+const HTTP_BAD_STATUS = 400;
+const HTTP_CONFLICT_STATUS = 409;
+const HTTP_NOT_FOUND_STATUS = 404;
+
 const insertUser = async (user) => {
   const { displayName, email, password, image } = user;
   const isNameValid = userSchema.validateName(displayName);
@@ -15,7 +19,7 @@ const insertUser = async (user) => {
   if (isPasswordValid) return ({ code: isPasswordValid.code, message: isPasswordValid.message });
 
   const alreadyExists = await Users.findOne({ where: { email } });
-  if (alreadyExists) return ({ code: 409, message: 'User already registered' });
+  if (alreadyExists) return ({ code: HTTP_CONFLICT_STATUS, message: 'User already registered' });
   const newUser = await Users.create({ displayName, email, password, image });
   const { password: _, ...userPayload } = newUser.dataValues;
 
@@ -32,7 +36,7 @@ const login = async ({ email, password }) => {
   if (isPasswordValid) return ({ code: isPasswordValid.code, message: isPasswordValid.message });
 
   const alreadyExists = await Users.findOne({ where: { email } });
-  if (!alreadyExists) return ({ code: 400, message: 'Invalid fields' });
+  if (!alreadyExists) return ({ code: HTTP_BAD_STATUS, message: 'Invalid fields' });
 
   const { password: _, ...userPayload } = alreadyExists.dataValues;
 
@@ -53,8 +57,20 @@ const findAll = async () => {
   return response;
 };
 
+const findByID = async (receivedId) => {
+  const user = await Users.findByPk(receivedId);
+
+  if (!user) return ({ code: HTTP_NOT_FOUND_STATUS, message: 'User does not exist' });
+
+  const { id, displayName, email, image } = user;
+  const response = { id, displayName, email, image };
+
+  return response;
+};
+
 module.exports = {
   insertUser,
   login,
   findAll,
+  findByID,
 };

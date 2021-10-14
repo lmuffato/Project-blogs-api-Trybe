@@ -68,18 +68,10 @@ const validatePasswordLogin = (password) => {
   }
 };
 
-// const findValueInArrayOfObjects = (array, value, key) => {
-//   const result = array.find((object) => object[key] === value);
-//   if (result) return true;
-//   return false;
-// };
-
 module.exports = {
   validateName,
   validatePassword,
   validateEmail,
   validateEmailLogin,
   validatePasswordLogin,
-  // findValueInArrayOfObjects,
-  // validateId,
 };
