@@ -8,6 +8,15 @@ const addNew = async (req, res, next) => {
   return res.status(201).json(result);
 };
 
+const listAll = async (req, res, next) => {
+  const result = await Post.listAll();
+
+  if (result.message) return next(result);
+
+  return res.status(200).json(result);
+};
+
 module.exports = {
   addNew,
+  listAll,
 };
