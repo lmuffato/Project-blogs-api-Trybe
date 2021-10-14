@@ -61,7 +61,7 @@ const update = async (req, res) => {
   if (codeError === 'wrong request format') {
     return res.status(400).json({ message });
   }
-  if (message === 'Unauthorized user') {
+  if (codeError === 'Unauthorized user') {
     return res.status(401).json({ message });
   }
   return res.status(404).json({ message });
@@ -71,7 +71,7 @@ const deleteById = async (req, res) => {
   const { id: postId } = req.params;
   const { id: userIdLogged } = req.user;
   const { message, codeError } = await postServices.deleteById(postId, userIdLogged);
-  if (codeError !== undefined) {
+  if (codeError === undefined) {
     return res.status(204).send();
   }
   if (codeError === 'wrong request format') {
