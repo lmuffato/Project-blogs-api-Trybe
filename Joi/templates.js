@@ -14,7 +14,12 @@ const Login = Joi.object({
   .empty(),
 });
 
+const Category = Joi.object({
+  name: Joi.string().required().not().empty(),
+});
+
 module.exports = {
   User,
   Login,
+  Category,
 };
