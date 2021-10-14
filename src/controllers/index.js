@@ -1,5 +1,5 @@
 const { createNewUser, loginUser, getEveryone, getByID } = require('./userController');
-const { createNewCategory } = require('./categoryController');
+const { createNewCategory, getAllCategories } = require('./categoryController');
 
 module.exports = {
   createNewUser,
@@ -7,4 +7,5 @@ module.exports = {
   getEveryone,
   getByID,
   createNewCategory,
+  getAllCategories,
 };

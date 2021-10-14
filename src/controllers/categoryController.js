@@ -1,5 +1,5 @@
-const { StatusCodes: { CREATED } } = require('http-status-codes');
-const { create } = require('../services/categorieService');
+const { StatusCodes: { CREATED, OK } } = require('http-status-codes');
+const { create, listAllCategories } = require('../services/categorieService');
 
 const createNewCategory = async (req, res, next) => {
   try {
@@ -10,6 +10,16 @@ const createNewCategory = async (req, res, next) => {
   }
 };
 
+const getAllCategories = async (req, res, next) => {
+  try {
+    const allCategories = await listAllCategories()
+    return res.status(OK).json(allCategories)
+  } catch (e) {
+    next(e)
+  }
+}
+
 module.exports = {
   createNewCategory,
+  getAllCategories,
 };
