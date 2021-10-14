@@ -15,7 +15,7 @@ app.use('/', userRouter, error);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
-// não remova esse endpoint, e para o avaliador funcionar
+// não remova esse endpoint, e para o avaliador funcionar aaaa
 app.get('/', (request, response) => {
   response.send();
 });
