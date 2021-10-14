@@ -21,7 +21,6 @@ const findAll = rescue(async (req, res) => {
 const findById = rescue(async (req, res) => {
   const { id } = req.params;
   const result = await service.findById(id);
-  // console.log(result);
   if (result.error) return req.status(result.error.status).json({ message: result.error.message });
   res.status(OK).json(result);
 });

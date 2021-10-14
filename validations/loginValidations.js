@@ -6,7 +6,6 @@ const { User } = require('../models');
 
 const validateLogin = rescue(async (req, _res, next) => {
   const { error } = loginSchema.validate(req.body);
-  console.log(error);
   if (error) next({ message: error.details[0].message, statusCode: BAD_REQUEST });
   const { email, password } = req.body;
   // const { email } = req.body;
