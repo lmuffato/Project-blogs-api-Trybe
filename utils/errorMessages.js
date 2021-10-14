@@ -45,6 +45,16 @@ const EMAIL_ALREADY_EXISTS = {
   message: 'User already registered',
 };
 
+const TOKEN_NOT_FOUND = {
+  status: httpStatus.UNAUTHORIZED,
+  message: 'Token not found',
+};
+
+const TOKEN_NOT_VALID = {
+  status: httpStatus.UNAUTHORIZED,
+  message: 'Expired or invalid token',
+};
+
 module.exports = {
   DISPLAY_NAME_8_CHARACTERS,
   EMAIL_INVALID,
@@ -55,4 +65,6 @@ module.exports = {
   PASSWORD_NOT_EMPTY,
   EMAIL_ALREADY_EXISTS,
   INVALID_FIELDS,
+  TOKEN_NOT_FOUND,
+  TOKEN_NOT_VALID,
 };
