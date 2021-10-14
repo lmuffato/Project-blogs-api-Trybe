@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const { create, findAll } = require('./src/controllers/userController');
+const { create, findAll, login } = require('./src/controllers/userController');
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,3 +19,4 @@ app.get('/', (request, response) => {
 
 app.post('/user', create);
 app.get('/user', findAll);
+app.post('/login', login);
