@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       image: DataTypes.STRING,
     },
     {
-      tableName: 'users',
+      tableName: 'Users',
     },
   );
 
