@@ -49,4 +49,38 @@ const findById = async (req, res) => {
   }
 };
 
-module.exports = { create, getAll, findById };
+const update = async (req, res) => {
+  const { id: postId } = req.params;
+  const { title, content, categoryIds } = req.body;
+  const postInfo = { postId, categoryIds, content, title };
+  const { id: userIdLogged } = req.user;
+  const { message, codeError, postUpdated } = await postServices.update(postInfo, userIdLogged);
+  if (postUpdated !== undefined) {
+    return res.status(200).json(postUpdated);
+  }
+  if (codeError === 'wrong request format') {
+    return res.status(400).json({ message });
+  }
+  if (codeError === 'Unauthorized user') {
+    return res.status(401).json({ message });
+  }
+  return res.status(404).json({ message });
+};
+
+const deleteById = async (req, res) => {
+  const { id: postId } = req.params;
+  const { id: userIdLogged } = req.user;
+  const { message, codeError } = await postServices.deleteById(postId, userIdLogged);
+  if (codeError !== undefined) {
+    return res.status(204).send();
+  }
+  if (codeError === 'wrong request format') {
+    return res.status(400).json({ message });
+  }
+  if (codeError === 'Unauthorized user') {
+    return res.status(401).json({ message });
+  }
+  return res.status(404).json({ message });
+};
+
+module.exports = { create, getAll, findById, update, deleteById };
