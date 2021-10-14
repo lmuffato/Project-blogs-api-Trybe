@@ -1,11 +1,13 @@
-const BlogPost = (sequelize, DataTypes) => {
-  const BlogPosts = sequelize.define('BlogPost', {
+const BlogPosts = (sequelize, DataTypes) => {
+  const BlogPost = sequelize.define('BlogPosts', {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     userId: DataTypes.INTEGER,
+    published: DataTypes.DATE,
+    updated: DataTypes.DATE,
   }, { timestamps: false });
 
-  return BlogPosts;
+  return BlogPost;
 };
 
-module.exports = BlogPost;
+module.exports = BlogPosts;

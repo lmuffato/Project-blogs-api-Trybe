@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { Categories } = require('../models');
 require('dotenv').config();
 
 const { JWT_SECRET } = process.env;
@@ -38,12 +39,27 @@ const checkToken = (req, res, next) => {
   if (!authorization) return res.status(401).json({ message: 'Token not found' });
   
   try {
-    jwt.verify(authorization, JWT_SECRET);
-
+    const user = jwt.verify(authorization, JWT_SECRET);
+    req.user = user;
     next();
   } catch (_e) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
+};
+
+const validatePostTitleNContent = (req, res, next) => {
+  const { title, content } = req.body;
+  if (!title) return res.status(400).json({ message: '"title" is required' });
+  if (!content) return res.status(400).json({ message: '"content" is required' });
+  next();
+};
+
+const validatePostCategoryIds = async (req, res, next) => {
+  const { categoryIds } = req.body;
+  if (!categoryIds) return res.status(400).json({ message: '"categoryIds" is required' });
+  const checkIds = await Categories.findOne({ where: { id: categoryIds[0] } });
+  if (!checkIds) return res.status(400).json({ message: '"categoryIds" not found' });
+  next();
 };
 
 module.exports = {
@@ -51,4 +67,6 @@ module.exports = {
   validateEmail,
   validatePassword,
   checkToken,
+  validatePostTitleNContent,
+  validatePostCategoryIds,
 };
