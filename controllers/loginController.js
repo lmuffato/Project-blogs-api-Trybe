@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const loginService = require('../services/loginService');
 
-const secret = process.env.SECRET;
+const secret = process.env.JWT_SECRET;
 
 const login = async (req, res) => {
   try {

@@ -19,4 +19,15 @@ const getUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser, getUser };
+const getById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const getId = await userService.getById(id);
+    if (getId.message) return res.status(getId.code).json({ message: getId.message });
+    return res.status(200).json(getId);
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+};
+
+module.exports = { createUser, getUser, getById };

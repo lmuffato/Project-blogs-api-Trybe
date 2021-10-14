@@ -17,3 +17,4 @@ app.get('/', (request, response) => {
 app.post('/user', userController.createUser);
 app.post('/login', loginController.login);
 app.get('/user', midlware.validateJWT, userController.getUser);
+app.get('/user/:id', midlware.validateJWT, userController.getById);
