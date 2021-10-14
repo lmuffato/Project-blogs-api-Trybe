@@ -5,6 +5,12 @@ const createCategorie = async (data) => {
   return newCategorie;
 };
 
+const listCategories = async () => {
+  const categories = await Categories.findAll();
+  return categories;
+};
+
 module.exports = {
   createCategorie,
+  listCategories,
 };
