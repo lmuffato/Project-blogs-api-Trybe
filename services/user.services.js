@@ -25,3 +25,16 @@ exports.readAll = async ({ token }) => {
     return { code: StatusCodes.UNAUTHORIZED, response: { message: 'Expired or invalid token' } };
   }
 };
+exports.readOne = async ({ token, id }) => {
+  if (!token) return { code: StatusCodes.UNAUTHORIZED, response: { message: 'Token not found' } };
+  try {
+    jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findOne({ where: { id } });
+    if (!user) {
+      return { code: StatusCodes.NOT_FOUND, response: { message: 'User does not exist' } }; 
+    } 
+    return { code: StatusCodes.OK, response: user.dataValues };
+  } catch (e) {
+    return { code: StatusCodes.UNAUTHORIZED, response: { message: 'Expired or invalid token' } };
+  }
+};
