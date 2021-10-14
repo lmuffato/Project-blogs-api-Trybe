@@ -55,6 +55,11 @@ const TOKEN_NOT_VALID = {
   message: 'Expired or invalid token',
 };
 
+const USER_DOES_NOT_EXIST = {
+  status: httpStatus.NOT_FOUND,
+  message: 'User does not exist',
+};
+
 module.exports = {
   DISPLAY_NAME_8_CHARACTERS,
   EMAIL_INVALID,
@@ -67,4 +72,5 @@ module.exports = {
   INVALID_FIELDS,
   TOKEN_NOT_FOUND,
   TOKEN_NOT_VALID,
+  USER_DOES_NOT_EXIST,
 };
