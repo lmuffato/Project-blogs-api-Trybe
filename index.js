@@ -4,8 +4,10 @@ const {
   validateName,
   validateEmailFormat,
   validatePassword,
+  validateEmailLogin,
+  validatePasswordLogin,
 } = require('./midlewares');
-const { postUser } = require('./controllers');
+const { postUser, postLogin } = require('./controllers');
 
 const app = express();
 
@@ -19,3 +21,5 @@ app.get('/', (request, response) => {
 });
 
 app.post('/user', validateEmailFormat, validateName, validatePassword, postUser);
+
+app.post('/login', validateEmailLogin, validatePasswordLogin, postLogin);
