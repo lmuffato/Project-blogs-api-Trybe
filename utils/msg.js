@@ -5,8 +5,10 @@ const STATUS_OK = 200;
 const STATUS_NO_CONTENT = 204;
 
 const MSG_ALREADY_REG = 'User already registered';
+const MSG_INVALID_FIELDS = 'Invalid fields';
 
 const CONFLICT_ERROR = { status: STATUS_CONFLICT, message: MSG_ALREADY_REG };
+const INVALID_FIELDS = { status: STATUS_BAD_REQUEST, message: MSG_INVALID_FIELDS };
 
 module.exports = {
   STATUS_BAD_REQUEST,
@@ -14,4 +16,5 @@ module.exports = {
   STATUS_CREATED,
   STATUS_OK,
   STATUS_NO_CONTENT,
+  INVALID_FIELDS,
 };
