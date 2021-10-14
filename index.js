@@ -14,5 +14,6 @@ app.get('/', (request, response) => {
 });
 
 app.post('/user', UserController.createUsers);
+app.post('/login', UserController.loginUsers);
 
 app.listen(port, () => console.log('ouvindo porta 3000!'));

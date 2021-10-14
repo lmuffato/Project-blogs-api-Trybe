@@ -22,7 +22,17 @@ const validateAlreadyExistsUserByEmail = async (email) => {
   return false;
 };
 
+const validateBodyLoginUsers = (body) => {
+  const { error } = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+  }).validate(body);
+  if (error) return error;
+  return false;
+};
+
 module.exports = {
   validateBodyCreateUsers,
   validateAlreadyExistsUserByEmail,
+  validateBodyLoginUsers,
 };
