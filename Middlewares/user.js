@@ -9,13 +9,26 @@ const schemaNewUser = Joi.object({
   image: Joi.string(),
 });
 
-const validateUser = (req, _res, next) => {
-    const isValid = schemaNewUser.validate(req.body);
+const schemaLogin = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).required(),
+});
 
-    if (isValid.error) return next(isValid.error);
-    next();
+const validateUser = (req, _res, next) => {
+  const isValid = schemaNewUser.validate(req.body);
+
+  if (isValid.error) return next(isValid.error);
+  next();
+};
+
+const validateLogin = (req, _res, next) => {
+  const isValid = schemaLogin.validate(req.body);
+
+  if (isValid.error) return next(isValid.error);
+  next();
 };
 
 module.exports = {
   validateUser,
+  validateLogin,
 };
