@@ -25,12 +25,28 @@ const userLogin = async (data) => {
 };
 
 const getAll = async () => {
-  const users = await User.findAll();
+  const users = await User.findAll({
+    attributes: {
+      exclude: ['password'],
+    },
+  });
   return { statusCode: 200, users };
+};
+
+const getById = async (id) => {
+  const user = await User.findByPk(id, {
+    attributes: {
+      exclude: ['password'],
+    },
+    // https://www.codegrepper.com/code-examples/javascript/don't+get+password+sequelize
+  });
+  if (!user) return { statusCode: 404, message: 'User does not exist' };
+  return { statusCode: 200, user };
 };
 
 module.exports = {
   createUser,
   userLogin,
   getAll,
+  getById,
 };
