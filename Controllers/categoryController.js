@@ -1,5 +1,4 @@
 const Category = require('../Services/categoryService');
-// const { builtError } = require('../Services/heplers');
 
 const addNew = async (req, res, next) => {
   const { name } = req.body;
