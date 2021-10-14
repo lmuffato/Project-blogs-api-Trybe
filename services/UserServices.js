@@ -10,6 +10,12 @@ const createUser = async (data) => {
   return { token };
 };
 
+const findUsers = async () => {
+  const finded = await Users.findAll();
+  return finded;
+};
+
 module.exports = {
   createUser,
+  findUsers,
 };

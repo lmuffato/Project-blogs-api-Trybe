@@ -1,4 +1,8 @@
+const jwt = require('jsonwebtoken');
 const { Users } = require('../models');
+require('dotenv').config();
+
+const { JWT_SECRET } = process.env;
 
 const validateName = (req, res, next) => {
   const { displayName } = req.body;
@@ -39,8 +43,22 @@ const validatePassword = (req, res, next) => {
   next();
 };
 
+const validateToken = (req, res, next) => {
+  const { authorization } = req.headers;
+  if (!authorization) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+  try {
+    jwt.verify(authorization, JWT_SECRET);
+    next();
+  } catch (e) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
+};
+
 module.exports = {
   validateEmail,
   validateName,
   validatePassword,
+  validateToken,
 };
