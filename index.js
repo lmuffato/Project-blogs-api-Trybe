@@ -6,6 +6,7 @@ const app = express();
 app.use(bodyParser.json());
 const userRouter = require('./routes/User');
 const loginRouter = require('./routes/login');
+const categoriesRouter = require('./routes/categories');
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
@@ -16,5 +17,6 @@ app.get('/', (request, response) => {
 
 app.use('/user', userRouter);
 app.use('/login', loginRouter);
+app.use('/categories', categoriesRouter);
 
 app.use(errorMiddleware);
