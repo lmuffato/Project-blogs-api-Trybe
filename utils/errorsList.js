@@ -28,6 +28,16 @@ const passwordRequired = {
   message: { message: '"password" is required' },
 };
 
+const emptyEmail = {
+  status: 400,
+  message: { message: '"email" is not allowed to be empty' },
+};
+
+const emptyPassword = {
+  status: 400,
+  message: { message: '"password" is not allowed to be empty' },
+};
+
 module.exports = {
   invalidEmail,
   emailRequired,
@@ -35,4 +45,6 @@ module.exports = {
   nameLength,
   passwordLength,
   passwordRequired,
+  emptyEmail,
+  emptyPassword,
 };

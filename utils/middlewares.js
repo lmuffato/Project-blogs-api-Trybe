@@ -6,6 +6,8 @@ const {
   nameLength, 
   passwordLength, 
   passwordRequired,
+  emptyEmail,
+  emptyPassword,
 } = require('./errorsList');
 
 const joiEmail = Joi.string().email().required();
@@ -44,8 +46,21 @@ const validPassword = (req, res, next) => {
   next();
 };
 
+const validLogin = (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (email === '') return res.status(emptyEmail.status).json(emptyEmail.message);
+  if (password === '') return res.status(emptyPassword.status).json(emptyPassword.message);
+
+  if (!email) return res.status(emailRequired.status).json(emailRequired.message);
+  if (!password) return res.status(passwordRequired.status).json(passwordRequired.message);
+
+  next();
+};
+
 module.exports = {
   validEmail,
   validName,
   validPassword,
+  validLogin,
 };

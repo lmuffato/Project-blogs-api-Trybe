@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userController = require('./controllers/userControllers');
-const { validEmail, validName, validPassword } = require('./utils/middlewares');
+const { validEmail, validName, validPassword, validLogin } = require('./utils/middlewares');
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,4 +19,10 @@ app.post(
   validEmail, 
   validPassword,
   userController.createNewUser,
+);
+
+app.post(
+  '/login',
+  validLogin,
+  userController.login,
 );

@@ -15,6 +15,24 @@ const createNewUser = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  const JWT_PAYLOAD = { email, password };
+
+  const token = newToken(JWT_PAYLOAD);
+  const user = await User.findOne({
+    where: { 
+      email, 
+      password,
+    },
+  });
+
+  if (!user) return res.status(400).json({ message: 'Invalid fields' });
+
+  res.status(200).json({ token });
+};
+
 module.exports = {
   createNewUser,
+  login,
 };
