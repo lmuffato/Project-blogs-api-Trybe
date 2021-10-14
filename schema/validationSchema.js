@@ -12,7 +12,12 @@ const postLoginValidate = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const postCategorieValidate = Joi.object({
+  name: Joi.string().required(),
+});
+
 module.exports = {
   postUserValidate,
   postLoginValidate,
+  postCategorieValidate,
 };
