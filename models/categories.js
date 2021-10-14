@@ -6,7 +6,10 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
     },
     name: DataTypes.STRING,
-  }, { timestamps: false });
+  }, {
+    timestamps: false,
+    tableName: 'Categories',
+  });
 
   return Categories;
 };
