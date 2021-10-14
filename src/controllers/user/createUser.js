@@ -1,4 +1,4 @@
-const UserServices = require('../../services/UserServices');
+const UserServices = require('../../services/user');
 
 module.exports = async (req, res) => {
   const { displayName, email, password, image } = req.body;

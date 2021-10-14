@@ -1,9 +1,9 @@
 const express = require('express');
 const rescue = require('express-rescue');
-const UserControllers = require('../controllers/UserControllers');
+const UserController = require('../controllers/user');
 
 const route = express.Router();
 
-route.post('/', rescue(UserControllers.createUser));
+route.post('/', rescue(UserController.createUser));
 
 module.exports = route;
