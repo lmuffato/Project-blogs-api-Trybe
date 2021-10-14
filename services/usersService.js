@@ -1,6 +1,6 @@
 const { User } = require('../models');
 const { createToken } = require('../utils/token');
-const { CONFLICT_ERROR } = require('../utils/msg');
+const { CONFLICT_ERROR, USER_DOES_NOT_EXIST } = require('../utils/msg');
 
 const checkEmail = async (email) => {
   const checkEmails = await User.findOne({ where: { email } });
@@ -20,4 +20,15 @@ const getAllUsers = async () => {
   return users;
 };
 
-module.exports = { createUser, getAllUsers };
+const getByID = async (id) => {
+  const users = await User.findByPk(id);
+  if (!users) throw USER_DOES_NOT_EXIST;
+  console.log(users);
+  const { password: _, ...user } = users.dataValues;
+  return user;
+  // const user = await User.findOne({ where: { id } });
+  // if (!user) throw USER_DOES_NOT_EXIST;
+  // return user;
+};
+
+module.exports = { createUser, getAllUsers, getByID };

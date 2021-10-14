@@ -9,5 +9,6 @@ const tokenValidation = require('../middlewares/tokenValidation');
 
 userRouter.post('/', userValidation, rescue(users.createUser));
 userRouter.get('/', tokenValidation, rescue(users.getAllUsers));
+userRouter.get('/:id', tokenValidation, rescue(users.getById));
 
 module.exports = userRouter;

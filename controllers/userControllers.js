@@ -12,4 +12,10 @@ const getAllUsers = async (_req, res) => {
   return res.status(STATUS_OK).json(user);
 };
 
-module.exports = { createUser, getAllUsers };
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const user = await users.getByID(id);
+  return res.status(STATUS_OK).json(user);
+};
+
+module.exports = { createUser, getAllUsers, getById };
