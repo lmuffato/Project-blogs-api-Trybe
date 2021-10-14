@@ -61,7 +61,7 @@ const update = async (req, res) => {
   if (codeError === 'wrong request format') {
     return res.status(400).json({ message });
   }
-  if (codeError === 'Unauthorized user') {
+  if (message === 'Unauthorized user') {
     return res.status(401).json({ message });
   }
   return res.status(404).json({ message });

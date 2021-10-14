@@ -69,7 +69,7 @@ const update = async (postInfo, userIdLogged) => {
   const { post, message } = await getById(postId);
   if (message !== undefined) return { message, codeError: 'Information not found' };
   if (post.userId !== userIdLogged) {
-    return { message: 'Unauthorized user', codeError: 'not allowed' };
+    return { message: 'Unauthorized user', codeError: 'Unauthorized user' };
   }
   await BlogPost.update({ title, content }, { where: { id: postId } });
   const postUpdated = await BlogPost.findOne({ where: { id: postId },
