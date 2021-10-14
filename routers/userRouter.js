@@ -1,9 +1,17 @@
 const { Router } = require('express');
+const { validateEmail } = require('../middlewares/emailValidation');
+const { validateName } = require('../middlewares/nameValidation');
+const { validatePassword } = require('../middlewares/passwordValidation');
+const { addUser } = require('../controllers/userController');
 
 const router = Router();
 
-router.get('/', (req, res) => {
-  res.status(200).json('user router no jeito');
-});
+router.post(
+  '/',
+  validateEmail,
+  validateName,
+  validatePassword,
+  addUser,
+);
 
 module.exports = router;
