@@ -8,6 +8,10 @@ const errors = {
   noPassword: '"password" is required',
   passwordLength: '"password" length must be 6 characters long',
   userExists: 'User already registered',
+  loginPasswordUndefined: '"password" is required',
+  loginEmailUndefined: '"email" is required',
+  loginPasswordNull: '"password" is not allowed to be empty',
+  loginEmailNull: '"email" is not allowed to be empty',
 };
 
 const code = {
@@ -46,6 +50,24 @@ const validateEmail = (email) => {
   }
 };
 
+const validateEmailLogin = (email) => {
+  switch (true) {
+    case (email === ''): return { code: code.badRequest, message: errors.loginEmailNull };
+    case !email: return { code: code.badRequest, message: errors.loginEmailUndefined };
+    case !emailValidator.validate(email): return { 
+      code: code.badRequest, message: errors.invalidEmail };
+    default: return false;
+  }
+};
+
+const validatePasswordLogin = (password) => {
+  switch (true) {
+    case (password === ''): return { code: code.badRequest, message: errors.loginPasswordNull };
+    case !password: return { code: code.badRequest, message: errors.loginPasswordUndefined };
+    default: return false;
+  }
+};
+
 // const findValueInArrayOfObjects = (array, value, key) => {
 //   const result = array.find((object) => object[key] === value);
 //   if (result) return true;
@@ -56,6 +78,8 @@ module.exports = {
   validateName,
   validatePassword,
   validateEmail,
+  validateEmailLogin,
+  validatePasswordLogin,
   // findValueInArrayOfObjects,
   // validateId,
 };

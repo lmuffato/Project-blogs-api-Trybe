@@ -1,5 +1,6 @@
 const userService = require('../services/userService');
 
+const HTTP_OK_STATUS = 200;
 const HTTP_CREATED_STATUS = 201;
 
 // const getAll = (req, res, next) => {
@@ -44,6 +45,20 @@ const create = async (req, res) => {
   return res.status(HTTP_CREATED_STATUS).json(response);
 };
 
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  const response = await userService.login({ email, password });
+
+  if (response.code) {
+    return res.status(response.code).json({
+        message: response.message,
+    });
+}
+
+  return res.status(HTTP_OK_STATUS).json(response);
+};
+
 // const update = async (req, res) => {
 //   const { name, username, email, password } = req.body;
 
@@ -83,6 +98,7 @@ module.exports = {
   // getAll,
   // getById,
   create,
+  login,
   // update,
   // remove,
 }; 

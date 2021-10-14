@@ -17,30 +17,31 @@ const insertUser = async (user) => {
   const alreadyExists = await Users.findOne({ where: { email } });
   if (alreadyExists) return ({ code: 409, message: 'User already registered' });
   const newUser = await Users.create({ displayName, email, password, image });
-  const { password: _, ...userPayload } = newUser;
+  const { password: _, ...userPayload } = newUser.dataValues;
+
   const token = jwt.sign(userPayload, SECRET);
 
   return { token };
 };
 
-// const findByCredentials = async (email, password) => {
-//   if (password === undefined || email === undefined) { 
-//     return ({ code: 401, message: 'All fields must be filled' }); 
-//   }
+const login = async ({ email, password }) => {
+  const isEmailValid = userSchema.validateEmailLogin(email);
+  const isPasswordValid = userSchema.validatePasswordLogin(password);
 
-//   const user = await userModel.getByEmail(email);
-//   if (!user || user.password !== password) {
-//     return ({ code: 401, message: 'Incorrect username or password' });
-//   }
+  if (isEmailValid) return ({ code: isEmailValid.code, message: isEmailValid.message });
+  if (isPasswordValid) return ({ code: isPasswordValid.code, message: isPasswordValid.message });
 
-//   const { password: _, ...userPayload } = user;
+  const alreadyExists = await Users.findOne({ where: { email } });
+  if (!alreadyExists) return ({ code: 400, message: 'Invalid fields' });
 
-//   const token = jwt.sign(userPayload, SECRET);
+  const { password: _, ...userPayload } = alreadyExists.dataValues;
 
-//   return { token };
-// };
+  const token = jwt.sign(userPayload, SECRET);
+
+  return { token };
+};
 
 module.exports = {
   insertUser,
-  // findByCredentials,
+  login,
 };
