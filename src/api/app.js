@@ -20,6 +20,7 @@ app.get('/', (request, response) => {
 
 app.use('/user', routes.UserRoutes);
 app.use('/login', routes.LoginRoutes);
+app.use('/Categories', routes.CategoryRoutes);
 
 app.use(routeNotFound);
 
