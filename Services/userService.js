@@ -25,7 +25,16 @@ const login = async ({ email, password }) => {
   }
 };
 
+const listAll = async () => {
+  try {
+    return User.findAll({ attributes: { exclude: ['password'] } });
+  } catch (e) {
+    return builtError(500, e.message);
+  }
+};
+
 module.exports = {
   create,
   login,
+  listAll,
 };
