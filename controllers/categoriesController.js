@@ -16,4 +16,14 @@ router.post('/', validateJWT, validateCategoty, async (req, res) => {
   }
 });
 
+router.get('/', validateJWT, async (req, res) => {
+  try {
+    const categories = await Category.findAll();
+    return res.status(200).json(categories);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: `Erro: ${e.message}` });
+  }
+});
+
 module.exports = router;
