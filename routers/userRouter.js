@@ -5,7 +5,7 @@ const router = express.Router();
 const { createUser } = require('../controllers/userController');
 const { validationUser } = require('../validations/userValidation');
 
-router.post('/user', 
+router.post('/', 
   validationUser,
   createUser);
 

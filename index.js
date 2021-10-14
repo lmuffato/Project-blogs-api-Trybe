@@ -12,9 +12,9 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.use('/', userRouter, error);
+app.use('/user', userRouter, error);
 
-app.use('/', loginRouter, error);
+app.use('/login', loginRouter, error);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 

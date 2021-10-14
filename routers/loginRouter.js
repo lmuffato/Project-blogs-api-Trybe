@@ -5,7 +5,7 @@ const router = express.Router();
 const loginController = require('../controllers/loginController');
 const { validateLogin } = require('../validations/loginValidation');
 
-router.post('/login', 
+router.post('/', 
   validateLogin,
   loginController.loginController);
 
