@@ -1,22 +1,18 @@
-const {
-  Model,
-} = require('sequelize');
-
+/**
+ * @param {import('sequelize').Sequelize} sequelize 
+ * @param {import('sequelize').DataTypes} DataTypes 
+ * @return 
+ */
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    static associate(models) {
-      User.hasMany(models.BlogPost);
-    }
-  }
-  User.init({
+  const User = sequelize.define('User', {
     id: { type: DataTypes.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true },
     displayName: DataTypes.STRING,
     password: DataTypes.STRING,
     email: DataTypes.STRING,
     image: DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
+  }, { timestamps: false });
+  User.associate = (models) => {
+    User.hasMany(models.BlogPost);
+  };
   return User;
 };

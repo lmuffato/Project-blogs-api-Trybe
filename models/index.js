@@ -6,6 +6,17 @@ const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js')[env];
+/**
+ * @typedef {object} database
+ * @property {import("sequelize").ModelCtor<import("sequelize").Model<any, any>>} User
+ * @property {import("sequelize").ModelCtor<import("sequelize").Model<any, any>>} BlogPost
+ * @property {import("sequelize").ModelCtor<import("sequelize").Model<any, any>>} Category
+ * @property {import("sequelize").ModelCtor<import("sequelize").Model<any, any>>} PostCaegory
+ */
+
+/**
+ * @type {database}
+ */
 const db = {};
 
 let sequelize;

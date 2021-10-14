@@ -1,28 +1,27 @@
 'use strict';
 module.exports = {
+  /**
+   * 
+   * @param {import('sequelize').QueryInterface} queryInterface 
+   * @param {import('sequelize').DataTypes} Sequelize 
+   */
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('PostsCategories', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
       postId: {
         type: Sequelize.INTEGER,
-        references: { model: 'BlogPosts', key: 'id' }
+        allowNull: false,
+        primaryKey: true,
+        references: { model: 'BlogPosts', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       categoryId: {
         type: Sequelize.INTEGER,
-        references: { model: 'Categories', key: 'id' }
-      },
-      createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        primaryKey: true,
+        references: { model: 'Categories', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       }
     });
   },

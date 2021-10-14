@@ -1,42 +1,23 @@
-const { Model } = require('sequelize');
-
-/* function postSchema(DataTypes) {
-  return {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'BlogPost',
-      key: 'id',
-    },
-    onDelete: 'cascade',
-    onUpdate: 'cascade',
-    unique: 'unique-category-per-post',
-  };
-}
-function categorySchema(DataTypes) {
-  return {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'Category',
-      key: 'id',
-    },
-    onDelete: 'cascade',
-    onUpdate: 'cascade',
-    unique: 'unique-category-per-post',
-  };
-} */
+/**
+ * @param {import('sequelize').Sequelize} sequelize 
+ * @param {import('sequelize').DataTypes} DataTypes 
+ * @return 
+ */
 module.exports = (sequelize, _DataTypes) => {
-  class PostsCategory extends Model {
-    static associate(models) {
-      PostsCategory.belongsTo(models.BlogPost, { foreignKey: 'postId' });
-      PostsCategory.belongsTo(models.Category, { foreignKey: 'categoryId' });
-    }
-  }
-  PostsCategory.init({
-/*     postId: postSchema(DataTypes),
-    categoryId: categorySchema(DataTypes), */
-  }, {
-    sequelize,
-    modelName: 'PostsCategory',
-  });
+  const PostsCategory = sequelize.define('PostsCategory', { }, { timestamps: false });
+  PostsCategory.associate = (models) => {
+    models.BlogPost.belongsToMany(models.Category, {
+      as: 'categories',
+      through: PostsCategory,
+      foreignKey: 'postId',
+      otherKey: 'categoryId',
+    });
+    models.Category.belongsToMany(models.BlogPost, {
+      as: 'posts',
+      through: PostsCategory,
+      foreignKey: 'categoryId',
+      otherKey: 'postId',
+    });
+  };
   return PostsCategory;
 };

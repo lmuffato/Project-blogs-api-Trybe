@@ -1,5 +1,10 @@
 'use strict';
 module.exports = {
+  /**
+   * 
+   * @param {import('sequelize').QueryInterface} queryInterface 
+   * @param {import('sequelize').DataTypes} Sequelize 
+   */
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Users', {
       id: {
@@ -19,14 +24,6 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
       }
     });
   },
