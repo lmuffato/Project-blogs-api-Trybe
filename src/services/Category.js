@@ -15,6 +15,13 @@ const create = async (name) => {
   return { status: 201, result };
 };
 
+const findAll = async () => {
+  const result = await Category.findAll();
+
+  return { status: 200, result };
+};
+
 module.exports = {
   create,
+  findAll,
 };

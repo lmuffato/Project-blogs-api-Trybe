@@ -19,4 +19,15 @@ router.post('/', checkAuthentication, async (req, res, next) => {
   }
 });
 
+router.get('/', checkAuthentication, async (_req, res, next) => {
+  try {
+    const { status, result } = await Category.findAll();
+
+    return res.status(status).json(result);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
 module.exports = router;
