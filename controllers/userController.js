@@ -12,7 +12,13 @@ const userLogin = async (req, res) => {
   return res.status(statusCode).json(message ? { message } : { token });
 };
 
+const getAll = async (_req, res) => {
+  const { message, statusCode, users } = await userService.getAll();
+  return res.status(statusCode).json(message ? { message } : (users));
+};
+
 module.exports = {
   createUser,
   userLogin,
+  getAll,
 };
