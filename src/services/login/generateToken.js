@@ -1,13 +1,12 @@
 const jwt = require('jsonwebtoken');
-
-const { User } = require('../../models');
+const validateCredential = require('./validateCredential');
 
 const { JWT_SECRET } = process.env;
 
-module.exports = async (email, password) => {
-  const userSearch = await User.findOne({ where: { email, password } });
-
-  if (!userSearch) return { status: 400, message: 'invalid fields' };
+module.exports = async (userData) => {
+  const userSearch = await validateCredential(userData);
+  
+  if (userSearch.message) return userSearch;
 
   const { password: _, ...userPayload } = userSearch;
 
