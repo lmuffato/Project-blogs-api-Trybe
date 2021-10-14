@@ -11,7 +11,7 @@ const createNewUser = async (req, res) => {
     await User.create({ displayName, email, password, image });
     res.status(201).json({ token });
   } catch (e) {
-    res.status(409).json({ message: 'User already registered' });
+    return res.status(409).json({ message: 'User already registered' });
   }
 };
 
@@ -33,7 +33,7 @@ const login = async (req, res) => {
 
     res.status(200).json({ token });
   } catch (e) {
-    res.status(500).json({ message: e.message });
+    return res.status(500).json({ message: e.message });
   }
 };
 
@@ -42,7 +42,7 @@ const listUsers = async (_req, res) => {
     const users = await User.findAll({ attributes: ['id', 'displayName', 'email', 'image'] });
     res.status(200).json(users);
   } catch (e) {
-    res.status(500).json({ message: e.message });
+    return res.status(500).json({ message: e.message });
   }
 };
 
@@ -54,7 +54,7 @@ const findUser = async (req, res) => {
     if (!user) return res.status(404).json({ message: 'User does not exist' });
     res.status(200).json(user);
   } catch (e) {
-    res.status(500).json({ message: e.message });
+    return res.status(500).json({ message: e.message });
   }
 };
 

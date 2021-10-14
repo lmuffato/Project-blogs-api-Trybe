@@ -15,8 +15,8 @@ const listCategories = async (_req, res) => {
   try {
     const categories = await Category.findAll();
     res.status(200).json(categories);
-  } catch (e) {
-    res.status(500).json({ message: e.message });
+  } catch ({ message }) {
+    res.status(500).json({ message });
   }
 };
 
