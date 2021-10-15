@@ -128,15 +128,18 @@ const validatePostCategoryIds = (req, res, next) => {
 const validateCategoryIdExists = (req, res, next) => {
   const { categoryIds } = req.body;
 
-  categoryIds.every(async (id) => {
-    const verifyCategory = await categoryController.findOne(id);
+  const verifyId = async (id) => {
+    const check = await categoryController.findOne(id).then((category) => {
+      if (!category || category === null) {
+        return res.status(httpStatus.BAD_REQUEST).json(errorCodes.errorCategoryIdNotFound);
+      }
 
-    if (!verifyCategory || verifyCategory === null) {
-      return res.status(httpStatus.BAD_REQUEST).json(errorCodes.errorCategoryIdNotFound);
-    }
+      next();
+    }).catch((e) => console.log(e));
+    return check;
+  };
 
-    return next();
-  });
+  return categoryIds.every(verifyId);
 };
 
 module.exports = {

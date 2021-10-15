@@ -20,7 +20,7 @@ const getAll = async (_req, res) => Category.findAll(
 });
 
 const findOne = async (id) => {
-  const category = await Category.findOne({ where: { id } });
+  const category = await Category.findByPk(id);
   return category;
 };
 
