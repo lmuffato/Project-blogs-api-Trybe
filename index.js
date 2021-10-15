@@ -6,12 +6,14 @@ const app = express();
 app.use(bodyparser.json());
 
 const UserController = require('./controllers/userController');
+const CategoryController = require('./controllers/categoryController');
 const login = require('./controllers/login');
 const {
   validateDisplayName,
   validatePassword,
   validateEmail
 } = require('./middlewares/UserCredentials');
+const validateJWT = require('./auth/validateJWT');
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
@@ -25,5 +27,21 @@ validateDisplayName,
 validatePassword,
 validateEmail,
 UserController.create);
+
+app.get('/user',
+validateJWT,
+UserController.getAll);
+
+app.get('/user/:id',
+validateJWT,
+UserController.findUser);
+
+app.post('/categories',
+validateJWT,
+CategoryController.create);
+
+app.get('/categories',
+validateJWT,
+CategoryController.getAll);
 
 app.post('/login', login);
