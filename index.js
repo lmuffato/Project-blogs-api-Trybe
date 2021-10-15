@@ -5,6 +5,8 @@ const errorMiddleware = require('./middlewares/errorMiddleware');
 const { register, loginUser, getAll, getByID } = require('./controllers/userController');
 const login = require('./middlewares/loginMiddleware');
 const Auth = require('./middlewares/authMiddleware');
+const validCategoryName = require('./middlewares/categoryMiddleware');
+const { createNewCategory } = require('./controllers/categoryController');
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,4 +21,5 @@ app.get('/', (request, response) => {
 app.post('/user', validUser, register, errorMiddleware);
 app.post('/login', login, loginUser, errorMiddleware);
 app.get('/user', Auth, getAll, errorMiddleware);
-app.get('/user/:id', Auth, loginUserCheck, getByID, errorMiddleware); 
+app.get('/user/:id', Auth, loginUserCheck, getByID, errorMiddleware);
+app.post('/categories', validCategoryName, Auth, createNewCategory, errorMiddleware); 
