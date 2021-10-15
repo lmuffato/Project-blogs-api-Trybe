@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -21,6 +22,7 @@ app.get('/', (request, response) => {
 app.use('/user', routes.UserRoutes);
 app.use('/login', routes.LoginRoutes);
 app.use('/Categories', routes.CategoryRoutes);
+app.use('/post', routes.BlogPostRoutes);
 
 app.use(routeNotFound);
 
