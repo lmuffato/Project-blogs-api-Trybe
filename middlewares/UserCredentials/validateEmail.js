@@ -6,13 +6,13 @@ module.exports = async (req, res, next) => {
 
   if (!email) {
     return res.status(400).json({
-      message: 'email is required'
+      message: '\"email\" is required'
     })
   }
 
   if (!emailRegex.test(email)) {
     return res.status(400).json({
-      message: 'email must be a valid email'
+      message: '\"email\" must be a valid email'
     });
   }
 
