@@ -15,6 +15,14 @@ const createUser = async (displayName, email, password, image) => {
     return createdUser;
 };
 
+const getUsers = async () => { 
+    const users = await User.findAll();
+    return users.map(({ id, displayName, email, image }) => 
+    ({ id, displayName, email, image }));
+};
+
+const getUserById = async (id) => User.findByPk(id);
+
 const existLoginData = async (email, password) => 
  User.findOne({ where: { email, password } });
 
@@ -29,4 +37,4 @@ const login = async (email, password) => {
     return newError('Invalid fields', clientErrors.badRequest);
 };
 
-module.exports = { createUser, login };
+module.exports = { createUser, login, getUsers, getUserById };
