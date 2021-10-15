@@ -5,10 +5,12 @@ const {
   validateEmail,
   validatePassword,
   validateImage,
+  validateToken,
 } = require('../validations/users/validates');
 
 const {
   createController,
+  readAllController,
 } = require('../controllers/userController');
 
 const router = Router();
@@ -20,6 +22,12 @@ router.post(
   validatePassword,
   validateImage,
   createController,
+);
+
+router.get(
+  '/',
+  validateToken,
+  readAllController,
 );
 
 module.exports = router;

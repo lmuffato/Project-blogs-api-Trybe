@@ -1,5 +1,12 @@
+require('dotenv').config();
+
+const jwt = require('jsonwebtoken');
+
+const { JWT_SECRET } = process.env;
+
 const {
   HTTP_BAD_REQUEST,
+  HTTP_UNAUTHORIZED,
 } = require('../../status');
 
 const validateDisplay = (req, res, next) => {
@@ -51,9 +58,27 @@ const validateImage = (req, res, next) => {
   next();
 };
 
+const validateToken = (req, res, next) => {
+  const { authorization } = req.headers;
+  const token = authorization;
+  const message = 'Token not found';
+
+  if (!token) return res.status(HTTP_UNAUTHORIZED).json({ message });
+
+  try {
+    const payload = jwt.verify(token, JWT_SECRET);
+    console.log(payload);
+    req.user = payload;
+    next();
+  } catch (e) {
+    return res.status(HTTP_UNAUTHORIZED).json({ message: 'Expired or invalid token' });
+  }
+};
+
 module.exports = {
   validateDisplay,
   validateEmail,
   validatePassword,
   validateImage,
+  validateToken,
 };

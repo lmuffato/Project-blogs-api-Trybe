@@ -1,7 +1,7 @@
 const { HTTP_SERVER_ERROR } = require('../status');
 
 const {
-  createServices,
+  createServices, readAllServices,
 } = require('../services/userServices');
 
 const createController = async (req, res) => {
@@ -19,6 +19,14 @@ const createController = async (req, res) => {
   }
 };
 
+const readAllController = async (_req, res) => {
+  // const { emailUser } = req.user;
+  const { code, allUsers } = await readAllServices();
+
+  return res.status(code).json(allUsers);
+};
+
 module.exports = {
   createController,
+  readAllController,
 };

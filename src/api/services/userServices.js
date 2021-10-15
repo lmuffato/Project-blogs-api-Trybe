@@ -11,6 +11,7 @@ const jwtConfig = {
 const {
   HTTP_CONFLICT,
   HTTP_CREATED,
+  HTTP_OK_STATUS,
 } = require('../status');
 
 const { User } = require('../models');
@@ -39,6 +40,13 @@ const createServices = async ({ displayName, email, password, image }) => {
   };
 };
 
+const readAllServices = async () => {
+  const allUsers = await User.findAll();
+
+  return { code: HTTP_OK_STATUS, allUsers };
+};
+
 module.exports = {
   createServices,
+  readAllServices,
 };
