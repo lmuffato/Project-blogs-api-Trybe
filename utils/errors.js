@@ -85,7 +85,7 @@ const ERROR_TOKEN = {
 const ERROR_CATEGORY_NAME = {
   error: {
     status: 400,
-    message: '"Name" is required',
+    message: '"name" is required',
   },
 };
 
