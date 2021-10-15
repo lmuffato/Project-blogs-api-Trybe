@@ -30,7 +30,26 @@ const getPostById = async (id) => {
   return { status: 200, data: myPost };
 };
 
+const updatePost = async (data, id, email) => {
+  const { userId, published } = await BlogPosts.findByPk(id);
+  const myUser = await User.findOne({ where: { email } });
+  if (myUser.id !== userId) return { status: 401, message: 'Unauthorized user' };
+  const { title, content, categoryIds } = data;
+  if (categoryIds) return { status: 400, message: 'Categories cannot be edited' };
+  await BlogPosts.update(
+    { title, content, userId, published, updated: new Date() },
+    { where: { id } },
+  );
+  const myPost = await BlogPosts.findByPk(id, {
+    include: [
+      { model: Categories, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return { status: 200, myPost };
+};
+
 module.exports = {
+  updatePost,
   getPostById,
   getPosts,
   createPost,
