@@ -9,5 +9,5 @@ const {
 const router = express.Router();
 
 router.post('/', validateToken, categoryNameValidation, categoryController.create);
-
+router.get('/', validateToken, categoryController.getAllCategories);
 module.exports = router;
