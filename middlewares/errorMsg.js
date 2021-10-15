@@ -26,6 +26,14 @@ const invalidFields = {
   message: 'Invalid fields',
 };
 
+const blanckEmail = {
+  message: '"email" is not allowed to be empty',
+};
+
+const blanckPassword = {
+  message: '"password" is not allowed to be empty',
+};
+
 module.exports = {
   invalidName,
   invalidEmail,
@@ -34,4 +42,6 @@ module.exports = {
   passwordRequired,
   duplicatedEmail,
   invalidFields,
+  blanckEmail,
+  blanckPassword,
 };

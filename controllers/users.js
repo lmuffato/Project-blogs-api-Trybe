@@ -9,8 +9,8 @@ const getAll = async (_req, res) => {
   res.status(200).json(users);
 };
 
-const getByEmail = async (userEmail) => {
-  const getEmail = await User.findAll({ where: { email: userEmail } });
+const getByEmail = async (user) => {
+  const getEmail = await User.findAll({ where: { email: user.email, password: user.password } });
   return getEmail;
 };
 
@@ -27,11 +27,9 @@ const getToken = (user) => {
 
 const findUser = async (req, res) => {
   const { email, password } = req.body;
-  const user = await getByEmail(email);
-  const { email: dbEmail, password: dbPassword } = user[0].dataValues;
-  if (dbEmail !== email || dbPassword !== password) {
-    return res.status(400).json(ERRORS.invalidFields);
-  }
+  const [user] = await getByEmail({ email, password });
+  if (!user) return res.status(400).json(ERRORS.invalidFields);
+  const { email: dbEmail, password: dbPassword } = user.dataValues;
   const token = getToken({ dbEmail, dbPassword });
   res.status(200).json(token);
 };
