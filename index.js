@@ -8,7 +8,7 @@ const categoriesController = require('./controllers/categoriesController');
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 app.use('/user', userController);
 app.use('/login', loginController);
