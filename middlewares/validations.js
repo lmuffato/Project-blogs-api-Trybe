@@ -106,7 +106,6 @@ const validatePostTitle = (req, res, next) => {
 };
 
 const validatePostContent = (req, res, next) => {
-
   const { content } = req.body;
 
   if (!content || content === '') {

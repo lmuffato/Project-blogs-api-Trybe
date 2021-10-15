@@ -6,6 +6,13 @@ const validateToken = require('../middlewares/validateToken');
 
 const router = express.Router();
 
-router.post('/', [validateToken]);
+router.post('/', [
+  validateToken,
+  validations.validatePostTitle,
+  validations.validatePostContent,
+  validations.validatePostCategoryIds,
+  validations.validateCategoryIdExists,
+  blogPostController.create,
+]);
 
 module.exports = router;
