@@ -67,4 +67,20 @@ router.put('/:id', checkAuthentication, async (req, res, next) => {
   }
 });
 
+router.delete('/:id', checkAuthentication, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { id: userId } = req.auth;
+
+    const { status, message, result } = await Post.deleteByPk(id, userId);
+
+    if (message) return res.status(status).json({ message });
+
+    return res.status(status).json(result);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
 module.exports = router;

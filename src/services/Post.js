@@ -18,7 +18,7 @@ const updatePostSchema = Joi.object({
 
 const createBlogPost = (title, content, userId, transaction) => {
   const result = BlogPost.create(
-    { title, content, userId, published: Date.now(), updated: Date.now() },
+    { title, content, userId },
     { transaction },
   );
 
@@ -84,11 +84,11 @@ const updateByPk = async (data, categoryIds) => {
 
   if (categoryIds) return { status: 400, message: 'Categories cannot be edited' };
 
-  const getPost = await findByPk(id);
+  const getPost = await BlogPost.findByPk(id);
 
   if (!getPost) return { status: 404, message: 'Post does not exist' };
 
-  const { userId: checkId } = getPost.result.dataValues;
+  const { userId: checkId } = getPost.dataValues;
 
   if (Number(checkId) !== Number(userId)) return { status: 401, message: 'Unauthorized user' };
 
@@ -103,9 +103,21 @@ const updateByPk = async (data, categoryIds) => {
 
   const { result } = await findByPk(id);
 
-  console.log('result', result);
-
   return { status: 200, result };
+};
+
+const deleteByPk = async (id, userId) => {
+  const getPost = await BlogPost.findByPk(id);
+
+  if (!getPost) return { status: 404, message: 'Post does not exist' };
+
+  const { userId: checkId } = getPost.dataValues;
+
+  if (Number(checkId) !== Number(userId)) return { status: 401, message: 'Unauthorized user' };
+
+  await BlogPost.destroy({ where: { id } });
+
+  return { status: 204, result: null };
 };
 
 module.exports = {
@@ -113,4 +125,5 @@ module.exports = {
   findAll,
   findByPk,
   updateByPk,
+  deleteByPk,
 };
