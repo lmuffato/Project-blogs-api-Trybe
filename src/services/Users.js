@@ -42,8 +42,15 @@ const findOne = async (id) => {
   return { status: 200, result };
 };
 
+const deleteMe = async (id) => {
+  await User.destroy({ where: { id } });
+
+  return { status: 204, result: null };
+};
+
 module.exports = {
   create,
   findAll,
   findOne,
+  deleteMe,
 };
