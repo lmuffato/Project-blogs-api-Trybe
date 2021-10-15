@@ -85,9 +85,14 @@ const CATEGORYID_MUST_BE_ARRAY = {
   message: '"categoryId" must be an array format',
 };
 
-const CATEGORYIDS_NOT_FOUND = {
+const CATEGORY_IDS_NOT_FOUND = {
   status: httpStatus.BAD_REQUEST,
   message: '"categoryIds" not found',
+};
+
+const POST_DOES_NOT_EXISTS = {
+  status: httpStatus.NOT_FOUND,
+  message: 'Post does not exist',
 };
 
 module.exports = {
@@ -108,5 +113,6 @@ module.exports = {
   CONTENT_IS_REQUIRED,
   CATEGORYID_IS_REQUIRED,
   CATEGORYID_MUST_BE_ARRAY,
-  CATEGORYIDS_NOT_FOUND,
+  CATEGORY_IDS_NOT_FOUND,
+  POST_DOES_NOT_EXISTS,
 };
