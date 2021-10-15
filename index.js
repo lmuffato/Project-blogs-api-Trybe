@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const userRoutes = require('./routes/user');
 
 require('dotenv').config();
 
@@ -11,7 +12,7 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.use();
+app.use('/user', userRoutes);
 
 const PORT = process.env.PORT || 3000;
 
