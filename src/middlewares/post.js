@@ -12,9 +12,7 @@ const validPost = async (req, _res, next) => {
 
 const checkIfCategoryExists = async (req, _res, next) => {
   const { categoryIds } = req.body;
-  console.log('📓 ~ file: post.js ~ line 15 ~ checkIfCategoryExists ~ req.body', req.body);
   const category = await getCategoryById(categoryIds[0]);
-  console.log('📓 ~ file: post.js ~ line 17 ~ checkIfCategoryExists ~ category', category);
   if (!category) {
   return next({
       statusCode: BAD_REQUEST,
