@@ -14,7 +14,16 @@ const findAllUsers = async () => {
   return result;
 };
 
+const findUserById = async (id) => {
+  const result = await User.findByPk(id);
+  console.log(result, 'service USER');
+  const { password: _, ...user } = result.dataValues;
+
+  return user;
+};
+
 module.exports = {
   createUser,
   findAllUsers,
+  findUserById,
 };

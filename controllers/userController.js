@@ -16,7 +16,16 @@ const findAllUsers = rescue(async (req, res) => {
   res.status(200).json(result);
 });
 
+const findUserById = rescue(async (req, res) => {
+  const { id } = req.params;
+  const result = await services.findUserById(id);
+  console.log(result, 'controller');
+  
+  res.status(200).json(result);
+});
+
 module.exports = {
   createUser,
   findAllUsers,
+  findUserById,
 };
