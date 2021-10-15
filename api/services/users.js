@@ -21,7 +21,10 @@ const getUsers = async () => {
     ({ id, displayName, email, image }));
 };
 
-const getUserById = async (id) => User.findByPk(id);
+const getUserById = async (id) => {
+    const user = await User.findByPk(id);
+    return user || newError('User does not exist', clientErrors.notFound);
+};
 
 const existLoginData = async (email, password) => 
  User.findOne({ where: { email, password } });
