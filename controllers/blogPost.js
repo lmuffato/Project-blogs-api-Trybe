@@ -1,4 +1,4 @@
-const { BlogPost, User } = require('../models');
+const { BlogPosts, User } = require('../models');
 const httpStatus = require('../utils/httpStatus');
 
 const create = async (req, res) => {
@@ -7,7 +7,7 @@ const create = async (req, res) => {
 
   const { id } = await User.findOne({ where: { email } });
 
-  const newBlogPost = await BlogPost.create({
+  const newBlogPost = await BlogPosts.create({
     title, content, userId: id, published: new Date(), updated: new Date(),
   }).then((newPost) => res.status(httpStatus.HTTP_CREATE_STATUS).json(newPost))
   .catch((e) => console.log(e));
