@@ -8,6 +8,13 @@ const addUser = async (req, res) => {
   return res.status(201).json({ token });
 };
 
+const getUser = async (_req, res) => {
+  const users = await database.User
+    .findAll({ attributes: ['id', 'displayName', 'email', 'image'] });
+  return res.status(200).json(users);
+};
+
 module.exports = {
   addUser,
+  getUser,
 };
