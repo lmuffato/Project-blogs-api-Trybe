@@ -4,7 +4,7 @@ const { nameValidate,
 emailValidate,
 passwordValidate,
 userIdExist } = require('../middlewares/validations');
-const { validateJWT } = require('../middlewares/authJWT');
+const { validateJWT } = require('../middlewares/validateJWT');
 
 const router = Router();
 

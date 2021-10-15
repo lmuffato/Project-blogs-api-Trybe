@@ -89,10 +89,21 @@ const userIdExist = async (req, res, next) => {
   next();
 };
 
+const validateCategory = (req, res, next) => {
+  const { name } = req.body;
+
+  if (!name) {
+    return res.status(httpStatus.badRequest).json({ message: errorMessages.nameRequired });
+  }
+
+  next();
+};
+
 module.exports = {
   nameValidate,
   emailValidate,
   emailValidate2,
   passwordValidate,
   userIdExist,
+  validateCategory,
 };
