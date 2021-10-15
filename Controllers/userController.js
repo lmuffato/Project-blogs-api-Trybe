@@ -50,9 +50,19 @@ const listById = async (req, res, next) => {
   }
 };
 
+const exclude = async (req, res, next) => {
+  const { id } = req.user;
+  const result = await User.exclude(id);
+
+  if (result && result.message) return next(result);
+
+  return res.status(204).end();
+};
+
 module.exports = {
   addNew,
   login,
   listAll,
   listById,
+  exclude,
 };

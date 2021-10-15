@@ -9,5 +9,6 @@ const router = express.Router();
 router.post('/', validateUser, UserController.addNew);
 router.get('/:id', auth, UserController.listById);
 router.get('/', auth, UserController.listAll);
+router.delete('/me', auth, UserController.exclude);
 
 module.exports = router;

@@ -43,9 +43,21 @@ const listById = async (id) => {
   }
 };
 
+const exclude = async (id) => {
+  try {
+    await User.destroy({ where: { id } });
+
+    return;
+  } catch (e) {
+    console.log(e.message);
+    return builtError(500, e.message);
+  }
+};
+
 module.exports = {
   create,
   login,
   listAll,
   listById,
+  exclude,
 };
