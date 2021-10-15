@@ -13,6 +13,10 @@ const invalidPassword = {
   status: 400,
 };
 
+const emailRequired = {
+  message: '"email" is required',
+  status: 400,
+};
 const passwordRequired = {
   message: '"password" is required',
   status: 400,
@@ -25,7 +29,7 @@ const tokenNotFound = {
 
 const userExists = {
   message: 'User already registered',
-  status: 401,
+  status: 409,
 };
 
 module.exports = {
@@ -34,5 +38,6 @@ module.exports = {
   invalidEmail,
   invalidPassword,
   passwordRequired,
+  emailRequired,
   userExists,
 };
