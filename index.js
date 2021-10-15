@@ -26,6 +26,7 @@ const {
   getOnePost,
   putPost,
   deleteBlogPost,
+  deleteUser,
   } = require('./controllers');
 
 const app = express();
@@ -42,6 +43,8 @@ app.post('/user', validateEmailFormat, validateName, validatePassword, postUser)
 app.get('/user', validateToken, getUser);
 
 app.get('/user/:id', validateToken, getOneUser);
+
+app.delete('/user/me', validateToken, deleteUser);
 
 app.post('/login', validateEmailLogin, validatePasswordLogin, postLogin);
 
