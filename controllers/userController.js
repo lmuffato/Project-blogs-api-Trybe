@@ -3,7 +3,9 @@ const { userService } = require('../services');
 const CREATED = 201;
 
 const create = async (req, res) => {
-  const result = await userService.create(req.body);
+  const { displayName, email, password, image = '' } = req.body;
+  
+  const result = await userService.create({ displayName, email, password, image });
 
   const { error } = result;
 

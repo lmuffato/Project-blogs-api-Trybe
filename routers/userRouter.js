@@ -10,7 +10,9 @@ Router.post('/', [
   userController.create,
 ]);
 
-Router.use((err, _req, res, _next) => (
-  res.status(400).json(err)));
+Router.use((err, _req, res, _next) => {
+  const { code, message } = err;
+  return res.status(code).json({ message });
+});
 
 module.exports = Router;

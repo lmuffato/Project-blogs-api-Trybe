@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const Sequelize = require('sequelize');
 const { User } = require('../models');
 const errorMap = require('../utils/errorMap');
 
@@ -12,7 +13,12 @@ const findUserByEmail = async (email) => {
   return user;
 };
 
+const config = require('../config/config');
+
+const sequelize = new Sequelize(config.development);
+
 const create = async (user) => {
+  const t = await sequelize.transaction();
   try {
     const { email } = user;
     
@@ -28,9 +34,13 @@ const create = async (user) => {
     const payload = { id, displayName };
 
     const token = jwt.sign(payload, SECRET, options);
+
+    await t.commit();
+
     return { token };
   } catch (error) {
-    console.log(error);
+    await t.rollback();
+
     return errorMap.internalError;
   }
 };
