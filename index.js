@@ -17,6 +17,7 @@ app.get('/', (request, response) => {
   response.send();
 });
 
+app.delete('/post/:id', authMiddleware, validateUserMiddleware, postController.deleteById);
 app.get('/user', authMiddleware, usersController.getAll);
 app.get('/user/:id', authMiddleware, usersController.getById);
 app.get('/categories', authMiddleware, categoryController.getAll);

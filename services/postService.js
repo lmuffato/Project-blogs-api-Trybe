@@ -2,7 +2,6 @@ const { Users, BlogPosts, Categories, PostsCategories } = require('../models');
 // const userSchema = require('../schema/userSchema');
 
 const HTTP_BAD_STATUS = 400;
-// const HTTP_CONFLICT_STATUS = 409;
 const HTTP_NOT_FOUND_STATUS = 404;
 
 const checkCategories = async (categoryIds) => {
@@ -62,20 +61,25 @@ const updateById = async (receivedId, category) => {
   if (!title) return ({ code: HTTP_BAD_STATUS, message: '"title" is required' });
   if (!content) return ({ code: HTTP_BAD_STATUS, message: '"content" is required' });
   if (categoryIds) return ({ code: HTTP_BAD_STATUS, message: 'Categories cannot be edited' });
-  const updatedPost = await BlogPosts.update(
+  await BlogPosts.update(
     { title, content },
     { where: { id: receivedId } },
   );
 
-  if (!updatedPost) return ({ code: HTTP_NOT_FOUND_STATUS, message: 'Post does not exist' });
   const post = await BlogPosts.findOne({
     where: { id: receivedId },
     include: [{ model: Categories, as: 'categories' }],
   });
 
-  console.log(post);
-
   return post;
+};
+
+const deleteById = async (receivedId) => {
+  const deletedPost = await BlogPosts.destroy(
+    { where: { id: receivedId } },
+  );
+
+  return { deletedPost };
 };
 
 module.exports = {
@@ -83,4 +87,5 @@ module.exports = {
   findAll,
   findByID,
   updateById,
+  deleteById,
 };

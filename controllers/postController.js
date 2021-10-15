@@ -3,6 +3,7 @@ const postService = require('../services/postService');
 const HTTP_OK_STATUS = 200;
 const HTTP_CREATED_STATUS = 201;
 const HTTP_BAD_STATUS = 400;
+const HTTP_NO_CONTENT_STATUS = 204;
 
 const create = async (req, res) => {
   const { title, content, categoryIds } = req.body;
@@ -58,9 +59,24 @@ const updateById = async (req, res) => {
   return res.status(HTTP_OK_STATUS).json(response);
 };
 
+const deleteById = async (req, res) => {
+  const { id } = req.params;
+
+  const response = await postService.deleteById(id);
+
+  if (response.code) {
+    return res.status(response.code).json({
+        message: response.message,
+    });
+}
+
+  return res.status(HTTP_NO_CONTENT_STATUS).end();
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   updateById,
+  deleteById,
 }; 
