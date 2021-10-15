@@ -4,13 +4,14 @@ const BlogPosts = (sequelize, DataTypes) => {
     content: DataTypes.STRING,
     published: DataTypes.STRING,
     updated: DataTypes.STRING,
-  }, { timestamps: false, tableName: 'BlogPosts', undescored: true });
+    userId: { type: DataTypes.INTEGER, primaryKey: true },
+  }, { timestamps: false, tableName: 'BlogPosts' });
   
-  BlogPosts.associate = (models) => {
-    BlogPosts.belongsTo(models.User, {
-      foriegnkey: 'userId', as: 'user',
-    });
-  };
+  // BlogPosts.associate = (models) => {
+  //   BlogPosts.belongsTo(models.User, {
+  //     foriegnkey: 'userId', as: 'user',
+  //   });
+  // };
 
   return blogPosts;
 };

@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 const { create, findAll, login, findById } = require('./src/controllers/userController');
 const { createCategory, getAllCategories } = require('./src/controllers/categoriesController');
+const { createPost, getAllBlogPosts } = require('./src/controllers/postControllers');
 const { validateJWT } = require('./src/auth/validateJWT');
 
 const app = express();
@@ -26,3 +27,6 @@ app.get('/user/:id', validateJWT, findById);
 
 app.post('/categories', validateJWT, createCategory);
 app.get('/categories', validateJWT, getAllCategories);
+
+app.post('/post', validateJWT, createPost);
+app.get('/post', validateJWT, getAllBlogPosts);
