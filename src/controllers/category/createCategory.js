@@ -13,8 +13,6 @@ module.exports = async (req, res) => {
 
   const createdCategory = await CategoryService.createCategory({ name });
 
-  console.log(createdCategory);
-
   if (createdCategory.message) {
     return res
       .status(createdCategory.status).json({ message: createdCategory.message }); 
