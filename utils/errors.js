@@ -22,7 +22,7 @@ const ERROR_EMAIL_REQUIRED = {
 const ERROR_PASSWORD_LENGTH = {
   error: {
     status: 400,
-    message: '"password" length mus be 6 characters long',
+    message: '"password" length must be 6 characters long',
   },
 };
 
@@ -36,7 +36,7 @@ const ERROR_PASSWORD_REQUIRED = {
 const ERROR_USER_EXISTS = {
   error: {
     status: 409,
-    message: 'user already registered',
+    message: 'User already registered',
   },
 };
 

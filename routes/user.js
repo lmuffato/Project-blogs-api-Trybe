@@ -10,7 +10,7 @@ const {
 
 const router = express.Router();
 
-router.post('/', emailFormatValidation, emailValidation, 
+router.post('/', emailValidation, emailFormatValidation, 
   displayNameValidation, passwordValidation, userController.create);
 
 module.exports = router;
