@@ -33,7 +33,7 @@ const validatePassword = (req, res, next) => {
 
 const findEmail = async (req, res, next) => {
   const { email } = req.body;
-  const [result] = await getByEmail(email);
+  const [result] = await getByEmail({ email });
   if (result) return res.status(HTTP_STATUS.CONFLICT).json(ERRORS.duplicatedEmail);
   next();
 };

@@ -10,7 +10,9 @@ const getAll = async (_req, res) => {
 };
 
 const getByEmail = async (user) => {
-  const getEmail = await User.findAll({ where: { email: user.email, password: user.password } });
+  const getEmail = user.password
+    ? await User.findAll({ where: { email: user.email, password: user.password } })
+    : await User.findAll({ where: { email: user.email } });
   return getEmail;
 };
 
