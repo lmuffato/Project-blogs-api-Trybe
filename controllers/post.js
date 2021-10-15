@@ -16,11 +16,11 @@ const getAll = async (_req, res) => {
   try {
     const posts = await BlogPost.findAll({
       include: [
-        { model: User, as: 'user' },
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
         { 
           model: Category, 
           as: 'categories', 
-          attributes: ['id', 'name'], 
+          through: { attributes: [] }, 
         },
       ],
     });
@@ -37,8 +37,8 @@ const findById = async (req, res) => {
     const post = await BlogPost.findOne({
       where: { id },
       include: [
-        { model: User, as: 'user' },
-        { model: Category, as: 'categories', attributes: ['id', 'name'] },
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
       ],
     });
     if (post === null) return res.status(404).json({ message: 'Post does not exist' });
@@ -83,4 +83,26 @@ const deleteById = async (req, res) => {
   return res.status(404).json({ message });
 };
 
-module.exports = { create, getAll, findById, update, deleteById };
+const findByQuery = async (req, res) => {
+  const { q } = req.query;
+  console.log('o que veio na query: ', q);
+  const { posts } = await postServices.findByQuery(q);
+  return res.status(200).json(posts);
+  // const { id } = req.params;
+  // try {
+  //   const post = await BlogPost.findOne({
+  //     where: { id },
+  //     include: [
+  //       { model: User, as: 'user' },
+  //       { model: Category, as: 'categories', attributes: ['id', 'name'] },
+  //     ],
+  //   });
+  //   if (post === null) return res.status(404).json({ message: 'Post does not exist' });
+  //   return res.status(200).json(post);
+  // } catch (e) {
+  //   console.log(e.message);
+  //   res.status(500).json({ message: 'Algo deu errado' });
+  // }
+};
+
+module.exports = { create, getAll, findById, update, deleteById, findByQuery };

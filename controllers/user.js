@@ -5,7 +5,10 @@ const { User } = require('../models');
 const findById = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await User.findOne({ where: { id } });
+    const user = await User.findOne({ 
+      where: { id },
+      attributes: { exclude: ['password'] },
+     });
     if (!user) {
       return res.status(404).json({ message: 'User does not exist' });
     }
@@ -34,7 +37,7 @@ const create = async (req, res) => {
 
 const getAll = async (_req, res) => {
   try {
-    const users = await User.findAll();
+    const users = await User.findAll({ attributes: { exclude: ['password'] } });
     return res.status(200).json(users);
   } catch (e) {
     console.log(e.message);

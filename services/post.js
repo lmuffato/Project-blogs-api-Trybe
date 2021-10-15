@@ -1,4 +1,5 @@
-const { BlogPost, Category } = require('../models');
+const { Op } = require('sequelize');
+const { BlogPost, Category, User } = require('../models');
 
 const validateFieldsFilled = (title, content, categoryIds) => {
   if (title === undefined) {
@@ -73,7 +74,7 @@ const update = async (postInfo, userIdLogged) => {
   }
   await BlogPost.update({ title, content }, { where: { id: postId } });
   const postUpdated = await BlogPost.findOne({ where: { id: postId },
-    include: [{ model: Category, as: 'categories', attributes: ['id', 'name'] }],
+    include: [{ model: Category, as: 'categories', through: { attributes: [] } }],
   });
   return { postUpdated };
 };
@@ -90,4 +91,33 @@ const deleteById = async (postId, userIdLogged) => {
   return { message: 'Post was deleted' };
 };
 
-module.exports = { create, update, deleteById };
+const getAll = async () => (
+  BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  })
+);
+
+const findByQuery = async (queryInfo) => {
+if (queryInfo === '') {
+  const posts = await getAll();
+  return { posts };
+}
+const posts = await BlogPost.findAll({
+  where: {
+    [Op.or]: [
+      { title: { [Op.like]: `%${queryInfo}%` } },
+      { content: { [Op.like]: `%${queryInfo}%` } },
+    ],
+  },
+  include: [
+    { model: User, as: 'user', attributes: { exclude: ['password'] } },
+    { model: Category, as: 'categories', through: { attributes: [] } },
+  ],
+});
+return { posts };
+};
+
+module.exports = { create, update, deleteById, findByQuery };
