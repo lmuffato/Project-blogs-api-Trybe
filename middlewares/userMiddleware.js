@@ -11,4 +11,11 @@ const validUser = async (req, _res, next) => {
 next();
 };
 
-module.exports = { validUser };
+const login = async (req, res, next) => {
+  const { id } = req.params;
+  const user = await User.findByPk(id);
+  if (!user) return next({ statusCode: 400, message: 'User does not exist' });
+  next();
+};
+
+module.exports = { validUser, login };
