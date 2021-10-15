@@ -53,6 +53,8 @@ app.get('/categories',
  categoriesMiddlewares.validateTokenFn,
  categoriesControllers.getAllCategories);
 
+//  post
+
 app.post('/post',
 postMiddlewares.validateCategoryId,
 postMiddlewares.validateContent,
@@ -61,3 +63,7 @@ postMiddlewares.validateTokenFn,
   postMiddlewares.searchUser,
   postMiddlewares.verifyCategoryIdExists,
   postControllers.createPost);
+
+app.get('/post', 
+ postMiddlewares.validateTokenFn,
+ postControllers.getAll);

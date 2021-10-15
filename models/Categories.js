@@ -6,7 +6,14 @@ const categories = (sequelize, DataTypes) => {
     timestamps: false,
     tableName: 'Categories',
   });
-  return categoriesModel;
+
+  categoriesModel.associate = (models) => {
+    categoriesModel.hasMany(models.PostsCategories, {
+      foreignKey: 'categoryId', as: 'postscategories',
+    });
+};
+
+return categoriesModel;
 };
 
 module.exports = categories;
