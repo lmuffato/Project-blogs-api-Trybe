@@ -1,6 +1,9 @@
+const jwt = require('jsonwebtoken');
 const HTTP_STATUS = require('./httpStatus');
 const ERRORS = require('./errorMsg');
 const { getByEmail } = require('../controllers/users');
+
+const SECRET = process.env.JWT_SECRET;
 
 const validateDisplayName = (req, res, next) => {
   const { displayName } = req.body;
@@ -38,9 +41,23 @@ const findEmail = async (req, res, next) => {
   next();
 };
 
+const authToken = async (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) return res.status(HTTP_STATUS.UNAUTHORIZED).json(ERRORS.noToken);
+  try {
+    const { dbEmail: email } = jwt.verify(token, SECRET);
+    const [result] = await getByEmail({ email });
+    req.user = result;
+    next();
+  } catch (e) {
+    return res.status(HTTP_STATUS.UNAUTHORIZED).json(ERRORS.badToken);
+  }
+};
+
 module.exports = {
   validateDisplayName,
   validateEmail,
   validatePassword,
   findEmail,
+  authToken,
 };

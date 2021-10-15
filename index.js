@@ -7,6 +7,7 @@ const {
   validatePassword,
   validateEmail,
   findEmail,
+  authToken,
 } = require('./middlewares/validations');
 
 const app = express();
@@ -14,7 +15,9 @@ app.use(bodyParser.json());
 
 const PORT = process.env.PORT || 3000;
 
-app.get('/users', userControllers.getAll);
+app.get('/user', [
+  authToken,
+], userControllers.getAll);
 
 app.post('/user', [
   validateDisplayName,

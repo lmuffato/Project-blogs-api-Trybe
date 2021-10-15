@@ -34,6 +34,14 @@ const blanckPassword = {
   message: '"password" is not allowed to be empty',
 };
 
+const noToken = {
+  message: 'Token not found',
+};
+
+const badToken = {
+  message: 'Expired or invalid token',
+};
+
 module.exports = {
   invalidName,
   invalidEmail,
@@ -44,4 +52,6 @@ module.exports = {
   invalidFields,
   blanckEmail,
   blanckPassword,
+  noToken,
+  badToken,
 };
