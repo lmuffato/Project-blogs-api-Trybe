@@ -7,23 +7,23 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type:Sequelize.INTEGER
+        type: Sequelize.INTEGER
       },
       displayName: {
         allowNull: false,
-        type:Sequelize.STRING
+        type: Sequelize.STRING
       },
       email: {
         allowNull: false,
-        type:Sequelize.STRING
+        type: Sequelize.STRING
       },
       password: {
         allowNull: false,
-        type:Sequelize.STRING
+        type: Sequelize.STRING
       },
       image: {
         allowNull: false,
-        type:Sequelize.STRING
+        type: Sequelize.STRING
       }
     });
   },
