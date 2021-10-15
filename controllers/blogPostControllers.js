@@ -32,27 +32,27 @@ router
     }
   });
 
-const getCategories = async (id) => {
-  const response = await PostCategory.findAll({ where: { userId: id } });
-  console.log(response);
-};
+// const getCategories = async (id) => {
+//   const response = await PostCategory.findAll({ where: { userId: id } });
+//   console.log(response);
+// };
 
-router.get('/', async (req, res) => {
-  const response = await BlogPost.findAll();
-  const posts = response.map(async (post) => {
-    const user = await User.findOne({ where: { id: post.userId } });
-    const categories = await getCategories(user.id);
-    return {
-      id: post.id,
-      title: post.title,
-      content: post.content,
-      published: post.published,
-      updated: post.updated,
-      user: user.dataValues,
-      categories,
-    };
-  });
-  console.log(posts);
-  return res.status(200).json(response);
-});
+// router.get('/', async (req, res) => {
+//   const response = await BlogPost.findAll();
+//   const posts = response.map(async (post) => {
+//     const user = await User.findOne({ where: { id: post.userId } });
+//     const categories = await getCategories(user.id);
+//     return {
+//       id: post.id,
+//       title: post.title,
+//       content: post.content,
+//       published: post.published,
+//       updated: post.updated,
+//       user: user.dataValues,
+//       categories,
+//     };
+//   });
+//   console.log(posts);
+//   return res.status(200).json(response);
+// });
 module.exports = router;
