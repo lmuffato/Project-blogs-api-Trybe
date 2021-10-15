@@ -7,7 +7,7 @@ module.exports = {
 
     try {
       await User.create({ displayName, email, password, image });
-      const token = generateToken(email);
+      const token = generateToken({ email });
       return res.status(201).json({ token });
     } catch (error) {
       return res.status(409).json({ message: 'User already registered' });

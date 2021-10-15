@@ -14,7 +14,7 @@ routes.post(
     try {
       const user = await User.findAll({ where: { email, password } });
       if (!user.length) throw new Error('Invalid fields');
-      const token = generateToken(email);
+      const token = generateToken({ email });
       return res.status(200).json({ token });
     } catch (error) {
       return res.status(400).json({ message: error.message });
