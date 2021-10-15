@@ -16,7 +16,17 @@ const listAll = async (_req, res, next) => {
   return res.status(200).json(result);
 };
 
+const listById = async (req, res, next) => {
+  const { id } = req.params;
+  const result = await Post.listById(id);
+
+  if (result.message) return next(result);
+
+  return res.status(200).json(result);
+};
+
 module.exports = {
   addNew,
   listAll,
+  listById,
 };

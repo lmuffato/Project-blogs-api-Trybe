@@ -33,7 +33,26 @@ const listAll = async () => {
   }
 };
 
+const listById = async (id) => {
+  try {
+    const response = await Post.findByPk(id, {
+      include: [
+        { model: User, as: 'user', attributes: { exclude: 'password' } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+
+    if (!response) return builtError(404, 'Post does not exist');
+
+    return response;
+  } catch (e) {
+    console.log(e.message);
+    return builtError(500, e.message);
+  }
+};
+
 module.exports = {
   create,
   listAll,
+  listById,
 };
