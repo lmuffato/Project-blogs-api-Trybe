@@ -2,7 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const userControllers = require('./controllers/users');
-const { validateDisplayName } = require('./middlewares/validations');
+const { 
+  validateDisplayName,
+  validatePassword,
+  validateEmail,
+} = require('./middlewares/validations');
 
 const app = express();
 app.use(bodyParser.json());
@@ -13,6 +17,8 @@ app.get('/users', userControllers.getAll);
 
 app.post('/user', [
   validateDisplayName,
+  validateEmail,
+  validatePassword,
 ], userControllers.create);
 
 // não remova esse endpoint, e para o avaliador funcionar

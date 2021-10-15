@@ -9,6 +9,27 @@ const validateDisplayName = (req, res, next) => {
   next();
 };
 
+const validateEmail = (req, res, next) => {
+  const { email } = req.body;
+  const regex = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
+  
+  if (!email) return res.status(HTTP_STATUS.BAD_REQUEST).json(ERRORS.emailRequired);
+  const validEmail = regex.test(email);
+  if (!validEmail) return res.status(HTTP_STATUS.BAD_REQUEST).json(ERRORS.invalidEmail);
+  next();
+};
+
+const validatePassword = (req, res, next) => {
+  const { password } = req.body;
+  if (!password) return res.status(HTTP_STATUS.BAD_REQUEST).json(ERRORS.passwordRequired);
+  if (password.length < 6) {
+    return res.status(HTTP_STATUS.BAD_REQUEST).json(ERRORS.invalidPassword);
+  }
+  next();
+};
+
 module.exports = {
   validateDisplayName,
+  validateEmail,
+  validatePassword,
 };
