@@ -60,5 +60,4 @@ postMiddlewares.validateTitle,
 postMiddlewares.validateTokenFn,
   postMiddlewares.searchUser,
   postMiddlewares.verifyCategoryIdExists,
-  postControllers.createPost,
-  );
+  postControllers.createPost);
