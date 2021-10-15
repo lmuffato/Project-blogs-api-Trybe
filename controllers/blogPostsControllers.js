@@ -4,7 +4,11 @@ const validateContent = require('../middlewares/contentValidations');
 const validateTitle = require('../middlewares/titleValidations');
 const verifyToken = require('../middlewares/utils/verifyToken');
 const validateJWT = require('../middlewares/validateJWT');
-const { BlogPost, User, Category } = require('../models');
+const {
+  BlogPost,
+  // User,
+  // Category,
+} = require('../models');
 const createPostsCategories = require('./postCategoryController');
 
 const BlogPosts = Router();
