@@ -43,8 +43,24 @@ const getById = async (req, res) => {
   return res.status(HTTP_OK_STATUS).json(response);
 };
 
+const updateById = async (req, res) => {
+  const { id } = req.params;
+  const { title, content, categoryIds } = req.body;
+
+  const response = await postService.updateById(id, { title, content, categoryIds });
+
+  if (response.code) {
+    return res.status(response.code).json({
+        message: response.message,
+    });
+}
+
+  return res.status(HTTP_OK_STATUS).json(response);
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  updateById,
 }; 

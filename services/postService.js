@@ -57,8 +57,30 @@ const findByID = async (receivedId) => {
   return post;
 };
 
+const updateById = async (receivedId, category) => {
+  const { title, content, categoryIds } = category;
+  if (!title) return ({ code: HTTP_BAD_STATUS, message: '"title" is required' });
+  if (!content) return ({ code: HTTP_BAD_STATUS, message: '"content" is required' });
+  if (categoryIds) return ({ code: HTTP_BAD_STATUS, message: 'Categories cannot be edited' });
+  const updatedPost = await BlogPosts.update(
+    { title, content },
+    { where: { id: receivedId } },
+  );
+
+  if (!updatedPost) return ({ code: HTTP_NOT_FOUND_STATUS, message: 'Post does not exist' });
+  const post = await BlogPosts.findOne({
+    where: { id: receivedId },
+    include: [{ model: Categories, as: 'categories' }],
+  });
+
+  console.log(post);
+
+  return post;
+};
+
 module.exports = {
   insert,
   findAll,
   findByID,
+  updateById,
 };

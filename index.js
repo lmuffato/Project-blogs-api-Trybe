@@ -6,8 +6,9 @@ app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const usersController = require('./controllers/userController');
 const authMiddleware = require('./middlewares/authMiddleware');
+const validateUserMiddleware = require('./middlewares/validateUserMiddleware');
+const usersController = require('./controllers/userController');
 const categoryController = require('./controllers/categoryControler');
 const postController = require('./controllers/postController');
 
@@ -21,6 +22,7 @@ app.get('/user/:id', authMiddleware, usersController.getById);
 app.get('/categories', authMiddleware, categoryController.getAll);
 app.get('/post', authMiddleware, postController.getAll);
 app.get('/post/:id', authMiddleware, postController.getById);
+app.put('/post/:id', authMiddleware, validateUserMiddleware, postController.updateById);
 app.post('/user', usersController.create);
 app.post('/login', usersController.login);
 app.post('/categories', authMiddleware, categoryController.create);
