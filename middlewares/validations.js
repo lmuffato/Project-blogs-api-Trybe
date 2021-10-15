@@ -2,6 +2,7 @@ const httpStatus = require('../utils/httpStatus');
 const errorCodes = require('../utils/errorCodes');
 
 const categoryController = require('../controllers/category');
+const { Category } = require('../models');
 
 const validateEmailRequired = (req, res, next) => {
   const { email } = req.body;
@@ -125,21 +126,15 @@ const validatePostCategoryIds = (req, res, next) => {
   next();
 };
 
-const validateCategoryIdExists = (req, res, next) => {
+const validateCategoryIdExists = async (req, res, next) => {
   const { categoryIds } = req.body;
 
-  const verifyId = async (id) => {
-    const check = await categoryController.findOne(id).then((category) => {
-      if (!category || category === null) {
-        return res.status(httpStatus.BAD_REQUEST).json(errorCodes.errorCategoryIdNotFound);
-      }
-
-      next();
-    }).catch((e) => console.log(e));
-    return check;
-  };
-
-  return categoryIds.every(verifyId);
+  const verifyIds = await Category.findOne({ where: { id: categoryIds[0] } });
+  if (!verifyIds) { 
+    return res.status(httpStatus.BAD_REQUEST).json(errorCodes.errorCategoryIdNotFound);
+  }
+  
+  next();
 };
 
 module.exports = {
