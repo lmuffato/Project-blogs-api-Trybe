@@ -51,8 +51,26 @@ const listById = async (id) => {
   }
 };
 
+const update = async (id, { title, content }, userId) => {
+  try {
+    await Post.update({ title, content }, { where: { id, userId } });
+
+    const result = await Post.findByPk(id, {
+       include: [{ model: Category, as: 'categories', through: { attributes: [] } }],
+    });
+
+    if (result.userId !== userId) return builtError(401, 'Unauthorized user');
+
+    return result;
+  } catch (e) {
+    console.log(e.message);
+    return builtError(500, e.message);
+  }
+};
+
 module.exports = {
   create,
   listAll,
   listById,
+  update,
 };

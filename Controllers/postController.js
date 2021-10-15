@@ -25,8 +25,21 @@ const listById = async (req, res, next) => {
   return res.status(200).json(result);
 };
 
+const update = async (req, res, next) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+  const { id: userId } = req.user;
+  
+  const result = await Post.update(id, { title, content }, userId);
+
+  if (result.message) return next(result);
+
+  return res.status(200).json(result);
+};
+
 module.exports = {
   addNew,
   listAll,
   listById,
+  update,
 };
