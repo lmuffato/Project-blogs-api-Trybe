@@ -4,6 +4,11 @@ const Category = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
   },
   { timestamps: false });
+  
+  Category.associate = (models) => {
+    Category.belongsToMany(models.BlogPost,
+      { as: 'CategoryToPosts', through: models.PostsCategory, foreignKey: 'categoryId' });
+  };
 
   return Category;
 };
