@@ -1,7 +1,6 @@
 const userSchema = require('../schemas/users');
 const loginSchema = require('../schemas/login');
 const { clientErrors } = require('../utils/httpStatusCodes');
-const newError = require('../utils/createErrorMessage');
 
 const validateUserPayload = (req, _res, next) => {
     const { displayName, email, password, image } = req.body;
