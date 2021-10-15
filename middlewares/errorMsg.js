@@ -22,6 +22,10 @@ const duplicatedEmail = {
   message: 'User already registered',
 };
 
+const invalidFields = {
+  message: 'Invalid fields',
+};
+
 module.exports = {
   invalidName,
   invalidEmail,
@@ -29,4 +33,5 @@ module.exports = {
   invalidPassword,
   passwordRequired,
   duplicatedEmail,
+  invalidFields,
 };

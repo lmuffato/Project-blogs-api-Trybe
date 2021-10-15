@@ -23,7 +23,7 @@ app.post('/user', [
   findEmail,
 ], userControllers.create);
 
-app.post('/login');
+app.post('/login', userControllers.findUser);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
