@@ -22,6 +22,10 @@ const errorUserExists = {
   message: 'User already registered',
 };
 
+const errorLogin = {
+  message: 'Campos inválidos',
+};
+
 module.exports = {
   errorDisplayName,
   errorEmailValid,
@@ -29,4 +33,5 @@ module.exports = {
   errorPassword,
   errorPasswordRequired,
   errorUserExists,
+  errorLogin,
 };
