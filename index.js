@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/user');
 const loginRoutes = require('./routes/login');
-const categoriesRoutes = require('./routes/categories');
+const categoriesRoutes = require('./routes/category');
 
 require('dotenv').config();
 
