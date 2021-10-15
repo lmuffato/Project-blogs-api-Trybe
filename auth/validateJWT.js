@@ -40,7 +40,7 @@ module.exports = async (req, res, next) => {
         .json({ message: 'Expired or invalid token' });
     }
 
-    req.user = user;
+    req.validatedUser = user;
 
     next();
   } catch (err) {
