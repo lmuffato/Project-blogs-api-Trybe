@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const { create, findAll, login, findById } = require('./src/controllers/userController');
-const { createCategory } = require('./src/controllers/categoriesController');
+const { createCategory, getAllCategories } = require('./src/controllers/categoriesController');
 const { validateJWT } = require('./src/auth/validateJWT');
 
 const app = express();
@@ -25,3 +25,4 @@ app.post('/login', login);
 app.get('/user/:id', validateJWT, findById);
 
 app.post('/categories', validateJWT, createCategory);
+app.get('/categories', validateJWT, getAllCategories);

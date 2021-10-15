@@ -1,6 +1,6 @@
-const { createCategories } = require('../services/categoriesService');
+const { createCategories, getCategories } = require('../services/categoriesService');
 const { isRequired } = require('../utils/errorMessages');
-const { HTTP_CREATED_STATUS } = require('../utils/statusHTTP');
+const { HTTP_CREATED_STATUS, HTTP_OK_STATUS } = require('../utils/statusHTTP');
 
 const createCategory = async (req, res) => {
   const { name } = req.body;
@@ -12,4 +12,9 @@ const createCategory = async (req, res) => {
   return res.status(HTTP_CREATED_STATUS).json(category);
 };
 
-module.exports = { createCategory };
+const getAllCategories = async (_req, res) => {
+  const categories = await getCategories();
+  return res.status(HTTP_OK_STATUS).json(categories);
+};
+
+module.exports = { createCategory, getAllCategories };
