@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userController = require('./controllers/userController');
 const userMiddlewares = require('./middlewares/userMiddlewares');
+const loginMiddlewares = require('./middlewares/loginMiddlewares');
 
 const app = express();
 app.use(bodyParser.json());
@@ -21,3 +22,9 @@ userMiddlewares.validateEmail,
 userMiddlewares.checkExistingEmail,
 userMiddlewares.validadePassword,
 userController.create);
+
+app.post('/login',
+loginMiddlewares.validadeNotAllowedEmpty,
+loginMiddlewares.validadeRequiredFields,
+loginMiddlewares.checkExistingUser,
+userController.login);
