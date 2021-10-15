@@ -34,6 +34,14 @@ const errorPasswordNotEmpty = {
   message: '"password" is not allowed to be empty',
 };
 
+const errorToken = {
+  message: 'Token not found',
+};
+
+const errorTokenInvalid = {
+  message: 'Expired or invalid token',
+};
+
 module.exports = {
   errorDisplayName,
   errorEmailValid,
@@ -44,4 +52,6 @@ module.exports = {
   errorLogin,
   errorEmailNotEmpty,
   errorPasswordNotEmpty,
+  errorToken,
+  errorTokenInvalid,
 };

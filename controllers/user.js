@@ -23,7 +23,16 @@ const getUserByEmail = async (email) => {
   return soughtuser;
 };
 
+const getAll = async (_req, res) => User.findAll(
+  { attributes: ['id', 'displayName', 'email', 'image'] },
+).then((allUsers) => res.status(httpStatus.HTTP_OK_STATUS).json(allUsers))
+.catch((error) => {
+  console.log(error);
+  res.status(httpStatus.HTTP_NOT_FOUND).json(error);
+});
+
 module.exports = {
   create,
   getUserByEmail,
+  getAll,
 };
