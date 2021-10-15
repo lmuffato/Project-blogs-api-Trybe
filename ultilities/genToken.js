@@ -8,8 +8,8 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const genToken = (email) => {
-  const token = sign({ data: email }, JWT_SECRET, jwtConfig);
+const genToken = (email, id) => {
+  const token = sign({ email, id }, JWT_SECRET, jwtConfig);
   return token;
 };
 

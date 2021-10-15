@@ -5,8 +5,8 @@ const {
 
 const createUser = async (data) => {
   const newUser = await Users.create(data);
-  const { email } = newUser;
-  const token = await genToken(email);
+  const { email, id } = newUser;
+  const token = await genToken(email, id);
   return { token };
 };
 
