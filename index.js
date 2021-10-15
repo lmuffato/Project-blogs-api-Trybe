@@ -7,6 +7,7 @@ app.use(bodyParser.json());
 
 const userController = require('./controllers/userController');
 const categoryController = require('./controllers/categoryController');
+const postController = require('./controllers/postController');
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
@@ -16,6 +17,7 @@ app.get('/', (request, response) => {
 app.post('/user', userController.createUser);
 app.post('/login', userController.userLogin);
 app.post('/categories', authToken, categoryController.createCategory);
+app.post('/post', authToken, postController.createPost);
 
 app.get('/user', authToken, userController.getAll);
 app.get('/user/:id', authToken, userController.getById);
