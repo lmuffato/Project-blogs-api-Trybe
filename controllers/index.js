@@ -1,3 +1,4 @@
+const deleteBlogPost = require('./deletePost');
 const getCategories = require('./getCategories');
 const getOnePost = require('./getOnePost');
 const getOneUser = require('./getOneUser');
@@ -20,4 +21,5 @@ module.exports = {
     getPost,
     getOnePost,
     putPost,
+    deleteBlogPost,
 };

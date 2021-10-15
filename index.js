@@ -12,6 +12,7 @@ const {
   validatePost,
   validateCategoriesUpdate,
   validateUserId,
+  validatePostExistence,
 } = require('./midlewares');
 const {   
   postUser, 
@@ -24,6 +25,7 @@ const {
   getPost,
   getOnePost,
   putPost,
+  deleteBlogPost,
   } = require('./controllers');
 
 const app = express();
@@ -59,5 +61,7 @@ app.put('/post/:id',
   validatePost, 
   validateUserId,   
   putPost);
+
+app.delete('/post/:id', validateToken, validatePostExistence, validateUserId, deleteBlogPost);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
