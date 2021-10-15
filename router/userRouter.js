@@ -3,6 +3,7 @@ const { createUser, getAllUsers } = require('../controllers/usersController');
 const { nameValidate,
 emailValidate,
 passwordValidate } = require('../middlewares/validations');
+const { validateJWT } = require('../middlewares/authJWT');
 
 const router = Router();
 
@@ -11,6 +12,6 @@ emailValidate,
 passwordValidate,
 createUser);
 
-router.get('/', getAllUsers);
+router.get('/', validateJWT, getAllUsers);
 
 module.exports = router; 
