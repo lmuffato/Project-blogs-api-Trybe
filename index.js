@@ -6,6 +6,7 @@ const {
   validateDisplayName,
   validatePassword,
   validateEmail,
+  findEmail,
 } = require('./middlewares/validations');
 
 const app = express();
@@ -19,6 +20,7 @@ app.post('/user', [
   validateDisplayName,
   validateEmail,
   validatePassword,
+  findEmail,
 ], userControllers.create);
 
 // não remova esse endpoint, e para o avaliador funcionar

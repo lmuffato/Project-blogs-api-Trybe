@@ -5,6 +5,11 @@ const getAll = async (_req, res) => {
   res.status(200).json(users);
 };
 
+const getByEmail = async (userEmail) => {
+  const getEmail = await User.findAll({ where: { email: userEmail } });
+  return getEmail;
+};
+
 const create = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   const user = await User.create({ displayName, email, password, image });
@@ -14,4 +19,5 @@ const create = async (req, res) => {
 module.exports = {
   getAll,
   create,
+  getByEmail,
 };

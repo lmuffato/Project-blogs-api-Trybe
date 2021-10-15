@@ -1,5 +1,6 @@
 const HTTP_STATUS = require('./httpStatus');
 const ERRORS = require('./errorMsg');
+const { getByEmail } = require('../controllers/users');
 
 const validateDisplayName = (req, res, next) => {
   const { displayName } = req.body;
@@ -28,8 +29,16 @@ const validatePassword = (req, res, next) => {
   next();
 };
 
+const findEmail = async (req, res, next) => {
+  const { email } = req.body;
+  const [result] = await getByEmail(email);
+  if (result) return res.status(HTTP_STATUS.CONFLICT).json(ERRORS.duplicatedEmail);
+  next();
+};
+
 module.exports = {
   validateDisplayName,
   validateEmail,
   validatePassword,
+  findEmail,
 };
