@@ -11,4 +11,9 @@ const postCategorie = async ({ name }) => {
   return categorie;
 };
 
-module.exports = { postCategorie };
+const getCategory = async () => {
+  const categorie = await Category.findAll();
+  return categorie;
+};
+
+module.exports = { postCategorie, getCategory };

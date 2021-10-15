@@ -20,3 +20,4 @@ app.post('/login', loginController.login);
 app.get('/user', midlware.validateJWT, userController.getUser);
 app.get('/user/:id', midlware.validateJWT, userController.getById);
 app.post('/categories', midlware.validateJWT, categoriesController.postCategorie);
+app.get('/categories', midlware.validateJWT, categoriesController.getCategory);
