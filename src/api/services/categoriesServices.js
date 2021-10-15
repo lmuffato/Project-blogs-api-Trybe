@@ -1,4 +1,7 @@
-const { HTTP_CREATED } = require('../status');
+const { 
+  HTTP_CREATED,
+  HTTP_OK_STATUS,
+} = require('../status');
 
 const { Categorie } = require('../models');
 
@@ -12,6 +15,13 @@ const createServices = async (name) => {
   };
 };
 
+const readAllServices = async () => {
+  const allCategories = await Categorie.findAll();
+
+  return { code: HTTP_OK_STATUS, allCategories };
+};
+
 module.exports = {
   createServices,
+  readAllServices,
 };
