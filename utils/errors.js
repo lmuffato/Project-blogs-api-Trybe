@@ -82,6 +82,13 @@ const ERROR_TOKEN = {
   },
 };
 
+const ERROR_CATEGORY_NAME = {
+  error: {
+    status: 400,
+    message: '"Name" is required',
+  },
+};
+
 module.exports = {
   ERROR_DISPLAY_NAME_LENGTH,
   ERROR_EMAIL_REQUIRED,
@@ -95,4 +102,5 @@ module.exports = {
   ERROR_TOKEN,
   ERROR_JWT,
   ERROR_USER_NOT_FOUND,
+  ERROR_CATEGORY_NAME,
 };

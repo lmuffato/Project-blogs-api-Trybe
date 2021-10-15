@@ -6,6 +6,7 @@ const {
   ERROR_VALID_EMAIL,
   ERROR_EMPTY_EMAIL,
   ERROR_EMPTY_PASSWORD,
+  ERROR_CATEGORY_NAME,
 } = require('../utils/errors');
 
 const emailFormatValidation = (req, res, next) => {
@@ -72,6 +73,15 @@ const passwordLoginValidation = (req, res, next) => {
   next();
 };
 
+const categoryNameValidation = (req, res, next) => {
+  const { name } = req.body;
+  if (!name) {
+    return res.status(ERROR_CATEGORY_NAME.error.status)
+      .json({ message: ERROR_CATEGORY_NAME.error.message });
+  }
+  next();
+};
+
 module.exports = {
   emailFormatValidation,
   emailValidation,
@@ -79,4 +89,5 @@ module.exports = {
   passwordValidation,
   emailLoginValidation,
   passwordLoginValidation,
+  categoryNameValidation,
 };
