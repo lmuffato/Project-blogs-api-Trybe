@@ -7,6 +7,7 @@ const postCategory = require('./postCategory');
 const postLogin = require('./postLogin');
 const postPost = require('./postPosts');
 const postUser = require('./postUser');
+const putPost = require('./putPost');
 
 module.exports = {
     postUser,
@@ -18,4 +19,5 @@ module.exports = {
     postPost,
     getPost,
     getOnePost,
+    putPost,
 };
