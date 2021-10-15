@@ -3,6 +3,7 @@ const { HTTP_SERVER_ERROR } = require('../status');
 const {
   createServices,
   readAllServices,
+  readByIdServices,
 } = require('../services/postServices');
 
 const createController = async (req, res) => {
@@ -30,7 +31,21 @@ const readAllController = async (_req, res) => {
   }
 };
 
+const readByIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { notFound, code, message, found, post } = await readByIdServices(id);
+
+    if (notFound) return res.status(code).json({ message });
+
+    if (found) return res.status(code).json(post);
+  } catch (e) {
+    return res.status(HTTP_SERVER_ERROR).json({ message: e.message });
+  }
+};
+
 module.exports = {
   createController,
   readAllController,
+  readByIdController,
 };

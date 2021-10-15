@@ -1,10 +1,11 @@
 const {
   HTTP_BAD_REQUEST,
+  HTTP_NOT_FOUND,
   HTTP_CREATED,
   HTTP_OK_STATUS,
 } = require('../status');
 
-const { BlogPost, Categorie, User } = require('../models');
+const { BlogPost, Categorie, User, PostCategory } = require('../models');
 
 const createServices = async ({ id, title, categoryIds, content }) => {
   const categoryIdsFound = await Categorie.findAll({ where: { id: categoryIds } });
@@ -33,14 +34,35 @@ const readAllServices = async () => {
     include: [
       { all: true },
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
-      // { model: PostCategorie, as: 'user', attributes: { exclude: ['password'] } },
     ],
   });
 
   return { code: HTTP_OK_STATUS, posts };
 };
 
+const readByIdServices = async (id) => {
+  const post = await BlogPost.findByPk(id, {
+    include: [{ all: true },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+    ], 
+  });
+
+  if (!post) {
+    return {
+      notFound: true,
+      code: HTTP_NOT_FOUND,
+      message: 'Post does not exist',
+    };
+  }
+
+  return { found: true, 
+    code: HTTP_OK_STATUS,
+    post,
+  };
+};
+
 module.exports = {
   createServices,
   readAllServices,
+  readByIdServices,
 };

@@ -10,6 +10,7 @@ const {
 const {
   createController,
   readAllController,
+  readByIdController,
 } = require('../controllers/postController');
 
 const router = Router();
@@ -27,6 +28,12 @@ router.get(
   '/',
   validateToken,
   readAllController,
+);
+
+router.get(
+  '/:id',
+  validateToken,
+  readByIdController,
 );
 
 module.exports = router;
