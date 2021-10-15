@@ -1,3 +1,4 @@
+const querystring = require('querystring');
 const postService = require('../services/postService');
 
 const HTTP_OK_STATUS = 200;
@@ -73,10 +74,20 @@ const deleteById = async (req, res) => {
   return res.status(HTTP_NO_CONTENT_STATUS).end();
 };
 
+const getSearch = async (req, res) => {
+  const { url } = req;
+  const decoded = querystring.decode(url);
+
+  const response = await postService.queryByString(decoded['/post/search?q']);
+ 
+  return res.status(HTTP_OK_STATUS).json(response);
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   updateById,
   deleteById,
+  getSearch,
 }; 

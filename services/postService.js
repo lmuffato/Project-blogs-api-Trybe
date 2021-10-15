@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { Users, BlogPosts, Categories, PostsCategories } = require('../models');
 // const userSchema = require('../schema/userSchema');
 
@@ -82,10 +83,34 @@ const deleteById = async (receivedId) => {
   return { deletedPost };
 };
 
+// const mapResponse = (response) => {
+//   return response.map((responseIndex) => responseIndex.dataValues);
+// };
+
+const queryByString = async (query) => {
+  if (query === '') {
+    const posts = await BlogPosts.findAll({
+      include: [{ model: Users, as: 'user' }, { model: Categories, as: 'categories' }],
+    });
+  
+    return posts;
+  }
+
+  const response = await BlogPosts.findAll({
+    where: { 
+      [Op.or]: [{ title: query }, { content: query }],
+    },
+    include: [{ model: Users, as: 'user' }, { model: Categories, as: 'categories' }],
+  });
+
+  return response;
+};
+
 module.exports = {
   insert,
   findAll,
   findByID,
   updateById,
   deleteById,
+  queryByString,
 };

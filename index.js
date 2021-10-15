@@ -19,12 +19,16 @@ app.get('/', (request, response) => {
 
 app.delete('/post/:id', authMiddleware, validateUserMiddleware, postController.deleteById);
 app.delete('/user/me', authMiddleware, usersController.deleteUser);
-app.get('/user', authMiddleware, usersController.getAll);
+
 app.get('/user/:id', authMiddleware, usersController.getById);
+app.get('/user', authMiddleware, usersController.getAll);
 app.get('/categories', authMiddleware, categoryController.getAll);
-app.get('/post', authMiddleware, postController.getAll);
+app.get('/post/search', authMiddleware, postController.getSearch);
 app.get('/post/:id', authMiddleware, postController.getById);
+app.get('/post', authMiddleware, postController.getAll);
+
 app.put('/post/:id', authMiddleware, validateUserMiddleware, postController.updateById);
+
 app.post('/user', usersController.create);
 app.post('/login', usersController.login);
 app.post('/categories', authMiddleware, categoryController.create);
