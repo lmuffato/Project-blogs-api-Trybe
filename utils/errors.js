@@ -40,6 +40,13 @@ const ERROR_USER_EXISTS = {
   },
 };
 
+const ERROR_USER_NOT_FOUND = {
+  error: {
+    status: 404,
+    message: 'User does not exist',
+  },
+};
+
 const ERROR_EMPTY_EMAIL = {
   error: {
     status: 400,
@@ -87,4 +94,5 @@ module.exports = {
   ERROR_VALID_EMAIL,
   ERROR_TOKEN,
   ERROR_JWT,
+  ERROR_USER_NOT_FOUND,
 };

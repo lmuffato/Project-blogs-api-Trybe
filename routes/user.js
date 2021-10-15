@@ -16,4 +16,6 @@ router.post('/', emailValidation, emailFormatValidation,
 
 router.get('/', validateToken, userController.getAllUsers);
 
+router.get('/:id', validateToken, userController.getUserByID);
+
 module.exports = router;
