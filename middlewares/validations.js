@@ -1,7 +1,7 @@
 const httpStatus = require('../utils/httpStatus');
 const errorCodes = require('../utils/errorCodes');
 
-const categoryController = require('../controllers/category');
+// const categoryController = require('../controllers/category');
 const { Category } = require('../models');
 
 const validateEmailRequired = (req, res, next) => {
@@ -133,7 +133,7 @@ const validateCategoryIdExists = async (req, res, next) => {
   if (!verifyIds) { 
     return res.status(httpStatus.BAD_REQUEST).json(errorCodes.errorCategoryIdNotFound);
   }
-  
+
   next();
 };
 
