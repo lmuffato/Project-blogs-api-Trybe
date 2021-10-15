@@ -39,6 +39,7 @@ const findUser = async (req, res) => {
 const getById = async (req, res) => {
   const { id } = req.params;
   const [user] = await User.findAll({ where: { id } });
+  if (!user) return res.status(404).json(ERRORS.userNotFound);
   res.status(200).json({
     id: user.id,
     displayName: user.displayName,

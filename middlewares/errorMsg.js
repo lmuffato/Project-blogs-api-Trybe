@@ -42,6 +42,10 @@ const badToken = {
   message: 'Expired or invalid token',
 };
 
+const userNotFound = {
+  message: 'User does not exist',
+};
+
 module.exports = {
   invalidName,
   invalidEmail,
@@ -54,4 +58,5 @@ module.exports = {
   blanckPassword,
   noToken,
   badToken,
+  userNotFound,
 };
