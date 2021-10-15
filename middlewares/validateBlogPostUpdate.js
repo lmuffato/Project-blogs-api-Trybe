@@ -8,9 +8,8 @@ const checkContent = (content) => {
   if (!content) throw errorMessage.CONTENT_IS_REQUIRED;
 };
 
-const checkCategoryId = (categoryId) => {
-  if (!categoryId) throw errorMessage.CATEGORY_ID_IS_REQUIRED;
-  if (!Array.isArray(categoryId)) throw errorMessage.CATEGORY_ID_MUST_BE_ARRAY;
+const checkCategoryId = (categoryIds) => {
+  if (categoryIds) throw errorMessage.CATEGORY_ID_CANNOT_BE_EDITED;
 };
 
 const validateUserFields = (req, _res, next) => {

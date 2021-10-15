@@ -7,6 +7,7 @@ const getAllCategories = require('./getAllCategories');
 const createPost = require('./createPost');
 const getAllPosts = require('./getAllPosts');
 const getPostById = require('./getPostById');
+const updateBlogPosts = require('./updateBlogPosts');
 
 module.exports = {
   createUser,
@@ -18,4 +19,5 @@ module.exports = {
   createPost,
   getAllPosts,
   getPostById,
+  updateBlogPosts,
 };

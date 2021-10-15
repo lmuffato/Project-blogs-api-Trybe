@@ -75,12 +75,12 @@ const CONTENT_IS_REQUIRED = {
   message: '"content" is required',
 };
 
-const CATEGORYID_IS_REQUIRED = {
+const CATEGORY_ID_IS_REQUIRED = {
   status: httpStatus.BAD_REQUEST,
   message: '"categoryIds" is required',
 };
 
-const CATEGORYID_MUST_BE_ARRAY = {
+const CATEGORY_ID_MUST_BE_ARRAY = {
   status: httpStatus.BAD_REQUEST,
   message: '"categoryId" must be an array format',
 };
@@ -93,6 +93,16 @@ const CATEGORY_IDS_NOT_FOUND = {
 const POST_DOES_NOT_EXISTS = {
   status: httpStatus.NOT_FOUND,
   message: 'Post does not exist',
+};
+
+const UNAUTHORIZED_USER = {
+  status: httpStatus.UNAUTHORIZED,
+  message: 'Unauthorized user',
+};
+
+const CATEGORY_ID_CANNOT_BE_EDITED = {
+  status: httpStatus.BAD_REQUEST,
+  message: 'Categories cannot be edited',
 };
 
 module.exports = {
@@ -111,8 +121,10 @@ module.exports = {
   NAME_IS_REQUIRED,
   TITLE_IS_REQUIRED,
   CONTENT_IS_REQUIRED,
-  CATEGORYID_IS_REQUIRED,
-  CATEGORYID_MUST_BE_ARRAY,
+  CATEGORY_ID_IS_REQUIRED,
+  CATEGORY_ID_MUST_BE_ARRAY,
   CATEGORY_IDS_NOT_FOUND,
   POST_DOES_NOT_EXISTS,
+  UNAUTHORIZED_USER,
+  CATEGORY_ID_CANNOT_BE_EDITED,
 };
