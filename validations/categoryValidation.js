@@ -1,12 +1,15 @@
+const rescue = require('express-rescue');
 const { categorySchema } = require('../schema/categorySchema');
 
-const categoryValidation = (req, res, next) => {
-  const categoryName = req.body;
-  const { error } = categorySchema.validate(categoryName);
-  if (error) next(res.status(400).json({ message: error.details[0].message }));
+const categoryValidation = rescue(async (req, res, next) => {
+  const { name } = req.body;
+  console.log(req.body, 'BODYYYY');
+  console.log(name, 'nameee');
+  const { error } = categorySchema.validate({ name });
+  if (error) next({ message: error.details[0].message, status: 400 });
   
   next();
-};
+});
 
 module.exports = { 
   categoryValidation,
