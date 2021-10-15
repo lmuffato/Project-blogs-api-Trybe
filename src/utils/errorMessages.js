@@ -4,4 +4,5 @@ module.exports = {
   notFound: { code: 401, message: 'Token not found' },
   expiredOrInvalid: { code: 401, message: 'Expired or invalid token' },
   notExist: { code: 404, message: 'User does not exist' },
+  isRequired: { code: 400, message: '"name" is required' },
 };
