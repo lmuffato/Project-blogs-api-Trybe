@@ -19,7 +19,13 @@ const getAll = async (_req, res) => Category.findAll(
   res.status(httpStatus.HTTP_NOT_FOUND).json(error);
 });
 
+const findOne = async (param) => {
+  const category = await Category.findOne({ where: { param } });
+  return category;
+};
+
 module.exports = {
   create,
   getAll,
+  findOne,
 };

@@ -1,6 +1,8 @@
 const httpStatus = require('../utils/httpStatus');
 const errorCodes = require('../utils/errorCodes');
 
+const categoryController = require('../controllers/category');
+
 const validateEmailRequired = (req, res, next) => {
   const { email } = req.body;
    
@@ -126,6 +128,16 @@ const validatePostCategoryIds = (req, res, next) => {
 
 const validateCategoryIdExists = (req, res, next) => {
   const { categoryIds } = req.body;
+
+  categoryIds.every(async (id) => {
+    const verifyCategory = await categoryController.findOne(id);
+
+    if (!verifyCategory || verifyCategory === null) {
+      return res.status(httpStatus.BAD_REQUEST).json(errorCodes.errorCategoryIdNotFound);
+    }
+
+    return next();
+  });
 };
 
 module.exports = {
