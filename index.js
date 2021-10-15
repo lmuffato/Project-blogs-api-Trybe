@@ -2,16 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const userControllers = require('./controllers/users');
+const categoriesControllers = require('./controllers/categories');
+
 const { 
   validateDisplayName,
   validatePassword,
   validateEmail,
   findEmail,
   authToken,
-  // validateName,
+  validateName,
 } = require('./middlewares/validations');
-
-const categoriesControllers = require('./controllers/categories');
 
 const app = express();
 app.use(bodyParser.json());
@@ -39,8 +39,8 @@ app.post('/login', [
 ], userControllers.findUser);
 
 app.post('/categories', [
-  // authToken,
-  // validateName,
+  authToken,
+  validateName,
 ], categoriesControllers.create);
 
 // não remova esse endpoint, e para o avaliador funcionar
