@@ -50,6 +50,22 @@ const errorCategoryName = {
   message: '"name" is required',
 };
 
+const errorBlogPostTitle = {
+  message: '"title" is required',
+};
+
+const errorBlogPostContent = {
+  message: '"content" is required',
+};
+
+const errorPostCategory = {
+  message: '"categoryId" is required',
+};
+
+const errorCategoryIdNotFound = {
+  message: '"categoryIds" not found',
+};
+
 module.exports = {
   errorDisplayName,
   errorEmailValid,
@@ -64,4 +80,8 @@ module.exports = {
   errorTokenInvalid,
   errorUserNotFound,
   errorCategoryName,
+  errorBlogPostTitle,
+  errorBlogPostContent,
+  errorPostCategory,
+  errorCategoryIdNotFound,
 };

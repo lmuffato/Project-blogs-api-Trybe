@@ -89,8 +89,43 @@ const validateCategoryName = (req, res, next) => {
   if (!name) {
     return res.status(httpStatus.BAD_REQUEST).json(errorCodes.errorCategoryName);
   }
-  
+
   next();
+};
+
+const validatePostTitle = (req, res, next) => {
+  const { title } = req.body;
+
+  if (!title || title === '') {
+    return res.status(httpStatus.BAD_REQUEST).json(errorCodes.errorBlogPostTitle);
+  }
+
+  next();
+};
+
+const validatePostContent = (req, res, next) => {
+
+  const { content } = req.body;
+
+  if (!content || content === '') {
+    return res.status(httpStatus.BAD_REQUEST).json(errorCodes.errorBlogPostContent);
+  }
+
+  next();
+};
+
+const validatePostCategoryIds = (req, res, next) => {
+  const { categoryIds } = req.body;
+
+  if (!categoryIds) {
+    return res.status(httpStatus.BAD_REQUEST).json(errorCodes.errorPostCategory);
+  }
+
+  next();
+};
+
+const validateCategoryIdExists = (req, res, next) => {
+  const { categoryIds } = req.body;
 };
 
 module.exports = {
@@ -103,4 +138,8 @@ module.exports = {
   validateEmailIsNotEmpty,
   validatePasswordNotEmpty,
   validateCategoryName,
+  validatePostTitle,
+  validatePostContent,
+  validatePostCategoryIds,
+  validateCategoryIdExists,
 };
