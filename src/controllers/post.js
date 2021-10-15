@@ -1,4 +1,4 @@
-const { BlogPost, Category } = require('../database/models');
+const { BlogPost, Category, User } = require('../database/models');
 const validation = require('../validations');
 const { getStatusCode } = require('../utils/statusCode');
 
@@ -17,9 +17,10 @@ async function createPost(req, res, next) {
       validation.isCategoryValid(category);
     });
 
-    validation.verifyToken(token);
+    const { email } = validation.verifyToken(token);
+    const { id: userId } = User.findOne({ where: { email } });
 
-    const post = await BlogPost.create({ ...newPost });
+    const post = await BlogPost.create({ userId, ...newPost });
 
     res.status(status).json(post);
   } catch (error) {
