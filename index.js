@@ -38,6 +38,8 @@ app.post('/login', [
   validatePassword,
 ], userControllers.findUser);
 
+app.get('/categories', categoriesControllers.getAll);
+
 app.post('/categories', [
   authToken,
   validateName,
