@@ -18,4 +18,9 @@ const createPost = async (data, userId) => {
   return { status: 201, blogpost };
 };
 
-module.exports = { createPost };
+const getAllPosts = async () => {
+  const allPosts = await BlogPosts.findAll({ include: [{ all: true }] });
+  return { status: 200, allPosts };
+};
+
+module.exports = { createPost, getAllPosts };

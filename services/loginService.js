@@ -5,6 +5,11 @@ require('dotenv').config();
 
 const { JWT_SECRET } = process.env;
 
+const jwtConfig = {
+  expiresIn: '3d',
+  algorithm: 'HS256',
+};
+
 const loginValidations = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().length(6).required(),
@@ -16,7 +21,7 @@ const userLogin = async (data) => {
   const { email } = data;
   const login = await User.findOne({ where: { email } });
   if (!login) return { status: 400, message: 'Invalid fields' };
-  const token = jwt.sign({ data: login }, JWT_SECRET);
+  const token = jwt.sign({ data: login }, JWT_SECRET, jwtConfig);
   return { status: 200, token };
 };
 
