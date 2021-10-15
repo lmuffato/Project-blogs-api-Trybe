@@ -1,15 +1,15 @@
-const { Categories } = require('../models');
+const { Category } = require('../models');
 const httpStatus = require('../utils/httpStatus');
 
 const create = async (req, res) => {
   const { name } = req.body;
 
-  await Categories.create({ name })
+  await Category.create({ name })
     .then((newCategory) => res.status(httpStatus.HTTP_CREATE_STATUS).json(newCategory))
     .catch((err) => console.log(err));
 };
 
-const getAll = async (_req, res) => Categories.findAll(
+const getAll = async (_req, res) => Category.findAll(
   { attributes: ['id', 'name'] },
 ).then((allCategories) => res.status(httpStatus.HTTP_OK_STATUS).json(allCategories))
   .catch((error) => {
@@ -18,7 +18,7 @@ const getAll = async (_req, res) => Categories.findAll(
 });
 
 const findOne = async (id) => {
-  const category = await Categories.findByPk(id);
+  const category = await Category.findByPk(id);
   return category;
 };
 
