@@ -18,7 +18,7 @@ const create = async (req, res) => {
   } catch (e) {
     res.status(500).json({ message: 'Algo deu errado' });
   }
-}
+};
 
 const getAll = async (_req, res) => {
   try {
@@ -28,7 +28,7 @@ const getAll = async (_req, res) => {
   } catch (e) {
     res.status(500).json({ message: 'Algo deu errado' });
   }
-}
+};
 
 const findUser = async (req, res) => {
   try {
@@ -40,13 +40,13 @@ const findUser = async (req, res) => {
     }
 
     return res.status(200).json(user);
-  } catch(e) {
+  } catch (e) {
     res.status(500).json({ message: 'Algo deu errado' });
   }
-}
+};
 
 module.exports = {
   create,
   getAll,
   findUser,
-}
+};

@@ -10,9 +10,9 @@ const create = async (req, res) => {
     return res.status(201).json(post);
   } catch (e) {
     console.log(e);
-    return res.status(500).json({ message: 'Algo deu errado' })
+    return res.status(500).json({ message: 'Algo deu errado' });
   }
-}
+};
 
 const getAll = async (req, res) => {
   try {
@@ -22,9 +22,9 @@ const getAll = async (req, res) => {
   } catch (e) {
     return res.status(500).json({ message: 'Algo deu errado' });
   }
-}
+};
 
 module.exports = {
   create,
   getAll,
-}
+};

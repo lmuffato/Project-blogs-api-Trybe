@@ -5,14 +5,14 @@ module.exports = async (req, res, next) => {
 
   if (!categoryIds) {
     return res.status(400).json({
-      message: '\"categoryIds\" is required'
-    })
+      message: '"categoryIds" is required',
+    });
   }
 
-  const foundCategories = await Promise.all(categoryIds.map((id) => Category.findOne({ where: { id } })));
-  if (foundCategories.some((category) => category === null)) {
-    return res.status(400).json({ message: '\"categoryIds\" not found' });
+  const cats = await Promise.all(categoryIds.map((id) => Category.findOne({ where: { id } })));
+  if (cats.some((category) => category === null)) {
+    return res.status(400).json({ message: '"categoryIds" not found' });
   }
 
   next();
-}
+};

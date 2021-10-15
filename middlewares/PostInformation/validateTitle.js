@@ -3,9 +3,9 @@ module.exports = (req, res, next) => {
 
   if (!title) {
     return res.status(400).json({
-      message: '\"title\" is required'
-    })
+      message: '"title" is required',
+    });
   }
 
   next();
-}
+};

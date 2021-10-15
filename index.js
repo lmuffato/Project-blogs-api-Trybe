@@ -12,13 +12,13 @@ const login = require('./controllers/login');
 const {
   validateDisplayName,
   validatePassword,
-  validateEmail
+  validateEmail,
 } = require('./middlewares/UserCredentials');
 
 const {
   validateTitle,
   validateContent,
-  validateCategoryIds
+  validateCategoryIds,
 } = require('./middlewares/PostInformation');
 
 const validateJWT = require('./auth/validateJWT');
