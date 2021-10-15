@@ -16,3 +16,13 @@ exports.create = async ({ name, token }) => {
     return { code: StatusCodes.UNAUTHORIZED, response: { message: 'Expired or invalid token' } };
   }
 };
+exports.readAll = async ({ token }) => {
+  if (!token) return { code: StatusCodes.UNAUTHORIZED, response: { message: 'Token not found' } };
+  try {
+    jwt.verify(token, process.env.JWT_SECRET);
+    const categories = await Category.findAll();
+    return { code: StatusCodes.OK, response: categories };
+  } catch (e) {
+    return { code: StatusCodes.UNAUTHORIZED, response: { message: 'Expired or invalid token' } };
+  }
+};
