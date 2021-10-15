@@ -9,6 +9,11 @@ const createUser = async ({ displayName, email, password, image }) => {
   return token;
 };
 
+const findAllUsers = async () => {
+  const users = await User.findAll();
+  return users;
+};
+
 const getUserByEmail = async (email) => {
   const user = await User.findOne({ where: { email } });
   if (!user) return null;
@@ -25,4 +30,4 @@ const loginUser = async (email, password) => {
   return token;
 };
 
-module.exports = { createUser, getUserByEmail, loginUser };
+module.exports = { createUser, getUserByEmail, loginUser, findAllUsers };
