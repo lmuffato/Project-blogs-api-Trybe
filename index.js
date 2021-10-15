@@ -22,5 +22,6 @@ app.post('/post', authToken, postController.createPost);
 app.get('/user', authToken, userController.getAll);
 app.get('/user/:id', authToken, userController.getById);
 app.get('/categories', authToken, categoryController.getAllCategories);
+app.get('/post', authToken, postController.getAllPosts);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));

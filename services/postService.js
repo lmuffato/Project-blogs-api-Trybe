@@ -1,5 +1,5 @@
 const validationSchema = require('../helpers/validation_schema');
-const { BlogPost, Category } = require('../models');
+const { BlogPost, Category, User } = require('../models');
 
 const createPost = async (data, user) => {
   const { error } = validationSchema.postSchema.validate(data);
@@ -14,6 +14,24 @@ const createPost = async (data, user) => {
   return { statusCode: 201, blogpost };
 };
 
+const getAllPosts = async () => {
+  const posts = await BlogPost.findAll({
+    include: [{
+      model: User,
+      as: 'user',
+      attributes: {
+        exclude: ['password'],
+      } }, {
+      model: Category,
+      as: 'categories',
+      attributes: {
+        exclude: ['PostId'],
+      } }],
+  });
+  return { statusCode: 200, posts };
+};
+
 module.exports = {
   createPost,
+  getAllPosts,
 };
