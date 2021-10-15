@@ -26,9 +26,16 @@ const getUserById = async (req, res) => {
   return res.status(status).json(data);
 };
 
+const deleteMe = async (req, res) => {
+  const { email } = req.user;
+  const { status } = await Users.deleteMe(email);
+  return res.status(status).send();
+};
+
 module.exports = {
   createUser,
   userLogin,
   getUsers,
   getUserById,
+  deleteMe,
 };
