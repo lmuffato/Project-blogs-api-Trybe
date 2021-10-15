@@ -22,7 +22,6 @@ app.post('/user',
   userController.createUser);
 
 app.post('/login',
-validations.validateEmailRequired,
-validations.validateEmailFormat,
-validations.validatePassword,
+validations.validateEmailIsNotEmpty,
+validations.validatePasswordIsNotEmpty,
 userController.login);
