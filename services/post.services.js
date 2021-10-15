@@ -21,3 +21,13 @@ exports.create = async ({ title, content, categoryIds, token }) => {
     return { code: StatusCodes.UNAUTHORIZED, response: { message: 'Expired or invalid token' } };
   }
 };
+exports.readAll = async ({ token }) => {
+  if (!token) return { code: StatusCodes.UNAUTHORIZED, response: { message: 'Token not found' } };
+  try {
+    jwt.verify(token, process.env.JWT_SECRET);
+    const blogPosts = await BlogPost.findAll({ include: [{ all: true }] });  
+    return { code: StatusCodes.OK, response: blogPosts };
+  } catch (e) {
+    return { code: StatusCodes.UNAUTHORIZED, response: { message: 'Expired or invalid token' } };
+  }
+};

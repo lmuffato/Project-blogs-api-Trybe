@@ -7,5 +7,10 @@ router.post('/post', async (req, res) => {
   const { code, response } = await postService.create({ title, content, categoryIds, token });
   res.status(code).json({ ...response });
 });
+router.get('/post', async (req, res) => {
+  const { authorization: token } = req.headers;
+  const { code, response } = await postService.readAll({ token });
+  res.status(code).json({ ...response });
+});
 
 module.exports = router;

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     updated: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
   }, { timestamps: false });
   BlogPost.associate = (models) => {
-    BlogPost.belongsTo(models.User);
+    BlogPost.belongsTo(models.User, { as: 'user' });
   };  
   return BlogPost;
 };
