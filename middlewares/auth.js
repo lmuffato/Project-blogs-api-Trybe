@@ -15,7 +15,6 @@ const auth = async (req, res, next) => {
     req.user = dataValues;
     return next();
   } catch (err) {
-    console.log(err.message);
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
