@@ -5,7 +5,7 @@ const {
   HTTP_OK_STATUS,
 } = require('../status');
 
-const { BlogPost, Categorie, User, PostCategory } = require('../models');
+const { BlogPost, Categorie, User } = require('../models');
 
 const createServices = async ({ id, title, categoryIds, content }) => {
   const categoryIdsFound = await Categorie.findAll({ where: { id: categoryIds } });
