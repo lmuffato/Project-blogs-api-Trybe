@@ -1,5 +1,5 @@
-const { StatusCodes: { CREATED, INTERNAL_SERVER_ERROR } } = require('http-status-codes');
-const { create } = require('../services/postService');
+const { StatusCodes: { CREATED, INTERNAL_SERVER_ERROR, OK } } = require('http-status-codes');
+const { create, getAllPosts } = require('../services/postService');
 
 const createNewPost = async (req, res, next) => {
   try {
@@ -15,6 +15,16 @@ const createNewPost = async (req, res, next) => {
   }
 };
 
+const getPosts = async (_req, res, next) => {
+  try {
+    const allPosts = await getAllPosts();
+    return res.status(OK).json(allPosts);
+  } catch (e) {
+    next({ statusCode: INTERNAL_SERVER_ERROR, message: e.message });
+  }
+};
+
 module.exports = {
   createNewPost,
+  getPosts,
 };

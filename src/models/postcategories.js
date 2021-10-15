@@ -1,8 +1,11 @@
+/**
+* @param {import('sequelize').Sequelize} sequelize 
+* @param {import('sequelize').DataTypes} DataTypes 
+* @return 
+*/ 
 module.exports = (sequelize, _DataTypes) => {
-  const PostsCategories = sequelize.define('PostsCategory', {}, {
-  tableName: 'PostsCategories',
-  });
-  
+  const PostsCategories = sequelize.define('PostsCategory', {}, 
+  { tableName: 'PostsCategories', timestamps: false });
   PostsCategories.associate = ({ BlogPost, Category }) => {
   Category.belongsToMany(BlogPost, {
     as: 'blogPost',
@@ -17,6 +20,5 @@ module.exports = (sequelize, _DataTypes) => {
     otherKey: 'categoryId',
   });
   };
-  
   return PostsCategories;
   }; 
