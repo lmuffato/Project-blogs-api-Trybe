@@ -30,6 +30,7 @@ const getAll = async () => {
       exclude: ['password'],
     },
   });
+  console.log(users);
   return { statusCode: 200, users };
 };
 
