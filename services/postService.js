@@ -50,11 +50,32 @@ const editPost = async (id, title, content) => {
 const deletePost = async (id) => {
   await BlogPosts.destroy({ where: { id } });  
 };
+
+const searchPost = async (q) => {
+  const getAll = await BlogPosts.findAll({
+    include: [
+      { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Categories, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  const filterPost = getAll.filter(({ title, content }) => {
+    if (title.includes(q) || content.includes(q)) {
+      return true;
+    }
+    return false;
+  });
+
+  if (q === '') return getAll;
   
+  return filterPost;
+};
+
 module.exports = {
   createPost,
   getAllPost,
   getById,
   editPost,
   deletePost,
+  searchPost,
 };
