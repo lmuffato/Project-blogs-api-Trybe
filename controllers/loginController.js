@@ -1,5 +1,5 @@
 require('dotenv').config();
-const express = require('express');
+const { Router } = require('express');
 const jwt = require('jsonwebtoken');
 const validatePassword = require('../middlewares/validatePassword.js');
 const validateEmail = require('../middlewares/validateEmail.js');
@@ -12,8 +12,8 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const router = express.Router();
-router.post('/', validatePassword, validateEmail, async (req, res) => {
+const LoginRouter = Router();
+LoginRouter.post('/', validatePassword, validateEmail, async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email, password } });
@@ -26,4 +26,4 @@ router.post('/', validatePassword, validateEmail, async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = LoginRouter;

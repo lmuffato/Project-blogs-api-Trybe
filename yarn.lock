@@ -1114,7 +1114,7 @@
   "resolved" "https://registry.npmjs.org/bluebird/-/bluebird-3.7.2.tgz"
   "version" "3.7.2"
 
-"body-parser@^1.19.0", "body-parser@1.19.0":
+"body-parser@1.19.0":
   "integrity" "sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw=="
   "resolved" "https://registry.npmjs.org/body-parser/-/body-parser-1.19.0.tgz"
   "version" "1.19.0"
@@ -2432,7 +2432,7 @@
     "jest-message-util" "^26.6.2"
     "jest-regex-util" "^26.0.0"
 
-"express@^4.17.1":
+"express@4.17.1":
   "integrity" "sha512-mHJ9O79RqluphRrcw2X/GTh3k9tVv8YcoyY4Kkh4WDMUYKRZUq0h1o0w2rrrxBqM7VoeUVqgb27xlEMXTnYt4g=="
   "resolved" "https://registry.npmjs.org/express/-/express-4.17.1.tgz"
   "version" "4.17.1"
@@ -3900,7 +3900,7 @@
     "import-local" "^3.0.2"
     "jest-cli" "^26.0.1"
 
-"joi@^13.0.0", "joi@^13.7.0":
+"joi@^13.0.0":
   "integrity" "sha512-xuY5VkHfeOYK3Hdi91ulocfuFopwgbSORmIwzcwHKESQhC7w1kD5jaVSPnqDxS2I8t3RZ9omCKAxNwXN5zG1/Q=="
   "resolved" "https://registry.npmjs.org/joi/-/joi-13.7.0.tgz"
   "version" "13.7.0"
@@ -4016,7 +4016,7 @@
   optionalDependencies:
     "graceful-fs" "^4.1.6"
 
-"jsonwebtoken@^8.5.1":
+"jsonwebtoken@8.5.1":
   "integrity" "sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w=="
   "resolved" "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz"
   "version" "8.5.1"
@@ -4467,7 +4467,7 @@
   "resolved" "https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.8.tgz"
   "version" "0.0.8"
 
-"mysql2@^2.1.0":
+"mysql2@2.1.0":
   "integrity" "sha512-9kGVyi930rG2KaHrz3sHwtc6K+GY9d8wWk1XRSYxQiunvGcn4DwuZxOwmK11ftuhhwrYDwGx9Ta4VBwznJn36A=="
   "resolved" "https://registry.npmjs.org/mysql2/-/mysql2-2.1.0.tgz"
   "version" "2.1.0"
@@ -4565,7 +4565,7 @@
   "resolved" "https://registry.npmjs.org/node-releases/-/node-releases-1.1.77.tgz"
   "version" "1.1.77"
 
-"nodemon@^2.0.13":
+"nodemon@2.0.13":
   "integrity" "sha512-UMXMpsZsv1UXUttCn6gv8eQPhn6DR4BW+txnL3IN5IHqrCwcrT/yWHfL35UsClGXknTH79r5xbu+6J1zNHuSyA=="
   "resolved" "https://registry.npmjs.org/nodemon/-/nodemon-2.0.13.tgz"
   "version" "2.0.13"

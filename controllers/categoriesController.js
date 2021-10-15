@@ -1,11 +1,11 @@
-const express = require('express');
+const { Router } = require('express');
 const validateCategoty = require('../middlewares/categoryvalidations.js');
 const validateJWT = require('../middlewares/validateJWT.js');
 const { Category } = require('../models');
 
-const router = express.Router();
+const CategoriesRouter = Router();
 
-router.post('/', validateJWT, validateCategoty, async (req, res) => {
+CategoriesRouter.post('/', validateJWT, validateCategoty, async (req, res) => {
   try {
     const { name } = req.body;
     const categoy = await Category.create({ name });
@@ -16,4 +16,14 @@ router.post('/', validateJWT, validateCategoty, async (req, res) => {
   }
 });
 
-module.exports = router;
+CategoriesRouter.get('/', validateJWT, async (req, res) => {
+  try {
+    const categories = await Category.findAll();
+    return res.status(200).json(categories);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: `Erro: ${e.message}` });
+  }
+});
+
+module.exports = CategoriesRouter;

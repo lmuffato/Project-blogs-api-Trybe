@@ -2,7 +2,6 @@ const Joi = require('joi');
 
 const validateName = (req, res, next) => {
   const { displayName } = req.body;
-  console.log(displayName);
   const response = Joi.string().required().min(8).validate(displayName);
 
   if (response.error) {
