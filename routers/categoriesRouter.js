@@ -4,8 +4,9 @@ const auth = require('../middlewares/auth');
 const validateNameCategory = require('../middlewares/validateNameCategory');
 const controllers = require('../controllers');
 
-const userRouter = express.Router();
+const categoriesRouter = express.Router();
 
-userRouter.post('/', auth, validateNameCategory, rescue(controllers.createCategory));
+categoriesRouter.post('/', auth, validateNameCategory, rescue(controllers.createCategory));
+categoriesRouter.get('/', auth, controllers.getAllCategories);
 
-module.exports = userRouter;
+module.exports = categoriesRouter;
