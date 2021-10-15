@@ -10,10 +10,12 @@ module.exports = async (userData) => {
 
   const { password: _, ...userPayload } = userSearch;
 
-  const token = jwt.sign(userPayload, JWT_SECRET, { 
+  const jwtConfig = {
     algorithm: 'HS256',
     expiresIn: '15d',
-  });
+  };
+
+  const token = jwt.sign(userPayload, JWT_SECRET, jwtConfig);
 
   return { status: 200, token };
 };
