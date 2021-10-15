@@ -25,5 +25,6 @@ app.get('/user/:id', authToken, userController.getUserById);
 app.post('/login', loginController.userLogin);
 
 app.post('/categories', authToken, categoryController.createCategory);
+app.get('/categories', authToken, categoryController.getAllCategories);
 
 app.use(errorMiddleware);
