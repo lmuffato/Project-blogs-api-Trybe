@@ -1,7 +1,8 @@
+const rescue = require('express-rescue');
 const { BlogPost, User } = require('../models');
 const httpStatus = require('../utils/httpStatus');
 
-const create = async (req, res) => {
+const create = rescue(async (req, res) => {
   const { title: postTitle, content: postContent } = req.body;
   const { email } = req.user;
 
@@ -19,7 +20,7 @@ const create = async (req, res) => {
   }).catch((e) => console.log(e));
 
   return newBlogPost;
-};
+});
 
 module.exports = {
   create,

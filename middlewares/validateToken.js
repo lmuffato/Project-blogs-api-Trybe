@@ -14,9 +14,11 @@ const validateToken = async (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, SECRET_PASSWORD);
-    req.user = decoded;
-    return next();
+    const decoded = await jwt.verify(token, SECRET_PASSWORD);
+    
+    req.user = decoded.data;
+
+    next();
   } catch (err) {
     return res.status(httpStatus.UNAUTHORIZED).json(errorCodes.errorTokenInvalid);
   }
