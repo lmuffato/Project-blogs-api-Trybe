@@ -47,7 +47,6 @@ const getAllUsers = async (req, res) => {
     const token = req.headers.authorization;
     
     const verifyTokenError = validateToken(token);
-    console.log('eeeeeeeentrou aqui', verifyTokenError);
 
     if (verifyTokenError) {
       return res.status(verifyTokenError.numberStatus).json({ message: verifyTokenError.message });

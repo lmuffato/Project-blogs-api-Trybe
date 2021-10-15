@@ -27,6 +27,25 @@ const createCategories = async (req, res) => {
   }
 };
 
+const getAllCategories = async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+    
+    const verifyTokenError = validateToken(token);
+
+    if (verifyTokenError) {
+      return res.status(verifyTokenError.numberStatus).json({ message: verifyTokenError.message });
+    }
+
+    const categories = await Categories.findAll();
+
+    return res.status(200).json(categories);
+  } catch (e) {
+    res.status(500).json({ message: INTERNAL_ERROR });
+  }
+};
+
 module.exports = {
   createCategories,
+  getAllCategories,
 };
