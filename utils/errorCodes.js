@@ -26,6 +26,14 @@ const errorLogin = {
   message: 'Campos inválidos',
 };
 
+const errorEmailNotEmpty = {
+  message: '"email" is not allowed to be empty',
+};
+
+const errorPasswordNotEmpty = {
+  message: '"password" is not allowed to be empty',
+};
+
 module.exports = {
   errorDisplayName,
   errorEmailValid,
@@ -34,4 +42,6 @@ module.exports = {
   errorPasswordRequired,
   errorUserExists,
   errorLogin,
+  errorEmailNotEmpty,
+  errorPasswordNotEmpty,
 };

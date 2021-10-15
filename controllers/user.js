@@ -18,6 +18,12 @@ const create = async (req, res) => {
   return newUser;
 };
 
+const getUserByEmail = async (email) => {
+  const soughtuser = await User.findOne({ where: { email } });
+  return soughtuser;
+};
+
 module.exports = {
   create,
+  getUserByEmail,
 };

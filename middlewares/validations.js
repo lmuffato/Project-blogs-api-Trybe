@@ -11,6 +11,26 @@ const validateEmailRequired = (req, res, next) => {
   next();
 };
 
+const validateEmailLogin = (req, res, next) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(httpStatus.BAD_REQUEST).json(errorCodes.errorEmailRequired);
+  }
+
+  next();
+};
+
+const validateEmailIsNotEmpty = (req, res, next) => {
+  const { email } = req.body;
+
+  if (email === '') {
+    return res.status(httpStatus.BAD_REQUEST).json(errorCodes.errorEmailNotEmpty);
+  }
+
+  next();
+};
+
 const validateEmailFormat = (req, res, next) => {
   const { email } = req.body;
 
@@ -43,6 +63,16 @@ const validatePasswordRequired = (req, res, next) => {
   next();
 };
 
+const validatePasswordNotEmpty = (req, res, next) => {
+  const { password } = req.body;
+
+  if (password === '') {
+    return res.status(httpStatus.BAD_REQUEST).json(errorCodes.errorPasswordNotEmpty);
+  }
+
+  next();
+};
+
 const validatePassword = (req, res, next) => {
   const { password } = req.body;
 
@@ -59,4 +89,7 @@ module.exports = {
   validateDisplayName,
   validatePasswordRequired,
   validatePassword,
+  validateEmailLogin,
+  validateEmailIsNotEmpty,
+  validatePasswordNotEmpty,
 };
