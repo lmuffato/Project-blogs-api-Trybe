@@ -16,10 +16,9 @@ const validateToken = async (req, _res, next) => {
     try {
         const decoded = jwt.verify(token, secret);
         const { id } = decoded;
-
         const user = await getUserById(id);
 
-        if (!user) return next(expiredOrInvalidToken);
+        if (user.message) return next(expiredOrInvalidToken);
 
         return next();
     } catch (error) {
