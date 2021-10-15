@@ -9,19 +9,21 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       postId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'BlogPosts',
+          key: 'id',
+        },
+        primaryKey: true,
       },
       categoryId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'PostsCategories',
+          key: 'id',
+        },
+        primaryKey: true,
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
     });
   },
   down: async (queryInterface, Sequelize) => {
