@@ -12,14 +12,12 @@ const {
   validatePost,
 } = require('./midlewares');
 const {
-   postUser, postLogin, getUser, getOneUser, postCategory, getCategories, postPost, 
+   postUser, postLogin, getUser, getOneUser, postCategory, getCategories, postPost, getPost,
   } = require('./controllers');
 
 const app = express();
 
 app.use(bodyParser.json());
-
-app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
@@ -39,3 +37,7 @@ app.post('/categories', validateToken, validateCategoryName, postCategory);
 app.get('/categories', validateToken, getCategories);
 
 app.post('/post', validateToken, validateCategoriesId, validatePost, postPost);
+
+app.get('/post', validateToken, getPost);
+
+app.listen(3000, () => console.log('ouvindo porta 3000!'));

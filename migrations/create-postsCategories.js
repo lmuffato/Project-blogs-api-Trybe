@@ -19,6 +19,11 @@ module.exports = {
                     key: 'id',
                 },
             },
+            id: {
+                primaryKey: true,
+                autoIncrement: true,
+                type: Sequelize.INTEGER,
+            },
         });
     },
     down: async (queryInterface, Sequelize) => {

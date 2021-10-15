@@ -3,10 +3,9 @@ module.exports = (sequelize, DataTypes) => {
         name: DataTypes.STRING,
     }, { timestamps: false });
     Category.associate = (models) => {
-        Category.hasMany(models.PostCategory, {
-            foreignKey: 'categoryId',
-            as: 'postsCategories',
-        });
+        Category.hasMany(models.PostsCategory, {
+            foreignKey: 'categoryId',            
+        });        
     };    
     return Category;
 };

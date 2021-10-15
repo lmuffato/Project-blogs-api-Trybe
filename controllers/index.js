@@ -1,5 +1,6 @@
 const getCategories = require('./getCategories');
 const getOneUser = require('./getOneUser');
+const getPost = require('./getPost');
 const getUser = require('./getUser');
 const postCategory = require('./postCategory');
 const postLogin = require('./postLogin');
@@ -14,4 +15,5 @@ module.exports = {
     postCategory,
     getCategories,
     postPost,
+    getPost,
 };
