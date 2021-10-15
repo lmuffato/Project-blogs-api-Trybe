@@ -34,5 +34,6 @@ app.get('/user/:id', validationtoken, userController.getById);
 //  CATEGORY
 
 app.post('/categories', validationtoken, validationCreateCategory, categoryController.create);
+app.get('/categories', validationtoken, categoryController.getAll);
 
 // ______________________________________________________________ //
