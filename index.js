@@ -8,7 +8,7 @@ const Auth = require('./middlewares/authMiddleware');
 const validCategoryName = require('./middlewares/categoryMiddleware');
 const { createNewCategory, getAllCategories } = require('./controllers/categoryController');
 const { validPost, checkIfCategoryExists } = require('./middlewares/postMiddleware');
-const { createNewPost } = require('./controllers/postController');
+const { createNewPost, getPosts } = require('./controllers/postController');
 
 const app = express();
 app.use(bodyParser.json());
@@ -26,4 +26,5 @@ app.get('/user', Auth, getAll, errorMiddleware);
 app.get('/user/:id', Auth, loginUserCheck, getByID, errorMiddleware);
 app.post('/categories', validCategoryName, Auth, createNewCategory, errorMiddleware);
 app.get('/categories', Auth, getAllCategories, errorMiddleware);
-app.post('/post', Auth, validPost, checkIfCategoryExists, createNewPost, errorMiddleware); 
+app.post('/post', Auth, validPost, checkIfCategoryExists, createNewPost, errorMiddleware);
+app.get('/post', Auth, getPosts, errorMiddleware); 

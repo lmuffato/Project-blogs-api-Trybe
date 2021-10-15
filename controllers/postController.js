@@ -17,6 +17,7 @@ const createNewPost = async (req, res, next) => {
 const getPosts = async (_req, res, next) => {
   try {
     const allPosts = await getAllPosts();
+    console.log(allPosts);
     return res.status(200).json(allPosts);
   } catch (e) {
     next({ statusCode: 400, message: e.message });
