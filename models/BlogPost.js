@@ -4,7 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     content: DataTypes.STRING,
     published: { type: DataTypes.DATE, defaultValue: Date.now() },
     updated: { type: DataTypes.DATE, defaultValue: Date.now() },
-  }, { timestamps: false });
+  }, {
+    timestamps: false,
+  });
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, {
       foreignKey: 'userId', as: 'user',
