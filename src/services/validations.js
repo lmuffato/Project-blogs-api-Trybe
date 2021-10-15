@@ -14,7 +14,7 @@ function invalidateFields(fields) {
 
 async function checkUserExistence(email) {
   try {
-    const userExists = false;
+    const userExists = await User.findOne({ where: { email } });
     if (userExists) {
       const error = 'User already registered';
       const code = StatusCodes.CONFLICT;
