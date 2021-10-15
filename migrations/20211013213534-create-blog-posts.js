@@ -21,15 +21,11 @@ module.exports = {
         onDelete: "cascade",
         references: { model: 'Users', key: 'id'}
       },
-      createdAt: {
-        allowNull: true,
+      published: {
         type: Sequelize.DATE,
-        field: 'published',
       },
-      updatedAt: {
-        allowNull: true,
+      updated: {
         type: Sequelize.DATE,
-        field: 'updated',
       }
     });
   },
