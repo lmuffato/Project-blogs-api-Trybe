@@ -33,3 +33,7 @@ userController.login);
 app.get('/user',
 authMiddlewares.authValidation,
 userController.getAll);
+
+app.get('/user/:id',
+authMiddlewares.authValidation,
+userController.getById);
