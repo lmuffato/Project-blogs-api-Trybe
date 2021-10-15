@@ -67,3 +67,7 @@ postMiddlewares.validateTokenFn,
 app.get('/post', 
  postMiddlewares.validateTokenFn,
  postControllers.getAll);
+
+app.get('/post/:id', 
+ postMiddlewares.validateTokenFn,
+ postControllers.getById);
