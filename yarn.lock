@@ -3534,7 +3534,7 @@
     "import-local" "^3.0.2"
     "jest-cli" "^26.0.1"
 
-"joi@^13.0.0":
+"joi@^13.0.0", "joi@^13.7.0":
   "integrity" "sha512-xuY5VkHfeOYK3Hdi91ulocfuFopwgbSORmIwzcwHKESQhC7w1kD5jaVSPnqDxS2I8t3RZ9omCKAxNwXN5zG1/Q=="
   "resolved" "https://registry.npmjs.org/joi/-/joi-13.7.0.tgz"
   "version" "13.7.0"
