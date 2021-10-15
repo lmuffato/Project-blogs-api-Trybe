@@ -22,19 +22,7 @@ const findAll = async () => {
   return categories;
 };
 
-// const findByID = async (receivedId) => {
-//   const user = await Users.findByPk(receivedId);
-
-//   if (!user) return ({ code: HTTP_NOT_FOUND_STATUS, message: 'User does not exist' });
-
-//   const { id, displayName, email, image } = user;
-//   const response = { id, displayName, email, image };
-
-//   return response;
-// };
-
 module.exports = {
   insert,
   findAll,
-  // findByID,
 };

@@ -22,12 +22,12 @@ module.exports = {
         references: { model: 'Users', key: 'id'}
       },
       createdAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE,
         field: 'published',
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE,
         field: 'updated',
       }

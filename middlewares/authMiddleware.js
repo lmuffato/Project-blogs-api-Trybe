@@ -12,10 +12,12 @@ module.exports = async (req, res, next) => {
     }
 
     const payload = jwt.verify(token, SECRET);
+
+    console.log(payload);
   
     const user = await Users.findOne({ where: { email: payload.email } });
 
-    const { password: _, ...userPayload } = user;
+    const { password: _, ...userPayload } = user.dataValues;
 
     req.user = userPayload;
   

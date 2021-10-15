@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const usersController = require('./controllers/userController');
 const authMiddleware = require('./middlewares/authMiddleware');
 const categoryController = require('./controllers/categoryControler');
+const postController = require('./controllers/postController');
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
@@ -21,5 +22,6 @@ app.get('/categories', authMiddleware, categoryController.getAll);
 app.post('/user', usersController.create);
 app.post('/login', usersController.login);
 app.post('/categories', authMiddleware, categoryController.create);
+app.post('/post', authMiddleware, postController.create);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
