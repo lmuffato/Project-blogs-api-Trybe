@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const userRouter = require('./routers/userRouter');
 const loginRouter = require('./routers/loginRouter');
 require('dotenv/config');
+const categoryRouter = require('./routers/categoryRouter');
 
 const error = require('./middleware/error');
 
@@ -15,6 +16,8 @@ app.use(bodyParser.json());
 app.use('/user', userRouter, error);
 
 app.use('/login', loginRouter, error);
+
+app.use('/categories', categoryRouter, error);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
