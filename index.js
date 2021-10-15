@@ -7,12 +7,20 @@ app.use(bodyparser.json());
 
 const UserController = require('./controllers/userController');
 const CategoryController = require('./controllers/categoryController');
+const PostController = require('./controllers/postController');
 const login = require('./controllers/login');
 const {
   validateDisplayName,
   validatePassword,
   validateEmail
 } = require('./middlewares/UserCredentials');
+
+const {
+  validateTitle,
+  validateContent,
+  validateCategoryIds
+} = require('./middlewares/PostInformation');
+
 const validateJWT = require('./auth/validateJWT');
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
@@ -43,5 +51,12 @@ CategoryController.create);
 app.get('/categories',
 validateJWT,
 CategoryController.getAll);
+
+app.post('/post',
+validateJWT,
+validateTitle,
+validateContent,
+validateCategoryIds,
+PostController.create);
 
 app.post('/login', login);
