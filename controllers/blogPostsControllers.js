@@ -4,9 +4,8 @@ const validateContent = require('../middlewares/contentValidations');
 const validateTitle = require('../middlewares/titleValidations');
 const verifyToken = require('../middlewares/utils/verifyToken');
 const validateJWT = require('../middlewares/validateJWT');
-const { BlogPost } = require('../models');
-const createPostsCategory = require('./postCategoryController');
-// const BlogPost = require('../models');
+const { BlogPost, User, Category } = require('../models');
+const createPostsCategories = require('./postCategoryController');
 
 const BlogPosts = Router();
 
@@ -21,12 +20,27 @@ BlogPosts.post('/',
       const token = req.headers.authorization;
       const user = verifyToken(token);
       const post = await BlogPost.create({ title, content, userId: user.id });
-      createPostsCategory(post, categoryIds);
+      createPostsCategories(post, categoryIds);
       return res.status(201).json(post);
     } catch (e) {
       console.log(e);
       return res.status(500).json({ message: `Erro: ${e.message}` });
     }
   });
+
+BlogPosts.get('/', validateJWT, async (_req, res) => {
+  try {
+    const posts = await BlogPost.findAll({
+      include: [
+        { model: User, as: 'user' },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    return res.status(200).json(posts);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: `Erro: ${e.message}` });
+  }
+});
 
 module.exports = BlogPosts;
