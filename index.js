@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const { createUserController } = require('./controllers/user');
+const { loginController } = require('./controllers/login');
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,5 +15,7 @@ app.get('/', (request, response) => {
 });
 
 app.post('/user', createUserController);
+
+app.post('/login', loginController);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
