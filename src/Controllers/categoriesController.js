@@ -12,6 +12,13 @@ const addCategories = async (req, res) => {
   return res.status(code).json(category);
 };
 
+const getCategories = async (req, res) => {
+  const { code, categories } = await categoriesModel.getCategories();
+
+  return res.status(code).json(categories);
+};
+
 module.exports = {
   addCategories,
+  getCategories,
 };
