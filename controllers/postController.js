@@ -8,7 +8,7 @@ const createNewPost = async (req, res, next) => {
     const userId = id; 
     const rawNewPost = await create({ title, content, userId });
     const { updated, published, ...newPost } = rawNewPost.dataValues;
-    return res.status(200).json(newPost);
+    return res.status(201).json(newPost);
   } catch (e) {
     next({ statusCode: 400, message: e.message });
   }

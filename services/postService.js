@@ -1,4 +1,4 @@
-const { BlogPost, Category } = require('../models');
+const { BlogPost } = require('../models');
 
 const create = async (data) => {
   const newPost = await BlogPost.create(data);
@@ -6,7 +6,7 @@ const create = async (data) => {
 };
 
 const getCategoryById = async (id) => {
-  const category = await Category.findByPk(id);
+  const category = await BlogPost.findByPk(id);
   return category;
 };
 
