@@ -39,6 +39,7 @@ describe('6 - Sua aplicação deve ter o endpoint GET `/categories`', () => {
       .then((response) => {
         const { body } = response;
         const result = JSON.parse(body);
+        console.log('eeeeeee', result)
         expect(result[0].id).toBe(1);
         expect(result[0].name).toBe('Inovação');
         expect(result[1].id).toBe(2);
