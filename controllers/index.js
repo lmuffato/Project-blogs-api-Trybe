@@ -3,6 +3,7 @@ const getOneUser = require('./getOneUser');
 const getUser = require('./getUser');
 const postCategory = require('./postCategory');
 const postLogin = require('./postLogin');
+const postPost = require('./postPosts');
 const postUser = require('./postUser');
 
 module.exports = {
@@ -12,4 +13,5 @@ module.exports = {
     getOneUser,
     postCategory,
     getCategories,
+    postPost,
 };

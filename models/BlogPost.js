@@ -3,9 +3,9 @@ function blogPost(sequelize, DataTypes) {
         title: DataTypes.STRING,
         content: DataTypes.STRING,
         userId: DataTypes.INTEGER,
-        published: DataTypes.DATE,
-        updated: DataTypes.DATE,
-    }, { timestamps: false });
+        updatedAt: DataTypes.DATE,
+        published: DataTypes.DATE,           
+    }, { timestamps: true, updatedAt: 'updated', createdAt: 'published' });
     BlogPost.associate = (models) => { 
         BlogPost.belongsTo(models.User, { foreignKey: 'userId', as: 'users' });
         BlogPost.hasOne(models.PostCategory, { foreignKey: 'categoryId', as: 'postCategory' });

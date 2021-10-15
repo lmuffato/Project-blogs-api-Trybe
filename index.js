@@ -8,9 +8,11 @@ const {
   validatePasswordLogin,
   validateToken,
   validateCategoryName,
+  validateCategoriesId,
+  validatePost,
 } = require('./midlewares');
 const {
-   postUser, postLogin, getUser, getOneUser, postCategory, getCategories,
+   postUser, postLogin, getUser, getOneUser, postCategory, getCategories, postPost, 
   } = require('./controllers');
 
 const app = express();
@@ -35,3 +37,5 @@ app.post('/login', validateEmailLogin, validatePasswordLogin, postLogin);
 app.post('/categories', validateToken, validateCategoryName, postCategory);
 
 app.get('/categories', validateToken, getCategories);
+
+app.post('/post', validateToken, validateCategoriesId, validatePost, postPost);

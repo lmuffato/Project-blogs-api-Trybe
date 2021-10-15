@@ -7,8 +7,7 @@ const validateToken = async (req, res, next) => {
     const { authorization } = req.headers;
     if (!authorization) return res.status(401).json(NOT_FOUND);
     const isValid = await takeToken(authorization);
-    if (!isValid) return res.status(401).json(INVALID);
-    console.log('saiu do validator');
+    if (!isValid) return res.status(401).json(INVALID);    
     next();
 };
 

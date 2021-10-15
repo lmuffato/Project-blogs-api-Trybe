@@ -1,9 +1,11 @@
+const validateCategoriesId = require('./validateCategoriesId');
 const validateEmailFormat = require('./validateEmailFormat');
 const validateEmailLogin = require('./validateEmailLogin');
 const validateCategoryName = require('./validateGeneralName');
 const validateName = require('./validateName');
 const validatePassword = require('./validatePassword');
 const validatePasswordLogin = require('./validatePasswordLogin');
+const validatePost = require('./validatePost');
 const validateToken = require('./validateToken');
 
 module.exports = {
@@ -14,4 +16,6 @@ validateEmailLogin,
 validatePasswordLogin,
 validateToken,
 validateCategoryName,
+validateCategoriesId,
+validatePost,
 };
