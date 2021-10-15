@@ -33,4 +33,38 @@ router.get('/', checkAuthentication, async (req, res, next) => {
   }
 });
 
+router.get('/:id', checkAuthentication, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const { status, message, result } = await Post.findByPk(id);
+
+    if (message) return res.status(status).json({ message });
+
+    return res.status(status).json(result);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
+router.put('/:id', checkAuthentication, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { title, content, categoryIds } = req.body;
+    const { id: userId } = req.auth;
+
+    const updateData = { id, title, content, userId };
+
+    const { status, message, result } = await Post.updateByPk(updateData, categoryIds);
+
+    if (message) return res.status(status).json({ message });
+
+    return res.status(status).json(result);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
 module.exports = router;

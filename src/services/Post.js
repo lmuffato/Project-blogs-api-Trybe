@@ -11,6 +11,11 @@ const postSchema = Joi.object({
   categoryIds: Joi.array().required(),
 });
 
+const updatePostSchema = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+});
+
 const createBlogPost = (title, content, userId, transaction) => {
   const result = BlogPost.create(
     { title, content, userId, published: Date.now(), updated: Date.now() },
@@ -47,8 +52,6 @@ const create = async (title, content, categoryIds, userId) => {
     return blogPost;
   });
 
-  console.log(result);
-
   return { status: 201, result };
 };
 
@@ -63,7 +66,51 @@ const findAll = async () => {
   return { status: 200, result };
 };
 
+const findByPk = async (id) => {
+  const result = await BlogPost.findByPk(id, {
+    include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories', throught: { attributes: [] } },
+    ],
+  });
+
+  if (!result) return { status: 404, message: 'Post does not exist' };
+
+  return { status: 200, result };
+};
+
+const updateByPk = async (data, categoryIds) => {
+  const { id, title, content, userId } = data;
+
+  if (categoryIds) return { status: 400, message: 'Categories cannot be edited' };
+
+  const getPost = await findByPk(id);
+
+  if (!getPost) return { status: 404, message: 'Post does not exist' };
+
+  const { userId: checkId } = getPost.result.dataValues;
+
+  if (Number(checkId) !== Number(userId)) return { status: 401, message: 'Unauthorized user' };
+
+  const { error } = updatePostSchema.validate({ title, content });
+
+  if (error) return { status: 400, message: error.message };
+
+  await BlogPost.update(
+    { title, content },
+    { where: { id } },
+  );
+
+  const { result } = await findByPk(id);
+
+  console.log('result', result);
+
+  return { status: 200, result };
+};
+
 module.exports = {
   create,
   findAll,
+  findByPk,
+  updateByPk,
 };
