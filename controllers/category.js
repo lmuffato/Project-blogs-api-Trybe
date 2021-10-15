@@ -19,8 +19,8 @@ const getAll = async (_req, res) => Category.findAll(
   res.status(httpStatus.HTTP_NOT_FOUND).json(error);
 });
 
-const findOne = async (param) => {
-  const category = await Category.findOne({ where: { param } });
+const findOne = async (id) => {
+  const category = await Category.findOne({ where: { id } });
   return category;
 };
 
