@@ -17,4 +17,5 @@ router.get('/user/:id', async (req, res) => {
   const { code, response } = await userService.readOne({ token, id });
   res.status(code).json({ ...response });
 });
+
 module.exports = router;
