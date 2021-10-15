@@ -1,4 +1,5 @@
 const express = require('express');
+const userController = require('../controllers/userController');
 
 const {
   emailFormatValidation,
@@ -9,6 +10,7 @@ const {
 
 const router = express.Router();
 
-router.post('/', emailFormatValidation, emailValidation, displayNameValidation, passwordValidation);
+router.post('/', emailFormatValidation, emailValidation, 
+  displayNameValidation, passwordValidation, userController.create);
 
 module.exports = router;
