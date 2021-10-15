@@ -4,6 +4,8 @@ const userMiddlewares = require('./middlewares/middlewaresUser');
 const userControllers = require('./controllers/userControllers');
 const categoriesControllers = require('./controllers/categoriesControllers');
 const categoriesMiddlewares = require('./middlewares/categoriesMiddlewares');
+const postMiddlewares = require('./middlewares/postMiddlewares');
+const postControllers = require('./controllers/postControllers');
 
 const app = express();
 
@@ -50,3 +52,13 @@ app.post('/categories',
 app.get('/categories', 
  categoriesMiddlewares.validateTokenFn,
  categoriesControllers.getAllCategories);
+
+app.post('/post',
+postMiddlewares.validateCategoryId,
+postMiddlewares.validateContent,
+postMiddlewares.validateTitle,
+postMiddlewares.validateTokenFn,
+  postMiddlewares.searchUser,
+  postMiddlewares.verifyCategoryIdExists,
+  postControllers.createPost,
+  );

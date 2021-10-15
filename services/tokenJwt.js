@@ -11,7 +11,8 @@ const createToken = (payload) => {
 const validateToken = (token) => {
     if (!token) return { status: 401, message: 'Token not found' };
     try {
-        jwt.verify(token, JWT_SECRET);
+      const payload = jwt.verify(token, JWT_SECRET);
+        return payload;
     } catch (err) {
      console.log(err);
      return { status: 401, message: 'Expired or invalid token' };

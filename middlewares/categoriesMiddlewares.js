@@ -9,7 +9,7 @@ const validateName = (req, res, next) => {
 const validateTokenFn = (req, res, next) => {
     const { authorization } = req.headers;
     const validateToken = token.validateToken(authorization);
-    if (validateToken) {
+    if (validateToken.status) {
         return res.status(validateToken.status).json({ message: validateToken.message });
     }
     next();
