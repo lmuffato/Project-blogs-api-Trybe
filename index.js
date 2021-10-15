@@ -19,5 +19,6 @@ app.post('/categories', authToken, categoryController.createCategory);
 
 app.get('/user', authToken, userController.getAll);
 app.get('/user/:id', authToken, userController.getById);
+app.get('/categories', authToken, categoryController.getAllCategories);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
