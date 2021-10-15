@@ -1,4 +1,5 @@
 const { Users } = require('../models');
+const token = require('../services/tokenJwt');
 
 const validateEmailAlreadyExists = async (req, res, next) => {
     const { email } = req.body;
@@ -54,10 +55,20 @@ const validateUserExists = async (req, res, next) => {
     next();
 };
 
+const validateTokenFn = (req, res, next) => {
+    const { authorization } = req.headers;
+    const validateToken = token.validateToken(authorization);
+    if (validateToken) {
+        return res.status(validateToken.status).json({ message: validateToken.message });
+    }
+    next();
+};
+
 module.exports = {
     validateEmailAlreadyExists,
     validateEmail,
     validateDisplayName,
     validatePassword,
     validateUserExists,
+    validateTokenFn,
 };

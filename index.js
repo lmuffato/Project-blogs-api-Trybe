@@ -27,4 +27,6 @@ app.post('/login',
    userMiddlewares.validateUserExists,
    userControllers.login);
 
-app.get('/user', userControllers.getUsers);
+app.get('/user', 
+userMiddlewares.validateTokenFn,
+userControllers.getUsers);
