@@ -1,12 +1,11 @@
 const database = require('../models');
 
-const validateEmail = (req, res, next) => {
+const validateEmail = async (req, res, next) => {
   const { email } = req.body;
   if (!email) return res.status(400).json({ message: '"email" is required' });
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/
     .test(email)) return res.status(400).json({ message: '"email" must be a valid email' });
-  const doUserExists = database.User.findOne({ where: { email } });
-  console.log(doUserExists);
+  const doUserExists = await database.User.findOne({ where: { email } });
   if (doUserExists) return res.status(409).json({ message: 'User already registered' });
   next();
 };
