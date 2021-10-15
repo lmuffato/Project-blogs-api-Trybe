@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const Sequelize = require('sequelize');
-const { BlogPost, PostsCategory, Category } = require('../models');
+const { BlogPost, PostsCategory, Category, User } = require('../models');
 const config = require('../config/config');
 
 const sequelize = new Sequelize(config.development);
@@ -52,6 +52,18 @@ const create = async (title, content, categoryIds, userId) => {
   return { status: 201, result };
 };
 
+const findAll = async () => {
+  const result = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return { status: 200, result };
+};
+
 module.exports = {
   create,
+  findAll,
 };

@@ -20,4 +20,17 @@ router.post('/', checkAuthentication, async (req, res, next) => {
   }
 });
 
+router.get('/', checkAuthentication, async (req, res, next) => {
+  try {
+    const { status, message, result } = await Post.findAll();
+
+    if (message) return res.status(status).json({ message });
+
+    return res.status(status).json(result);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
 module.exports = router;
