@@ -36,10 +36,18 @@ const deletePost = async (req, res) => {
   return res.status(status).send();
 };
 
+// https://www.codegrepper.com/code-examples/javascript/express+endpoint+with+query+parameters
+const getByQuery = async (req, res) => {
+  const { q } = req.query;
+  const { status, data } = await BlogPosts.getByQuery(q);
+  return res.status(status).json(data);
+};
+
 module.exports = {
   updatePost,
   createPost,
   getPostById,
   getPosts,
   deletePost,
+  getByQuery,
 };

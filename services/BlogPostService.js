@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPosts, User, Categories } = require('../models');
 
 const createPost = async (post, email) => {
@@ -57,10 +58,28 @@ const deletePost = async (id, email) => {
   return { status: 204 };
 };
 
+// https://sequelize.org/master/manual/model-querying-basics.html
+const getByQuery = async (q) => {
+  const outPut = await BlogPosts.findAll({
+    where: {
+      [Op.or]: [
+        { title: { [Op.substring]: q } },
+        { content: { [Op.substring]: q } },
+      ],
+    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Categories, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return { status: 200, data: outPut };
+};
+
 module.exports = {
   updatePost,
   getPostById,
   getPosts,
   createPost,
   deletePost,
+  getByQuery,
 };

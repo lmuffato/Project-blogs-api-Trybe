@@ -49,8 +49,6 @@ app.post('/post', [
 
 app.get('/post', Validations.checkToken, BlogPosts.getPosts);
 
-app.get('/post/:id', Validations.checkToken, BlogPosts.getPostById);
-
 app.put('/post/:id', [
   Validations.checkToken,
   Validations.validatePostTitleNContent,
@@ -60,3 +58,7 @@ app.put('/post/:id', [
 app.delete('/post/:id', Validations.checkToken, BlogPosts.deletePost);
 
 app.delete('/user/me', Validations.checkToken, Users.deleteMe);
+
+app.get('/post/search', Validations.checkToken, BlogPosts.getByQuery);
+
+app.get('/post/:id', Validations.checkToken, BlogPosts.getPostById);
