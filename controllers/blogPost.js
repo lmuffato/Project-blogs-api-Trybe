@@ -22,6 +22,15 @@ const create = rescue(async (req, res) => {
   return newBlogPost;
 });
 
+const getAll = async (_req, res) => BlogPost.findAll(
+  { include: [
+    { model: 'BloPost', attributes: ['id', 'title', 'content', 'userId', 'published', 'updated'] },
+    { model: 'User', attributes: ['id', 'displayName', 'email', 'image'] },
+    { model: 'Category', attributes: [] }] },
+  ).then((allPosts) => res.status(httpStatus.HTTP_OK_STATUS).json(allPosts))
+    .catch((e) => console.log(e));
+
 module.exports = {
   create,
+  getAll,
 };
