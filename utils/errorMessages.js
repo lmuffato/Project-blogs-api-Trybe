@@ -65,6 +65,31 @@ const NAME_IS_REQUIRED = {
   message: '"name" is required',
 };
 
+const TITLE_IS_REQUIRED = {
+  status: httpStatus.BAD_REQUEST,
+  message: '"title" is required',
+};
+
+const CONTENT_IS_REQUIRED = {
+  status: httpStatus.BAD_REQUEST,
+  message: '"content" is required',
+};
+
+const CATEGORYID_IS_REQUIRED = {
+  status: httpStatus.BAD_REQUEST,
+  message: '"categoryIds" is required',
+};
+
+const CATEGORYID_MUST_BE_ARRAY = {
+  status: httpStatus.BAD_REQUEST,
+  message: '"categoryId" must be an array format',
+};
+
+const CATEGORYIDS_NOT_FOUND = {
+  status: httpStatus.BAD_REQUEST,
+  message: '"categoryIds" not found',
+};
+
 module.exports = {
   DISPLAY_NAME_8_CHARACTERS,
   EMAIL_INVALID,
@@ -79,4 +104,9 @@ module.exports = {
   TOKEN_NOT_VALID,
   USER_DOES_NOT_EXIST,
   NAME_IS_REQUIRED,
+  TITLE_IS_REQUIRED,
+  CONTENT_IS_REQUIRED,
+  CATEGORYID_IS_REQUIRED,
+  CATEGORYID_MUST_BE_ARRAY,
+  CATEGORYIDS_NOT_FOUND,
 };
