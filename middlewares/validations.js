@@ -20,6 +20,10 @@ const emailValidate = async (req, res, next) => {
     return res.status(httpStatus.badRequest).json({ message: errorMessages.noEmail });
   }
 
+  if (email === '') {
+    return res.status(httpStatus.badRequest).json({ message: errorMessages.emptyEmail });
+  }
+
   if (regexEmail.test(email) === false) {
     return res.status(httpStatus.badRequest).json({ message: errorMessages.invalidEmail });
   }
@@ -32,8 +36,36 @@ const emailValidate = async (req, res, next) => {
   next();
 };
 
+const emailValidate2 = async (req, res, next) => {
+  const { email } = req.body;
+  const regexEmail = /\S+@\S+\.\S+/;
+  
+  if (email === '') {
+    return res.status(httpStatus.badRequest).json({ message: errorMessages.emptyEmail });
+  }
+  
+  if (!email) {
+    return res.status(httpStatus.badRequest).json({ message: errorMessages.noEmail });
+  }
+
+  if (regexEmail.test(email) === false) {
+    return res.status(httpStatus.badRequest).json({ message: errorMessages.invalidEmail });
+  }
+
+  const emailExists = await User.findOne({ where: { email } });
+  if (emailExists === null) {
+    return res.status(httpStatus.badRequest).json({ message: errorMessages.invalidFields });
+  }
+
+  next();
+};
+
 const passwordValidate = (req, res, next) => {
   const { password } = req.body;
+
+  if (password === '') {
+    return res.status(httpStatus.badRequest).json({ message: errorMessages.emptyPassword });
+  }
 
   if (!password) {
     return res.status(httpStatus.badRequest).json({ message: errorMessages.noPassword });
@@ -49,5 +81,6 @@ const passwordValidate = (req, res, next) => {
 module.exports = {
   nameValidate,
   emailValidate,
+  emailValidate2,
   passwordValidate,
 };
