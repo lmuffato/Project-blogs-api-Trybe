@@ -3,8 +3,7 @@
  * @param {import('sequelize').DataTypes} DataTypes 
  * @return 
  */
-
-module.exports = (sequelize, DataTypes) => { 
+module.exports = (sequelize, DataTypes) => {  
   const BlogPost = sequelize.define('BlogPost', {
     id: { type: DataTypes.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true },
     title: DataTypes.STRING,
