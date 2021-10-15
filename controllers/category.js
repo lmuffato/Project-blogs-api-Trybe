@@ -11,6 +11,15 @@ const create = async (req, res) => {
     .catch((err) => console.log(err));
 };
 
+const getAll = async (_req, res) => Category.findAll(
+  { attributes: ['id', 'name'] },
+).then((allCategories) => res.status(httpStatus.HTTP_OK_STATUS).json(allCategories))
+  .catch((error) => {
+  console.log(error);
+  res.status(httpStatus.HTTP_NOT_FOUND).json(error);
+});
+
 module.exports = {
   create,
+  getAll,
 };
