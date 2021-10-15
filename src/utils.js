@@ -1,6 +1,7 @@
 const status = {
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
+  NOT_FOUND: 404,
   HTTP_STATUS_CONFLICT: 409,
   HTTP_STATUS_CREATED: 201,
   HTTP_STATUS_OK: 200,
@@ -15,6 +16,7 @@ const status = {
   ERROR_LOGIN: 'Invalid fields',
   ERROR_TOKEN: 'Token not found',
   EXPIRED_TOKEN: 'Expired or invalid token',
+  USER_NOT_FOUND: 'User does not exist',
 };
 
 module.exports = {

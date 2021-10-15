@@ -22,6 +22,20 @@ const getUsers = async () => {
   };
 };
 
+const getUserById = async (id) => {
+  const searchUser = await User.findOne({
+     where: { id },
+     attributes: { exclude: ['password'] },
+  });
+    
+  if (!searchUser) return { code: status.NOT_FOUND, message: status.USER_NOT_FOUND };
+  const { dataValues: user } = searchUser;
+  return {
+    code: status.HTTP_STATUS_OK,
+    user,
+  };
+};
+
 const checkEmailExists = async (email) => {
   const exists = await User.findOne({ where: { email } });
   if (exists) return true;
@@ -30,6 +44,7 @@ const checkEmailExists = async (email) => {
 module.exports = {
   addUsers,
   getUsers,
+  getUserById,
   checkEmailExists,
 };
 
