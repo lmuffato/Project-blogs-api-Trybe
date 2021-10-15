@@ -27,6 +27,22 @@ async function createUser(req, res, next) {
   }
 }
 
+async function getUsers(req, res, next) {
+  try {
+    const token = req.headers.authorization;
+    const { status } = getStatusCode('ok');
+
+    validation.verifyToken(token);
+
+    const users = await User.findAll();
+
+    res.status(status).json(users);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   createUser,
+  getUsers,
 };
