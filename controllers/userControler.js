@@ -1,11 +1,15 @@
-const userService = require('../services/userService')
+const userService = require('../services/userService');
 
-function createUser(req, res, _next) {
-  const { status, message, error } = userService.createUser(req.body);
-  if (error) {
-    return res.status(status).json({ message: error.message });
+async function createUser(req, res, next) {
+  try {
+    const { status, message, error } = await userService.createUser(req.body);
+    if (error) {
+    return res.status(status).json({ message: error });
+    }
+    return res.status(status).json({ message });
+  } catch (error) {
+      next({ status: 500, error });
   }
-  return res.status(status).json({ message });
-}
+ }
 
 module.exports = { createUser };

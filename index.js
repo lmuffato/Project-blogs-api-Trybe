@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const User = require('./controllers/userControler');
+const error = require('./middlewares/erros');
 
 const app = express();
 
@@ -10,10 +12,6 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/user', 
-userValidation.emailExists, 
-userValidation.emailValidation, 
-userValidation.nameValidation, 
-Users.createUser);
-
+app.post('/user', User.createUser);
+app.use(error);
 app.listen(3000, () => console.log('ouvindo porta 3000!'));

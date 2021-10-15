@@ -1,4 +1,4 @@
-const usersModel = require('../models/user');
+/* const usersModel = require('../models/user');
 
     const nameValidation = async (req, res, next) => {
     const { name } = req.body;
@@ -35,4 +35,4 @@ module.exports = {
     nameValidation,
     emailValidation,
     emailExists,
-};
+}; */

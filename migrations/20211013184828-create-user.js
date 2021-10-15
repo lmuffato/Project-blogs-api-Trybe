@@ -6,15 +6,23 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
-      displayName: Sequelize.STRING,
+      displayName: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       email: {
-        unique: true,
-        type:Sequelize.STRING,
+        allowNull: false,
+        type: Sequelize.STRING
       },
-      password: Sequelize.STRING,
-      image: Sequelize.STRING,
+      password: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      image: {
+        type: Sequelize.STRING
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {

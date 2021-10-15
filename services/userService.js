@@ -25,4 +25,4 @@ async function createUser(data) {
   return { status: 201, message: 'User created' };
 }
 
-module.export = { createUser };
+module.exports = { createUser };
