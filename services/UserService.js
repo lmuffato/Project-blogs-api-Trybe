@@ -30,17 +30,7 @@ const loginUsers = async (email, password) => {
   }
 };
 
-const getAllUsersCheck = async (token) => {
-  const validateToken = validations
-  .validateToken(token);
-  if (validateToken) {
-    return { numberStatus: 401, message: validateToken.message };
-  }
-  return false;
-};
-
 module.exports = {
   createUsers,
   loginUsers,
-  getAllUsersCheck,
 };

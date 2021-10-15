@@ -1,7 +1,10 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const UserService = require('../services/UserService');
+const { validateToken } = require('../services/validations');
 const { Users } = require('../models');
+
+const INTERNAL_ERROR = 'Algo deu errado';
 
 const createUsers = async (req, res) => {
   try {
@@ -18,7 +21,7 @@ const createUsers = async (req, res) => {
     return res.status(201).json({ token });
   } catch (e) {
     console.log(e);
-    res.status(500).json({ message: 'Algo deu errado' });
+    res.status(500).json({ message: INTERNAL_ERROR });
   }
 };
 
@@ -35,15 +38,17 @@ const loginUsers = async (req, res) => {
     const token = jwt.sign(userData, process.env.JWT_SECRET);
     return res.status(200).json({ token });
   } catch (e) {
-    res.status(500).json({ message: 'Algo deu errado' });
+    res.status(500).json({ message: INTERNAL_ERROR });
   }
 };
 
 const getAllUsers = async (req, res) => {
   try {
     const token = req.headers.authorization;
+    
+    const verifyTokenError = validateToken(token);
+    console.log('eeeeeeeentrou aqui', verifyTokenError);
 
-    const verifyTokenError = await UserService.getAllUsersCheck(token);
     if (verifyTokenError) {
       return res.status(verifyTokenError.numberStatus).json({ message: verifyTokenError.message });
     }
@@ -52,7 +57,7 @@ const getAllUsers = async (req, res) => {
 
     return res.status(200).json(users);
   } catch (e) {
-    res.status(500).json({ message: 'Algo deu errado' });
+    res.status(500).json({ message: INTERNAL_ERROR });
   }
 };
 
@@ -61,7 +66,7 @@ const getOneUser = async (req, res) => {
     const { id } = req.params;
     const token = req.headers.authorization;
 
-    const verifyTokenError = await UserService.getAllUsersCheck(token);
+    const verifyTokenError = validateToken(token);
     if (verifyTokenError) {
       return res.status(verifyTokenError.numberStatus).json({ message: verifyTokenError.message });
     }
@@ -72,7 +77,7 @@ const getOneUser = async (req, res) => {
 
     return res.status(200).json(user);
   } catch (e) {
-    res.status(500).json({ message: 'Algo deu errado' });
+    res.status(500).json({ message: INTERNAL_ERROR });
   }
 };
 

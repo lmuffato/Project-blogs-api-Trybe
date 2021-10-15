@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const UserController = require('./controllers/UserController');
+const CategoryController = require('./controllers/CategoryController');
 
 const app = express();
 
@@ -17,5 +18,6 @@ app.post('/user', UserController.createUsers);
 app.post('/login', UserController.loginUsers);
 app.get('/user', UserController.getAllUsers);
 app.get('/user/:id', UserController.getOneUser);
+app.post('/categories', CategoryController.createCategories);
 
 app.listen(port, () => console.log('ouvindo porta 3000!'));

@@ -36,13 +36,21 @@ const validateBodyLoginUsers = (body) => {
 };
 
 const validateToken = (token) => {
-  if (!token) return { message: 'Token not found' };
+  if (!token) return { numberStatus: 401, message: 'Token not found' };
   try {
     jwt.verify(token, JWTSECRET);
     return false;
   } catch (_err) {
-    return { message: 'Expired or invalid token' };
+    return { numberStatus: 401, message: 'Expired or invalid token' };
   }
+};
+
+const validateBodyCreateCategories = (body) => {
+  const { error } = Joi.object({
+    name: Joi.string().required(),
+  }).validate(body);
+  if (error) return error;
+  return false;
 };
 
 module.exports = {
@@ -50,4 +58,5 @@ module.exports = {
   validateAlreadyExistsUserByEmail,
   validateBodyLoginUsers,
   validateToken,
+  validateBodyCreateCategories,
 };
