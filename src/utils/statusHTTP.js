@@ -1,0 +1,5 @@
+module.exports = {
+  HTTP_OK_STATUS: 200,
+  HTTP_CREATED_STATUS: 201,
+  HTTP_BAD_REQUEST: 400,
+};
