@@ -20,3 +20,9 @@ app.post('/user',
   validations.validateEmailFormat,
   validations.validatePassword,
   userController.createUser);
+
+app.post('/login',
+validations.validateEmailRequired,
+validations.validateEmailFormat,
+validations.validatePassword,
+userController.login);
