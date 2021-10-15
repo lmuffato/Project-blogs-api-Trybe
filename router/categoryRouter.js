@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { createCategory } = require('../controllers/categoriesController');
+const { createCategory, getAllCategories } = require('../controllers/categoriesController');
 const { validateCategory } = require('../middlewares/validations');
 const { validateJWT } = require('../middlewares/validateJWT');
 
@@ -9,7 +9,7 @@ router.post('/', validateJWT,
 validateCategory,
 createCategory);
 
-// router.get('/', validateJWT, getAllUsers);
+router.get('/', validateJWT, getAllCategories);
 
 // router.get('/:id', validateJWT, userIdExist, getUserById);
 

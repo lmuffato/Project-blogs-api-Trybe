@@ -9,10 +9,10 @@ const createCategory = async (req, res) => {
   res.status(httpStatus.created).json(category);
 };
 
-// const getAllUsers = async (_req, res) => {
-//   const allUsers = await User.findAll();
-//   res.status(200).json(allUsers);
-// };
+const getAllCategories = async (_req, res) => {
+  const allCategories = await Category.findAll();
+  res.status(200).json(allCategories);
+};
 
 // const getUserById = async (req, res) => {
 //   const userId = req.params.id;
@@ -23,4 +23,5 @@ const createCategory = async (req, res) => {
 
 module.exports = {
   createCategory,
+  getAllCategories,
 };
