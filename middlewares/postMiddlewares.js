@@ -48,7 +48,6 @@ const validateContent = (req, res, next) => {
 const searchUser = async (req, res, next) => {
   const { payload: { email } } = req;
   const user = await Users.findOne({ where: { email } });
-  console.log(user);
   req.userId = user.id;
   next();
 };

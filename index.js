@@ -42,6 +42,11 @@ app.get('/user/:id',
  userMiddlewares.verifyUserExistsById,
  userControllers.getUserById);
 
+app.delete('/user/me', 
+ postMiddlewares.validateTokenFn,
+ postMiddlewares.searchUser,
+ userControllers.deleteUser);
+
 //  categories
 
 app.post('/categories',
