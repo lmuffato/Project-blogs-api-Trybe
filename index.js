@@ -30,3 +30,8 @@ app.post('/login',
 app.get('/user', 
 userMiddlewares.validateTokenFn,
 userControllers.getUsers);
+
+app.get('/user/:id',
+ userMiddlewares.validateTokenFn,
+ userMiddlewares.verifyUserExistsById,
+ userControllers.getUserById);
