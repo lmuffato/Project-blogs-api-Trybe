@@ -17,16 +17,6 @@ module.exports = {
           key: 'id',
         },
       },
-      createdAt: {
-        allowNull: true,
-        default: new Date(),
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        allowNull: true,
-        default: new Date(),
-        type: Sequelize.DATE,
-      }
     });
   },
   down: async (queryInterface, Sequelize) => {

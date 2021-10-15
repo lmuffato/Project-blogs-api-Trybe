@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 const userControllers = require('./controllers/users');
 const categoriesControllers = require('./controllers/categories');
+const blogPostControllers = require('./controllers/posts');
 
 const { 
   validateDisplayName,
@@ -33,10 +34,14 @@ app.post('/user', [
   findEmail,
 ], userControllers.create);
 
+// ----------- LOGIN ------------
+
 app.post('/login', [
   validateEmail,
   validatePassword,
 ], userControllers.findUser);
+
+// -----------CATEGORIES ------------
 
 app.get('/categories', [
   authToken,
@@ -46,6 +51,10 @@ app.post('/categories', [
   authToken,
   validateName,
 ], categoriesControllers.create);
+
+// ---------- BLOGPOSTS ------------
+
+app.post('/post', blogPostControllers.create);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
