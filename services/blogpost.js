@@ -21,13 +21,30 @@ const createPost = async (body, user) => {
 const getAllPosts = async () => BlogPost.findAll(
   {
     include: [
-      { model: User, as: 'user' },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   },
 );
 
+const getPostById = async (id) => {
+  const post = await BlogPost.findOne(
+    {
+      where: { id },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    },
+  );
+
+  if (!post) return { code: 404, message: 'Post does not exist' };
+
+  return post;
+};
+
 module.exports = {
   createPost,
   getAllPosts,
+  getPostById,
 };
