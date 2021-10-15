@@ -26,6 +26,8 @@
     "eslint-plugin-import": "2.22.1",
     "frisby": "2.1.2",
     "jest": "26.0.1",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
     "sequelize-cli": "6.2.0",
     "supertest": "4.0.2"
   }

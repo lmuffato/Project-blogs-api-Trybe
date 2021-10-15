@@ -291,7 +291,7 @@ Alguns exemplos:
     "image": "http://4.bp.blogspot.com/_YA50adQ-7vQ/S1gfR_6ufpI/AAAAAAAAAAk/1ErJGgRWZDg/S45/brett.png"
   }
   ```
-- Deve conter uma tabela chamada **Categories**, contendo dados com a seguinte estrutura::
+- Deve conter uma tabela chamada **Category**, contendo dados com a seguinte estrutura::
 
   ```json
   {
@@ -364,7 +364,7 @@ Alguns exemplos:
 
   ```json
   {
-    "message": "User already registered"
+    "message": "Users already registered"
   }
   ```
 
