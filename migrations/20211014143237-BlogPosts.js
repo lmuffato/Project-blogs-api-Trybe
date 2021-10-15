@@ -20,10 +20,12 @@ module.exports = {
       published: {
         allowNull: false,
         type: Sequelize.STRING,
+        defaultValue: Sequelize.NOW,
       },
       updated: {
         allowNull: false,
         type: Sequelize.STRING,
+        defaultValue: Sequelize.NOW,
       },
       userId: {
         type: Sequelize.INTEGER,

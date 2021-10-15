@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userController = require('./controllers/userController');
 const categoryController = require('./controllers/categoryController');
+const postController = require('./controllers/postController');
 
 const {
   validationCreateUser,
@@ -12,6 +13,10 @@ const {
 const {
   validationCreateCategory,
 } = require('./middlewares/validateCategory');
+
+const {
+  validationCreatePost,
+} = require('./middlewares/validatePost');
 
 const app = express();
 
@@ -35,5 +40,11 @@ app.get('/user/:id', validationtoken, userController.getById);
 
 app.post('/categories', validationtoken, validationCreateCategory, categoryController.create);
 app.get('/categories', validationtoken, categoryController.getAll);
+
+// ______________________________________________________________ //
+
+//  POST
+
+app.post('/post', validationtoken, validationCreatePost, postController.create);
 
 // ______________________________________________________________ //
