@@ -46,3 +46,7 @@ app.post('/categories',
    categoriesMiddlewares.validateName,
    categoriesMiddlewares.validateTokenFn,
    categoriesControllers.createNewCategory);
+
+app.get('/categories', 
+ categoriesMiddlewares.validateTokenFn,
+ categoriesControllers.getAllCategories);
