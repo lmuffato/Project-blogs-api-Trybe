@@ -59,7 +59,7 @@ const errorBlogPostContent = {
 };
 
 const errorPostCategory = {
-  message: '"categoryId" is required',
+  message: '"categoryIds" is required',
 };
 
 const errorCategoryIdNotFound = {
