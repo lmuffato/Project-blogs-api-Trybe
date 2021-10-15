@@ -42,7 +42,25 @@ async function getUsers(req, res, next) {
   }
 }
 
+async function getUserById(req, res, next) {
+  try {
+    const token = req.headers.authorization;
+    const { id } = req.params;
+    const { status } = getStatusCode('ok');
+
+    validation.verifyToken(token);
+
+    const user = await User.findOne({ where: { id } });
+    validation.isUserValid(user, 'notFound', 'User does not exist');
+
+    res.status(status).json(user);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   createUser,
   getUsers,
+  getUserById,
 };
