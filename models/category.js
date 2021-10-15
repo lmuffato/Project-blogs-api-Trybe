@@ -9,3 +9,5 @@ module.exports = (sequelize, DataTypes) => {
 
   return Category;
 };
+
+// Source: --> Sobre Models em geral: https://sequelize.org/master/manual/model-basics.html
