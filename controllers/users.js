@@ -36,9 +36,22 @@ const findUser = async (req, res) => {
   res.status(200).json(token);
 };
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const [user] = await User.findAll({ where: { id } });
+  res.status(200).json({
+    id: user.id,
+    displayName: user.displayName,
+    email: user.email,
+    password: user.password,
+    image: user.image,
+  });
+};
+
 module.exports = {
   getAll,
   create,
   getByEmail,
   findUser,
+  getById,
 };

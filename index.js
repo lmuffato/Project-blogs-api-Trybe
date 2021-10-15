@@ -15,6 +15,10 @@ app.use(bodyParser.json());
 
 const PORT = process.env.PORT || 3000;
 
+app.get('/user/:id', [
+  authToken,
+], userControllers.getById);
+
 app.get('/user', [
   authToken,
 ], userControllers.getAll);
