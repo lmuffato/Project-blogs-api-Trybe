@@ -8,8 +8,7 @@ const validateUserPayload = (req, _res, next) => {
     const { error } = userSchema.validate({ displayName, email, password, image });
     if (error) {
         const { message } = error.details[0];
-        const updatedError = newError({ message, statusCode: clientErrors.badRequest });
-
+        const updatedError = { message, statusCode: clientErrors.badRequest };
         return next(updatedError);
     }
     return next();
