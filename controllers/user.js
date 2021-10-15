@@ -31,8 +31,23 @@ const getAll = async (_req, res) => User.findAll(
   res.status(httpStatus.HTTP_NOT_FOUND).json(error);
 });
 
+const findById = async (req, res) => {
+  const { id } = req.params;
+
+  const getUser = await User.findByPk(id);
+  
+  if (getUser === null || !getUser) {
+    return res.status(httpStatus.HTTP_NOT_FOUND).json(errorCodes.errorUserNotFound);
+  }
+  
+  const { id: userId, displayName, email, image } = getUser;
+
+  return res.status(httpStatus.HTTP_OK_STATUS).json({ userId, displayName, email, image });
+};
+
 module.exports = {
   create,
   getUserByEmail,
   getAll,
+  findById,
 };

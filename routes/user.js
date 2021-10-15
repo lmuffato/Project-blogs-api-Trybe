@@ -7,14 +7,17 @@ const validateToken = require('../middlewares/validateToken');
 
 const router = express.Router();
 
-router.post('/', 
+router.post('/', [
   validations.validateDisplayName,
   validations.validateEmailRequired,
   validations.validateEmailFormat,
   validations.validatePasswordRequired,
   validations.validatePassword,
-  userController.create);
+  userController.create,
+]);
 
 router.get('/', [validateToken, userController.getAll]);
+
+router.get('/:id', [validateToken, userController.findById]);
 
 module.exports = router;

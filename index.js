@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/user');
 const loginRoutes = require('./routes/login');
+const categoriesRoutes = require('./routes/categories');
 
 require('dotenv').config();
 
@@ -15,6 +16,7 @@ app.get('/', (request, response) => {
 
 app.use('/user', userRoutes);
 app.use('/login', loginRoutes);
+app.use('/categories', categoriesRoutes);
 
 const PORT = process.env.PORT || 3000;
 

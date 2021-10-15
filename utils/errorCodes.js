@@ -22,6 +22,10 @@ const errorUserExists = {
   message: 'User already registered',
 };
 
+const errorUserNotFound = {
+  message: 'User does not exist',
+};
+
 const errorLogin = {
   message: 'Invalid fields',
 };
@@ -54,4 +58,5 @@ module.exports = {
   errorPasswordNotEmpty,
   errorToken,
   errorTokenInvalid,
+  errorUserNotFound,
 };

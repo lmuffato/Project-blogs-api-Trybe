@@ -5,11 +5,12 @@ const loginController = require('../controllers/login');
 
 const router = express.Router();
 
-router.post('/',
+router.post('/', [
   validations.validateEmailIsNotEmpty,
   validations.validatePasswordNotEmpty,
   validations.validateEmailLogin,
   validations.validatePasswordRequired,
-  loginController);
+  loginController,
+]);
 
 module.exports = router;
