@@ -46,6 +46,10 @@ const userNotFound = {
   message: 'User does not exist',
 };
 
+const noName = {
+  message: '"name" is required',
+};
+
 module.exports = {
   invalidName,
   invalidEmail,
@@ -59,4 +63,5 @@ module.exports = {
   noToken,
   badToken,
   userNotFound,
+  noName,
 };

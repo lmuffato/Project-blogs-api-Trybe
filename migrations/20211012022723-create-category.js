@@ -9,18 +9,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
-      createdAt: {
-        allowNull: true,
-        default: new Date(),
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        allowNull: true,
-        default: new Date(),
-        type: Sequelize.DATE,
-      }
     });
   },
   down: async (queryInterface, Sequelize) => {

@@ -8,7 +8,10 @@ const {
   validateEmail,
   findEmail,
   authToken,
+  // validateName,
 } = require('./middlewares/validations');
+
+const categoriesControllers = require('./controllers/categories');
 
 const app = express();
 app.use(bodyParser.json());
@@ -34,6 +37,11 @@ app.post('/login', [
   validateEmail,
   validatePassword,
 ], userControllers.findUser);
+
+app.post('/categories', [
+  // authToken,
+  // validateName,
+], categoriesControllers.create);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {

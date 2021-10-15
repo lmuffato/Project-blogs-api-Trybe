@@ -7,7 +7,7 @@ const SECRET = process.env.JWT_SECRET;
 
 const validateDisplayName = (req, res, next) => {
   const { displayName } = req.body;
-  if (displayName.length < 8) {
+  if (!displayName || displayName.length < 8) {
     return res.status(HTTP_STATUS.BAD_REQUEST).json(ERRORS.invalidName);
   }
   next();
@@ -54,10 +54,17 @@ const authToken = async (req, res, next) => {
   }
 };
 
+const validateName = (req, res, next) => {
+  const { name } = req.body;
+  if (!name) return res.status(HTTP_STATUS.BAD_REQUEST).json(ERRORS.noName);
+  next();
+};
+
 module.exports = {
   validateDisplayName,
   validateEmail,
   validatePassword,
   findEmail,
   authToken,
+  validateName,
 };
