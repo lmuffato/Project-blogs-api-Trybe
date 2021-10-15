@@ -1,9 +1,9 @@
 const Joi = require('joi');
 
 const user = Joi.object({
-  displayName: Joi.required().string().min(8),
-  email: Joi.required().string().email(),
-  password: Joi.required().string().length(6),
+  displayName: Joi.string().min(8).required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().length(6).required(),
   image: Joi.string(),
 });
 
