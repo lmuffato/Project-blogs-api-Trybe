@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "body-parser": "^1.19.0",
     "dotenv": "8.2.0",
     "eslint-config-trybe-backend": "1.0.3",
     "express": "4.17.1",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "2.1.0",
-    "sequelize": "6.3.4",
-    "shelljs": "0.8.4"
+    "sequelize": "^6.3.4",
+    "shelljs": "0.8.4",
+    "sqlite3": "^5.0.2"
   },
   "scripts": {
     "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate $",
@@ -18,7 +22,8 @@
     "test": "jest --runInBand",
     "test-coverage": "jest --runInBand --coverage",
     "debug": "nodemon index.js",
-    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
+    "xablay": "npm run drop && npm run prestart && npm run seed"
   },
   "devDependencies": {
     "eslint": "6.8.0",
@@ -26,6 +31,7 @@
     "eslint-plugin-import": "2.22.1",
     "frisby": "2.1.2",
     "jest": "26.0.1",
+    "nodemon": "^2.0.13",
     "sequelize-cli": "6.2.0",
     "supertest": "4.0.2"
   }
