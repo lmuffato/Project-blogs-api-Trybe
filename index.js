@@ -71,3 +71,12 @@ app.get('/post',
 app.get('/post/:id', 
  postMiddlewares.validateTokenFn,
  postControllers.getById);
+
+app.put('/post/:id', 
+postMiddlewares.validateTitle,
+postMiddlewares.validateContent,
+postMiddlewares.validateFieldsOfReq,
+postMiddlewares.validateTokenFn, 
+postMiddlewares.searchUser,
+postMiddlewares.validateUserAuth,
+postControllers.updatePost);

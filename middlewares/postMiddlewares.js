@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const token = require('../services/tokenJwt');
-const { Categories, Users } = require('../models');
+const { Categories, Users, BlogPosts } = require('../models');
 
 const verifyCategoryIdExists = async (req, res, next) => {
     const { categoryIds } = req.body;
@@ -47,9 +47,27 @@ const validateContent = (req, res, next) => {
 
 const searchUser = async (req, res, next) => {
   const { payload: { email } } = req;
-  const user = await Users.findOne({ email });
+  const user = await Users.findOne({ where: { email } });
   req.userId = user.id;
   next();
+};
+
+const validateUserAuth = async (req, res, next) => {
+    const { id } = req.params;
+   const { userId } = req;
+   const validatePost = await BlogPosts.findOne({ where: { userId, id } }); 
+  if (!validatePost) return res.status(401).json({ message: 'Unauthorized user' });
+  next();
+};
+
+const validateFieldsOfReq = (req, res, next) => {
+   const keys = Object.keys(req.body);
+   const hasPropertyTitle = Object.prototype.hasOwnProperty.call(req.body, 'title');
+   const hasPropertyContent = Object.prototype.hasOwnProperty.call(req.body, 'content');
+   if (!(hasPropertyTitle && hasPropertyContent && keys.length === 2)) {
+       return res.status(400).json({ message: 'Categories cannot be edited' });
+   }
+   next();
 };
 
 module.exports = {
@@ -59,4 +77,6 @@ module.exports = {
     validateContent,
     validateTokenFn,
     searchUser,
+    validateUserAuth,
+    validateFieldsOfReq,
 };
