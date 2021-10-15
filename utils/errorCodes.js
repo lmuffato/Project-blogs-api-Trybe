@@ -46,6 +46,10 @@ const errorTokenInvalid = {
   message: 'Expired or invalid token',
 };
 
+const errorCategoryName = {
+  message: '"name" is required',
+};
+
 module.exports = {
   errorDisplayName,
   errorEmailValid,
@@ -59,4 +63,5 @@ module.exports = {
   errorToken,
   errorTokenInvalid,
   errorUserNotFound,
+  errorCategoryName,
 };

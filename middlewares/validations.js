@@ -83,6 +83,16 @@ const validatePassword = (req, res, next) => {
   next();
 };
 
+const validateCategoryName = (req, res, next) => {
+  const { name } = req.body;
+
+  if (!name) {
+    return res.status(httpStatus.BAD_REQUEST).json(errorCodes.errorCategoryName);
+  }
+  
+  next();
+};
+
 module.exports = {
   validateEmailRequired,
   validateEmailFormat,
@@ -92,4 +102,5 @@ module.exports = {
   validateEmailLogin,
   validateEmailIsNotEmpty,
   validatePasswordNotEmpty,
+  validateCategoryName,
 };
