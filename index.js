@@ -1,9 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { validUser } = require('./middlewares/userMiddleware');
+const { validUser, loginUserCheck } = require('./middlewares/userMiddleware');
 const errorMiddleware = require('./middlewares/errorMiddleware');
-const { register, loginUser } = require('./controllers/userController');
+const { register, loginUser, getAll, getByID } = require('./controllers/userController');
 const login = require('./middlewares/loginMiddleware');
+const Auth = require('./middlewares/authMiddleware');
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,3 +18,5 @@ app.get('/', (request, response) => {
 
 app.post('/user', validUser, register, errorMiddleware);
 app.post('/login', login, loginUser, errorMiddleware);
+app.get('/user', Auth, getAll, errorMiddleware);
+app.get('/user/:id', Auth, loginUserCheck, getByID, errorMiddleware); 
