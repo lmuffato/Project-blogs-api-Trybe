@@ -3,6 +3,7 @@ const userService = require('../services/userService');
 const HTTP_OK_STATUS = 200;
 const HTTP_CREATED_STATUS = 201;
 const HTTP_BAD_STATUS = 400;
+const HTTP_NO_CONTENT_STATUS = 204;
 
 const getAll = async (_req, res) => {
   try {
@@ -56,9 +57,24 @@ const login = async (req, res) => {
   return res.status(HTTP_OK_STATUS).json(response);
 };
 
+const deleteUser = async (req, res) => {
+  const { id } = req.user;
+
+  const response = await userService.deleteById(id);
+
+  if (response.code) {
+    return res.status(response.code).json({
+        message: response.message,
+    });
+}
+
+  return res.status(HTTP_NO_CONTENT_STATUS).end();
+};
+
 module.exports = {
   create,
   login,
   getAll,
   getById,
+  deleteUser,
 }; 
