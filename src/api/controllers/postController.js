@@ -2,6 +2,7 @@ const { HTTP_SERVER_ERROR } = require('../status');
 
 const {
   createServices,
+  readAllServices,
 } = require('../services/postServices');
 
 const createController = async (req, res) => {
@@ -19,6 +20,17 @@ const createController = async (req, res) => {
   }
 };
 
+const readAllController = async (_req, res) => {
+  try {
+    const { code, posts } = await readAllServices();
+
+    return res.status(code).json(posts);
+  } catch (e) {
+    return res.status(HTTP_SERVER_ERROR).json({ message: e.message });
+  }
+};
+
 module.exports = {
   createController,
+  readAllController,
 };

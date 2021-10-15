@@ -1,9 +1,10 @@
 const {
   HTTP_BAD_REQUEST,
   HTTP_CREATED,
+  HTTP_OK_STATUS,
 } = require('../status');
 
-const { BlogPost, Categorie } = require('../models');
+const { BlogPost, Categorie, User } = require('../models');
 
 const createServices = async ({ id, title, categoryIds, content }) => {
   const categoryIdsFound = await Categorie.findAll({ where: { id: categoryIds } });
@@ -27,6 +28,19 @@ const createServices = async ({ id, title, categoryIds, content }) => {
   };
 };
 
+const readAllServices = async () => {
+  const posts = await BlogPost.findAll({
+    include: [
+      { all: true },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      // { model: PostCategorie, as: 'user', attributes: { exclude: ['password'] } },
+    ],
+  });
+
+  return { code: HTTP_OK_STATUS, posts };
+};
+
 module.exports = {
   createServices,
+  readAllServices,
 };
