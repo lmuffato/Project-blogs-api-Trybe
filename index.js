@@ -20,3 +20,9 @@ app.post('/user',
  userMiddlewares.validatePassword,
  userMiddlewares.validateEmailAlreadyExists,
  userControllers.createUser);
+
+app.post('/login',
+   userMiddlewares.validateEmail,
+   userMiddlewares.validatePassword,
+   userMiddlewares.validateUserExists,
+   userControllers.login);

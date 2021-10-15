@@ -9,6 +9,12 @@ const createUser = async (req, res) => {
     res.status(201).json({ token: getToken });
 };
 
+const login = (req, res) => {
+  const { email } = req.body;
+  res.status(200).json({ token: token.createToken({ email }) });
+};
+
 module.exports = {
     createUser,
+    login,
 };
