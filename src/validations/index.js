@@ -27,6 +27,11 @@ function verifyEmail(email) {
   const isRegexValid = emailRegex.test(email);
   let message = '"email" must be a valid email';
 
+  if (email === '') {
+    message = '"email" is not allowed to be empty';
+    throwError('badRequest', message);
+  }
+
   if (!email) {
     message = '"email" is required';
     throwError('badRequest', message);
@@ -39,6 +44,11 @@ function verifyEmail(email) {
 
 function verifyPassword(password) {
   let message = '"password" length must be 6 characters long';
+
+  if (password === '') {
+    message = '"password" is not allowed to be empty';
+    throwError('badRequest', message);
+  }
 
   if (!password) {
     message = '"password" is required';
@@ -57,10 +67,18 @@ function isUserRegistered(condition) {
   }
 }
 
+function isUserValid(condition) {
+  const message = 'Invalid fields';
+  if (!condition) {
+    throwError('badRequest', message);
+  }
+}
+
 module.exports = {
   verifyName,
   verifyEmail,
   verifyPassword,
   isUserRegistered,
+  isUserValid,
   ...token,
 };
