@@ -1,11 +1,17 @@
 const { Category } = require('../models');
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   const { categoryIds } = req.body;
-  categoryIds.forEach(async (id) => {
-    if (await Category.findByPk(id) === null) {
-      return res.status(400).json({ message: '"categoryIds" not found' });
-    }
+  const categoriesFound = categoryIds.map(async (id) => await Category.findByPk(id) !== null);
+  let categoryNotFound = false;
+  
+  await Promise.all(categoriesFound).then((result) => {
+    if (result.includes(false)) categoryNotFound = true;
   });
-  return next();
+  
+  if (categoryNotFound) {
+    return res.status(400).json({ message: '"categoryIds" not found' });
+  }
+
+  next();
 };
