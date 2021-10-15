@@ -1,11 +1,12 @@
 const { PostsCategory } = require('../models');
 
-const createPostsCategory = async (postId, categoryId) => {
-  try {
-    await PostsCategory.create({ postId, categoryId });
-  } catch (e) {
-    console.log('Error:', e);
-  }
+const createPostsCategory = async (post, categories) => {
+  categories.map(async (id) => {
+    await PostsCategory.create({
+      categoryId: id,
+      postId: post.id,
+    });
+  });
 };
 
 module.exports = createPostsCategory;
