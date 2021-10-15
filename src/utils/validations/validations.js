@@ -5,14 +5,14 @@ const verifyNameLength = (displayName) => {
 };
 
 const verifyPassword = (password) => {
-  if (!password) return true;
+  if (password === undefined) return true;
 };
 const verifyPasswordLength = (password) => {
   if (password.length !== 6) return true;
 };
 
 const verifyEmail = (email) => {
-  if (!email) return true;
+  if (email === undefined) return true;
 };
 const verifyEmailFormat = (email) => {
   const regex = /\S+@\S+\.\S+/;
@@ -22,6 +22,9 @@ const validateEmail = async (email) => {
   const checkEmail = await User.findOne({ where: { email } });
   if (checkEmail) return true;
 };
+const verifyEmailLength = (email) => {
+  if (email === '') return true;
+};
 
 module.exports = {
   verifyNameLength,
@@ -30,4 +33,5 @@ module.exports = {
   verifyEmail,
   verifyEmailFormat,
   validateEmail,
+  verifyEmailLength,
 };

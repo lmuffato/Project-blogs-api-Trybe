@@ -8,6 +8,15 @@ const create = async (req, res) => {
   res.status(status).json({ token });
 };
 
+const findByCredentials = async (req, res) => {
+  const { email, password } = req.body;
+
+  const { status, message, token } = await userService.findByCredentials(email, password);
+  if (!token) return res.status(status).json({ message });
+  res.status(status).json({ token });
+};
+
 module.exports = {
   create,
+  findByCredentials,
 };

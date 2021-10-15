@@ -9,6 +9,7 @@ const PORT = 3000;
 const userController = require('./src/controllers/userController');
 
 app.post('/user', userController.create);
+app.post('/login', userController.findByCredentials);
 
 app.get('/', (_request, response) => {
   response.send();
