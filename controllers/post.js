@@ -14,4 +14,17 @@ module.exports = {
       return res.status(400).json({ message: error.message });
     }
   },
+
+  async get(req, res) {
+    try {
+      const posts = await BlogPost.findAll({
+        include: [
+          { all: true }, { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        ],
+      });
+      return res.status(200).json(posts);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  },
 };
