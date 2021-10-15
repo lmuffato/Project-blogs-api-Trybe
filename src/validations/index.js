@@ -67,6 +67,15 @@ function isUserValid(condition, code, message) {
   }
 }
 
+function isCategoryValid(category) {
+  const message = '"categoryIds" not found';
+  const isCategory = !!category;
+
+  if (!isCategory) {
+    throwError('badRequest', message, getStatusCode);
+  }
+}
+
 module.exports = {
   isRequired,
   verifyName,
@@ -74,5 +83,6 @@ module.exports = {
   verifyPassword,
   isUserRegistered,
   isUserValid,
+  isCategoryValid,
   ...token,
 };
