@@ -23,16 +23,9 @@ const create = rescue(async (req, res) => {
 });
 
 const getAll = async (_req, res) => {
-  const getAllPosts = await BlogPost.findAll(
-  { include: [
-    { model: 'BlogPost',
-      as: 'posts',
-      attributes: ['id', 'title', 'content', 'userId', 'published', 'updated'],
-    },
-    { model: 'User', as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
-    { model: 'Category', as: 'categories', attributes: [] }] },
-  ).then((allPosts) => res.status(httpStatus.HTTP_OK_STATUS).json(allPosts))
-    .catch((e) => console.log(e));
+  const getAllPosts = await BlogPost.findAll({ include: [{ all: true }] })
+  .then((allPosts) => res.status(httpStatus.HTTP_OK_STATUS).json(allPosts))
+  .catch((e) => console.log(e));
   
   return getAllPosts;
 };
@@ -44,3 +37,4 @@ module.exports = {
 
 // Método findAll: https://stackoverflow.com/questions/21883484/how-to-use-an-include-with-attributes-with-sequelize
 // Documentação: https://sequelize.org/master/manual/model-querying-finders.html#-code-findall--code-
+// Seção 'Including everything': https://sequelize.org/v5/manual/models-usage.html
