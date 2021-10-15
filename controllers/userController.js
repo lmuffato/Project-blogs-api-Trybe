@@ -22,7 +22,16 @@ const findUserByEmail = async (email) => {
   return userFound;
 };
 
+const getAllUsers = async (_req, res) => User.findAll(
+  { attributes: ['id', 'displayName', 'email', 'image'] },
+).then((Users) => res.status(200).json(Users))
+.catch((error) => {
+  console.log(error);
+  res.status(404).json(error);
+});
+
 module.exports = {
   create,
   findUserByEmail,
+  getAllUsers,
 };
