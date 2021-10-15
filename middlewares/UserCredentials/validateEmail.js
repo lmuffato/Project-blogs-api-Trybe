@@ -1,7 +1,7 @@
 const { User } = require('../../models');
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   const { email } = req.body;
 
   if (!email) {
@@ -16,7 +16,8 @@ module.exports = (req, res, next) => {
     });
   }
 
-  const foundUser = User.findOne({ where: { email } });
+  const foundUser = await User.findOne({ where: { email } });
+  console.log(foundUser)
 
   if (foundUser) {
     return res.status(409).json({
