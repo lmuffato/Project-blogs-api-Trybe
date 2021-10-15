@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 const { BlogPost, Category, User } = require('../models/index');
 const Joi = require('../Joi/templates');
 
@@ -43,8 +44,36 @@ const getPostById = async (id) => {
   return post;
 };
 
+const editPost = async ({ id, title, content }, userId) => {
+  const post = await BlogPost.findByPk(id);
+  // console.log('-----------------');
+  // console.log(userId);
+  console.log(title);
+  if (userId !== post.userId) return { code: 401, message: 'Unauthorized user' };
+  // const { error } = Joi.EditPost.validate({ title, content });
+  // if (error) return { code: 400, message: error.details[0].message };
+  try {
+    await BlogPost.update({
+      title,
+      content,
+    },
+      {
+        where: { id },
+      });
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+  const editedPost = await BlogPost.findByPk(
+    id,
+    { include: { model: Category, as: 'categories', through: { attributes: [] } } },
+  );
+  return editedPost;
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
+  editPost,
 };
