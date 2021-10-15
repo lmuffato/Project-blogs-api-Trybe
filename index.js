@@ -11,8 +11,16 @@ const {
   validateCategoriesId,
   validatePost,
 } = require('./midlewares');
-const {
-   postUser, postLogin, getUser, getOneUser, postCategory, getCategories, postPost, getPost,
+const {   
+  postUser, 
+  postLogin, 
+  getUser, 
+  getOneUser, 
+  postCategory,
+  getCategories,
+  postPost,
+  getPost,
+  getOnePost,
   } = require('./controllers');
 
 const app = express();
@@ -39,5 +47,7 @@ app.get('/categories', validateToken, getCategories);
 app.post('/post', validateToken, validateCategoriesId, validatePost, postPost);
 
 app.get('/post', validateToken, getPost);
+
+app.get('/post/:id', validateToken, getOnePost);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
