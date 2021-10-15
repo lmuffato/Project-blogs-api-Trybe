@@ -20,9 +20,7 @@ const create = async (displayName, email, password, image) => {
 };
 
 const findByCredentials = async (email, password) => {
-  const validateLogin = userSchema.loginValidations(email, password);
-  console.log(validateLogin);
-  
+  const validateLogin = userSchema.loginValidations(email, password);  
   if (validateLogin.message) return validateLogin;
 
   const user = await User.findOne({ where: { email } });
@@ -34,7 +32,14 @@ const findByCredentials = async (email, password) => {
   return { status: 200, token };
 };
 
+const getAll = async () => {
+  const users = await User.findAll();
+
+  return { status: 200, users };
+};
+
 module.exports = {
   create,
   findByCredentials,
+  getAll,
 };

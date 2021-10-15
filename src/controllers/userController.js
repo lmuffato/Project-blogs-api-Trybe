@@ -16,7 +16,15 @@ const findByCredentials = async (req, res) => {
   res.status(status).json({ token });
 };
 
+const getAll = async (_req, res) => {
+  const { status, message, users } = await userService.getAll();
+  if (!users) return res.status(status).json({ message });
+  console.log(users);
+  res.status(status).json(users);
+};
+
 module.exports = {
   create,
   findByCredentials,
+  getAll,
 };

@@ -7,9 +7,12 @@ app.use(bodyParser.json());
 const PORT = 3000;
 
 const userController = require('./src/controllers/userController');
+const { validateToken } = require('./src/utils/middlewares/validateToken');
 
 app.post('/user', userController.create);
 app.post('/login', userController.findByCredentials);
+
+app.get('/user', validateToken, userController.getAll);
 
 app.get('/', (_request, response) => {
   response.send();
