@@ -24,9 +24,15 @@ const Post = Joi.object({
   categoryIds: Joi.array().required(),
 });
 
+const EditPost = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+});
+
 module.exports = {
   User,
   Login,
   Category,
   Post,
+  EditPost,
 };
