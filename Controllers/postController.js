@@ -37,9 +37,20 @@ const update = async (req, res, next) => {
   return res.status(200).json(result);
 };
 
+const exclude = async (req, res, next) => {
+  const { id } = req.params;
+  const { id: userId } = req.user;
+  const result = await Post.exclude(id, userId);
+
+  if (result && result.message) return next(result);
+
+  return res.status(204).end();
+};
+
 module.exports = {
   addNew,
   listAll,
   listById,
   update,
+  exclude,
 };

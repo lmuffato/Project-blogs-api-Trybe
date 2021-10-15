@@ -68,9 +68,25 @@ const update = async (id, { title, content }, userId) => {
   }
 };
 
+const exclude = async (id, userId) => {
+  try {
+    const post = await Post.findByPk(id);
+    if (!post) return builtError(404, 'Post does not exist');
+    if (post.userId !== userId) return builtError(401, 'Unauthorized user');
+
+    await Post.destroy({ where: { id, userId } });
+
+    return;
+  } catch (e) {
+    console.log(e.message);
+    return builtError(500, e.message);
+  }
+};
+
 module.exports = {
   create,
   listAll,
   listById,
   update,
+  exclude,
 };
