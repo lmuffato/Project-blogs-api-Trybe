@@ -6,6 +6,7 @@ const createCategory = rescue(async (req, res) => {
   // console.log(name, 'NAME CONTROLER');
     const result = await services.createCategory(name);
     return res.status(201).json(result);
+  // req 05 desgrama  
 });
 
 module.exports = {
