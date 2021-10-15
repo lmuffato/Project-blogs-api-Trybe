@@ -17,6 +17,12 @@ const createPost = async (title, content, categoryIds, userId) => {
   return { post };
 };
 
+const getAllPost = async () => {
+  const result = await BlogPost.findAll({ include: [{ all: true }] });
+  return result;
+};
+
 module.exports = {
   createPost,
+  getAllPost,
 };

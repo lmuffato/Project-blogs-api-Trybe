@@ -19,12 +19,12 @@ module.exports = {
       },
       published: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
       },
       updated: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
       },
       userId: {

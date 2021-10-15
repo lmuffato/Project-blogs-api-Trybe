@@ -46,5 +46,6 @@ app.get('/categories', validationtoken, categoryController.getAll);
 //  POST
 
 app.post('/post', validationtoken, validationCreatePost, postController.create);
+app.get('/post', validationtoken, postController.getAll);
 
 // ______________________________________________________________ //
