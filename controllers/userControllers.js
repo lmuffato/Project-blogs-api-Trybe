@@ -14,7 +14,18 @@ const login = (req, res) => {
   res.status(200).json({ token: token.createToken({ email }) });
 };
 
+const getUsers = async (req, res) => {
+    const { authorization } = req.headers;
+    const validateToken = token.validateToken(authorization);
+    if (validateToken) {
+        return res.status(validateToken.status).json({ message: validateToken.message });
+    } 
+        const users = await Users.findAll();
+        res.status(200).json(users);
+};
+
 module.exports = {
     createUser,
     login,
+    getUsers,
 };

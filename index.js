@@ -26,3 +26,5 @@ app.post('/login',
    userMiddlewares.validatePassword,
    userMiddlewares.validateUserExists,
    userControllers.login);
+
+app.get('/user', userControllers.getUsers);
