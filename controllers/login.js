@@ -4,7 +4,6 @@ const errorCodes = require('../utils/errorCodes');
 const generateToken = require('../token/generateToken');
 
 const loginAuth = async (req, res) => {
-
   const { email, password } = req.body;
   const userInfo = { email, password };
 
@@ -15,7 +14,7 @@ const loginAuth = async (req, res) => {
   }
 
   const token = generateToken(userInfo);
-  
+
   return res.status(httpStatus.HTTP_OK_STATUS).json({ token });
 };
 
