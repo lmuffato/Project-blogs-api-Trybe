@@ -6,10 +6,10 @@ const loginController = require('../controllers/login');
 const router = express.Router();
 
 router.post('/',
-  validations.validateEmailLogin,
-  validations.validatePasswordRequired,
   validations.validateEmailIsNotEmpty,
   validations.validatePasswordNotEmpty,
+  validations.validateEmailLogin,
+  validations.validatePasswordRequired,
   loginController);
 
 module.exports = router;
