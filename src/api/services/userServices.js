@@ -12,6 +12,7 @@ const {
   HTTP_CONFLICT,
   HTTP_CREATED,
   HTTP_OK_STATUS,
+  HTTP_NOT_FOUND,
 } = require('../status');
 
 const { User } = require('../models');
@@ -46,7 +47,26 @@ const readAllServices = async () => {
   return { code: HTTP_OK_STATUS, allUsers };
 };
 
+const readByIdServices = async (id) => {
+  const user = await User.findByPk(id);
+
+  if (!user) {
+    return {
+      notFound: true,
+      code: HTTP_NOT_FOUND,
+      message: 'User does not exist',
+    };
+  }
+
+  return {
+    found: true,
+    code: HTTP_OK_STATUS,
+    user,
+  };
+};
+
 module.exports = {
   createServices,
   readAllServices,
+  readByIdServices,
 };

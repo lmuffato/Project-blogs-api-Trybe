@@ -11,6 +11,7 @@ const {
 const {
   createController,
   readAllController,
+  readByIdController,
 } = require('../controllers/userController');
 
 const router = Router();
@@ -28,6 +29,12 @@ router.get(
   '/',
   validateToken,
   readAllController,
+);
+
+router.get(
+  '/:id',
+  validateToken,
+  readByIdController,
 );
 
 module.exports = router;
