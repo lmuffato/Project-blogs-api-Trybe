@@ -23,7 +23,7 @@ const errorUserExists = {
 };
 
 const errorLogin = {
-  message: 'Campos inválidos',
+  message: 'Invalid fields',
 };
 
 const errorEmailNotEmpty = {
