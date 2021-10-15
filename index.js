@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const { create, findAll, login } = require('./src/controllers/userController');
+const { create, findAll, login, findById } = require('./src/controllers/userController');
 const { validateJWT } = require('./src/auth/validateJWT');
 
 const app = express();
@@ -21,3 +21,4 @@ app.get('/', (request, response) => {
 app.get('/user', validateJWT, findAll);
 app.post('/user', create);
 app.post('/login', login);
+app.get('/user/:id', validateJWT, findById);

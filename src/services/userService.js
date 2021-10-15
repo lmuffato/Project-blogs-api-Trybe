@@ -30,4 +30,11 @@ const loginUser = async (email, password) => {
   return token;
 };
 
-module.exports = { createUser, getUserByEmail, loginUser, findAllUsers };
+const getUserById = async (id) => {
+  const user = await User.findOne({ where: { id } });
+  if (!user) return null;
+
+  return user;
+};
+
+module.exports = { createUser, getUserByEmail, loginUser, findAllUsers, getUserById };

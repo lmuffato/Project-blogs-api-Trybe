@@ -1,4 +1,9 @@
-const { createUser, getUserByEmail, loginUser, findAllUsers } = require('../services/userService');
+const {
+  createUser,
+  getUserByEmail,
+  loginUser,
+  findAllUsers,
+  getUserById } = require('../services/userService');
 const { userSchema } = require('../schemas/validateUserDatas');
 const { loginSchema } = require('../schemas/validateLoginDatas');
 const errorMessages = require('../utils/errorMessages');
@@ -41,4 +46,13 @@ const login = async (req, res) => {
   return res.status(200).json(user);
 };
 
-module.exports = { findAll, create, login };
+const findById = async (req, res) => {
+  const { id } = req.params;
+  const user = await getUserById(id);
+
+  if (!user) return res.status(404).json({ message: 'User does not exist' });
+
+  return res.status(200).json(user);
+};
+
+module.exports = { findAll, create, login, findById };
