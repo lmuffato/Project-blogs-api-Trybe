@@ -1,4 +1,5 @@
 const statusCode = {
+  ok: { status: 200 },
   created: { status: 201 },
   badRequest: { status: 400 },
   unauthorized: { status: 401 },
