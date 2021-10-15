@@ -5,3 +5,5 @@ const User = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().required().length(6),
 });
+
+module.export = { User };
