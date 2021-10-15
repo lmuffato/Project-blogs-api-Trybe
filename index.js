@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const userController = require('./controllers/userController');
 const userMiddlewares = require('./middlewares/userMiddlewares');
 const loginMiddlewares = require('./middlewares/loginMiddlewares');
+const authMiddlewares = require('./middlewares/authMiddlewares');
 
 const app = express();
 app.use(bodyParser.json());
@@ -28,3 +29,7 @@ loginMiddlewares.validadeNotAllowedEmpty,
 loginMiddlewares.validadeRequiredFields,
 loginMiddlewares.checkExistingUser,
 userController.login);
+
+app.get('/user',
+authMiddlewares.authValidation,
+userController.getAll);
