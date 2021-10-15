@@ -60,6 +60,11 @@ const USER_DOES_NOT_EXIST = {
   message: 'User does not exist',
 };
 
+const NAME_IS_REQUIRED = {
+  status: httpStatus.BAD_REQUEST,
+  message: '"name" is required',
+};
+
 module.exports = {
   DISPLAY_NAME_8_CHARACTERS,
   EMAIL_INVALID,
@@ -73,4 +78,5 @@ module.exports = {
   TOKEN_NOT_FOUND,
   TOKEN_NOT_VALID,
   USER_DOES_NOT_EXIST,
+  NAME_IS_REQUIRED,
 };

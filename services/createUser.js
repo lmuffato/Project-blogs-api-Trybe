@@ -3,10 +3,6 @@ const { User } = require('../models');
 const errorMessage = require('../utils/errorMessages');
 
 const secret = process.env.JWT_SECRET;
-const jwtConfig = {
-  expiresIn: '24h',
-  algorithm: 'HS256',
-};
 
 const verifyIfEmailAlreadyExists = async (email) => {
   const checkEmail = await User.findOne({ where: { email } });
@@ -14,7 +10,7 @@ const verifyIfEmailAlreadyExists = async (email) => {
 };
 
 const generateToken = (user) => {
-  const token = jwt.sign({ data: user }, secret, jwtConfig);
+  const token = jwt.sign({ data: user }, secret);
   return { token };
 };
 
