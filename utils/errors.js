@@ -57,7 +57,7 @@ const ERROR_EMPTY_PASSWORD = {
 const ERROR_INVALID_FIELDS = {
   error: {
     status: 400,
-    message: 'invalid fields', 
+    message: 'Campos inválidos', 
   },
 };
 
