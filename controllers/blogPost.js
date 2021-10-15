@@ -2,7 +2,6 @@ const { BlogPost } = require('../models');
 const httpStatus = require('../utils/httpStatus');
 
 const create = async (req, res) => {
-
   const { title, content, categoryIds } = req.body;
 
   await BlogPost.create({ title, content, categoryIds })
