@@ -34,3 +34,6 @@ module.exports = {
   create,
   getAll,
 };
+
+// Método findAll: https://stackoverflow.com/questions/21883484/how-to-use-an-include-with-attributes-with-sequelize
+// Documentação: https://sequelize.org/master/manual/model-querying-finders.html#-code-findall--code-
