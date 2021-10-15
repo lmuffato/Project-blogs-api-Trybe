@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userMiddlewares = require('./middlewares/middlewaresUser');
 const userControllers = require('./controllers/userControllers');
+const categoriesControllers = require('./controllers/categoriesControllers');
+const categoriesMiddlewares = require('./middlewares/categoriesMiddlewares');
 
 const app = express();
 
@@ -13,6 +15,8 @@ app.listen(3000, () => console.log('ouvindo porta 3000!'));
 app.get('/', (request, response) => {
   response.send();
 });
+
+// user
 
 app.post('/user',
  userMiddlewares.validateDisplayName,
@@ -35,3 +39,10 @@ app.get('/user/:id',
  userMiddlewares.validateTokenFn,
  userMiddlewares.verifyUserExistsById,
  userControllers.getUserById);
+
+//  categories
+
+app.post('/categories',
+   categoriesMiddlewares.validateName,
+   categoriesMiddlewares.validateTokenFn,
+   categoriesControllers.createNewCategory);
