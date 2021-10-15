@@ -7,5 +7,5 @@ module.exports = (req, res, next) => {
       return res.status(400).json({ message: '"categoryIds" not found' });
     }
   });
-  next();
+  return next();
 };
