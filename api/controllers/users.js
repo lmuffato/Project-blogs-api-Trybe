@@ -8,6 +8,11 @@ const createUser = async (req, res, next) => {
     return res.status(success.created).json(user);
 };
 
+const getUsers = async (req, res, _next) => {
+    const users = await usersService.getUsers();
+    return res.status(success.ok).json(users);
+};
+
 const login = async (req, res, next) => {
     const { email, password } = req.body;
     const token = await usersService.login(email, password);
@@ -15,4 +20,4 @@ const login = async (req, res, next) => {
     return res.status(success.ok).json(token);
 };
 
-module.exports = { createUser, login };
+module.exports = { createUser, login, getUsers };
