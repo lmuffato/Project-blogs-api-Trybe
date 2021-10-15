@@ -13,5 +13,6 @@ const postController = require('../controllers/PostController');
 
 route.post('/', 
   validateTitle, validateContent, validateCategoryIds, validateToken, postController.createPost);
+route.get('/', validateToken, postController.listAllPosts);
 
 module.exports = route;
