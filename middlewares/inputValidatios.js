@@ -4,6 +4,8 @@ const {
   ERROR_PASSWORD_LENGTH,
   ERROR_PASSWORD_REQUIRED,
   ERROR_VALID_EMAIL,
+  ERROR_EMPTY_EMAIL,
+  ERROR_EMPTY_PASSWORD,
 } = require('../utils/errors');
 
 const emailFormatValidation = (req, res, next) => {
@@ -48,9 +50,33 @@ const passwordValidation = (req, res, next) => {
   next();
 };
 
+const emailLoginValidation = (req, res, next) => {
+  const { email } = req.body;
+  if (email === '') {
+    return res.status(ERROR_EMPTY_EMAIL.error.status)
+      .json({ message: ERROR_EMPTY_EMAIL.error.message });
+  }
+  if (!email) {
+    return res.status(ERROR_EMAIL_REQUIRED.error.status)
+      .json({ message: ERROR_EMAIL_REQUIRED.error.message });
+  }
+  next();
+};
+
+const passwordLoginValidation = (req, res, next) => {
+  const { password } = req.body;
+  if (password === '') {
+    return res.status(ERROR_EMPTY_PASSWORD.error.status)
+      .json({ message: ERROR_EMPTY_PASSWORD.error.message });
+  }
+  next();
+};
+
 module.exports = {
   emailFormatValidation,
   emailValidation,
   displayNameValidation,
   passwordValidation,
+  emailLoginValidation,
+  passwordLoginValidation,
 };

@@ -1,15 +1,15 @@
 const express = require('express');
-// const userController = require('../controllers/userController');
+const loginController = require('../controllers/loginController');
 
 const {
-  emailFormatValidation,
-  emailValidation,
-  displayNameValidation,
   passwordValidation,
+  emailLoginValidation,
+  passwordLoginValidation,
 } = require('../middlewares/inputValidatios');
 
 const router = express.Router();
 
-router.post('/');
+router.post('/', emailLoginValidation, passwordLoginValidation, passwordValidation, 
+  loginController);
 
 module.exports = router;
