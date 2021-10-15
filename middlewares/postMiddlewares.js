@@ -48,6 +48,7 @@ const validateContent = (req, res, next) => {
 const searchUser = async (req, res, next) => {
   const { payload: { email } } = req;
   const user = await Users.findOne({ where: { email } });
+  console.log(user);
   req.userId = user.id;
   next();
 };
@@ -70,6 +71,13 @@ const validateFieldsOfReq = (req, res, next) => {
    next();
 };
 
+const verifyPostExist = async (req, res, next) => {
+    const { id } = req.params;
+    const post = await BlogPosts.findByPk(id);
+    if (!post) return res.status(404).json({ message: 'Post does not exist' });
+    next();
+};
+
 module.exports = {
     verifyCategoryIdExists,
     validateCategoryId,
@@ -79,4 +87,5 @@ module.exports = {
     searchUser,
     validateUserAuth,
     validateFieldsOfReq,
+    verifyPostExist,
 };

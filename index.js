@@ -80,3 +80,10 @@ postMiddlewares.validateTokenFn,
 postMiddlewares.searchUser,
 postMiddlewares.validateUserAuth,
 postControllers.updatePost);
+
+app.delete('/post/:id',
+postMiddlewares.verifyPostExist,
+ postMiddlewares.validateTokenFn,
+ postMiddlewares.searchUser,
+ postMiddlewares.validateUserAuth,
+ postControllers.deletePost);
