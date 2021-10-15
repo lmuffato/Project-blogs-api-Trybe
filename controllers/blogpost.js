@@ -25,15 +25,15 @@ const getPostById = async (req, res, next) => {
 const editPost = async (req, res, next) => {
   const { id: userId } = req.user;
   const { id } = req.params;
-  const { title, content } = req.body;
+  const { title, content, categoryIds } = req.body;
 
-  if (req.categoryIds) return res.status(400).json({ message: 'Categories cannot be edited' });
+  if (categoryIds) return res.status(400).json({ message: 'Categories cannot be edited' });
 
   const response = await services.editPost({ id, title, content }, userId);
 
   if (response.code) return next(response);
 
-  return response;
+  return res.status(200).json(response);
 };
 
 module.exports = {
