@@ -1,24 +1,17 @@
 const { getStatusCode } = require('../utils/statusCode');
+const { throwError } = require('../utils/error');
 const token = require('./token');
-
-function throwError(code, message) {
-  const error = new Error(message);
-  const { status } = getStatusCode(code);
-  error.status = status;
-
-  throw error;
-}
 
 function verifyName(displayName) {
   let message = '"displayName" length must be at least 8 characters long';
 
   if (!displayName) {
     message = '"displayName" is required';
-    throwError('badRequest', message);
+    throwError('badRequest', message, getStatusCode);
   }
 
   if (displayName.length < 8) {
-    throwError('badRequest', message);
+    throwError('badRequest', message, getStatusCode);
   }
 }
 
@@ -29,16 +22,16 @@ function verifyEmail(email) {
 
   if (email === '') {
     message = '"email" is not allowed to be empty';
-    throwError('badRequest', message);
+    throwError('badRequest', message, getStatusCode);
   }
 
   if (!email) {
     message = '"email" is required';
-    throwError('badRequest', message);
+    throwError('badRequest', message, getStatusCode);
   }
 
   if (!isRegexValid) {
-    throwError('badRequest', message);
+    throwError('badRequest', message, getStatusCode);
   }
 }
 
@@ -47,30 +40,30 @@ function verifyPassword(password) {
 
   if (password === '') {
     message = '"password" is not allowed to be empty';
-    throwError('badRequest', message);
+    throwError('badRequest', message, getStatusCode);
   }
 
   if (!password) {
     message = '"password" is required';
-    throwError('badRequest', message);
+    throwError('badRequest', message, getStatusCode);
   }
 
   if (password.length < 6) {
-    throwError('badRequest', message);
+    throwError('badRequest', message, getStatusCode);
   }
 }
 
 function isUserRegistered(condition) {
   const message = 'User already registered';
   if (!condition) {
-    throwError('conflict', message);
+    throwError('conflict', message, getStatusCode);
   }
 }
 
 function isUserValid(condition) {
   const message = 'Invalid fields';
   if (!condition) {
-    throwError('badRequest', message);
+    throwError('badRequest', message, getStatusCode);
   }
 }
 
