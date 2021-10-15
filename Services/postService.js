@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { builtError } = require('./heplers');
 const { Post, Category, User } = require('../models');
 
@@ -17,9 +18,14 @@ const create = async (payload, { id }) => {
   }
 };
 
-const listAll = async () => {
+const listAll = async (term) => {
   try {
+    const getter = term
+      ? { where: { [Op.or]: [{ title: term }, { content: term }] } }
+      : {};
+
     const response = await Post.findAll({
+      ...getter,
       include: [
         { model: User, as: 'user', attributes: { exclude: 'password' } },
         { model: Category, as: 'categories', through: { attributes: [] } },

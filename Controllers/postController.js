@@ -8,8 +8,9 @@ const addNew = async (req, res, next) => {
   return res.status(201).json(result);
 };
 
-const listAll = async (_req, res, next) => {
-  const result = await Post.listAll();
+const listAll = async (req, res, next) => {
+  const { q } = req.query;
+  const result = await Post.listAll(q);
 
   if (result.message) return next(result);
 
