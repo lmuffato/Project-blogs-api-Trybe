@@ -78,9 +78,21 @@ const passwordValidate = (req, res, next) => {
   next();
 };
 
+const userIdExist = async (req, res, next) => {
+  const userId = req.params.id;
+  const userById = await User.findOne({ where: { id: userId } });
+
+  if (!userById) {
+    return res.status(httpStatus.notFound).json({ message: errorMessages.userNotExists });
+  }
+
+  next();
+};
+
 module.exports = {
   nameValidate,
   emailValidate,
   emailValidate2,
   passwordValidate,
+  userIdExist,
 };

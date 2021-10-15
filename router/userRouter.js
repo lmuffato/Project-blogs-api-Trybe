@@ -1,8 +1,9 @@
 const { Router } = require('express');
-const { createUser, getAllUsers } = require('../controllers/usersController');
+const { createUser, getAllUsers, getUserById } = require('../controllers/usersController');
 const { nameValidate,
 emailValidate,
-passwordValidate } = require('../middlewares/validations');
+passwordValidate,
+userIdExist } = require('../middlewares/validations');
 const { validateJWT } = require('../middlewares/authJWT');
 
 const router = Router();
@@ -13,5 +14,7 @@ passwordValidate,
 createUser);
 
 router.get('/', validateJWT, getAllUsers);
+
+router.get('/:id', validateJWT, userIdExist, getUserById);
 
 module.exports = router; 
