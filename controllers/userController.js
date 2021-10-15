@@ -11,6 +11,12 @@ const createUser = rescue(async (req, res) => {
   res.status(201).json(result);
 });
 
+const findAllUsers = rescue(async (req, res) => {
+  const result = await services.findAllUsers();
+  res.status(200).json(result);
+});
+
 module.exports = {
   createUser,
+  findAllUsers,
 };
