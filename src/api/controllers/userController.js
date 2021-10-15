@@ -16,7 +16,6 @@ const createController = async (req, res) => {
 
     if (!found) return res.status(code).json({ token });
   } catch (e) {
-    console.log(e.message);
     return res.status(HTTP_SERVER_ERROR).json({ message: e.message });
   }
 };

@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const usersRouter = require('./src/api/router/user');
 const loginRouter = require('./src/api/router/login');
 const categoriesRouter = require('./src/api/router/categories');
+const postRouter = require('./src/api/router/post');
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,6 +18,7 @@ app.get('/', (request, response) => {
 app.use('/user', usersRouter);
 app.use('/login', loginRouter);
 app.use('/categories', categoriesRouter);
+app.use('/post', postRouter);
 
 // Iniciando o Sequelize-Cli: npx sequelize-cli init (cria a pasta config e a models);
 // Criando o banco do projeto: npx sequelize db:create
