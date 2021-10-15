@@ -2,13 +2,18 @@ const { getStatusCode } = require('../utils/statusCode');
 const { throwError } = require('../utils/error');
 const token = require('./token');
 
-function verifyName(displayName) {
-  let message = '"displayName" length must be at least 8 characters long';
-
-  if (!displayName) {
-    message = '"displayName" is required';
+function isRequired(condition, field) {
+  const message = `"${field}" is required`;
+  if (!condition) {
     throwError('badRequest', message, getStatusCode);
   }
+}
+
+function verifyName(displayName) {
+  const message = '"displayName" length must be at least 8 characters long';
+  const isDisplayName = !!displayName;
+
+  isRequired(isDisplayName, 'displayName');
 
   if (displayName.length < 8) {
     throwError('badRequest', message, getStatusCode);
@@ -18,6 +23,7 @@ function verifyName(displayName) {
 function verifyEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const isRegexValid = emailRegex.test(email);
+  const isEmail = !!email;
   let message = '"email" must be a valid email';
 
   if (email === '') {
@@ -25,10 +31,7 @@ function verifyEmail(email) {
     throwError('badRequest', message, getStatusCode);
   }
 
-  if (!email) {
-    message = '"email" is required';
-    throwError('badRequest', message, getStatusCode);
-  }
+  isRequired(isEmail, 'email');
 
   if (!isRegexValid) {
     throwError('badRequest', message, getStatusCode);
@@ -36,6 +39,7 @@ function verifyEmail(email) {
 }
 
 function verifyPassword(password) {
+  const isPassword = !!password;
   let message = '"password" length must be 6 characters long';
 
   if (password === '') {
@@ -43,10 +47,7 @@ function verifyPassword(password) {
     throwError('badRequest', message, getStatusCode);
   }
 
-  if (!password) {
-    message = '"password" is required';
-    throwError('badRequest', message, getStatusCode);
-  }
+  isRequired(isPassword, 'password');
 
   if (password.length < 6) {
     throwError('badRequest', message, getStatusCode);
@@ -60,14 +61,14 @@ function isUserRegistered(condition) {
   }
 }
 
-function isUserValid(condition) {
-  const message = 'Invalid fields';
+function isUserValid(condition, code, message) {
   if (!condition) {
-    throwError('badRequest', message, getStatusCode);
+    throwError(code, message, getStatusCode);
   }
 }
 
 module.exports = {
+  isRequired,
   verifyName,
   verifyEmail,
   verifyPassword,
