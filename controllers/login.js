@@ -7,15 +7,15 @@ const secret = 'secret123';
 const validateUserData = async (email, password) => {
   if (email === '') {
  return {
-    code: 401,
-    message: 'email is not allowed to be empty',
+    code: 400,
+    message: '\"email\" is not allowed to be empty',
   }; 
 }
 
 if (password === '') {
   return {
-     code: 401,
-     message: 'password is not allowed to be empty',
+     code: 400,
+     message: '\"password\" is not allowed to be empty',
    }; 
  }
 
@@ -23,7 +23,7 @@ if (password === '') {
   
   if (!user || user.password !== password) {
  return {
-    code: 401,
+    code: 400,
     message: 'Invalid fields',
   }; 
 }
@@ -34,8 +34,8 @@ if (password === '') {
 module.exports = async (req, res) => {
   const { email, password } = req.body;
 
-  if (password === undefined) return res.status(400).json({ message: 'password is required' });
-  if (email === undefined) return res.status(400).json({ message: 'email is required' });
+  if (password === undefined) return res.status(400).json({ message: '\"password\" is required' });
+  if (email === undefined) return res.status(400).json({ message: '\"email\" is required' });
 
   const { code, message, user } = await validateUserData(email, password);
 
