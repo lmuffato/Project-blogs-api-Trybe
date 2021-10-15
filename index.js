@@ -6,6 +6,7 @@ const app = express();
 app.use(bodyparser.json());
 
 const UserController = require('./controllers/userController');
+const login = require('./controllers/login');
 const {
   validateDisplayName,
   validatePassword,
@@ -25,4 +26,4 @@ validatePassword,
 validateEmail,
 UserController.create);
 
-app.post('/login',);
+app.post('/login', login);
