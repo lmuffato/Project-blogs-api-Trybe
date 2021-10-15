@@ -59,4 +59,8 @@ validateContent,
 validateCategoryIds,
 PostController.create);
 
+app.get('/post',
+validateJWT,
+PostController.getAll);
+
 app.post('/login', login);
