@@ -32,17 +32,14 @@ const getAll = async (_req, res) => User.findAll(
 });
 
 const findById = async (req, res) => {
-  const { id } = req.params;
+  const userId = req.params.id;
 
-  const getUser = await User.findByPk(id);
-  
-  if (getUser === null || !getUser) {
-    return res.status(httpStatus.HTTP_NOT_FOUND).json(errorCodes.errorUserNotFound);
-  }
-  
-  const { id: userId, displayName, email, image } = getUser;
+  const findUser = await User.findByPk(userId).then((soughtUser) => {
+    const { id, displayName, email, image } = soughtUser;
+    res.status(httpStatus.HTTP_OK_STATUS).json({ id, displayName, email, image });
+  }).catch((_err) => res.status(httpStatus.HTTP_NOT_FOUND).json(errorCodes.errorUserNotFound));
 
-  return res.status(httpStatus.HTTP_OK_STATUS).json({ userId, displayName, email, image });
+  return findUser;
 };
 
 module.exports = {
