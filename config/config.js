@@ -1,6 +1,4 @@
-require('dotenv').config({  
-  path: process.env.NODE_ENV === 'test' ? '.env.testing' : '.env',
-});
+require('dotenv').config();
 
 module.exports = {
   development: {
