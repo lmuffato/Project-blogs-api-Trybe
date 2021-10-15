@@ -5,18 +5,18 @@
 */ 
 module.exports = (sequelize, DataTypes) => {
   const blogPosts = sequelize.define('BlogPost', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    image: DataTypes.STRING,
-    createdAt: 'published',
-    updatedAt: 'updated',
+    published: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }, 
+    updated: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }, 
   }, {
-tableName: 'BlogPost',
+tableName: 'BlogPosts',
+timestamps: false,
   });
-
   blogPosts.associate = ({ User }) => {
-    blogPosts.hasMany(User, {
-      foreignKey: 'id', as: 'userId',
+    blogPosts.belongsTo(User, {
+      foreignKey: 'userId', as: 'user',
     });
   };
   return blogPosts;

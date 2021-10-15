@@ -13,7 +13,7 @@ const jwtConfig = {
 const login = async (data) => {
   const userExists = await User.findOne({ where: { email: data.email } });
   const { password: _, ...userWithoutPassword } = userExists;
-  const token = sign({ userWithoutPassword }, JWT_SECRET, jwtConfig);
+  const token = sign({ data: userWithoutPassword }, JWT_SECRET, jwtConfig);
   return { token };
 };
 

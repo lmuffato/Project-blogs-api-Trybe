@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { error } = require('./src/middlewares');
-const { userRouter, loginRouter, categoriesRouter } = require('./src/routes');
+const { userRouter, loginRouter, categoriesRouter, postRouter } = require('./src/routes');
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,5 +23,6 @@ app.get('/ping', (req, res) => {
 app.use('/user', userRouter);
 app.use('/login', loginRouter);
 app.use('/categories', categoriesRouter);
+app.use('/post', postRouter);
 
 app.use(error);
