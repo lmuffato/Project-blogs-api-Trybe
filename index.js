@@ -20,6 +20,7 @@ app.get('/user', authMiddleware, usersController.getAll);
 app.get('/user/:id', authMiddleware, usersController.getById);
 app.get('/categories', authMiddleware, categoryController.getAll);
 app.get('/post', authMiddleware, postController.getAll);
+app.get('/post/:id', authMiddleware, postController.getById);
 app.post('/user', usersController.create);
 app.post('/login', usersController.login);
 app.post('/categories', authMiddleware, categoryController.create);

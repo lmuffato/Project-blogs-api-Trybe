@@ -29,22 +29,22 @@ const getAll = async (_req, res) => {
   }
 };
 
-// const getById = async (req, res) => {
-//   const { id } = req.params;
+const getById = async (req, res) => {
+  const { id } = req.params;
 
-//   const response = await userService.findByID(id);
+  const response = await postService.findByID(id);
 
-//   if (response.code) {
-//     return res.status(response.code).json({
-//         message: response.message,
-//     });
-// }
+  if (response.code) {
+    return res.status(response.code).json({
+        message: response.message,
+    });
+}
 
-//   return res.status(HTTP_OK_STATUS).json(response);
-// };
+  return res.status(HTTP_OK_STATUS).json(response);
+};
 
 module.exports = {
   create,
   getAll,
-  // getById,
+  getById,
 }; 

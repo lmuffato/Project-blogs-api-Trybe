@@ -3,7 +3,7 @@ const { Users, BlogPosts, Categories, PostsCategories } = require('../models');
 
 const HTTP_BAD_STATUS = 400;
 // const HTTP_CONFLICT_STATUS = 409;
-// const HTTP_NOT_FOUND_STATUS = 404;
+const HTTP_NOT_FOUND_STATUS = 404;
 
 const checkCategories = async (categoryIds) => {
   const categories = await Categories.findAll();
@@ -46,19 +46,19 @@ const findAll = async () => {
   return posts;
 };
 
-// const findByID = async (receivedId) => {
-//   const user = await Users.findByPk(receivedId);
+const findByID = async (receivedId) => {
+  const post = await BlogPosts.findOne({
+    where: { id: receivedId },
+    include: [{ model: Users, as: 'user' }, { model: Categories, as: 'categories' }],
+  });
 
-//   if (!user) return ({ code: HTTP_NOT_FOUND_STATUS, message: 'User does not exist' });
+  if (!post) return ({ code: HTTP_NOT_FOUND_STATUS, message: 'Post does not exist' });
 
-//   const { id, displayName, email, image } = user;
-//   const response = { id, displayName, email, image };
-
-//   return response;
-// };
+  return post;
+};
 
 module.exports = {
   insert,
   findAll,
-  // findByID,
+  findByID,
 };
