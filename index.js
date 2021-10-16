@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const validations = require('./middlewares/validations');
 const userController = require('./controllers/usersController');
+const { validateJWTToken } = require('./auth/authJWT');
 
 const app = express();
 app.use(bodyParser.json());
@@ -22,6 +23,8 @@ app.post('/user',
   validations.validateEmailFormat,
   validations.validatePassword,
   userController.createUser);
+
+app.get('/user', validateJWTToken, userController.findAllUsers);
 
 // --------- LOGIN --------
 
