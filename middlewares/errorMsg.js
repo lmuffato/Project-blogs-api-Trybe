@@ -54,6 +54,10 @@ const noTitle = {
   message: '"title" is required',
 };
 
+const noContent = {
+  message: '"content" is required',
+};
+
 module.exports = {
   invalidName,
   invalidEmail,
@@ -69,4 +73,5 @@ module.exports = {
   userNotFound,
   noName,
   noTitle,
+  noContent,
 };

@@ -67,6 +67,12 @@ const validateTitle = (req, res, next) => {
   next();
 };
 
+const validateContent = (req, res, next) => {
+  const { content } = req.body;
+  if (!content) return res.status(HTTP_STATUS.BAD_REQUEST).json(ERRORS.noContent);
+  next();
+};
+
 module.exports = {
   validateDisplayName,
   validateEmail,
@@ -75,4 +81,5 @@ module.exports = {
   authToken,
   validateName,
   validateTitle,
+  validateContent,
 };
