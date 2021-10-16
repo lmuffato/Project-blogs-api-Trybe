@@ -9,7 +9,7 @@ const addUser = async (req, res) => {
 };
 
 const getUser = async (_req, res) => {
-  const users = await database.User
+  const users = await database.Users
     .findAll({ attributes: ['id', 'displayName', 'email', 'image'] });
   return res.status(200).json(users);
 };
