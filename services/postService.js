@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const { Category, BlogPost, User } = require('../models');
-const { ERROR_CATEGORY_NOT_FOUND } = require('../utils/msg');
+const { ERROR_CATEGORY_NOT_FOUND, POST_NOT_FOUND } = require('../utils/msg');
 
 const categoryExist = async (categoryIds) => {
   const ifExist = await User.findAll({ where: { id: { [Op.in]: categoryIds } } });
@@ -11,7 +11,6 @@ const categoryExist = async (categoryIds) => {
 const createPost = async (addPost, userId = 1) => {
   const { title, content, categoryIds } = addPost;
   const ifExist = await categoryExist(categoryIds);
-  // console.log(ifExist);
   if (!ifExist) throw ERROR_CATEGORY_NOT_FOUND;
 
   await BlogPost.create({ title, content, userId });
@@ -30,4 +29,14 @@ const getPosts = async () => {
   return blogPosts;
 };
 
-module.exports = { createPost, getPosts };
+const postById = async (id) => {
+  const blogPost = await BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user' },
+      { model: Category, as: 'categories' },
+    ] });
+    if (!blogPost) throw POST_NOT_FOUND;
+  return blogPost;
+};
+module.exports = { createPost, getPosts, postById };
