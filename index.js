@@ -46,3 +46,7 @@ app.post('/categories',
 categoryMiddlewares.validadeCategory,
 authMiddlewares.authValidation,
 categoryController.create);
+
+app.get('/categories',
+authMiddlewares.authValidation,
+categoryController.getAll);
