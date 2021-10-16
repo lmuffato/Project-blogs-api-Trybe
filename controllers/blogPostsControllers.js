@@ -38,4 +38,17 @@ BlogPosts.get('/', validateJWT, async (req, res) => {
   return res.status(200).json(posts);
 });
 
+BlogPosts.get('/:id', validateJWT, async (req, res) => {
+  const { id } = req.params;
+  const post = await BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user' },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  if (post !== null) return res.status(200).json(post);
+  return res.status(404).json({ message: 'Post does not exist' });
+});
+
 module.exports = BlogPosts;
