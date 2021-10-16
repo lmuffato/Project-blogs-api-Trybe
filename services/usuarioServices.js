@@ -14,14 +14,6 @@ const criarUsuario = async (usuario) => {
   return novoToken(dadosUsuario);
 };
 
-/* const usuarioLogin = async (login) => {
-  const { email, password } = login;
-  const emailExiste = await buscarEmail(email);
-  if (!emailExiste) return 'não existe';
-  const { password, ...dadosUsuario } = await Users.findOne({ where: { email } });
-  return novoToken(dadosUsuario);
-}; */
-
 const usuarioLogin = async (dadosLogin) => {
   const { email } = dadosLogin;
   const emailExiste = await buscarEmail(email);
@@ -30,7 +22,20 @@ const usuarioLogin = async (dadosLogin) => {
   return novoToken(dadosLogin);
 };
 
+const buscarUsuarios = async () => {
+  const usuarios = await Users.findAll();
+  return usuarios;
+};
+
+const buscarUsuarioPorID = async (id) => {
+  const usuario = await Users.findByPk(id);
+  if (!usuario) return undefined;
+  return usuario;
+};
+
 module.exports = {
   criarUsuario,
   usuarioLogin,
+  buscarUsuarios,
+  buscarUsuarioPorID,
 };

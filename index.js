@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 // Validações
 const validarUsuario = require('./middlewares/validarUsuario');
 const validarLogin = require('./middlewares/validarLogin');
+const { validarToken } = require('./middlewares/token');
 
 // Controlers
 const usuarioControllers = require('./controllers/usuarioController');
@@ -18,6 +19,8 @@ const usuarioControllers = require('./controllers/usuarioController');
 // Início das rotas
 app.post('/user', validarUsuario, usuarioControllers.criarUsuario);
 app.post('/login', validarLogin, usuarioControllers.usuarioLogin);
+app.get('/user', validarToken, usuarioControllers.buscarUsuarios);
+app.get('/user/:id', validarToken, usuarioControllers.buscarUsuarioPorID);
 // Fim das rotas
 
 app.listen(PORT, () => console.log(`Servidor conectado na porta ${PORT}!`));

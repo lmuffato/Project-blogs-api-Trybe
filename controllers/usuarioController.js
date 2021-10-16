@@ -21,7 +21,24 @@ const usuarioLogin = async (request, response) => {
   return response.status(200).json(login);
 };
 
+const buscarUsuarios = async (_request, response) => {
+  const usuarios = await usuarioServices.buscarUsuarios();
+  return response.status(200).json(usuarios);
+};
+
+const buscarUsuarioPorID = async (request, response) => {
+  const { id } = request.params;
+  const usuario = await usuarioServices.buscarUsuarioPorID(id);
+  if (usuario === undefined) {
+    return response.status(404).json({ message: 'User does not exist' });
+  }
+
+  return response.status(200).json(usuario);
+};
+
 module.exports = {
   criarUsuario,
   usuarioLogin,
+  buscarUsuarios,
+  buscarUsuarioPorID,
 };
