@@ -18,11 +18,8 @@ async function createUser(req, res) {
 
   const token = createToken(userLogin);
 
-  const createdUser = await User.create({ displayName, password, email, image })
-    .then(() => {
-      res.status(201).json({ token });
-      return createdUser;
-    });
+  await User.create({ displayName, password, email, image });
+  return res.status(201).json({ token });
 }
 
 async function login(req, res) {

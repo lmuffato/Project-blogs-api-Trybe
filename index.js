@@ -14,12 +14,16 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
+// --------- USER --------
+
 app.post('/user',
   validations.validateName,
   validations.validateEmailRequired,
   validations.validateEmailFormat,
   validations.validatePassword,
   userController.createUser);
+
+// --------- LOGIN --------
 
 app.post('/login',
 validations.validateEmailIsNotEmpty,
