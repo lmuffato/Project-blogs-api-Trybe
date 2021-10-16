@@ -13,6 +13,7 @@ app.post('/user', userController.create);
 app.post('/login', userController.findByCredentials);
 
 app.get('/user', validateToken, userController.getAll);
+app.get('/user/:id', validateToken, userController.getById);
 
 app.get('/', (_request, response) => {
   response.send();
