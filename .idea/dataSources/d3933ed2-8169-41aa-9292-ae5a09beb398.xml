@@ -1102,7 +1102,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </user>
     <table id="286" parent="2" name="BlogPosts"/>
     <table id="287" parent="2" name="Categories"/>
-    <table id="288" parent="2" name="PostCategories"/>
+    <table id="288" parent="2" name="PostsCategories"/>
     <table id="289" parent="2" name="SequelizeMeta">
       <Collation>utf8_unicode_ci</Collation>
     </table>

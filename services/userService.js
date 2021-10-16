@@ -1,4 +1,5 @@
 const { User } = require('../models');
+const { generateToken } = require('./tokenSecurity');
 
 const createUser = async (user) => {
     const userOrNull = await User.findOne({ where: { email: user.email } });
@@ -7,10 +8,13 @@ const createUser = async (user) => {
     return !!userSaved;
 };
 
-const login = async (login) => {
+const signIn = async (login) => {
+    const { email, password } = login;
     const userOrNull = await User.findOne(
-        { where: { email: login.email, password: login.password } },
+        { where: { email, password } },
     );
+    if (!userOrNull) throw new Error('Invalid fields');
+    return generateToken(email, password);
 };
 
-module.exports = { createUser };
+module.exports = { createUser, signIn };
