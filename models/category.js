@@ -5,5 +5,11 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
+  Category.associate = (models) => {
+    Category.hasMany(models.PostsCategory, {
+      foreignKey: 'id', as: 'Categories',
+    });
+  };
+
   return Category;
 };

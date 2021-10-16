@@ -47,7 +47,8 @@ const authToken = async (req, res, next) => {
   try {
     const { dbEmail: email } = jwt.verify(token, SECRET);
     const [result] = await getByEmail({ email });
-    req.user = result;
+    const { id } = result.dataValues;
+    req.user = id;
     next();
   } catch (e) {
     return res.status(HTTP_STATUS.UNAUTHORIZED).json(ERRORS.badToken);
