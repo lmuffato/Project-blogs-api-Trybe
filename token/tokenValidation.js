@@ -23,6 +23,7 @@ const tokenValidation = async (req, res, next) => {
 
     const { email } = payload.data;
     const user = await User.findOne({ where: { email } });
+    console.log(user.id, 'uuuuuuseeerr');
     if (!user) res.status(401).json({ message: 'Expired or invalid token' });
   
     req.user = user;
