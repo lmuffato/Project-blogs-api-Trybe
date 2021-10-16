@@ -19,7 +19,7 @@ const validateToken = async (req, _res, next) => {
         const user = await getUserById(id);
 
         if (user.message) return next(expiredOrInvalidToken);
-
+        req.userId = id;
         return next();
     } catch (error) {
         return next(expiredOrInvalidToken);
