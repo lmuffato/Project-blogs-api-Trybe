@@ -47,6 +47,7 @@ UserRouter.get('/:id', validateJWT, async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findOne({ where: { id } });
+    console.log(user);
     return res.status(200).json(user.dataValues);
   } catch (e) {
     console.log(e);

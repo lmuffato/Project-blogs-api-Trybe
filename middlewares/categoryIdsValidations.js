@@ -16,7 +16,6 @@ const existsCategory = (req, res, next) => {
   categoryIds.map(async (categories) => {
     const category = await Category.findOne({ where: { id: categories } });
     if (category === null) {
-      console.log('Ops não retornou as categorias');
       return res.status(400).json({ message: '"categoryIds" not found' });
     }
     next();

@@ -4,9 +4,8 @@ const validateContent = require('../middlewares/contentValidations');
 const validateTitle = require('../middlewares/titleValidations');
 const verifyToken = require('../middlewares/utils/verifyToken');
 const validateJWT = require('../middlewares/validateJWT');
-const { BlogPost } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 const createPostsCategory = require('./postCategoryController');
-// const BlogPost = require('../models');
 
 const BlogPosts = Router();
 
@@ -28,5 +27,15 @@ BlogPosts.post('/',
       return res.status(500).json({ message: `Erro: ${e.message}` });
     }
   });
+
+BlogPosts.get('/', validateJWT, async (req, res) => {
+  const posts = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user' },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return res.status(200).json(posts);
+});
 
 module.exports = BlogPosts;
