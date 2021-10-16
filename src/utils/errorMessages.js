@@ -5,4 +5,5 @@ module.exports = {
   expiredOrInvalid: { code: 401, message: 'Expired or invalid token' },
   notExist: { code: 404, message: 'User does not exist' },
   isRequired: { code: 400, message: '"name" is required' },
+  notFoundCategory: { code: 400, message: '"categoryIds" not found' },
 };
