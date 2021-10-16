@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const BlogPost = sequelize.define('BlogPost', { title: DataTypes.STRING,
+  const BlogPost = sequelize.define('BlogPosts', { title: DataTypes.STRING,
       content: DataTypes.STRING,
   }, {
     createdAt: 'published',
