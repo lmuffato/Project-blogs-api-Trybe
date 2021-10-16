@@ -7,6 +7,12 @@ const postCategory = async (req, res) => {
   return res.status(201).json({ id, name });
 };
 
+const getCategories = async (_req, res) => {
+  const categories = await database.Categories.findAll({ attributes: ['id', 'name'] });
+  return res.status(200).json(categories);
+};
+
 module.exports = {
   postCategory,
+  getCategories,
 };
