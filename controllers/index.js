@@ -1,5 +1,5 @@
 const deleteBlogPost = require('./deletePost');
-const deleteUser = require('./deleteUser');
+const deleteUser = require('./deleteUserModule');
 const getCategories = require('./getCategories');
 const getOnePost = require('./getOnePost');
 const getOneUser = require('./getOneUser');
