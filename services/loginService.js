@@ -8,7 +8,7 @@ const JWTconfig = {
   algorithm: 'HS256',
 };
 
-async function login({ email, password }) {
+async function login({ email, _password }) {
   const userByEmail = await User.findOne(
     { where: { email } },
   );
