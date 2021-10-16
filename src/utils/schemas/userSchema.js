@@ -6,7 +6,7 @@ const {
   verifyEmailFormat,
   validateEmail,
   verifyEmailLength,
-} = require('../validations/validations');
+} = require('../validations/userVerify');
 
 const errors = {
   INVALID_NAME: '"displayName" length must be at least 8 characters long',
@@ -17,6 +17,7 @@ const errors = {
   MISSING_EMAIL: '"email" is required',
   INVALID_EMAIL: 'User already registered',
   EMPTY_EMAIL: '"email" is not allowed to be empty',
+  INVALID_FIELDS: 'Invalid fields',
 };
 const status = {
   BAD_REQUEST: 400,

@@ -7,7 +7,6 @@ const JWT_SECRET = 'xAbLaU';
 const create = async (displayName, email, password, image) => {
   const validateUser = userSchema.userValidations(displayName, password);
   if (validateUser.message) return validateUser;
-
   const validateEmail = await userSchema.emailValidations(email);
   if (validateEmail.message) return validateEmail;
 
@@ -25,7 +24,6 @@ const findByCredentials = async (email, password) => {
 
   const user = await User.findOne({ where: { email } });
   if (!user) return { status: 400, message: 'Invalid fields' };
-
   const { password: _, ...userPayload } = user;
   const token = jwt.sign(userPayload, JWT_SECRET);
 
@@ -34,6 +32,7 @@ const findByCredentials = async (email, password) => {
 
 const getAll = async () => {
   const users = await User.findAll();
+  if (!users) return { status: 404, message: 'Users not found' };
 
   return { status: 200, users };
 };

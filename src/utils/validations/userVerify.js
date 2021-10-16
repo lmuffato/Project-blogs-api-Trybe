@@ -18,12 +18,12 @@ const verifyEmailFormat = (email) => {
   const regex = /\S+@\S+\.\S+/;
   if (!regex.test(String(email).toLowerCase())) return true;
 };
+const verifyEmailLength = (email) => {
+  if (email === '') return true;
+};
 const validateEmail = async (email) => {
   const checkEmail = await User.findOne({ where: { email } });
   if (checkEmail) return true;
-};
-const verifyEmailLength = (email) => {
-  if (email === '') return true;
 };
 
 module.exports = {
