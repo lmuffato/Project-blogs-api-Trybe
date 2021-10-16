@@ -30,7 +30,8 @@ const buscarUsuarios = async () => {
 const buscarUsuarioPorID = async (id) => {
   const usuario = await Users.findByPk(id);
   if (!usuario) return undefined;
-  return usuario;
+  const { password, ...dadosUsuario } = usuario.dataValues;
+  return dadosUsuario;
 };
 
 module.exports = {

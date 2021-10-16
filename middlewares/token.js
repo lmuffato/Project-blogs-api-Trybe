@@ -11,18 +11,18 @@ const jwtConfig = {
 
 const novoToken = (dadosUsuario) => {
   const usuariotoken = jwt.sign(dadosUsuario, SENHA, jwtConfig);
-  return usuariotoken;  
+  return { token: usuariotoken };  
 };
 
 const validarToken = async (request, response, next) => {
-  try {  
   const usuarioToken = request.headers.authorization;
   if (!usuarioToken) {
     return response.status(401).json({ message: 'Token not found' });
   }
-
-  const tokenVerificado = jwt.verify(usuarioToken, SENHA);
-    response.user = tokenVerificado;
+  
+  try {
+    const { tokenVerificado } = jwt.verify(usuarioToken, SENHA);
+    request.user = tokenVerificado;
     next();
   } catch (err) {
     return response.status(401).json({ message: 'Expired or invalid token' });
