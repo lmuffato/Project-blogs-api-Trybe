@@ -27,4 +27,16 @@ const login = async (req, res) => {
   return res.status(OK).json(result);
 };
 
-module.exports = { create, login };
+const getAll = async (req, res) => {
+  const { authorization } = req.headers;
+
+  const result = await userService.gettAll(authorization);
+
+  const { error } = result;
+
+  if (error) return res.status(error.code).json({ message: error.message });
+
+  return res.status(OK).json(result);
+};
+
+module.exports = { create, login, getAll };

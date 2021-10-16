@@ -53,6 +53,18 @@ module.exports = {
       message: 'Invalid fields',
     },
   },
+  tokenNotFound: {
+    error: {
+      code: 401,
+      message: 'Token not found',
+    },
+  },
+  invalidToken: {
+    error: {
+      code: 401,
+      message: 'Expired or invalid token',
+    },
+  },
   internalError: {
     error: {
       code: 500,

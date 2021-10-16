@@ -5,6 +5,12 @@ const errorMap = require('../utils/errorMap');
 
 const SECRET = require('./secret');
 
+const verifyToken = (token) => jwt.verify(token, SECRET, (err, _decoded) => {
+    if (err) return false;
+
+    return true;
+  });
+
 const findUserByEmail = async (email) => {
   const user = await User.findOne({
     where: { email },
@@ -69,4 +75,18 @@ const login = async (user) => {
   }
 };
 
-module.exports = { create, login };
+const gettAll = async (token) => {
+  try {
+    const isValidToken = verifyToken(token);
+
+    if (!isValidToken) return errorMap.invalidToken;
+
+    const users = await User.findAll();
+    
+    return users;
+  } catch (error) {
+    return errorMap.internalError;
+  }
+};
+
+module.exports = { create, login, gettAll };

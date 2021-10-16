@@ -6,9 +6,15 @@ const {
   validatePassword,
   validateEmail,
   validateDisplayName,
+  validateToken,
 } = require('../middlewares');
 
 const { userController } = require('../controllers');
+
+Router.get('/', [
+  validateToken,
+  userController.getAll,
+]);
 
 Router.post('/', [
   validateDisplayName,
