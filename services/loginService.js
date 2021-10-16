@@ -12,7 +12,7 @@ async function login({ email, _password }) {
   const userByEmail = await User.findOne(
     { where: { email } },
   );
-  console.log(userByEmail);
+  
   if (!userByEmail) {
     return { code: 400, message: 'Invalid fields' };
   }
