@@ -1,4 +1,4 @@
-const { Category, BlogPost, User } = require('../models');
+const { Category, BlogPost } = require('../models');
 const errorMessage = require('../utils/errorMessages');
 
 const verifyIfCategoryIdExists = async (categoryIds) => {
@@ -9,13 +9,11 @@ const verifyIfCategoryIdExists = async (categoryIds) => {
   return Promise.all(validate).then((i) => i);
 };
 
-module.exports = async (title, categoryIds, content, email) => {
+module.exports = async (title, categoryIds, content, id) => {
   const categories = await verifyIfCategoryIdExists(categoryIds);
   const handleCategories = categories.find((n) => n);
 
   if (!handleCategories) throw errorMessage.CATEGORY_IDS_NOT_FOUND;
-
-  const { dataValues: { id } } = await User.findOne({ where: { email } });
 
   const blogPost = await BlogPost.create({ title, content, userId: id });
 

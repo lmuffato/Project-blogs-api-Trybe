@@ -4,5 +4,5 @@ const { CREATED_STATUS } = require('../utils/httpStatus');
 module.exports = async (req, res) => {
   const { name } = req.body;
   const category = await services.createCategory(name);
-  return res.status(CREATED_STATUS).send(category);
+  return res.status(CREATED_STATUS).json(category);
 };

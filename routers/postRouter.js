@@ -8,8 +8,12 @@ const controllers = require('../controllers');
 const postRouter = express.Router();
 
 postRouter.post('/', auth, validateUserFields, rescue(controllers.createPost));
+
 postRouter.get('/', auth, controllers.getAllPosts);
 postRouter.get('/:id', auth, rescue(controllers.getPostById));
+
 postRouter.put('/:id', auth, validateBlogPostUpdate, rescue(controllers.updateBlogPosts));
+
+postRouter.delete('/:id', auth, rescue(controllers.deleteBlogPosts));
 
 module.exports = postRouter;
