@@ -1,7 +1,9 @@
 const error = {
   lengthMust: '"displayName" length must be at least 8 characters long',
+  emailIsNot: '"email" is not allowed to be empty',
   emailIsRequired: '"email" is required',
   regexValid: '"email" must be a valid email',
+  passwordIsNot: '"password" is not allowed to be empty',
   passwordIsRequired: '"password" is required',
   passwordLength: '"password" length must be 6 characters long',
 };
@@ -9,6 +11,12 @@ const error = {
 const validName = (req, res, next) => {
   const { displayName } = req.body;
   if (displayName.length < 8) return res.status(400).json({ message: error.lengthMust });
+  next();
+};
+
+const validEmailExist = (req, res, next) => {
+  const { email } = req.body;
+  if (email === '') return res.status(400).json({ message: error.emailIsNot });
   next();
 };
 
@@ -25,6 +33,12 @@ const validEmailRegex = (req, res, next) => {
   next();
 };
 
+const validPasswordExist = (req, res, next) => {
+  const { password } = req.body;
+  if (password === '') return res.status(400).json({ message: error.passwordIsNot });
+  next();
+};
+
 const validPasswordRequired = (req, res, next) => {
   const { password } = req.body;
   if (!password) return res.status(400).json({ message: error.passwordIsRequired });
@@ -37,8 +51,8 @@ const validPasswordLength = (req, res, next) => {
   next();
 };
 
-const validEmail = [validEmailRequired, validEmailRegex];
-const validPassword = [validPasswordRequired, validPasswordLength];
+const validEmail = [validEmailExist, validEmailRequired, validEmailRegex];
+const validPassword = [validPasswordExist, validPasswordRequired, validPasswordLength];
 module.exports = {
   validName,
   validEmail,
