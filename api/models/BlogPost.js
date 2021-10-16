@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
   },
   {
-    tableName: 'BlogPost',
+    tableName: 'BlogPosts',
     createdAt: 'published',
     updatedAt: 'updated',
   });
