@@ -58,6 +58,14 @@ const noContent = {
   message: '"content" is required',
 };
 
+const noCatId = {
+  message: '"categoryIds" is required',
+};
+
+const catIdNotFound = {
+  message: '"categoryIds" not found',
+};
+
 module.exports = {
   invalidName,
   invalidEmail,
@@ -74,4 +82,6 @@ module.exports = {
   noName,
   noTitle,
   noContent,
+  noCatId,
+  catIdNotFound,
 };

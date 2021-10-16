@@ -11,7 +11,10 @@ const getAll = async (_req, res) => {
   res.status(200).json(categories);
 };
 
+const getCatIds = async (catId) => Category.findAll({ where: { id: catId } });
+
 module.exports = {
   create,
   getAll,
+  getCatIds,
 };

@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const HTTP_STATUS = require('./httpStatus');
 const ERRORS = require('./errorMsg');
 const { getByEmail } = require('../controllers/users');
+const { getCatIds } = require('../controllers/categories');
 
 const SECRET = process.env.JWT_SECRET;
 
@@ -73,6 +74,19 @@ const validateContent = (req, res, next) => {
   next();
 };
 
+const validateCategoryId = async (req, res, next) => {
+  const { categoryIds } = req.body;
+  if (!categoryIds) return res.status(HTTP_STATUS.BAD_REQUEST).json(ERRORS.noCatId);
+
+  const catIds = await Promise.all(categoryIds.map(async (e) => (
+    getCatIds(e)
+  )));
+  const valid = catIds.every((e) => e.length !== 0);
+  
+  if (!valid) return res.status(HTTP_STATUS.BAD_REQUEST).json(ERRORS.catIdNotFound);
+  next();
+};
+
 module.exports = {
   validateDisplayName,
   validateEmail,
@@ -82,4 +96,5 @@ module.exports = {
   validateName,
   validateTitle,
   validateContent,
+  validateCategoryId,
 };
