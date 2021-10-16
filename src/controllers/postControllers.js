@@ -15,7 +15,7 @@ router.post('/', checkAuthentication, async (req, res, next) => {
 
     return res.status(status).json(result);
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
     next(e);
   }
 });
@@ -28,7 +28,22 @@ router.get('/', checkAuthentication, async (req, res, next) => {
 
     return res.status(status).json(result);
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
+    next(e);
+  }
+});
+
+router.get('/search', checkAuthentication, async (req, res, next) => {
+  try {
+    const { q } = req.query;
+
+    const { status, message, result } = await Post.searchByText(q);
+
+    if (message) return res.status(status).json({ message });
+
+    return res.status(status).json(result);
+  } catch (e) {
+    console.log(e.message);
     next(e);
   }
 });
@@ -43,7 +58,7 @@ router.get('/:id', checkAuthentication, async (req, res, next) => {
 
     return res.status(status).json(result);
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
     next(e);
   }
 });
@@ -62,7 +77,7 @@ router.put('/:id', checkAuthentication, async (req, res, next) => {
 
     return res.status(status).json(result);
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
     next(e);
   }
 });
@@ -78,7 +93,7 @@ router.delete('/:id', checkAuthentication, async (req, res, next) => {
 
     return res.status(status).json(result);
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
     next(e);
   }
 });

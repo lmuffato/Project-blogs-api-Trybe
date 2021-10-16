@@ -14,7 +14,7 @@ router.post('/', checkAuthentication, async (req, res, next) => {
 
     return res.status(status).json(result);
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
     next(e);
   }
 });
@@ -25,7 +25,7 @@ router.get('/', checkAuthentication, async (_req, res, next) => {
 
     return res.status(status).json(result);
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
     next(e);
   }
 });

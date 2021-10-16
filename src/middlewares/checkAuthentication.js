@@ -23,7 +23,7 @@ module.exports = (req, res, next) => {
 
     next();
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
     next({ status: 401, message: 'Expired or invalid token' });
   }
 };

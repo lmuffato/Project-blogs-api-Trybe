@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const Sequelize = require('sequelize');
+const { Op } = require('sequelize');
 const { BlogPost, PostsCategory, Category, User } = require('../models');
 const config = require('../config/config');
 
@@ -120,10 +121,35 @@ const deleteByPk = async (id, userId) => {
   return { status: 204, result: null };
 };
 
+const searchByText = async (searchText) => {
+  console.log('searchText', searchText);
+  if (searchText === '' || !searchText) {
+    const { result } = await findAll();
+
+    return { status: 200, result };
+  }
+
+  const result = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        { title: searchText },
+        { content: searchText },
+      ],
+    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return { status: 200, result };
+};
+
 module.exports = {
   create,
   findAll,
   findByPk,
   updateByPk,
   deleteByPk,
+  searchByText,
 };

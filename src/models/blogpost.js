@@ -1,3 +1,13 @@
+const attributes = {
+  createdAt: 'published',
+  updatedAt: 'updated',
+  tableName: 'BlogPosts',
+  indexes: [{
+    unique: false,
+    fields: ['title', 'content'],
+  }],
+};
+
 module.exports = (sequelize, DataTypes) => {
   const BlogPost = sequelize.define('BlogPost', {
       id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -7,11 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       published: DataTypes.DATE,
       updated: DataTypes.DATE,
     },
-    {
-      createdAt: 'published',
-      updatedAt: 'updated',
-      tableName: 'BlogPosts',
-    });
+    attributes);
 
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });

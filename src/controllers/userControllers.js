@@ -24,7 +24,7 @@ router.get('/', checkAuthentication, async (_req, res, next) => {
 
     return res.status(200).json(result);
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
     next(e);
   }
 });
@@ -39,7 +39,7 @@ router.get('/:id', checkAuthentication, async (req, res, next) => {
 
     return res.status(status).json(result);
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
     next(e);
   }
 });
@@ -54,7 +54,7 @@ router.delete('/me', checkAuthentication, async (req, res, next) => {
 
     return res.status(status).json(result);
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
     next(e);
   }
 });
