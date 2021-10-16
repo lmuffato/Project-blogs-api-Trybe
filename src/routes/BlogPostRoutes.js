@@ -5,10 +5,11 @@ const authMiddleware = require('../middlewares/authMiddleware');
 
 const route = express.Router();
 
-route.post('/', authMiddleware, rescue(BlogPostControllers.createPost));
-route.get('/', authMiddleware, rescue(BlogPostControllers.findAllPosts));
+route.get('/search', authMiddleware, rescue(BlogPostControllers.searchTermPost));
 route.get('/:id', authMiddleware, rescue(BlogPostControllers.findByPkPost));
 route.put('/:id', authMiddleware, rescue(BlogPostControllers.updatePost));
 route.delete('/:id', authMiddleware, rescue(BlogPostControllers.removePost));
+route.post('/', authMiddleware, rescue(BlogPostControllers.createPost));
+route.get('/', authMiddleware, rescue(BlogPostControllers.findAllPosts));
 
 module.exports = route;
