@@ -10,6 +10,7 @@ const getPostById = require('./getPostById');
 const updateBlogPosts = require('./updateBlogPosts');
 const deleteBlogPosts = require('./deleteBlogPosts');
 const deleteUser = require('./deleteUser');
+const getByQuery = require('./getByQuery');
 
 module.exports = {
   createUser,
@@ -24,4 +25,5 @@ module.exports = {
   updateBlogPosts,
   deleteBlogPosts,
   deleteUser,
+  getByQuery,
 };

@@ -1,9 +1,6 @@
-const { BlogPost, User, Category } = require('../models');
+const findAllPosts = require('./findAllPosts');
 
 module.exports = async () => {
-  const posts = await BlogPost.findAll({ include: [
-    { model: User, as: 'user' },
-    { model: Category, as: 'categories' },
-  ] });
+  const posts = await findAllPosts();
   return posts;
 };
