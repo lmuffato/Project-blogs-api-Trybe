@@ -1,9 +1,13 @@
 // const { StatusCodes: { OK, BAD_REQUEST } } = require('http-status-codes');
 const { User } = require('../models');
+const createToken = require('../token/createToken');
 
-const createUser = async ({ displayName, email, password, image }) => {
-  const result = await User.create({ displayName, email, password, image });
-  return result;
+const createUser = async (user) => {
+  const result = await User.create(user);
+  const { id, displayName, email } = result;
+  const token = createToken({ id, displayName, email });
+
+  return { token };
 };
 
 const findAll = async () => {

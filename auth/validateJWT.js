@@ -15,11 +15,11 @@ module.exports = async (req, res, next) => {
   }
   try {
     const payload = jwt.verify(token, SECRET);
-    const { email } = payload.data;
+    const { email } = payload;
     const user = await User.findOne({ where: { email } });
     if (!user) {
       return res.status(UNAUTHORIZED)
-        .json({ message: 'User does not exist' });
+      .json({ message: 'User does not exist' });
     }
     req.user = user;
     // verificação do payload feita com ajuda da Marília
