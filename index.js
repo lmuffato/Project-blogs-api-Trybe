@@ -1,9 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userController = require('./controllers/userController');
+const categoryController = require('./controllers/categoryController');
 const userMiddlewares = require('./middlewares/userMiddlewares');
 const loginMiddlewares = require('./middlewares/loginMiddlewares');
 const authMiddlewares = require('./middlewares/authMiddlewares');
+const categoryMiddlewares = require('./middlewares/categoryMiddlewares');
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,6 +19,7 @@ app.get('/', (request, response) => {
   response.send();
 });
 
+// Users
 app.post('/user', 
 userMiddlewares.validateDisplayNameLength,
 userMiddlewares.validateEmail,
@@ -37,3 +40,9 @@ userController.getAll);
 app.get('/user/:id',
 authMiddlewares.authValidation,
 userController.getById);
+
+// Categories
+app.post('/categories',
+categoryMiddlewares.validadeCategory,
+authMiddlewares.authValidation,
+categoryController.create);
