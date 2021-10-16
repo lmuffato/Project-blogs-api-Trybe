@@ -1,4 +1,4 @@
-// const database = require('../models');
+const database = require('../models');
 
 const validateTitle = (req, res, next) => {
   const { title } = req.body;
@@ -15,17 +15,12 @@ const validateContent = (req, res, next) => {
 const validateCategories = async (req, res, next) => {
   const { categoryIds } = req.body;
   if (!categoryIds) return res.status(400).json({ message: '"categoryIds" is required' });
-  // try {
-  // await categoryIds.every(async (category) => {
-  //     const categoryCheck = await database.Categories.findOne({ where: { id: category } });
-  //     if (categoryCheck === null) {
-  //       return res.status(400).json({ message: '"categoryIds" not found' });
-  //     } return true;
-  //   });
-  // } catch (e) {
-  //   console.log(e.error);
-  // }
-    
+  await categoryIds.every(async (category) => {
+      const categoryCheck = await database.Categories.findOne({ where: { id: category } });
+      if (categoryCheck === null) {
+        return res.status(400).json({ message: '"categoryIds" not found' });
+      } return true;
+    });
   next();
 };
 
