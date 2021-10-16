@@ -12,6 +12,7 @@ const {
   findEmail,
   authToken,
   validateName,
+  validateTitle,
 } = require('./middlewares/validations');
 
 const app = express();
@@ -56,6 +57,7 @@ app.post('/categories', [
 
 app.post('/post', [
   authToken,
+  validateTitle,
 ], blogPostControllers.create);
 
 app.get('/post', blogPostControllers.getAll);

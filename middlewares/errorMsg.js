@@ -50,6 +50,10 @@ const noName = {
   message: '"name" is required',
 };
 
+const noTitle = {
+  message: '"title" is required',
+};
+
 module.exports = {
   invalidName,
   invalidEmail,
@@ -64,4 +68,5 @@ module.exports = {
   badToken,
   userNotFound,
   noName,
+  noTitle,
 };
