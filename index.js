@@ -1,11 +1,11 @@
 const express = require('express');
-const controllerUser = require('./controller/user');
 const bodyParse = require('body-parser');
+const controllerUser = require('./controller/user');
 
 const app = express();
 
 app.use(bodyParse.json());
-app.use(express.json())
+app.use(express.json());
 
 const Port = 3000;
 
