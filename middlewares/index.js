@@ -1,5 +1,9 @@
-const { validateCreateUserForm } = require('./validateCreateUserForm');
+const { validateDisplayName } = require('./validateDisplayName');
+const { validateEmail } = require('./validateEmail');
+const { validatePassword } = require('./validatePassword');
 
 module.exports = {
-  validateCreateUserForm,
+  validateDisplayName,
+  validateEmail,
+  validatePassword,
 };

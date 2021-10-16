@@ -27,7 +27,7 @@ const create = async (user) => {
 
     const newUser = await User.create(user);
 
-    const options = { expiresIn: '7d' };
+    const options = { expiresIn: '1d' };
 
     const { id, displayName } = newUser.dataValues;
 
@@ -45,4 +45,28 @@ const create = async (user) => {
   }
 };
 
-module.exports = { create };
+const login = async (user) => {
+  try {
+    const { email, password } = user;
+    const result = await User.findOne({ where: { email } });
+
+    if (!result) return errorMap.invalidFields;
+
+    const { dataValues } = result;
+
+    if (dataValues.password !== password) return errorMap.invalidFields;
+
+    const { id, displayName } = dataValues;
+
+    const payload = { id, displayName };
+    const options = { expiresIn: '1d' };
+
+    const token = jwt.sign(payload, SECRET, options);
+
+    return { token };
+  } catch (error) {
+    return errorMap.internalError;
+  }
+};
+
+module.exports = { create, login };

@@ -9,9 +9,11 @@ app.use(bodyParser.urlencoded());
 
 // ---------------------------------------------------- USERS ---------------------------------------------------- //
 
-const userRouter = require('./routers/userRouter');
+const { userRouter, loginRouter } = require('./routers');
 
 app.use('/user', userRouter);
+
+app.use('/login', loginRouter);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

@@ -5,16 +5,14 @@ const Router = express.Router();
 const {
   validatePassword,
   validateEmail,
-  validateDisplayName,
 } = require('../middlewares');
 
 const { userController } = require('../controllers');
 
 Router.post('/', [
-  validateDisplayName,
   validateEmail,
   validatePassword,
-  userController.create,
+  userController.login,
 ]);
 
 Router.use((err, _req, res, _next) => {
