@@ -1,7 +1,5 @@
 'use strict';
 
-const { now } = require("sequelize/types/lib/utils");
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Users', {
@@ -29,12 +27,12 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        default: now(),
+        defaultValue: Sequelize.NOW
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        default: now(),
+        defaultValue: Sequelize.NOW
       }
     });
   },
