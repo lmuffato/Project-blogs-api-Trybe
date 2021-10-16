@@ -37,6 +37,10 @@ const ifPasswordIsEmpty = {
   message: '"password" is not allowed to be empty',
 };
 
+const invFields = {
+  message: 'invalid fields',
+};
+
 module.exports = {
   HTTP_OK_STATUS,
   HTTP_CREATED_STATUS,
@@ -52,4 +56,5 @@ module.exports = {
   userEmailExists,
   ifEmailIsEmpty,
   ifPasswordIsEmpty,
+  invFields,
 };
