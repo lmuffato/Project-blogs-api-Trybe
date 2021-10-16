@@ -22,12 +22,20 @@ const createUser = async ({ displayName, email, password, image }) => {
 };
 
 const login = async ({ email, password }) => {
-  const user = await User.findOne({ email, password });
+  const user = await User.findOne({ where: { email, password } });
   const { password: pass, ...userWithoutPassword } = user;
   return createToken(userWithoutPassword);
 };
 
+const getAllUsers = async () => {
+  const users = await User.findAll();
+  const arrayOfUsers = users
+   .map(({ id, displayName, email, image }) => ({ id, displayName, email, image }));
+  return arrayOfUsers;
+ };
+
 module.exports = {
   createUser,
   login,
+  getAllUsers,
 };
