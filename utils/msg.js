@@ -11,10 +11,12 @@ const MSG_INVALID_FIELDS = 'Invalid fields';
 const MSG_TOKEN_NOT_FOUND = 'Token not found';
 const MSG_TOKEN_EXPIRED = 'Expired or invalid token';
 const MSG_DOES_NOT_EXIST = 'User does not exist';
+const MSG_CATEGORY_NOT_FOUND = '"categoryIds" not found';
 
 const CONFLICT_ERROR = { status: STATUS_CONFLICT, message: MSG_ALREADY_REG };
 const INVALID_FIELDS = { status: STATUS_BAD_REQUEST, message: MSG_INVALID_FIELDS };
 const USER_DOES_NOT_EXIST = { status: STATUS_NOT_FOUND, message: MSG_DOES_NOT_EXIST };
+const ERROR_CATEGORY_NOT_FOUND = { status: STATUS_BAD_REQUEST, message: MSG_CATEGORY_NOT_FOUND };
 
 module.exports = {
   STATUS_BAD_REQUEST,
@@ -27,4 +29,5 @@ module.exports = {
   MSG_TOKEN_NOT_FOUND,
   MSG_TOKEN_EXPIRED,
   USER_DOES_NOT_EXIST,
+  ERROR_CATEGORY_NOT_FOUND,
 };
