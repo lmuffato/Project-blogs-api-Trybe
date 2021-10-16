@@ -1,8 +1,5 @@
 require('dotenv').config();
-// const jwt = require('jsonwebtoken');
 const { Category } = require('../models');
-
-// const { SECRET } = process.env;
 
 const create = async (categorieData) => {
   const { name } = categorieData;

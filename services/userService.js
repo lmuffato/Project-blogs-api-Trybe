@@ -2,7 +2,7 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 
-const { SECRET } = process.env;
+const { JWT_SECRET } = process.env;
 
 const create = async (userData) => {
   const { displayName, email, password, image } = userData;
@@ -13,7 +13,7 @@ const create = async (userData) => {
 const login = async (user) => {
   const { id, displayName, email } = await User.findOne({ where: { email: user.email } });
   const userPayload = { id, displayName, email };
-  const token = jwt.sign(userPayload, SECRET, {
+  const token = jwt.sign(userPayload, JWT_SECRET, {
     algorithm: 'HS256',
     expiresIn: '15d',
   });
