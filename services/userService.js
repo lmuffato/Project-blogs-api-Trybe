@@ -21,13 +21,14 @@ async function addUser({ displayName, email, password, image }) {
   }
 
   await User.create({ displayName, email, password, image });
-  const JWTpayload = { displayName, email };
+  const JWTpayload = { email };
 
   const token = jwt.sign(
     JWTpayload,
     process.env.JWT_SECRET,
     JWTconfig,
   );
+
   return { code: 201, token };
 }
 
