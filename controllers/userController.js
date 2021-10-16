@@ -12,8 +12,15 @@ async function addUser(req, res) {
   }
 
   res.status(code).json({ token });
-} 
+}
+
+async function getAll(req, res) {
+  const { code, users } = await userService.getAll();
+  
+  res.status(code).json(users);
+}
 
 module.exports = {
   addUser,
+  getAll,
 };
