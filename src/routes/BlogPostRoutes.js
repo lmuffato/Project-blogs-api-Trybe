@@ -7,5 +7,6 @@ const route = express.Router();
 
 route.post('/', authMiddleware, rescue(BlogPostControllers.createPost));
 route.get('/', authMiddleware, rescue(BlogPostControllers.findAllPosts));
+route.get('/:id', authMiddleware, rescue(BlogPostControllers.findByPkPost));
 
 module.exports = route;
