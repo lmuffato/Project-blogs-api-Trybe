@@ -26,6 +26,8 @@ app.post('/user',
 
 app.get('/user', validateJWTToken, userController.findAllUsers);
 
+app.get('/user/:id', validateJWTToken, userController.findUserById);
+
 // --------- LOGIN --------
 
 app.post('/login',
