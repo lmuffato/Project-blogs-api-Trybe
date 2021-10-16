@@ -9,5 +9,6 @@ route.post('/', authMiddleware, rescue(BlogPostControllers.createPost));
 route.get('/', authMiddleware, rescue(BlogPostControllers.findAllPosts));
 route.get('/:id', authMiddleware, rescue(BlogPostControllers.findByPkPost));
 route.put('/:id', authMiddleware, rescue(BlogPostControllers.updatePost));
+route.delete('/:id', authMiddleware, rescue(BlogPostControllers.removePost));
 
 module.exports = route;
