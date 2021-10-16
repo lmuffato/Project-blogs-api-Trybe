@@ -29,6 +29,14 @@ const userEmailExists = {
   message: 'User already registered',
 };
 
+const ifEmailIsEmpty = {
+  message: '"email" is not allowed to be empty',
+};
+
+const ifPasswordIsEmpty = {
+  message: '"password" is not allowed to be empty',
+};
+
 module.exports = {
   HTTP_OK_STATUS,
   HTTP_CREATED_STATUS,
@@ -42,4 +50,6 @@ module.exports = {
   invEmail,
   ifEmailExists,
   userEmailExists,
+  ifEmailIsEmpty,
+  ifPasswordIsEmpty,
 };
