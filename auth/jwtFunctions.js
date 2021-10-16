@@ -3,8 +3,7 @@ require('dotenv').config();
 
 const SECRET = process.env.JWT_SECRET;
 
-const create = (user) => {
-  const { password, ...payload } = user;
+const create = (payload) => {
   const token = jwt.sign(payload, SECRET);
   return token;
 };

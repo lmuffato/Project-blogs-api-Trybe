@@ -6,8 +6,11 @@
   - Stop
     - sudo systemctl stop mysql
 
-- Instala JWT
+- Instalar JWT
   - npm install jsonwebtoken
+
+- Instalar o nodemon
+  - npm i -D nodemon
 
 - Iniciar sequqlize-cli
   - npx sequelize-cli init
@@ -28,6 +31,17 @@
   - npx sequelize model:generate --name NomeDoModel --attributes nomeDoAtributo:string
     - O parâmetro --name se refere ao nome da tabela, mas no singular, pois se refere a uma unidade dos dados, como uma linha no banco ou um objeto no seu código javascript;
     - O parâmetro --attributes se refere ao nome das colunas e os tipos de dados que ela contém. Não é preciso definir todas as colunas neste comando, é possível adicioná-las direto no arquivo model.js gerado e na migration equivalente a este model.
+
+-- Dropa o banco
+  - npm run drop 
+
+-- Cria o banco e gera as tabelas
+  - npm run prestart
+
+-- Insere dados na tabela
+  - npm run seed
+
+
 
 - Para rodar as migrations
   - npx sequelize db:migrate
