@@ -1,13 +1,12 @@
 const rescue = require('express-rescue');
-const { StatusCodes: { CREATED } } = require('http-status-codes');
-// const service = require('../services/postService');
-const { BlogPost } = require('../models');
+const { StatusCodes: { CREATED, OK } } = require('http-status-codes');
+const service = require('../services/postService');
 
 const createPost = rescue(async (req, res) => {
   const { title, content, categoryIds } = req.body;
   const { id: userId } = req.user.dataValues;
 
-    const result = await BlogPost.create({
+    const result = await service.createPost({
       title,
       content,
       userId,
@@ -20,6 +19,12 @@ const createPost = rescue(async (req, res) => {
     res.status(CREATED).json(post);
 });
 
+const findAllPosts = rescue(async (req, res) => {
+  const result = await service.findAll();
+  res.status(OK).json(result);
+});
+
 module.exports = { 
   createPost,
+  findAllPosts,
 };
