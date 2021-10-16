@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { User, BlogPost } = require('../models');
+const { Category, BlogPost, User } = require('../models');
 const { ERROR_CATEGORY_NOT_FOUND } = require('../utils/msg');
 
 const categoryExist = async (categoryIds) => {
@@ -21,4 +21,13 @@ const createPost = async (addPost, userId = 1) => {
 
 // Op: https://sequelize.org/master/manual/model-querying-basics.html#operators
 
-module.exports = { createPost };
+const getPosts = async () => {
+  const blogPosts = await 
+  BlogPost.findAll({ include: [
+    { model: User, as: 'user' },
+    { model: Category, as: 'categories' },
+  ] });
+  return blogPosts;
+};
+
+module.exports = { createPost, getPosts };

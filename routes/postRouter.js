@@ -7,5 +7,6 @@ const postValidation = require('../middlewares/postValidation');
 const postRouter = express.Router();
 
 postRouter.post('/', tokenValidation, postValidation, rescue(post.createPostController));
+postRouter.get('/', tokenValidation, rescue(post.getPostController));
 
 module.exports = postRouter;
