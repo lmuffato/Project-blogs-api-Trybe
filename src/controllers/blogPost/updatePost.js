@@ -7,11 +7,12 @@ module.exports = async (req, res) => {
 
   if (req.body.categoryIds) return res.status(400).json({ message: 'Categories cannot be edited' });
 
-  if (+userId !== +id) return res.status(401).json({ message: 'Unauthorized user' });
+  // if (+userId !== +id) return res.status(401).json({ message: 'Unauthorized user' });
 
   const updatedPost = await BlogPostService.updatePost(
     { title, content },
     id,
+    userId,
   );
 
   if (updatedPost.status) {
