@@ -7,7 +7,10 @@ const controllers = require('../controllers');
 const userRouter = express.Router();
 
 userRouter.post('/', validateUserFields, rescue(controllers.createUser));
+
 userRouter.get('/', auth, rescue(controllers.getUsers));
 userRouter.get('/:id', auth, rescue(controllers.getUserById));
+
+userRouter.delete('/me', auth, controllers.deleteUser);
 
 module.exports = userRouter;
