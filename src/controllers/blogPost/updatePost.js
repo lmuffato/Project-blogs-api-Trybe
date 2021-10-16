@@ -1,0 +1,24 @@
+const BlogPostService = require('../../services/blogPost');
+
+module.exports = async (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+  const { id: userId } = req.user;
+
+  if (req.body.categoryIds) return res.status(400).json({ message: 'Categories cannot be edited' });
+
+  if (+userId !== +id) return res.status(401).json({ message: 'Unauthorized user' });
+
+  const updatedPost = await BlogPostService.updatePost(
+    { title, content },
+    id,
+  );
+
+  if (updatedPost.status) {
+    return res
+      .status(updatedPost.status)
+      .json({ message: updatedPost.message }); 
+  }
+
+  res.status(200).json(updatedPost);
+};
