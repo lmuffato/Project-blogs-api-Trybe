@@ -3,6 +3,7 @@ const {
   HTTP_NOT_FOUND,
   HTTP_CREATED,
   HTTP_OK_STATUS,
+  HTTP_UNAUTHORIZED,
 } = require('../status');
 
 const { BlogPost, Categorie, User } = require('../models');
@@ -61,8 +62,33 @@ const readByIdServices = async (id) => {
   };
 };
 
+const updateServices = async ({ id, title, content }) => {
+  const { userId } = await BlogPost.findByPk(id);
+  const findUser = await User.findByPk(id);
+  const user = findUser.dataValues;
+  
+  if (user.id !== userId) {
+    return {
+      isDifferent: true,
+      code: HTTP_UNAUTHORIZED,
+      message: 'Unauthorized user',
+    };
+  }
+
+  await BlogPost.update({ title, content }, { where: { id } });
+
+  const updatePost = await BlogPost.findByPk(id, {
+    include: [{ all: true },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+    ], 
+  });
+
+  return { isUpdated: true, code: HTTP_OK_STATUS, updatePost };
+};
+
 module.exports = {
   createServices,
   readAllServices,
   readByIdServices,
+  updateServices,
 };

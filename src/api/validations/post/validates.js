@@ -52,9 +52,19 @@ const validateToken = (req, res, next) => {
   }
 };
 
+const validateCategorys = (req, res, next) => {
+  const { categoryIds } = req.body;
+  const message = 'Categories cannot be edited';
+
+  if (categoryIds) return res.status(HTTP_BAD_REQUEST).json({ message });
+
+  next();
+};
+
 module.exports = {
   validateTitle,
   validateContent,
   validateCategoryIds,
   validateToken,
+  validateCategorys,
 };

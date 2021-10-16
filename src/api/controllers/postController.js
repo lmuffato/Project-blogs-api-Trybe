@@ -4,6 +4,7 @@ const {
   createServices,
   readAllServices,
   readByIdServices,
+  updateServices,
 } = require('../services/postServices');
 
 const createController = async (req, res) => {
@@ -44,8 +45,24 @@ const readByIdController = async (req, res) => {
   }
 };
 
+const updateController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, content } = req.body;
+    const data = { id, title, content };
+    const { isDifferent, code, message, isUpdated, updatePost } = await updateServices(data);
+    
+    if (isDifferent) return res.status(code).json({ message });
+
+    if (isUpdated) return res.status(code).json(updatePost);
+  } catch (e) {
+    return res.status(HTTP_SERVER_ERROR).json({ message: e.message });
+  }
+};
+
 module.exports = {
   createController,
   readAllController,
   readByIdController,
+  updateController,
 };
