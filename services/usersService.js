@@ -21,6 +21,13 @@ const createUser = async ({ displayName, email, password, image }) => {
   return createToken(userWithoutPassword);
 };
 
+const login = async ({ email, password }) => {
+  const user = await User.findOne({ email, password });
+  const { password: pass, ...userWithoutPassword } = user;
+  return createToken(userWithoutPassword);
+};
+
 module.exports = {
   createUser,
+  login,
 };

@@ -60,9 +60,40 @@ const emailAlreadyExists = rescue(async (req, res, next) => {
   return next();
 });
 
+const empty = (req, res, next) => {
+  const { email, password } = req.body;
+  if (email === '') {
+    return res.status(httpStatus.BAD_REQUEST).json({
+      message: '"email" is not allowed to be empty',
+    });
+  }
+
+  if (password === '') {
+    return res.status(httpStatus.BAD_REQUEST).json({
+      message: '"password" is not allowed to be empty',
+    });
+  }
+
+    return next();
+};
+
+const userNotRegistered = rescue(async (req, res, next) => {
+  const { email } = req.body;
+    const existEmail = await User.findOne({ where: { email } });
+    if (!existEmail) {
+      return res.status(httpStatus.BAD_REQUEST).json({
+        message: 'Invalid fields',
+      });
+  }
+
+  return next();
+});
+
 module.exports = {
   nameValidate,
   emailValidate,
   passwordValidate,
   emailAlreadyExists,
+  empty,
+  userNotRegistered,
 };
