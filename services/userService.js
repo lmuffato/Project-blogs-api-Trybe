@@ -32,6 +32,13 @@ async function addUser({ displayName, email, password, image }) {
   return { code: 201, token };
 }
 
+async function getAll() {
+  const users = await User.findAll();
+  
+  return { code: 200, users };
+}
+
 module.exports = {
   addUser,
+  getAll,
 };
