@@ -13,6 +13,15 @@ const createUser = async (user) => {
   return newToken(dataUser);
 };
 
+const userLogin = async (dataLogin) => {
+  const { email } = dataLogin;
+  const emailFound = await searchEmail(email);
+  if (emailFound === null) return null;
+  
+  return newToken(dataLogin);
+};
+
 module.exports = {
   createUser,
+  userLogin,
 };
