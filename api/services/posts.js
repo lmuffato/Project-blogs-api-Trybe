@@ -1,5 +1,5 @@
 const newError = require('../utils/createErrorMessage');
-const { BlogPost } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 const { clientErrors } = require('../utils/httpStatusCodes');
 const categoriesService = require('./categories');
 
@@ -18,4 +18,19 @@ const createPost = async (title, categoryIds, content, userId) => {
     return { id, title, content, userId };
 };
 
-module.exports = { createPost };
+const getPosts = async () => {
+    const categories = await BlogPost.findAll({
+        include: [
+            { model: User, 
+                as: 'user', 
+                attributes: { exclude: ['password'] } },
+            { model: Category, 
+                as: 'categories', 
+                // Through Solution Source: https://github.com/sequelize/sequelize/issues/4074 
+                through: { attributes: [] } }, 
+        ],
+    });
+
+    return categories;
+};
+module.exports = { createPost, getPosts };
