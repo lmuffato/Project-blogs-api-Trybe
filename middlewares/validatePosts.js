@@ -19,7 +19,6 @@ const validateCategories = async (req, res, next) => {
   await categoryIds.every(async (category) => {
       const categoryCheck = await database.Categories.findOne({ where: { id: category } });
       if (categoryCheck === null) {
-        console.log('fdasfdsa');
         return res.status(400).json({ message: '"categoryIds" not found' });
       } return true;
     });
