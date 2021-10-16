@@ -12,11 +12,18 @@ const createPost = rescue(async (req, res) => {
     const userId = id; 
     const result = await services.createPost({ title, content, userId });
 
-    console.log(result, 'controller result');
+    // console.log(result, 'controller result');
     const { updated, published, ...post } = result.dataValues;
     return res.status(201).json(post);
 });
 
+const findAllPost = rescue(async (req, res) => {
+  const allPost = await services.findAllPosts();
+
+  return res.status(200).json(allPost);
+});
+
 module.exports = {
   createPost,
+  findAllPost,
 };

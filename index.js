@@ -28,3 +28,5 @@ app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 app.get('/', (request, response) => {
   response.send();
 });
+
+// Este projeto fui realizado com sucesso pois tive ajuda de Anderson Nascimento, Marília Aldrighi, Pollyana Oliveira, Luan Ramalho, Lucas Lara, João nascimento... to be continue

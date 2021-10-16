@@ -6,7 +6,7 @@ const { categoryIdValidation, postValidation } = require('../validations/postVal
 
 const { tokenValidation } = require('../token/tokenValidation');
 
-const { createPost } = require('../controllers/postController');
+const { createPost, findAllPost } = require('../controllers/postController');
 
 router.post('/',
   postValidation,
@@ -14,4 +14,10 @@ router.post('/',
   tokenValidation,
   createPost);
 
+  router.get('/', 
+    tokenValidation, 
+    findAllPost);
+
 module.exports = router;
+
+// Este projeto fui realizado com sucesso pois tive ajuda de Anderson Nascimento, Marília Aldrighi, Pollyana Oliveira, Luan Ramalho, Lucas Lara, João nascimento... to be continue

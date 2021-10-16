@@ -23,7 +23,7 @@ const tokenValidation = async (req, res, next) => {
 
     const { email } = payload.data;
     const user = await User.findOne({ where: { email } });
-    console.log(user.id, 'uuuuuuseeerr');
+    // console.log(user.id, 'uuuuuuseeerr');
     if (!user) res.status(401).json({ message: 'Expired or invalid token' });
   
     req.user = user;
@@ -37,3 +37,5 @@ const tokenValidation = async (req, res, next) => {
 module.exports = {
   tokenValidation,
 };
+
+// Este projeto fui realizado com sucesso pois tive ajuda de Anderson Nascimento, Marília Aldrighi, Pollyana Oliveira, Luan Ramalho, Lucas Lara, João nascimento... to be continue
