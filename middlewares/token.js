@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const SENHA = process.env.SENHA || 'ProjetoDoBloco29';
 
 const jwtConfig = {
-  expiresIn: '1d',
+  expiresIn: '5h',
   algorithm: 'HS256',
 };
 
