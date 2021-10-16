@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
   if (updatedPost.status) {
     return res
       .status(updatedPost.status)
-      .json({ message: updatedPost.message }); 
+      .json({ message: updatedPost.message });
   }
 
   res.status(200).json(updatedPost);
