@@ -15,10 +15,8 @@ const createUser = async (displayName, email, password, image) => {
     return createdUser;
 };
 
-const getUsers = async () => { 
-    const users = await User.findAll({ attributes: { exclude: ['password'] } });
-    return users;
-};
+const getUsers = async () => 
+    User.findAll({ attributes: { exclude: ['password'] } });
 
 const getUserById = async (id) => {
     const user = await User.findByPk(id);
@@ -26,14 +24,16 @@ const getUserById = async (id) => {
 };
 
 const existLoginData = async (email, password) => 
- User.findOne({ where: { email, password } });
+ User.findOne({ 
+     raw: true,
+     where: { email, password },
+     attributes: { exclude: ['password'] },
+    });
 
 const login = async (email, password) => {
     const user = await existLoginData(email, password);
     if (user) {
-        const { id, displayName, image } = user;
-        const userData = { id, displayName, email, image };
-        const token = jwt.sign(userData, secret, jwtConfig);
+        const token = jwt.sign(user, secret, jwtConfig);
         return { token };
     }
     return newError('Invalid fields', clientErrors.badRequest);
