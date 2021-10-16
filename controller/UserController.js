@@ -13,6 +13,10 @@ class UserController {
             return response.status(409).json({ message: error.message });
         }
     }
+
+    static async login(request, response) {
+        
+    }
 }
 
 module.exports = UserController;

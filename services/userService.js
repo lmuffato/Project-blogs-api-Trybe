@@ -7,4 +7,10 @@ const createUser = async (user) => {
     return !!userSaved;
 };
 
+const login = async (login) => {
+    const userOrNull = await User.findOne(
+        { where: { email: login.email, password: login.password } },
+    );
+};
+
 module.exports = { createUser };
