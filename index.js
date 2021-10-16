@@ -27,6 +27,7 @@ const {
   putPost,
   deleteBlogPost,
   deleteUser,
+  getPostSearch,
   } = require('./controllers');
 
 const app = express();
@@ -55,6 +56,8 @@ app.get('/categories', validateToken, getCategories);
 app.post('/post', validateToken, validateCategoriesId, validatePost, postPost);
 
 app.get('/post', validateToken, getPost);
+
+app.get('/post/search', validateToken, getPostSearch);
 
 app.get('/post/:id', validateToken, getOnePost);
 

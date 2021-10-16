@@ -1,3 +1,5 @@
+const getAllPosts = require('./getAllPosts');
+const getPostsLike = require('./getPostsLike');
 const getToken = require('./getToken');
 const getUser = require('./getUser');
 const postCategory = require('./postCategory');
@@ -8,4 +10,6 @@ module.exports = {
     getToken,
     takeToken,
     postCategory,
+    getPostsLike,
+    getAllPosts,
 };

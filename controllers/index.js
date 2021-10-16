@@ -4,6 +4,7 @@ const getCategories = require('./getCategories');
 const getOnePost = require('./getOnePost');
 const getOneUser = require('./getOneUser');
 const getPost = require('./getPost');
+const getPostSearch = require('./getPostsSearch');
 const getUser = require('./getUser');
 const postCategory = require('./postCategory');
 const postLogin = require('./postLogin');
@@ -24,4 +25,5 @@ module.exports = {
     putPost,
     deleteBlogPost,
     deleteUser,
+    getPostSearch,
 };
