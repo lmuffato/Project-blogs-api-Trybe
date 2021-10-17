@@ -7,15 +7,23 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded());
 
-// ---------------------------------------------------- USERS ---------------------------------------------------- //
+const {
+  userRouter,
+  loginRouter,
+  categoryRouter,
+} = require('./routers');
 
-const { userRouter, loginRouter } = require('./routers');
+// ---------------------------------------------------- USERS ---------------------------------------------------- //
 
 app.use('/user', userRouter);
 
 app.use('/login', loginRouter);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
+
+// -------------------------------------------------- CATEGORIES ------------------------------------------------- //
+
+app.use('/categories', categoryRouter);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {

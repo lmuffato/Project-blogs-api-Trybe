@@ -2,14 +2,8 @@ const jwt = require('jsonwebtoken');
 const Sequelize = require('sequelize');
 const { User } = require('../models');
 const errorMap = require('../utils/errorMap');
-
+const { verifyToken } = require('../utils/verifyToken');
 const SECRET = require('./secret');
-
-const verifyToken = (token) => jwt.verify(token, SECRET, (err, _decoded) => {
-    if (err) return false;
-
-    return true;
-  });
 
 const findUserByEmail = async (email) => {
   const user = await User.findOne({

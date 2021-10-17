@@ -1,8 +1,14 @@
 module.exports = {
-  nameLessThanEight: {
+  displayNameLessThanEight: {
     error: {
       code: 400,
       message: '"displayName" length must be at least 8 characters long',
+    },
+  },
+  nameIsRequired: {
+    error: {
+      code: 400,
+      message: '"name" is required',
     },
   },
   emailIsRequired: {
@@ -51,6 +57,12 @@ module.exports = {
     error: {
       code: 404,
       message: 'User does not exist',
+    },
+  },
+  categoryAlreadyExists: {
+    error: {
+      code: 409,
+      message: 'Category already registered',
     },
   },
   invalidFields: {

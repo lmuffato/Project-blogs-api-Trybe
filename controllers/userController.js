@@ -1,7 +1,5 @@
 const { userService } = require('../services');
-
-const CREATED = 201;
-const OK = 200;
+const { CREATED, OK } = require('../utils/statusCodeMap');
 
 const create = async (req, res) => {
   const { displayName, email, password, image = '' } = req.body;
