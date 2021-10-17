@@ -1,12 +1,9 @@
 const serviceLogin = require('../services/serviceLogin');
 
 const loginUser = async (req, res) => {
-  const data = req.body;
-
-  const { status, message, data: token } = await serviceLogin.loginUser(data);
-  if (message) return res.status(status).json({ message });
-
-  return res.status(status).json({ token });
+  const dataBody = req.body;
+  const { status, data } = await serviceLogin.loginUser(dataBody);
+  return res.status(status).json(data);
 };
 
 module.exports = {

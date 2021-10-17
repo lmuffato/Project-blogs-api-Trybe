@@ -27,3 +27,5 @@ app.post('/login',
   controllerLogin.loginUser);
 
 app.get('/user', middleValidUser.verifyToken, controllerUser.getAllUsers);
+
+app.get('/user/:id', middleValidUser.verifyToken, controllerUser.getUserById);
