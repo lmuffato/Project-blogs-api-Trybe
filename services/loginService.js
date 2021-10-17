@@ -6,7 +6,7 @@ const loginUser = async (email, password) => {
   if (!user) return { code: 400, message: 'Invalid fields' };
 
   const { password: _, ...login } = user.dataValues;
-  console.log(login);
+
   return login;
 };
 

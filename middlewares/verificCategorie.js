@@ -12,7 +12,7 @@ const verificCategorie = async (req, _res, next) => {
   }));
 
   if (categorie.includes(false)) return next({ code: 400, message: '"categoryIds" not found' });
-
+  
   next();
 };
 
