@@ -8,6 +8,16 @@ const createPost = async (request, response) => {
   return response.status(201).json(post);
 };
 
+const getPosts = async (_request, response, next) => {
+  try {
+    const getPost = await postServices.getPosts();
+    return response.status(200).json(getPost);
+  } catch (error) {
+    return next({ statusCode: 400, message: error.message });
+  }
+};
+
 module.exports = {
   createPost,
+  getPosts,
 };

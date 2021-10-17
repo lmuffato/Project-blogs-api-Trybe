@@ -30,6 +30,8 @@ app.get('/categories', tokenValidate, categoriesController.getCategories);
 
 app.post('/post', tokenValidate, postValidate, postController.createPost);
 
+app.get('/post', tokenValidate, postController.getPosts);
+
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
 // não remova esse endpoint, e para o avaliador funcionar

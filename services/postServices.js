@@ -16,6 +16,12 @@ const createPost = async (dataPost, userId = 1) => {
   return posted;
 };
 
+const getPosts = async () => {
+  const getPost = await BlogPosts.findAll({ include: [{ all: true }] });
+  return getPost;
+};
+
 module.exports = {
   createPost,
+  getPosts,
 };
