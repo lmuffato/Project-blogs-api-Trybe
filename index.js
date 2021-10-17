@@ -24,3 +24,4 @@ app.post('/categories', midlware.validateJWT, categoriesController.postCategorie
 app.get('/categories', midlware.validateJWT, categoriesController.getCategory);
 app.post('/post', midlware.validateJWT, postController.blogPost);
 app.get('/post', midlware.validateJWT, postController.getAllPosts);
+app.get('/post/:id', midlware.validateJWT, postController.getById);
