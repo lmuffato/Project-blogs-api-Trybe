@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
-const errorMessage = require('../utils/errorMessages');
+const { INVALID_FIELDS } = require('../utils/errorMessages');
 require('dotenv/config');
 
 const secret = process.env.JWT_SECRET;
@@ -22,7 +22,7 @@ const getUserIdWithEmail = async (email) => {
 
 module.exports = async (email, password) => {
   const checkUser = await verifyIfUserExists(email, password);
-  if (!checkUser) throw errorMessage.INVALID_FIELDS;
+  if (!checkUser) throw INVALID_FIELDS;
   const id = await getUserIdWithEmail(email);
   return generateToken(id, email, password);
 };

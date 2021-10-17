@@ -1,16 +1,21 @@
-const errorMessage = require('../utils/errorMessages');
+const {
+  TITLE_IS_REQUIRED,
+  CONTENT_IS_REQUIRED,
+  CATEGORY_ID_IS_REQUIRED,
+  CATEGORY_ID_MUST_BE_ARRAY,
+} = require('../utils/errorMessages');
 
 const checkTitle = (title) => {
-  if (!title) throw errorMessage.TITLE_IS_REQUIRED; 
+  if (!title) throw TITLE_IS_REQUIRED; 
 };
 
 const checkContent = (content) => {
-  if (!content) throw errorMessage.CONTENT_IS_REQUIRED;
+  if (!content) throw CONTENT_IS_REQUIRED;
 };
 
 const checkCategoryId = (categoryId) => {
-  if (!categoryId) throw errorMessage.CATEGORY_ID_IS_REQUIRED;
-  if (!Array.isArray(categoryId)) throw errorMessage.CATEGORY_ID_MUST_BE_ARRAY;
+  if (!categoryId) throw CATEGORY_ID_IS_REQUIRED;
+  if (!Array.isArray(categoryId)) throw CATEGORY_ID_MUST_BE_ARRAY;
 };
 
 const validateUserFields = (req, _res, next) => {
