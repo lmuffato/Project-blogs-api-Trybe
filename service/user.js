@@ -34,6 +34,27 @@ const createUser = async (user) => {
   return token;
 };
 
+const login = async (user) => {
+  const { email, password } = user;
+  const { error } = validateUser.validate({ email, password });
+
+  if (error) {
+    const { message } = error.details[0];
+    throw util(message, 400);
+  }
+
+  const findUser = await User.findAll({ where: { email, password } });
+
+  if (findUser.length === 0) throw util('Invalid fields', 400);
+
+  const token = jwt.sign(user, jwtSecret, {
+    expiresIn: '1d', algorithm: 'HS256',
+  });
+
+  return token;
+};
+
 module.exports = {
   createUser,
+  login,
 };

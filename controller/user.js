@@ -9,6 +9,15 @@ const createUser = rescue(
  },
 );
 
+const login = rescue(
+  async (req, res) => {
+   const token = await serviceUser.login(req.body);
+
+   res.status(200).json({ token });
+ },
+);
+
 module.exports = {
   createUser,
+  login,
 };
