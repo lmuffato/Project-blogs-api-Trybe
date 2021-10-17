@@ -11,11 +11,11 @@ const newToken = (dataUser) => {
 };
 
 const tokenValidate = async (request, response, next) => {
-  try {  
   const tokenReceived = request.headers.authorization;
   if (!tokenReceived) {
     return response.status(401).json({ message: 'Token not found' });
   }
+  try {  
   const tokenVerified = jwt.verify(tokenReceived, PASSWORD);
     response.user = tokenVerified;
     next();
