@@ -31,8 +31,8 @@ const categoryIdsNotFound = async (req, res, next) => {
         message: '"categoryIds" not found',
       });
     }
+    next();
   });
-  next();
 };
 
 module.exports = {
