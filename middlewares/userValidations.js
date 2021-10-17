@@ -23,7 +23,6 @@ const displayValidation = (req, res, next) => {
 const passwordValidation = (req, res, next) => {
   const { password } = req.body;
   const minimumAmount = 6;
-  console.log(password);
   if (!password) {
     return res.status(HTTP_400).json(ifPasswordExists);
   }
@@ -48,7 +47,7 @@ const emailValidation = (req, res, next) => {
 
 const alreadyExists = async (req, res, next) => {
   const { email } = req.body;
-  const findEmail = await User.findOne({ WHERE: { email } });
+  const findEmail = await User.findOne({ where: { email } });
   if (findEmail) {
     return res.status(HTTP_409).json(userEmailExists);
   }
