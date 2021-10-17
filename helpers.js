@@ -50,6 +50,10 @@ const invToken = {
   message: 'Expired or invalid token',
 };
 
+const userNotExists = {
+  message: 'User does not exist',
+};
+
 module.exports = {
   HTTP_OK_STATUS,
   HTTP_CREATED_STATUS,
@@ -69,4 +73,5 @@ module.exports = {
   invFields,
   tokenNotFound,
   invToken,
+  userNotExists,
 };
