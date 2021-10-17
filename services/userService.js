@@ -8,11 +8,20 @@ const createUser = async ({ displayName, email, password, image }) => User.creat
   });
 
 const getAll = async () => {
-  const user = await User.findAll();
+  const user = await User.findAll({});
   return user;
+};
+
+const getUserByID = async ({ id }) => {
+  const findId = await User.findOne({ where: { id } });
+  if (!findId) {
+    return { error: true, message: 'User does not exist', status: 404 };
+  }
+  return findId;
 };
 
 module.exports = {
   createUser,
   getAll,
+  getUserByID,
 };

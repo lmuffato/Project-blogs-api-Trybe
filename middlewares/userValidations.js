@@ -8,8 +8,6 @@ const {
   userEmailExists,
   HTTP_400,
   HTTP_409,
-  HTTP_NOT_FOUND_STATUS,
-  userNotExists,
 } = require('../helpers');
 
 const displayValidation = (req, res, next) => {
@@ -56,19 +54,9 @@ const alreadyExists = async (req, res, next) => {
   next();
 };
 
-const getUserByID = async (req, res, next) => {
-  const { id } = req.params;
-  const findId = await User.findOne({ where: { id } });
-  if (!findId) {
-    return res.status(HTTP_NOT_FOUND_STATUS).json(userNotExists);
-  }
-  next();
-};
-
 module.exports = {
   displayValidation,
   passwordValidation,
   emailValidation,
   alreadyExists,
-  getUserByID,
 };
