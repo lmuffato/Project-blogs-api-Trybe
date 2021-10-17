@@ -27,8 +27,19 @@ const getAll = rescue(
  },
 );
 
+const findId = rescue(
+  async (req, res) => {
+    const { authorization } = req.headers;
+    const { id } = req.params;
+   const user = await serviceUser.findId(authorization, id);
+
+   res.status(200).json(user);
+ },
+);
+
 module.exports = {
   createUser,
   login,
   getAll,
+  findId,
 };

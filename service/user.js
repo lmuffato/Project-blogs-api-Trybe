@@ -69,8 +69,25 @@ const getAll = async (token) => {
   return users;
 };
 
+const findId = async (token, id) => {
+  if (!token) throw util('Token not found', 401);
+
+  try {
+    jwt.verify(token, jwtSecret);
+  } catch (_err) {
+    throw util('Expired or invalid token', 401);
+  }
+
+  const users = await User.findByPk(id);
+
+  if (!users) throw util('User does not exist', 404);
+
+  return users;
+};
+
 module.exports = {
   createUser,
   login,
   getAll,
+  findId,
 };

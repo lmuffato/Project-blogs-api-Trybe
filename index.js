@@ -15,6 +15,8 @@ app.post('/login', controllerUser.login);
 
 app.get('/user', controllerUser.getAll);
 
+app.get('/user/:id', controllerUser.findId);
+
 app.use((err, _req, res, _next) => {
   const { message, status } = err;
   res.status(status).json({ message });
