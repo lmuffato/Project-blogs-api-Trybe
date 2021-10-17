@@ -4,7 +4,9 @@ const userValidate = require('./middleware/userValidate');
 const loginValidate = require('./middleware/loginValidate');
 const userController = require('./controllers/userController');
 const categoriesController = require('./controllers/categoriesController');
+const postController = require('./controllers/postController');
 const categoriesValidate = require('./middleware/categoriesValidate');
+const postValidate = require('./middleware/postValidate');
 const { tokenValidate } = require('./middleware/token');
 require('dotenv').config();
 
@@ -25,6 +27,9 @@ app.post('/login', loginValidate, userController.userLogin);
 app.post('/categories', tokenValidate, categoriesValidate, categoriesController.createCategories);
 
 app.get('/categories', tokenValidate, categoriesController.getCategories);
+
+app.post('/post', tokenValidate, postValidate, postController.createPost);
+
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
 // não remova esse endpoint, e para o avaliador funcionar
