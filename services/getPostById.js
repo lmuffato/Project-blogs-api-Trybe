@@ -5,7 +5,7 @@ module.exports = async (id) => {
   const post = await BlogPost.findOne({
     where: { id },
     include: [
-      { model: User, as: 'user' },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: Category, as: 'categories' },
     ],
   });

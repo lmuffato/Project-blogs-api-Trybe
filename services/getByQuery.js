@@ -14,7 +14,7 @@ const getPosts = async (query) => {
       ],
     },
     include: [
-      { model: User, as: 'user' },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: Category, as: 'categories' },
     ],
   });
