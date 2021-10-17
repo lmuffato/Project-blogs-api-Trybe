@@ -23,4 +23,10 @@ router.get(
   userController.getAll,
 );
 
+router.get(
+  '/:id',
+  validateJWT,
+  userController.getById,
+);
+
 module.exports = router;
