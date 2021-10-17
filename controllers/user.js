@@ -11,8 +11,8 @@ const createUser = rescue(async (req, res) => {
       const { displayName, email, password, image } = req.body;
       const create = await service.createUser({ displayName, email, password, image });
       
-      if (create.err) {
-        return res.status(409).json(create.err);
+      if (create === 'exists') {
+        return res.status(409).json({ message: 'User already registered' });
       }
       return res.status(201).json(create);
     } catch (e) {
