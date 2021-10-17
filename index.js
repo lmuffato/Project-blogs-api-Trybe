@@ -19,7 +19,8 @@ passwordValidation,
 alreadyExists,
 userController.createUsers);
 
-app.post('/login', emailEmpty,
+app.post('/login', 
+emailEmpty,
 passwordEmpty,
 UserExists, userController.userLogin);
 

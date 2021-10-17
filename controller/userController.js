@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const userService = require('../services/userService');
 const loginService = require('../services/loginService');
-const { HTTP_CREATED_STATUS } = require('../helpers');
+const { HTTP_CREATED_STATUS, HTTP_OK_STATUS } = require('../helpers');
 
 require('dotenv').config();
 
@@ -32,7 +32,7 @@ const userLogin = async (req, res) => {
     try {
       const created = await loginService.findLogin({ email, password });
       const token = jwt.sign({ data: created }, JWT_SECRET, jwtConfiguration);
-      return res.status(HTTP_CREATED_STATUS).json({ token });
+      return res.status(HTTP_OK_STATUS).json({ token });
     } catch (e) {
       console.log(e);
     }
