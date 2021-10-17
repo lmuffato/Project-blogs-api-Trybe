@@ -38,8 +38,22 @@ const getAllUsers = [
     return res.status(httpStatus.OK).json(users);
   }];
 
+// requisito 04
+const getUserById = [
+  validaToken,
+   rescue(async (req, res) => {
+     const { id } = req.params;
+     const user = await usersService.getUserById(id);
+     if (!user) {
+       return res.status(httpStatus.MOT_FOUND).json({ message: 'User does not exist' });
+     }
+     return res.status(httpStatus.OK).json(user);
+   }),
+ ];
+
 module.exports = {
   createUser,
   login,
   getAllUsers,
+  getUserById,
 };

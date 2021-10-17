@@ -34,8 +34,18 @@ const getAllUsers = async () => {
   return arrayOfUsers;
  };
 
+ const getUserById = async (userId) => {
+  const user = await User.findByPk(userId);
+  if (user) {
+    const { id, displayName, email, image } = user.dataValues;
+    return { id, displayName, email, image };
+  }
+  return user;
+};
+
 module.exports = {
   createUser,
   login,
   getAllUsers,
+  getUserById,
 };
