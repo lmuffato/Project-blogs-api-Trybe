@@ -19,8 +19,6 @@ app.use('/user', userRouter);
 
 app.use('/login', loginRouter);
 
-app.listen(3000, () => console.log('ouvindo porta 3000!'));
-
 // -------------------------------------------------- CATEGORIES ------------------------------------------------- //
 
 app.use('/categories', categoryRouter);
@@ -29,3 +27,5 @@ app.use('/categories', categoryRouter);
 app.get('/', (request, response) => {
   response.send();
 });
+
+app.listen(3000, () => console.log('ouvindo porta 3000!'));
