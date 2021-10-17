@@ -38,7 +38,19 @@ async function getAll() {
   return { code: 200, users };
 }
 
+async function getById(userId) {
+  const user = await User.findByPk(userId);
+
+  if (!user) {
+    return { code: 404, message: 'User does not exist' };
+  }
+  
+  const { id, displayName, email, image } = user;
+  return { code: 200, user: { id, displayName, email, image } };
+}
+
 module.exports = {
   addUser,
   getAll,
+  getById,
 };
