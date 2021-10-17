@@ -28,9 +28,9 @@ const login = async (req, res) => {
 };
 
 const getAll = async (req, res) => {
-  const { authorization } = req.headers;
+  const { authorization: token } = req.headers;
 
-  const result = await userService.gettAll(authorization);
+  const result = await userService.gettAll(token);
 
   const { error } = result;
 
@@ -41,9 +41,9 @@ const getAll = async (req, res) => {
 
 const getById = async (req, res) => {
   const { id } = req.params;
-  const { authorization } = req.headers;
+  const { authorization: token } = req.headers;
 
-  const result = await userService.getById(id, authorization);
+  const result = await userService.getById(id, token);
 
   const { error } = result;
 
