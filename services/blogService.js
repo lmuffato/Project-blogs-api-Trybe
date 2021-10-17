@@ -1,4 +1,4 @@
-const { BlogPosts, Category } = require('../models');
+const { BlogPosts, Category, Users } = require('../models');
 
 const validTitle = (title) => {
   if (typeof title === 'undefined' || !title) return { code: 400, message: '"title" is required' };
@@ -42,4 +42,16 @@ const blogPost = async (userId, body) => {
   return blog;
 };
 
-module.exports = { blogPost };
+// { model: Users, as: 'user' }, attributes: { exclude: ['password'] },
+
+const getAllPosts = async () => {
+  const posts = await BlogPosts.findAll({
+    include: [
+      { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return posts;
+};
+
+module.exports = { blogPost, getAllPosts };

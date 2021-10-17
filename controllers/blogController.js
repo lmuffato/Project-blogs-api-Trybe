@@ -13,4 +13,13 @@ const blogPost = async (req, res) => {
   }
 };
 
-module.exports = { blogPost };
+const getAllPosts = async (req, res) => {
+  try {
+    const blog = await blogService.getAllPosts();
+    return res.status(200).json(blog);
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+};
+
+module.exports = { blogPost, getAllPosts };
