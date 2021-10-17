@@ -9,7 +9,10 @@ const createPost = async (req, res, next) => {
 };
 
 const getAllPosts = async (req, res) => {
-  const response = await services.getAllPosts();
+  const { q: term } = req.query;
+  let response;
+  if (term) response = await services.getPostsBySearch(term);
+  else response = await services.getAllPosts();
   return res.status(200).json(response);
 };
 
