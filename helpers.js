@@ -41,6 +41,14 @@ const invFields = {
   message: 'Invalid fields',
 };
 
+const tokenNotFound = {
+  message: 'Token not found',
+};
+
+const invToken = {
+  message: 'Expired or invalid token',
+};
+
 module.exports = {
   HTTP_OK_STATUS,
   HTTP_CREATED_STATUS,
@@ -57,4 +65,6 @@ module.exports = {
   ifEmailIsEmpty,
   ifPasswordIsEmpty,
   invFields,
+  tokenNotFound,
+  invToken,
 };
