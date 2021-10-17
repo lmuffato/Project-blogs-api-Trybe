@@ -22,4 +22,18 @@ const create = async (name, token) => {
   }
 };
 
-module.exports = { create };
+const gettAll = async (token) => {
+  try {
+    const isValidToken = verifyToken(token);
+
+    if (!isValidToken) return errorMap.invalidToken;
+
+    const categories = await Category.findAll();
+    
+    return categories;
+  } catch (error) {
+    return errorMap.internalError;
+  }
+};
+
+module.exports = { create, gettAll };
