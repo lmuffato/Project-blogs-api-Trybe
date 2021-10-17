@@ -32,8 +32,8 @@ userMiddlewares.validadePassword,
 userController.create);
 
 app.post('/login',
-loginMiddlewares.validadeNotAllowedEmpty,
 loginMiddlewares.validadeRequiredFields,
+loginMiddlewares.validadeNotAllowedEmpty,
 loginMiddlewares.checkExistingUser,
 userController.login);
 

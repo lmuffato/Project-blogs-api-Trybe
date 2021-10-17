@@ -3,12 +3,12 @@ const { User } = require('../models');
 const validadeRequiredFields = async (req, res, next) => {
   const { email, password } = req.body;
 
-  if (!email) {
+  if (email === undefined) {
     return res.status(400).json({ 
       message: '"email" is required',
     });
   }
-  if (!password) {
+  if (password === undefined) {
     return res.status(400).json({ 
       message: '"password" is required', 
     });
