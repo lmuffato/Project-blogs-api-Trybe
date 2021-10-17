@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParse = require('body-parser');
 const controllerUser = require('./controller/user');
+const controllerCategory = require('./controller/category');
 
 const app = express();
 
@@ -16,6 +17,8 @@ app.post('/login', controllerUser.login);
 app.get('/user', controllerUser.getAll);
 
 app.get('/user/:id', controllerUser.findId);
+
+app.post('/categories', controllerCategory.createCategory);
 
 app.use((err, _req, res, _next) => {
   const { message, status } = err;
