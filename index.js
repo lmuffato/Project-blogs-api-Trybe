@@ -9,6 +9,7 @@ const { emailEmpty,
   passwordEmpty,
 } = require('./middlewares/loginValidations');
 const userController = require('./controller/userController');
+const { validateToken } = require('./middlewares/jwt');
 
 const app = express();
 app.use(express.json());
@@ -23,6 +24,10 @@ app.post('/login',
 emailEmpty,
 passwordEmpty, 
 userController.userLogin);
+
+app.get('/user', validateToken, userController.getAllUsers);
+
+app.get('/user/:id', validateToken, userController.getAllByID);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
