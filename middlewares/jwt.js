@@ -1,4 +1,9 @@
 const jwt = require('jsonwebtoken');
+const {
+  HTTP_401,
+  invToken,
+  tokenNotFound,
+} = require('../helpers');
 require('dotenv').config();
 
 const { JWT_SECRET } = process.env;
@@ -7,7 +12,7 @@ const validateToken = async (req, res, next) => {
   const token = req.headers.authorization;
 
   if (!token) {
-    return res.status(401).json({ message: 'missing auth token' });
+    return res.status(HTTP_401).json(tokenNotFound);
   }
 
   try {
@@ -16,7 +21,7 @@ const validateToken = async (req, res, next) => {
   req.user = data;
     next();  
   } catch (e) {
-    return res.status(401).json({ message: 'jwt malformed' }); 
+    return res.status(HTTP_401).json(invToken); 
   }
 };
 

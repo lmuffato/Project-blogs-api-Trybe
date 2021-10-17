@@ -2,6 +2,7 @@ const HTTP_OK_STATUS = 200;
 const HTTP_CREATED_STATUS = 201;
 const HTTP_NO_BODY_STATUS = 422;
 const HTTP_400 = 400;
+const HTTP_401 = 401;
 const HTTP_409 = 409;
 const HTTP_NOT_FOUND_STATUS = 404;
 
@@ -54,6 +55,7 @@ module.exports = {
   HTTP_CREATED_STATUS,
   HTTP_NO_BODY_STATUS,
   HTTP_400,
+  HTTP_401,
   HTTP_409,
   HTTP_NOT_FOUND_STATUS,
   invDisplayName,
