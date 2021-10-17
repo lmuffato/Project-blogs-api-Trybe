@@ -24,6 +24,7 @@ app.post('/login', validarLogin, usuarioControllers.usuarioLogin);
 app.get('/user', validarToken, usuarioControllers.buscarUsuarios);
 app.get('/user/:id', validarToken, usuarioControllers.buscarUsuarioPorID);
 app.post('/categories', validarToken, validarCategories, categoriesController.criarCategories);
+app.get('/categories', validarToken, categoriesController.buscarCategories);
 // Fim das rotas
 
 app.listen(PORT, () => console.log(`Servidor conectado na porta ${PORT}!`));
