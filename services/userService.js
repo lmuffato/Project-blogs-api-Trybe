@@ -2,8 +2,7 @@ const jwt = require('jsonwebtoken');
 const Sequelize = require('sequelize');
 const { User } = require('../models');
 const errorMap = require('../utils/errorMap');
-const { verifyToken } = require('../utils/verifyToken');
-const SECRET = require('./secret');
+const SECRET = require('../utils/secret');
 
 const findUserByEmail = async (email) => {
   const user = await User.findOne({
@@ -69,12 +68,8 @@ const login = async (user) => {
   }
 };
 
-const gettAll = async (token) => {
+const gettAll = async () => {
   try {
-    const isValidToken = verifyToken(token);
-
-    if (!isValidToken) return errorMap.invalidToken;
-
     const users = await User.findAll();
     
     return users;
@@ -83,12 +78,8 @@ const gettAll = async (token) => {
   }
 };
 
-const getById = async (id, token) => {
+const getById = async (id) => {
   try {
-    const isValidToken = verifyToken(token);
-
-    if (!isValidToken) return errorMap.invalidToken;
-
     const user = await User.findByPk(id);
 
     if (!user) return errorMap.nonExistentUser;

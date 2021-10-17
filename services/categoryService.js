@@ -1,15 +1,10 @@
 const { Category } = require('../models');
 const errorMap = require('../utils/errorMap');
-const { verifyToken } = require('../utils/verifyToken');
 
 const findCategoryByName = async (name) => Category.findOne({ where: { name } });
 
-const create = async (name, token) => {
+const create = async (name) => {
   try {
-    const isValidToken = verifyToken(token);
-
-    if (!isValidToken) return errorMap.invalidToken;
-
     const categoryExists = await findCategoryByName(name);
 
     if (categoryExists) return errorMap.categoryAlreadyExists;
@@ -22,12 +17,8 @@ const create = async (name, token) => {
   }
 };
 
-const gettAll = async (token) => {
+const gettAll = async () => {
   try {
-    const isValidToken = verifyToken(token);
-
-    if (!isValidToken) return errorMap.invalidToken;
-
     const categories = await Category.findAll();
     
     return categories;

@@ -1,11 +1,21 @@
-const { tokenNotFound } = require('../utils/errorMap');
+const jwt = require('jsonwebtoken');
+const { tokenNotFound, invalidToken } = require('../utils/errorMap');
+const SECRET = require('../utils/secret');
 
 const validateToken = (req, _res, next) => {
-  const { authorization } = req.headers;
+  try {
+    const { authorization: token } = req.headers;
   
-  if (!authorization) next(tokenNotFound.error);
+    if (!token) next(tokenNotFound.error);
 
-  next();
+    const decodedToken = jwt.verify(token, SECRET);
+    
+    req.token = decodedToken;
+
+    next();
+  } catch (error) {
+    next(invalidToken.error);
+  }
 };
 
 module.exports = { validateToken };
