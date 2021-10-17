@@ -30,7 +30,25 @@ const getPosts = async () => {
                 through: { attributes: [] } }, 
         ],
     });
-
     return categories;
 };
-module.exports = { createPost, getPosts };
+
+const getPostById = async (id) => {
+    const post = await BlogPost.findOne({ 
+        where: { id },
+        include: [
+            { model: User, 
+                as: 'user', 
+                attributes: { exclude: ['password'] } },
+            { model: Category, 
+                as: 'categories', 
+                // Through Solution Source: https://github.com/sequelize/sequelize/issues/4074 
+                through: { attributes: [] } }, 
+        ],
+    });
+
+    if (!post) return newError('Post does not exist', clientErrors.notFound);
+    return post;
+};
+
+module.exports = { createPost, getPosts, getPostById };
