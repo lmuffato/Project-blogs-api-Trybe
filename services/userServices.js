@@ -13,6 +13,18 @@ const createUser = async (user) => {
   return newToken(dataUser);
 };
 
+const getUsers = async () => {
+  const users = await Users.findAll();
+  return users;
+};
+
+const getUserByID = async (id) => {
+  const user = await Users.findByPk(id);
+  if (!user) return undefined;
+  const { password, ...dataUser } = user.dataValues;
+  return dataUser;
+};
+
 const userLogin = async (dataLogin) => {
   const { email } = dataLogin;
   const emailFound = await searchEmail(email);
@@ -23,5 +35,7 @@ const userLogin = async (dataLogin) => {
 
 module.exports = {
   createUser,
+  getUsers,
+  getUserByID,
   userLogin,
 };
