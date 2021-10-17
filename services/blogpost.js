@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, Category, User } = require('../models/index');
 const Joi = require('../Joi/templates');
 
@@ -49,13 +50,13 @@ const editPost = async ({ id, title, content }, userId) => {
   if (userId !== post.userId) return { code: 401, message: 'Unauthorized user' };
   const { error } = Joi.EditPost.validate({ title, content });
   if (error) return { code: 400, message: error.details[0].message };
-    await BlogPost.update({
-      title,
-      content,
-    },
-      {
-        where: { id },
-      });
+  await BlogPost.update({
+    title,
+    content,
+  },
+    {
+      where: { id },
+    });
   const editedPost = await BlogPost.findByPk(
     id,
     { include: { model: Category, as: 'categories', through: { attributes: [] } } },
@@ -70,10 +71,24 @@ const deletePostById = async (postId, userId) => {
   return BlogPost.destroy({ where: { id: postId } });
 };
 
+const getPostsBySearch = async (term) =>
+  BlogPost.findAll(
+    {
+      where: {
+        [Op.or]: [{ title: term }, { content: term }],
+      },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    },
+  );
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   editPost,
   deletePostById,
+  getPostsBySearch,
 };
