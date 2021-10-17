@@ -12,6 +12,13 @@ async function create(req, res) {
   res.status(code).json(created);
 }
 
+async function getAll(req, res) {
+  const { code, categories } = await categoriesService.getAll();
+  
+  res.status(code).json(categories);
+}
+
 module.exports = {
   create,
+  getAll,
 };
