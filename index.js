@@ -12,19 +12,22 @@ app.use(bodyParser.json());
 const validarUsuario = require('./middlewares/validarUsuario');
 const validarLogin = require('./middlewares/validarLogin');
 const validarCategories = require('./middlewares/validarCategories');
+const validarPosts = require('./middlewares/validarPosts');
 const { validarToken } = require('./middlewares/token');
 
 // Controlers
 const usuarioControllers = require('./controllers/usuarioController');
-const categoriesController = require('./controllers/categoriesController');
+const categoriesControllers = require('./controllers/categoriesController');
+const postsControllers = require('./controllers/postsControllers');
 
 // Início das rotas
 app.post('/user', validarUsuario, usuarioControllers.criarUsuario);
 app.post('/login', validarLogin, usuarioControllers.usuarioLogin);
 app.get('/user', validarToken, usuarioControllers.buscarUsuarios);
 app.get('/user/:id', validarToken, usuarioControllers.buscarUsuarioPorID);
-app.post('/categories', validarToken, validarCategories, categoriesController.criarCategories);
-app.get('/categories', validarToken, categoriesController.buscarCategories);
+app.post('/categories', validarToken, validarCategories, categoriesControllers.criarCategories);
+app.get('/categories', validarToken, categoriesControllers.buscarCategories);
+app.post('/post', validarToken, validarPosts, postsControllers.criarPosts);
 // Fim das rotas
 
 app.listen(PORT, () => console.log(`Servidor conectado na porta ${PORT}!`));
