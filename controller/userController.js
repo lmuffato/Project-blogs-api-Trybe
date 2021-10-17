@@ -29,7 +29,7 @@ const userLogin = async (req, res) => {
   try {
       const { email } = req.body;
       const get = await loginService.findLogin({ email });
-      console.log('🚀 ~ file: userController.js ~ line 34 ~ userLogin ~ get', get);
+      // console.log('🚀 ~ file: userController.js ~ line 34 ~ userLogin ~ get', get);
       if (get.error) {
         return res.status(HTTP_400).json(invFields);
       }
@@ -40,7 +40,13 @@ const userLogin = async (req, res) => {
     }
 };
 
+const getAllUsers = async (req, res) => {
+  const get = userService.getAll();
+  res.status(HTTP_OK_STATUS).json(get);
+};
+
 module.exports = {
   createUsers,
   userLogin,
+  getAllUsers,
 };
