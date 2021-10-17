@@ -21,9 +21,9 @@ const login = rescue(
 const getAll = rescue(
   async (req, res) => {
     const { authorization } = req.headers;
-   const token = await serviceUser.getAll(authorization);
+   const users = await serviceUser.getAll(authorization);
 
-   res.status(200).json({ token });
+   res.status(200).json(users);
  },
 );
 
