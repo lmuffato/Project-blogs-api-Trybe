@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const controllerUser = require('./controllers/controllerUser');
-const controllerLogin = require('./controllers/controllerUser');
+const controllerLogin = require('./controllers/controllerLogin');
 const middleValidUser = require('./middlewares/userValidations');
 
 const app = express();
@@ -25,3 +25,5 @@ app.post('/login',
   middleValidUser.validEmail,
   middleValidUser.validPassword,
   controllerLogin.loginUser);
+
+app.get('/user', middleValidUser.verifyToken, controllerUser.getAllUsers);

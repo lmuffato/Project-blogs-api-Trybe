@@ -1,3 +1,8 @@
+const jwt = require('jsonwebtoken');
+// const jwtFunctions = require('../auth/jwtFunctions');
+
+const SECRET = process.env.JWT_SECRET;
+
 const error = {
   lengthMust: '"displayName" length must be at least 8 characters long',
   emailIsNot: '"email" is not allowed to be empty',
@@ -51,10 +56,26 @@ const validPasswordLength = (req, res, next) => {
   next();
 };
 
+const verifyToken = (req, res, next) => {
+  const { authorization: token } = req.headers;
+  if (!token) return res.status(401).json({ message: 'Token not found' });
+
+  try {
+    const authUser = jwt.verify(token, SECRET);
+
+    // const authUser = jwtFunctions.verify(token);
+    req.user = authUser;
+    next();
+  } catch (_err) {
+    res.status(401).json({ message: 'Expired or invalid token' });
+  }
+};
+
 const validEmail = [validEmailExist, validEmailRequired, validEmailRegex];
 const validPassword = [validPasswordExist, validPasswordRequired, validPasswordLength];
 module.exports = {
   validName,
   validEmail,
   validPassword,
+  verifyToken,
 };
