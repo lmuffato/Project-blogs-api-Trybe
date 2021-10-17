@@ -89,4 +89,20 @@ const gettAll = async (token) => {
   }
 };
 
-module.exports = { create, login, gettAll };
+const getById = async (id, token) => {
+  try {
+    const isValidToken = verifyToken(token);
+
+    if (!isValidToken) return errorMap.invalidToken;
+
+    const user = await User.findByPk(id);
+
+    if (!user) return errorMap.nonExistentUser;
+
+    return user.dataValues;
+  } catch (error) {
+    return errorMap.internalError;
+  }
+};
+
+module.exports = { create, login, gettAll, getById };

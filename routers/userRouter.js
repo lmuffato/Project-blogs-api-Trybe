@@ -11,6 +11,11 @@ const {
 
 const { userController } = require('../controllers');
 
+Router.get('/:id', [
+  validateToken,
+  userController.getById,
+]);
+
 Router.get('/', [
   validateToken,
   userController.getAll,

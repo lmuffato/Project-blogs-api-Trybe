@@ -47,6 +47,12 @@ module.exports = {
       message: 'User already registered',
     },
   },
+  nonExistentUser: {
+    error: {
+      code: 404,
+      message: 'User does not exist',
+    },
+  },
   invalidFields: {
     error: {
       code: 400,
