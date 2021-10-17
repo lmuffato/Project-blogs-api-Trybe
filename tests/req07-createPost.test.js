@@ -3,7 +3,7 @@ const shell = require('shelljs');
 
 const url = 'http://localhost:3000';
 
-describe.skip('7 - Sua aplicação deve ter o endpoint POST `/post`', () => {
+describe('7 - Sua aplicação deve ter o endpoint POST `/post`', () => {
   beforeEach(() => {
     shell.exec('npx sequelize-cli db:drop');
     shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate $');
@@ -80,6 +80,7 @@ describe.skip('7 - Sua aplicação deve ter o endpoint POST `/post`', () => {
       .expect('status', 400)
       .then((response) => {
         const { json } = response;
+        console.log('title teeest', json)
         expect(json.message).toBe('"title" is required');
       });
   });

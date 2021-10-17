@@ -29,13 +29,13 @@ const loginUsers = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const verifyDataError = await UserService.loginUsers(email, password);
-    if (verifyDataError) {
-      return res.status(verifyDataError.numberStatus).json({ message: verifyDataError.message });
+    const usersServicesData = await UserService.loginUsers(email, password);
+    if (usersServicesData.error) {
+      return res.status(usersServicesData.numberStatus)
+      .json({ message: usersServicesData.message });
     }
 
-    const userData = { email };
-    const token = jwt.sign(userData, process.env.JWT_SECRET);
+    const token = jwt.sign(usersServicesData, process.env.JWT_SECRET);
     return res.status(200).json({ token });
   } catch (e) {
     res.status(500).json({ message: INTERNAL_ERROR });

@@ -20,14 +20,22 @@ const loginUsers = async (email, password) => {
   const validateInsertedBodyError = validations
   .validateBodyLoginUsers({ email, password });
   if (validateInsertedBodyError) {
-    return { numberStatus: 400, message: validateInsertedBodyError.details[0].message };
+    return { 
+        error: true,
+        numberStatus: 400,
+        message: validateInsertedBodyError.details[0].message, 
+      };
   }
 
   const validateIfExistsUser = await validations
     .validateAlreadyExistsUserByEmail(email);
   if (!validateIfExistsUser) {
-    return { numberStatus: 400, message: 'Invalid fields' };
+    return { error: true, numberStatus: 400, message: 'Invalid fields' };
   }
+
+  const { id, displayName } = validateIfExistsUser.user;
+  
+  return { id, displayName };
 };
 
 module.exports = {

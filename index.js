@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 const UserController = require('./controllers/UserController');
 const CategoryController = require('./controllers/CategoryController');
+const PostController = require('./controllers/PostController');
 
 const app = express();
 
@@ -20,6 +21,6 @@ app.get('/user', UserController.getAllUsers);
 app.get('/user/:id', UserController.getOneUser);
 app.post('/categories', CategoryController.createCategories);
 app.get('/categories', CategoryController.getAllCategories);
-app.post('/post', CategoryController.createCategories);
+app.post('/post', PostController.createPosts);
 
 app.listen(port, () => console.log('ouvindo porta 3000!'));

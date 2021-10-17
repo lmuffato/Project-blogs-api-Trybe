@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const JWTSECRET = process.env.JWT_SECRET;
 
-const { Users } = require('../models');
+const { Users, Categories } = require('../models');
 
 const validateBodyCreateUsers = (body) => {
   const { error } = Joi.object({
@@ -18,9 +18,9 @@ const validateBodyCreateUsers = (body) => {
 };
 
 const validateAlreadyExistsUserByEmail = async (email) => {
-  const alreadyHaveUser = await Users.findOne({ where: { email } });
-  if (alreadyHaveUser) {
-    const error = { message: 'User already registered' };
+  const user = await Users.findOne({ where: { email } });
+  if (user) {
+    const error = { message: 'User already registered', user: user.dataValues };
     return error;
   }
   return false;
@@ -53,10 +53,31 @@ const validateBodyCreateCategories = (body) => {
   return false;
 };
 
+const validateBodyCreatePosts = (body) => {
+  const { error } = Joi.object({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+  }).validate(body);
+  if (error) return error;
+  return false;
+};
+
+const validateByCategory = async (categoryIds) => {
+  if (!categoryIds) return { numberStatus: 400, message: '"categoryIds" is required' };
+
+  const getCategories = await Categories.findAll({ where: { id: categoryIds } });
+  if (!getCategories.length || getCategories.length !== categoryIds.length) {
+    return { numberStatus: 400, message: '"categoryIds" not found' };
+  }
+  return false;
+};
+
 module.exports = {
   validateBodyCreateUsers,
   validateAlreadyExistsUserByEmail,
   validateBodyLoginUsers,
   validateToken,
   validateBodyCreateCategories,
+  validateBodyCreatePosts,
+  validateByCategory,
 };
