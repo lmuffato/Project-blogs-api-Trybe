@@ -36,6 +36,7 @@ const createUser = async (user) => {
 
 const login = async (user) => {
   const { email, password } = user;
+  console.log(email);
   const { error } = validateUser.validate({ email, password });
 
   if (error) {
@@ -54,7 +55,22 @@ const login = async (user) => {
   return token;
 };
 
+const getAll = async (token) => {
+  if (!token) throw util('Token not found', 401);
+
+  try {
+    jwt.verify(token, jwtSecret);
+  } catch (_err) {
+    throw util('Expired or invalid token', 401);
+  }
+
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+
+  return users;
+};
+
 module.exports = {
   createUser,
   login,
+  getAll,
 };

@@ -13,6 +13,8 @@ app.post('/user', controllerUser.createUser);
 
 app.post('/login', controllerUser.login);
 
+app.get('/user', controllerUser.getAll);
+
 app.use((err, _req, res, _next) => {
   const { message, status } = err;
   res.status(status).json({ message });
