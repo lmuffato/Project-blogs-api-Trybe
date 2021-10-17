@@ -38,7 +38,7 @@ const ifPasswordIsEmpty = {
 };
 
 const invFields = {
-  message: 'invalid fields',
+  message: 'Invalid fields',
 };
 
 module.exports = {
