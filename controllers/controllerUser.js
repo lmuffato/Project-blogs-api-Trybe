@@ -6,12 +6,12 @@ const createUser = async (req, res) => {
   const { status, message, data: token } = await serviceUser.createUser(data);
   if (message) return res.status(status).json({ message });
 
-  return res.status(status).json(token);
+  return res.status(status).json({ token });
 };
 
-const getAllUsers = async (req, res) => {
+const getAllUsers = async (_req, res) => {
   const { status, data } = await serviceUser.getAllUsers();
-  return res.status(status).json(data);
+  res.status(status).json(data);
 };
 
 module.exports = {

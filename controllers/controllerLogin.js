@@ -6,7 +6,7 @@ const loginUser = async (req, res) => {
   const { status, message, data: token } = await serviceLogin.loginUser(data);
   if (message) return res.status(status).json({ message });
 
-  return res.status(status).json(token);
+  return res.status(status).json({ token });
 };
 
 module.exports = {

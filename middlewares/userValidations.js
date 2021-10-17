@@ -1,7 +1,4 @@
-const jwt = require('jsonwebtoken');
-// const jwtFunctions = require('../auth/jwtFunctions');
-
-const SECRET = process.env.JWT_SECRET;
+const jwtFunctions = require('../auth/jwtFunctions');
 
 const error = {
   lengthMust: '"displayName" length must be at least 8 characters long',
@@ -59,11 +56,8 @@ const validPasswordLength = (req, res, next) => {
 const verifyToken = (req, res, next) => {
   const { authorization: token } = req.headers;
   if (!token) return res.status(401).json({ message: 'Token not found' });
-
   try {
-    const authUser = jwt.verify(token, SECRET);
-
-    // const authUser = jwtFunctions.verify(token);
+    const authUser = jwtFunctions.verify(token);
     req.user = authUser;
     next();
   } catch (_err) {
