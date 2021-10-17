@@ -5,7 +5,7 @@ const categoriesService = require('./categories');
 
 const validateCategories = async (categoryIds) => {
     const categories = await categoriesService.getCategories();
-    const ids = categories.map((cat) => cat.dataValues.id);
+    const ids = categories.map((cat) => cat.id);
     const isValid = categoryIds.every((category) => ids.includes(category));
     return isValid;
 };
