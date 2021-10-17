@@ -61,3 +61,7 @@ authMiddlewares.authValidation,
 postMiddlewares.validadeRequiredFields,
 postMiddlewares.categoryIdsNotFound,
 postController.create);
+
+app.get('/post',
+authMiddlewares.authValidation,
+postController.getAll);
