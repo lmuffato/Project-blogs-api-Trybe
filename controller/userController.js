@@ -1,7 +1,13 @@
 const jwt = require('jsonwebtoken');
 const userService = require('../services/userService');
 const loginService = require('../services/loginService');
-const { HTTP_CREATED_STATUS, HTTP_OK_STATUS, HTTP_400, invFields } = require('../helpers');
+const { HTTP_CREATED_STATUS, 
+  HTTP_OK_STATUS, 
+  HTTP_400, 
+  invFields,
+  HTTP_NOT_FOUND_STATUS,
+  userNotExists,
+} = require('../helpers');
 
 require('dotenv').config();
 
@@ -45,8 +51,22 @@ const getAllUsers = async (req, res) => {
   res.status(HTTP_OK_STATUS).json(get);
 };
 
+const getAllByID = async (req, res) => {
+  try {
+    const { id } = req.params;
+      const findIdUser = await userService.getUserByID({ id });
+      if (findIdUser.error) {
+        return res.status(HTTP_NOT_FOUND_STATUS).json(userNotExists);
+      }
+      res.status(HTTP_OK_STATUS).json(findIdUser);
+    } catch (e) {
+      console.log(e);
+    }
+};
+
 module.exports = {
   createUsers,
   userLogin,
   getAllUsers,
+  getAllByID,
 };
