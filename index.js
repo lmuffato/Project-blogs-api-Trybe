@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv/config');
-const userRouter = require('./routers/userRouter');
-const loginRouter = require('./routers/loginRouter');
-const categoriesRouter = require('./routers/categoriesRouter');
-const postRouter = require('./routers/postRouter');
+
+const {
+  userRouter,
+  categoriesRouter,
+  loginRouter,
+  postRouter } = require('./routers');
 
 const app = express();
 app.use(bodyParser.json());
