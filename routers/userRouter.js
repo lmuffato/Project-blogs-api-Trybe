@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 const { validateJWT } = require('../middlewares/authMiddleware');
 const { validateEmail } = require('../middlewares/emailValidation');
-const { validateName } = require('../middlewares/nameValidation');
+const { validateUsername } = require('../middlewares/usernameValidation');
 const { validatePassword } = require('../middlewares/passwordValidation');
 
 const userController = require('../controllers/userController');
@@ -12,7 +12,7 @@ const router = Router();
 router.post(
   '/',
   validateEmail,
-  validateName,
+  validateUsername,
   validatePassword,
   userController.addUser,
 );

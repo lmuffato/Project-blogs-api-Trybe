@@ -1,4 +1,4 @@
-function validateName(req, res, next) {
+function validateUsername(req, res, next) {
   const { displayName } = req.body;
 
   const validName = displayName.length >= 8;
@@ -13,5 +13,5 @@ function validateName(req, res, next) {
 }
 
 module.exports = {
-  validateName,
+  validateUsername,
 };
