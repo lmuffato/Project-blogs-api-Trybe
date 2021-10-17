@@ -15,12 +15,19 @@ const validateContent = (req, res, next) => {
 const validateCategories = async (req, res, next) => {
   const { categoryIds } = req.body;
   if (!categoryIds) return res.status(400).json({ message: '"categoryIds" is required' });
-  await categoryIds.every(async (category) => {
+  // https://stackoverflow.com/questions/40140149/use-async-await-with-array-map async await with .map
+  const checkCategories = await Promise.all(categoryIds.map(async (category) => {
       const categoryCheck = await database.Categories.findOne({ where: { id: category } });
       if (categoryCheck === null) {
-        return res.status(400).json({ message: '"categoryIds" not found' });
+        return false;
       } return true;
-    });
+    }));
+  const check = checkCategories.some((boolean) => boolean === false);
+  console.log(check);
+  if (check) {
+    console.log(check);
+    return res.status(400).json({ message: '"categoryIds" not found' });
+  }
   next();
 };
 

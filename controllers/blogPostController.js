@@ -14,6 +14,12 @@ const createPost = async (req, res) => {
   return res.status(201).json(addedPost);
 };
 
+const getPosts = async (req, res) => {
+  const posts = await database.BlogPosts.findAll();
+  return res.status(200).json(posts);
+};
+
 module.exports = {
   createPost,
+  getPosts,
 };

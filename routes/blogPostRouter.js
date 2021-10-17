@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { createPost } = require('../controllers/blogPostController');
+const { createPost, getPosts } = require('../controllers/blogPostController');
 const validateJWT = require('../middlewares/validateJWT');
 const {
   validateTitle,
@@ -10,5 +10,6 @@ const {
 const router = Router();
 
 router.post('/post', validateTitle, validateContent, validateCategories, validateJWT, createPost);
+router.get('/post', validateJWT, getPosts);
 
 module.exports = router;
