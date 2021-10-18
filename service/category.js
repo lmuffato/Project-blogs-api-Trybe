@@ -9,6 +9,20 @@ const validateCategory = joi.object({
 
 const jwtSecret = 'passwordNivelHard';
 
+const findCategories = async (token) => {
+  if (!token) throw util('Token not found', 401);
+
+  try {
+    jwt.verify(token, jwtSecret);
+  } catch (_err) {
+    throw util('Expired or invalid token', 401);
+  }
+
+  const categories = await category.findAll();
+
+  return categories;
+};
+
 const createCategory = async (name, token) => {
   const { error } = validateCategory.validate({ name });
 
@@ -32,4 +46,5 @@ const createCategory = async (name, token) => {
 
 module.exports = {
   createCategory,
+  findCategories,
 };

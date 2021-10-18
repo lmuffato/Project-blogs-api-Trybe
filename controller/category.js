@@ -11,6 +11,16 @@ const createCategory = rescue(
   },
 );
 
+const findCategory = rescue(
+  async (req, res) => {
+    const { authorization } = req.headers;
+    const categories = await serviceCategory.findCategories(authorization);
+
+    res.status(201).json(categories);
+  },
+);
+
 module.exports = {
   createCategory,
+  findCategory,
 };
