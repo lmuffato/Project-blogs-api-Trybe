@@ -17,7 +17,12 @@ const createPost = async (req, res) => {
 
   console.log(`userId: ${userId}`);
   
-  const category = await BlogPost.create({ title, content, categoryIds, userId, published: new Date(), updated: new Date() });
+  const category = await BlogPost.create({ title,
+    content,
+    categoryIds,
+    userId,
+    published: new Date(),
+    updated: new Date() });
 
   console.log(`category: ${category}`);
 
