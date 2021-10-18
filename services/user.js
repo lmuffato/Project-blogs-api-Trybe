@@ -1,10 +1,13 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const { User } = require('../models');
 
 const { 
     validateDisplayName, 
     validateEmail, 
-    validatePassword } = require('../validations/userValidations');
+    validatePassword, 
+    checkEmptyFields,
+    } = require('../validations/userValidations');
 
 const MESSAGE = require('../util/Message');
 
@@ -29,12 +32,27 @@ const createUser = async (displayName, email, password, _image) => {
     if (passwordResponse !== MESSAGE.success) return passwordResponse;
 
     const tokenPayload = { displayName, email };
+    const token = jwt.sign(tokenPayload, secret, jwtConfig);
+    return { status: 201, token };
+};
 
+const loginUser = async (displayName, email, password) => {
+    if (email === undefined) return MESSAGE.emailNotExists;
+    if (password === undefined) return MESSAGE.passwordNotExists;
+
+    const isEmpty = checkEmptyFields(email, password);
+    if (isEmpty) return isEmpty;
+
+    const findUser = await User.findOne({ where: { email, password } });
+    if (!findUser) return MESSAGE.invalidFields;
+
+    const tokenPayload = { displayName, email };
     const token = jwt.sign(tokenPayload, secret, jwtConfig);
 
-    return { status: 201, token };
+    return { status: 200, message: token };
 };
 
 module.exports = {
     createUser,
+    loginUser,
 };
