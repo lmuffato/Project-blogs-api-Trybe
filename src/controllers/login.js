@@ -13,7 +13,7 @@ async function login(req, res, next) {
     const token = validation.getToken(email);
 
     const user = await User.findOne({ where: { email } });
-    validation.isUserValid(user, 'badRequest', 'Invalid fields');
+    validation.isConditionValid(user, 'badRequest', 'Invalid fields');
 
     res.status(status).json({ token });
   } catch (error) {

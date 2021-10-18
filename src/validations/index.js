@@ -61,7 +61,7 @@ function isUserRegistered(condition) {
   }
 }
 
-function isUserValid(condition, code, message) {
+function isConditionValid(condition, code, message) {
   if (!condition) {
     throwError(code, message, getStatusCode);
   }
@@ -87,7 +87,7 @@ module.exports = {
   verifyEmail,
   verifyPassword,
   isUserRegistered,
-  isUserValid,
+  isConditionValid,
   isCategoriesValid,
   ...token,
 };

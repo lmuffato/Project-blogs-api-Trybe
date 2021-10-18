@@ -51,7 +51,7 @@ async function getUserById(req, res, next) {
     validation.verifyToken(token);
 
     const user = await User.findOne({ where: { id } });
-    validation.isUserValid(user, 'notFound', 'User does not exist');
+    validation.isConditionValid(user, 'notFound', 'User does not exist');
 
     res.status(status).json(user);
   } catch (error) {
