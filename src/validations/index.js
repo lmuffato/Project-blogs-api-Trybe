@@ -67,11 +67,16 @@ function isUserValid(condition, code, message) {
   }
 }
 
-function isCategoryValid(category) {
+async function isCategoriesValid(categoryIds, CategoryModel) {
   const message = '"categoryIds" not found';
-  const isCategory = !!category;
+  
+  const isAlright = await Promise.all(categoryIds.map(async (id) => {
+    const category = await CategoryModel.findOne({ where: { id } });
+    const isCategory = !!category;
+    return isCategory;
+  }));
 
-  if (!isCategory) {
+  if (isAlright.includes(false)) {
     throwError('badRequest', message, getStatusCode);
   }
 }
@@ -83,6 +88,6 @@ module.exports = {
   verifyPassword,
   isUserRegistered,
   isUserValid,
-  isCategoryValid,
+  isCategoriesValid,
   ...token,
 };
