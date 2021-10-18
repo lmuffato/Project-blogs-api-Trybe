@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 const controllerUser = require('./controllers/controllerUser');
 const controllerLogin = require('./controllers/controllerLogin');
+const controllerCategory = require('./controllers/controllerCategory');
 const middleValidUser = require('./middlewares/userValidations');
 
 const app = express();
@@ -29,3 +30,5 @@ app.post('/login',
 app.get('/user', middleValidUser.verifyToken, controllerUser.getAllUsers);
 
 app.get('/user/:id', middleValidUser.verifyToken, controllerUser.getUserById);
+
+app.post('/categories', middleValidUser.verifyToken, controllerCategory.createCategory);
