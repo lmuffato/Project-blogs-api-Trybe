@@ -46,13 +46,19 @@ const validatePassword = (req, res, next) => {
   next();
 };
 
-const validacoesCreateUser = [
+const validateCreateUser = [
   validateEmail,
   emailAlreadyExists,
   validateDisplayName,
   validatePassword,
 ];
 
+const validateLogin = [
+  validateEmail,
+  validatePassword,
+];
+
 module.exports = {
-  validacoesCreateUser,
+  validateCreateUser,
+  validateLogin,
 };

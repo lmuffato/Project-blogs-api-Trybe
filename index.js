@@ -6,6 +6,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const middlewaresUser = require('./middlewares/validateInputs');
+const middlewaresLogin = require('./middlewares/validateLogin');
 const userController = require('./controllers/user');
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
@@ -15,4 +16,6 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/user', middlewaresUser.validacoesCreateUser, userController.createUser);
+app.post('/user', middlewaresUser.validateCreateUser, userController.createUser);
+
+app.post('/login', middlewaresLogin.validateLogin, userController.loginUser);
