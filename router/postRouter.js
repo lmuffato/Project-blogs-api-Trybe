@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { createPost } = require('../controllers/postsController');
+const { createPost, getAllPosts } = require('../controllers/postsController');
 const { validatePost, validateExistCategory } = require('../middlewares/validations');
 const { validateJWT } = require('../middlewares/validateJWT');
 
@@ -10,6 +10,6 @@ validatePost,
 validateExistCategory,
 createPost);
 
-// router.get('/', validateJWT, getAllCategories);
+router.get('/', validateJWT, getAllPosts);
 
 module.exports = router; 
