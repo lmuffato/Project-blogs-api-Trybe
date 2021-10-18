@@ -19,3 +19,4 @@ app.post('/user', User.createUser);
 app.post('/login', Login.login);
 
 app.get('/user', validateToken, User.getUser);
+app.get('/user/:id', validateToken, User.getById);
