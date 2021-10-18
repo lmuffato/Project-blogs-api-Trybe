@@ -32,3 +32,5 @@ app.get('/user', middleValidUser.verifyToken, controllerUser.getAllUsers);
 app.get('/user/:id', middleValidUser.verifyToken, controllerUser.getUserById);
 
 app.post('/categories', middleValidUser.verifyToken, controllerCategory.createCategory);
+
+app.get('/categories', middleValidUser.verifyToken, controllerCategory.getCategories);
