@@ -1,3 +1,4 @@
 const token = require('./token');
+const status = require('./status');
 
-module.exports = { token };
+module.exports = { token, status };
