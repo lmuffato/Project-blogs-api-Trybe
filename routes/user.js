@@ -2,17 +2,18 @@ const express = require('express');
 const userController = require('../controllers/userController');
 const validateToken = require('../auth/tokenValidation');
 
-const {
-  emailFormatValidation,
-  emailValidation,
-  displayNameValidation,
-  passwordValidation,
-} = require('../middlewares/inputValidatios');
+// const {
+//   emailFormatValidation,
+//   emailValidation,
+//   displayNameValidation,
+//   passwordValidation,
+// } = require('../middlewares/inputValidatios');
+
+const userValidation = require('../middlewares/userValidation');
 
 const router = express.Router();
 
-router.post('/', emailValidation, emailFormatValidation, 
-  displayNameValidation, passwordValidation, userController.create);
+router.post('/', userValidation, userController.create);
 
 router.get('/', validateToken, userController.getAllUsers);
 
