@@ -19,17 +19,19 @@ const createUser = async (displayName, email, password, image) => {
 
 const login = async (email, password) => {
   validateFct.validateEmail(email);
-  const userExist = await User.findOne({ where: { email } });
-  if (!userExist) throw error.invalidFields;
-  console.log(userExist);
   validateFct.validatePassword(password);
   const result = await User.findOne({ where: { email, password } });
-  console.log(result);
-  // if (!result) throw error.invalidFields;
+  if (!result) throw error.invalidFields;
   return tokenFunctions.createToken({ email });
+};
+
+const getAll = async () => {
+  const result = await User.findAll({});
+  return result;
 };
 
 module.exports = {
   createUser,
   login,
+  getAll,
 };

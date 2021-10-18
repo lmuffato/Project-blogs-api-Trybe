@@ -27,6 +27,11 @@ const tokenNotFound = {
   status: 401,
 };
 
+const expOrInvalidToken = {
+  message: 'Expired or invalid token',
+  status: 401,
+};
+
 const userExists = {
   message: 'User already registered',
   status: 409,
@@ -49,6 +54,7 @@ const invalidFields = {
 
 module.exports = {
   tokenNotFound,
+  expOrInvalidToken,
   invalidName,
   invalidEmail,
   invalidPassword,
