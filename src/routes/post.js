@@ -8,4 +8,7 @@ router.post('/', postController.createPost);
 router.get('/', postController.getPosts);
 router.get('/:id', postController.getPostById);
 
+// UPDATE
+router.put('/:id', postController.updatePost);
+
 module.exports = router;

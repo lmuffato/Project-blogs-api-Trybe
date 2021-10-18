@@ -8,7 +8,6 @@ async function createPost(req, res, next) {
     const newPost = req.body;
     const dateNow = new Date();
     const date = { published: dateNow, updated: dateNow };
-    const { status } = getStatusCode('created');
 
     validation.isRequired(newPost.title, 'title');
     validation.isRequired(newPost.content, 'content');
@@ -19,7 +18,7 @@ async function createPost(req, res, next) {
     const { id: userId } = await User.findOne({ where: { email } });
     const { id, title, content } = await BlogPost.create({ userId, ...date, ...newPost });
 
-    res.status(status).json({ id, userId, title, content });
+    res.status(getStatusCode('created')).json({ id, userId, title, content });
   } catch (error) {
     next(error);
   }
@@ -28,7 +27,6 @@ async function createPost(req, res, next) {
 async function getPosts(req, res, next) {
   try {
     const token = req.headers.authorization;
-    const { status } = getStatusCode('ok');
 
     validation.verifyToken(token);
 
@@ -39,7 +37,7 @@ async function getPosts(req, res, next) {
       ],
     });
 
-    res.status(status).json(categories);
+    res.status(getStatusCode('ok')).json(categories);
   } catch (error) {
     next(error);
   }
@@ -49,7 +47,6 @@ async function getPostById(req, res, next) {
   try {
     const token = req.headers.authorization;
     const { id } = req.params;
-    const { status } = getStatusCode('ok');
 
     validation.verifyToken(token);
 
@@ -62,7 +59,32 @@ async function getPostById(req, res, next) {
     });
     validation.isConditionValid(post, 'notFound', 'Post does not exist');
 
-    res.status(status).json(post);
+    res.status(getStatusCode('ok')).json(post);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function updatePost(req, res, next) {
+  try {
+    const token = req.headers.authorization;
+    const { title, content, ...newPost } = req.body;
+    const updated = new Date();
+    const { id } = req.params;
+
+    const { email } = validation.verifyToken(token);
+    validation.isRequired(title, 'title');
+    validation.isRequired(content, 'content');
+    validation.isConditionValid(!newPost.categoryIds, 'badRequest', 'Categories cannot be edited');
+
+    const { id: theUserId } = await User.findOne({ where: { email } });
+    const { userId, categories } = await BlogPost.findOne({ where: { userId: id }, 
+      include: [{ model: Category, as: 'categories' }] });
+    validation.isConditionValid(theUserId === userId, 'unauthorized', 'Unauthorized user');
+
+    await BlogPost.update({ title, content, updated }, { where: { id } });
+
+    res.status(getStatusCode('ok')).json({ title, content, userId, categories });
   } catch (error) {
     next(error);
   }
@@ -72,4 +94,5 @@ module.exports = {
   createPost,
   getPosts,
   getPostById,
+  updatePost,
 };
