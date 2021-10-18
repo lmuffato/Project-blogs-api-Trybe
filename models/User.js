@@ -3,11 +3,10 @@ module.exports = (sequelize, DataTypes) => {
     id: { type: DataTypes.INTEGER, primaryKey: true },
     displayName: {
       type: DataTypes.STRING,
-      unique: true,
     },
     email: {
       type: DataTypes.STRING,
-
+      unique: true,
       validate: { isEmail: true },
     },
     password: DataTypes.STRING,
