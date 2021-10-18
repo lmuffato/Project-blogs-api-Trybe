@@ -13,6 +13,7 @@ app.get('/', (request, response) => {
   response.send();
 });
 
+// Requisito 01
 app.post('/user', Users.create);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
