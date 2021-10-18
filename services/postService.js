@@ -49,8 +49,28 @@ const getById = async (id) => {
   return { statusCode: 200, post };
 };
 
+const updatePost = async (id, userId, data) => {
+  const { error } = validationSchema.updatePostSchema.validate(data);
+  if (error) return { statusCode: 400, message: error.details[0].message };
+  const { title, content, categoryIds } = data;
+  if (categoryIds) return { statusCode: 400, message: 'Categories cannot be edited' };
+  const checkAuthor = await BlogPost.findByPk(id);
+  if (checkAuthor.userId !== userId) return { statusCode: 401, message: 'Unauthorized user' };
+  await BlogPost.update({ title, content }, { where: { id } });
+  const post = await BlogPost.findByPk(id, {
+    include: [{
+      model: Category,
+      as: 'categories',
+      attributes: {
+        exclude: ['PostId'],
+      } }],
+  });
+  return { statusCode: 200, post };
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getById,
+  updatePost,
 };
