@@ -26,8 +26,16 @@ const getById = async (id) => {
   return { status: 200, data: post };
 };
 
+const update = async (id, newPostData) => {
+  const { title, content } = newPostData;
+  await Post.update({ title, content }, { where: { id } });
+  const post = await getById(id);
+  return { status: 200, data: post };
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  update,
 };

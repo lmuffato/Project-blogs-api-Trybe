@@ -70,3 +70,9 @@ app.get('/post/:id',
 authMiddlewares.authValidation,
 postMiddlewares.checkExistingIdPost,
 postController.getById);
+
+app.put('/post/:id',
+authMiddlewares.authValidation,
+postMiddlewares.validatePostToUpdate,
+postMiddlewares.validateUser,
+postController.update);
