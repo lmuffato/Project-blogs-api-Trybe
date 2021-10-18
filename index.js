@@ -1,6 +1,12 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
+
+app.use(bodyParser.json());
+
+const middlewaresUser = require('./middlewares/validateInputs');
+const userController = require('./controllers/user');
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
@@ -8,3 +14,5 @@ app.listen(3000, () => console.log('ouvindo porta 3000!'));
 app.get('/', (request, response) => {
   response.send();
 });
+
+app.post('/user', middlewaresUser.validacoesCreateUser, userController.createUser);

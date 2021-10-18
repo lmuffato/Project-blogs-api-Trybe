@@ -1,22 +1,47 @@
 module.exports = (sequelize, _DataTypes) => {
-  const PostsCategories = sequelize.define('PostCategory', {},
-  { timestamp: false, tableName: 'PostsCategories',
- });
-  PostsCategories.associate = (models) => {
-    models.categories.belongsToMany(models.blogposts, {
-      as: 'users',
-      through: PostsCategories,
+  const PostCategory = sequelize.define('PostCategory', {},
+  { timestamp: false });
+  PostCategory.associate = ({ Category, BlogPost }) => {
+    BlogPost.belongsToMany(Category, {
+      as: 'categories',
+      through: PostCategory,
+      foreignKey: 'postId',
+      otherKey: 'categoryId',
+     });
+
+    Category.belongsToMany(BlogPost, {
+      as: 'blogposts',
+      through: PostCategory,
       foreignKey: 'categoryId',
       otherKey: 'postId',
     });
-
-    models.blogPosts.belongsToMany(models.categories, {
-     as: 'categories',
-     through: PostsCategories,
-     foreignKey: 'postId',
-     otherKey: 'categoryId',
-    });
   };
 
-  return PostsCategories;
+  return PostCategory;
 };
+
+// PostsCategories.associate = ({ BlogPosts, Categories }) => {
+//   Categories.belongsToMany(BlogPosts, {
+//   as: 'blogposts', through: PostsCategories, foreignKey: 'categoryId', otherKey: 'PostId',
+//   });
+//   BlogPosts.belongsToMany(Categories, {
+//   as: 'categories', through: PostsCategories, foreignKey: 'PostId', otherKey: 'categoryId',
+//   });
+//   }; 
+
+// PostsCategory.associate = (models) => {
+//   models.BlogPost.belongsToMany(models.Category, {
+//   as: 'categories',
+//   through: PostsCategory,
+//   foreignKey: 'postId',
+//   otherKey: 'categoryId',
+//   });
+//   models.Category.belongsToMany(models.BlogPost, {
+//   as: 'posts',
+//   through: PostsCategory,
+//   foreignKey: 'categoryId',
+//   otherKey: 'postId',
+//   });
+//   };
+//   return PostsCategory;
+//   }; 
