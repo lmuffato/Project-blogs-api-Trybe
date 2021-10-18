@@ -11,13 +11,25 @@ const errors = {
     code: 400,
     message: '"email" must be a valid email',
   },
-  emptyField: (field) => ({
+  nullField: (field) => ({
     code: 400,
     message: `"${field}" is required`,
   }),
   userAlreadyExists: {
     code: 409,
     message: 'User already registered',
+  },
+  emptyField: (field) => ({
+    code: 400,
+    message: `"${field}" is not allowed to be empty`,
+  }),
+  userNotExists: {
+    code: 400,
+    message: 'Invalid fields',
+  },
+  invalidPassword: {
+    code: 401,
+    message: 'Invalid password',
   },
 };
 

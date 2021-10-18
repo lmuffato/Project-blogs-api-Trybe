@@ -1,12 +1,15 @@
-const { validationResult } = require('express-validator');
+const getUserByEmail = require('../services/getUserByEmail');
+const { userAlreadyExists } = require('../utils/errors');
 
-module.exports = (req, res, next) => {
-  const validation = validationResult(req);
-  
-  if (!validation.isEmpty()) {
-    const { msg } = validation.array()[0];
-    
-    return res.status(msg.code).json({ message: msg.message });
+module.exports = async (req, res, next) => {
+  const { email } = req.body;
+  const existUser = await getUserByEmail(email);
+
+  if (existUser) {
+    return res
+      .status(userAlreadyExists.code)
+      .json({ message: userAlreadyExists.message });
   }
+
   next();
 };

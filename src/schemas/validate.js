@@ -8,13 +8,25 @@ module.exports = {
       .withMessage(errors.invalidNameLength),
     body('email')
       .exists()
-      .withMessage(errors.emptyField('email'))
+      .withMessage(errors.nullField('email'))
       .isEmail()
       .withMessage(errors.emailInvalidFormat),
     body('password')
-    .exists()
-    .withMessage(errors.emptyField('password'))
-    .isLength({ min: 6 })
-    .withMessage(errors.invalidPasswordLength),
+      .exists()
+      .withMessage(errors.nullField('password'))
+      .isLength({ min: 6 })
+      .withMessage(errors.invalidPasswordLength),
+  ],
+  login: () => [
+    body('email')
+      .exists()
+      .withMessage(errors.nullField('email'))
+      .notEmpty()
+      .withMessage(errors.emptyField('email')),
+    body('password')
+      .exists()
+      .withMessage(errors.nullField('password'))
+      .notEmpty()
+      .withMessage(errors.emptyField('password')),
   ],
 };
