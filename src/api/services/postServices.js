@@ -62,12 +62,11 @@ const readByIdServices = async (id) => {
   };
 };
 
-const updateServices = async ({ id, title, content }) => {
+const updateServices = async ({ userIdToken, nameUserToken, id, title, content }) => {
   const { userId } = await BlogPost.findByPk(id);
-  const findUser = await User.findByPk(id);
-  const user = findUser.dataValues;
+  const { displayName } = await User.findByPk(userId);
   
-  if (user.id !== userId) {
+  if (displayName !== nameUserToken && userId !== parseInt(userIdToken, 10)) {
     return {
       isDifferent: true,
       code: HTTP_UNAUTHORIZED,

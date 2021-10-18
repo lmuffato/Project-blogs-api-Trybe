@@ -49,7 +49,8 @@ const updateController = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, content } = req.body;
-    const data = { id, title, content };
+    const { id: userIdToken, displayName: nameUserToken } = req.post;
+    const data = { userIdToken, nameUserToken, id, title, content };
     const { isDifferent, code, message, isUpdated, updatePost } = await updateServices(data);
     
     if (isDifferent) return res.status(code).json({ message });
