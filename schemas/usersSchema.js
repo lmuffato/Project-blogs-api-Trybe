@@ -48,7 +48,6 @@ const validateEmail = async (email) => {
     });
     
     if (existEmail) return EMAILREGISTRED;
-    
 };
 
 const validatePassword = (password) => {
