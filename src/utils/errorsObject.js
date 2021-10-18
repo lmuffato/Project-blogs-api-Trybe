@@ -17,8 +17,14 @@ const emailRequired = {
   message: '"email" is required',
   status: 400,
 };
+
 const passwordRequired = {
   message: '"password" is required',
+  status: 400,
+};
+
+const nameRequired = {
+  message: '"name" is required',
   status: 400,
 };
 
@@ -70,4 +76,5 @@ module.exports = {
   emptyPassword,
   invalidFields,
   userDoesNotExist,
+  nameRequired,
 };

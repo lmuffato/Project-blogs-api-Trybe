@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const rescue = require('express-rescue');
 const errors = require('./src/middlewares/error');
 const user = require('./src/controllers/userControler');
+const category = require('./src/controllers/categoryController');
 
 const app = express();
 
@@ -12,6 +13,8 @@ app.post('/user', rescue(user.createUser));
 app.post('/login', rescue(user.login));
 app.get('/user/:id', rescue(user.validateToken), rescue(user.getById));
 app.get('/user', rescue(user.validateToken), rescue(user.getAll));
+
+app.post('/categories', rescue(user.validateToken), rescue(category.createCategory));
 
 app.use(errors);
 
