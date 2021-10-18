@@ -15,6 +15,7 @@ app.get('/user/:id', rescue(user.validateToken), rescue(user.getById));
 app.get('/user', rescue(user.validateToken), rescue(user.getAll));
 
 app.post('/categories', rescue(user.validateToken), rescue(category.createCategory));
+app.get('/categories', rescue(user.validateToken), rescue(category.getAll));
 
 app.use(errors);
 
