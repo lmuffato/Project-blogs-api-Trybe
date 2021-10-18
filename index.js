@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const Users = require('./controller/userController');
+const validateJWT = require('./middleware/auth/validateJWT');
 
 const app = express();
 app.use(bodyParser.json());
@@ -12,6 +13,9 @@ const PORT = process.env.PORT || 3000;
 app.get('/', (request, response) => {
   response.send();
 });
+
+// Requisito 03
+app.get('/user', validateJWT, Users.getAll);
 
 // Requisito 01
 app.post('/user', Users.create);
