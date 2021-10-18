@@ -45,7 +45,18 @@ const login = async (body) => {
   return { status: 200, data: { token } };
 };
 
+const getAll = async () => {
+  const users = await User.findAll({
+    include: { model: User },
+  });
+
+  if (!users) return { status: 400, message: 'Users empty' };
+
+  return { status: 200, data: { users } };
+};
+
 module.exports = {
   create,
   login,
+  getAll,
 };
