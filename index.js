@@ -1,27 +1,27 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { authToken } = require('./middlewares/authMiddleware');
 
 const app = express();
 app.use(bodyParser.json());
+const PORT = 3000;
 
-const userController = require('./controllers/userController');
-const categoryController = require('./controllers/categoryController');
-const postController = require('./controllers/postController');
+const { userRouter, loginRouter, categoryRouter, postRouter } = require('./routers');
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/user', userController.createUser);
-app.post('/login', userController.userLogin);
-app.post('/categories', authToken, categoryController.createCategory);
-app.post('/post', authToken, postController.createPost);
+// ------------------------------ USER ------------------------------//
+app.use('/user', userRouter);
+app.use('/login', loginRouter);
 
-app.get('/user', authToken, userController.getAll);
-app.get('/user/:id', authToken, userController.getById);
-app.get('/categories', authToken, categoryController.getAllCategories);
-app.get('/post', authToken, postController.getAllPosts);
+// ------------------------------ CATEGORIES ------------------------------//
 
-app.listen(3000, () => console.log('ouvindo porta 3000!'));
+app.use('/categories', categoryRouter);
+
+// ------------------------------ POST ------------------------------//
+
+app.use('/post', postRouter);
+
+app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
