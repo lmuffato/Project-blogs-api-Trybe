@@ -1,6 +1,6 @@
 const joi = require('@hapi/joi');
 const jwt = require('jsonwebtoken');
-const { category } = require('../models');
+const { Category } = require('../models');
 const util = require('../util');
 
 const validateCategory = joi.object({
@@ -18,7 +18,7 @@ const findCategories = async (token) => {
     throw util('Expired or invalid token', 401);
   }
 
-  const categories = await category.findAll();
+  const categories = await Category.findAll();
 
   return categories;
 };
@@ -39,7 +39,7 @@ const createCategory = async (name, token) => {
     throw util('Expired or invalid token', 401);
   }
 
-  const newCategory = await category.create({ name });
+  const newCategory = await Category.create({ name });
 
   return newCategory;
 };
