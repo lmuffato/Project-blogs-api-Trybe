@@ -6,6 +6,7 @@ app.use(bodyParser.json());
 
 const User = require('./controllers/User');
 const Login = require('./controllers/Login');
+const validateToken = require('./services/validateToken');
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
@@ -16,3 +17,5 @@ app.get('/', (request, response) => {
 
 app.post('/user', User.createUser);
 app.post('/login', Login.login);
+
+app.get('/user', validateToken, User.getUser);
