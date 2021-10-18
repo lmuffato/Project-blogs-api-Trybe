@@ -54,6 +54,10 @@ const userNotExists = {
   message: 'User does not exist',
 };
 
+const nameRequired = {
+  message: '"name" is required',
+};
+
 module.exports = {
   HTTP_OK_STATUS,
   HTTP_CREATED_STATUS,
@@ -74,4 +78,5 @@ module.exports = {
   tokenNotFound,
   invToken,
   userNotExists,
+  nameRequired,
 };
