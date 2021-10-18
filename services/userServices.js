@@ -1,4 +1,12 @@
+const jwt = require('jsonwebtoken');
+
 const { Users } = require('../models');
+
+const SECRET = 'testedoprojeto';
+const jwtConfig = {
+  expiresIn: '5d',
+  algorithm: 'HS256',
+};
 
 const findEmail = async (email) => {
   const checkEmail = await Users.findOne({ where: { email } });
@@ -12,7 +20,9 @@ const create = async (body) => {
 
   const user = await Users.create(body);
 
-  return { status: 201, data: { user } };
+  const token = jwt.sign({ data: user.dataValues }, SECRET, jwtConfig);
+
+  return { status: 201, data: { token } };
 };
 
 module.exports = {
