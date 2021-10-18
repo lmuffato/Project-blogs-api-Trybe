@@ -32,6 +32,21 @@ const userExists = {
   status: 409,
 };
 
+const emptyEmail = {
+  message: '"email" is not allowed to be empty',
+  status: 400,
+};
+
+const emptyPassword = {
+  message: '"password" is not allowed to be empty',
+  status: 400,
+};
+
+const invalidFields = {
+  message: 'Invalid fields',
+  status: 400,
+};
+
 module.exports = {
   tokenNotFound,
   invalidName,
@@ -40,4 +55,7 @@ module.exports = {
   passwordRequired,
   emailRequired,
   userExists,
+  emptyEmail,
+  emptyPassword,
+  invalidFields,
 };

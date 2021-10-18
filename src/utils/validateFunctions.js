@@ -7,12 +7,13 @@ const validateName = (name) => {
 };
 
 const validateEmail = (email) => {
+  if (email === '') throw error.emptyEmail;
   if (!email) throw error.emailRequired;
   const schema = Joi.string().email().required().validate(email);
   if (schema.error) throw error.invalidEmail;
 };
-
 const validatePassword = (password) => {
+  if (password === '') throw error.emptyPassword;
   if (!password) throw error.passwordRequired;
   const schema = Joi.string().length(6).validate(password);
   if (schema.error) throw error.invalidPassword;

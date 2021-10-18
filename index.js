@@ -9,6 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.post('/user', rescue(user.createUser));
+app.post('/login', rescue(user.login));
 
 app.use(errors);
 
