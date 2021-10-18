@@ -1,9 +1,9 @@
 const tokenGenerator = require('../../helpers/tokenGeneration');
 const { User } = require('../models');
 
+/* Source: https://github.com/tryber/sd-09-project-blogs-api/tree/henriquebelias-blogs-api */
 const createUser = async (userData) => {
   const { email } = userData;
-
   const existingUser = await User.findOne({ where: { email } });
 
   if (existingUser) {
@@ -16,7 +16,6 @@ const createUser = async (userData) => {
   }
 
   await User.create(userData);
-
   const token = tokenGenerator(userData);
 
   return token;
@@ -43,8 +42,6 @@ const getAllUsers = () => User.findAll({ attributes: { exclude: ['password'] } }
 
 const getUserById = async (id) => {
   const user = await User.findOne({ where: { id }, attributes: { exclude: ['password'] } });
-
-  console.log(user);
 
   if (!user) {
     return {

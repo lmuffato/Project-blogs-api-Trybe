@@ -4,11 +4,14 @@ const validate = require('../middlewares/validate');
 const CategoryService = require('../services/CategoryService');
 const validateJWT = require('../middlewares/validateJWS');
 
+const validateCategory = validate(Joi.object({
+  name: Joi.string().required(),
+}));
+
+/* Source: https://github.com/tryber/sd-09-project-blogs-api/tree/henriquebelias-blogs-api */
 const createCategory = [
   validateJWT,
-  validate(Joi.object({
-    name: Joi.string().required(),
-  })),
+  validateCategory,
   rescue(async (req, res) => {
     const { name } = req.body;
 

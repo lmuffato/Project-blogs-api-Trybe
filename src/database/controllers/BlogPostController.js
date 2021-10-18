@@ -4,21 +4,21 @@ const validate = require('../middlewares/validate');
 const BlogPostService = require('../services/BlogPostService');
 const validateJWT = require('../middlewares/validateJWS');
 
+const validatePost = validate(Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+  categoryIds: Joi.array().required(),
+}));
+
+/* Source: https://github.com/tryber/sd-09-project-blogs-api/tree/henriquebelias-blogs-api */
 const createPost = [
   validateJWT,
-  validate(Joi.object({
-    title: Joi.string().required(),
-    content: Joi.string().required(),
-    categoryIds: Joi.array().required(),
-  })),
+  validatePost,
   rescue(async (req, res, next) => {
     const { title, content, categoryIds } = req.body;
-
     const newPost = await BlogPostService.createPost({ title, content, categoryIds });
 
-    return newPost.error
-      ? next(newPost.error)
-      : res.status(201).json(newPost);
+    return newPost.error ? next(newPost.error) : res.status(201).json(newPost);
   }),
 ];
 
