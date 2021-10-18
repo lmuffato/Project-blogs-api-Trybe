@@ -16,7 +16,7 @@ const findCategory = rescue(
     const { authorization } = req.headers;
     const categories = await serviceCategory.findCategories(authorization);
 
-    res.status(201).json(categories);
+    res.status(200).json(categories);
   },
 );
 
