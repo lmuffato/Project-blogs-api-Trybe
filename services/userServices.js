@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 
 const { User } = require('../models');
 
+const Schema = require('../utils/schema');
+
 const SECRET = 'testedoprojeto';
 const jwtConfig = {
   expiresIn: '5d',
@@ -14,8 +16,10 @@ const findEmail = async (email) => {
 };
 
 const create = async (body) => {
-  const email = await findEmail(body.email);
+  const { error } = Schema.User.validate(body);
+  if (error) return { status: 400, message: error.details[0].message };
 
+  const email = await findEmail(body.email);
   if (email) return { status: 409, message: 'User already registered' };
 
   const user = await User.create(body);
