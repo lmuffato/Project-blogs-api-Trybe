@@ -7,6 +7,7 @@ const { SEGREDO } = process.env;
 const OK_STATUS = 200;
 const CREATED_STATUS = 201;
 const BAD_REQUEST_STATUS = 400;
+const NOT_FOUND_STATUS = 404;
 const CONFLICT_STATUS = 409;
 
 // ------------------------------------ CREATE --------------------------------------------- //
@@ -43,7 +44,22 @@ const getAllUsersService = async () => {
   return { status: OK_STATUS, data: users };
 };
 
+// ------------------------------------ GETBYID --------------------------------------------- //
+const getUserByIdService = async (id) => {
+  const user = await User.findByPk(id);
+
+  if (!user) {
+    return {
+      status: NOT_FOUND_STATUS,
+      message: 'User does not exist',
+    };
+  }
+
+  return { status: OK_STATUS, data: user };
+};
+
 module.exports = {
   createUserService,
   getAllUsersService,
+  getUserByIdService,
 };

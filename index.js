@@ -2,7 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const { validateToken } = require('./middlewares/tokenValidation');
-const { createUserController, getAllUserController } = require('./controllers/user');
+const {
+  createUserController,
+  getAllUserController,
+  getUserByIdController,
+} = require('./controllers/user');
 const { loginController } = require('./controllers/login');
 
 const app = express();
@@ -17,6 +21,7 @@ app.get('/', (request, response) => {
 
 app.post('/user', createUserController);
 app.get('/user', validateToken, getAllUserController);
+app.get('/user/:id', validateToken, getUserByIdController);
 
 app.post('/login', loginController);
 
