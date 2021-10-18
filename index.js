@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const validations = require('./middlewares/validations');
 const userController = require('./controllers/usersController');
 const categoriesController = require('./controllers/categoriesController');
+const postsController = require('./controllers/postsController');
 const { validateJWTToken } = require('./auth/authJWT');
 
 const app = express();
@@ -32,12 +33,21 @@ app.get('/user/:id', validateJWTToken, userController.findUserById);
 // --------- LOGIN --------
 
 app.post('/login',
-validations.validateEmailIsNotEmpty,
-validations.validatePasswordIsNotEmpty,
-userController.login);
+  validations.validateEmailIsNotEmpty,
+  validations.validatePasswordIsNotEmpty,
+  userController.login);
 
 // --------- Category ----------
 
 app.post('/categories', validateJWTToken, categoriesController.createCategory);
 
 app.get('/categories', validateJWTToken, categoriesController.findAllCategories);
+
+// --------- Post ----------
+
+app.post('/post',
+  validateJWTToken,
+  validations.validateTitle,
+  validations.validateContent,
+  validations.validateCategoryId,
+  postsController.createPost);
