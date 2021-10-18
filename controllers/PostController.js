@@ -9,14 +9,17 @@ const createPost = async (req, res) => {
 
 const listAllPosts = async (_req, res) => {
   const allPosts = await PostServices.listAllPosts();
-  /*
-  const { userId } = allPosts;
-  const findUser = await PostServices.findUser(userId);
-  */
   return res.status(200).json(allPosts);
+};
+
+const findPostById = async (req, res) => {
+  const { id } = req.params;
+  const findedPost = await PostServices.findPostById(id);
+  return res.status(200).json(findedPost);
 };
 
 module.exports = {
   createPost,
   listAllPosts,
+  findPostById,
 };

@@ -9,19 +9,21 @@ const createPost = async (title, content, categoryIds, userId) => {
 const listAllPosts = async () => {
   const allPosts = await BlogPosts.findAll({
     include: 
-      [{ model: Users, as: 'user', atributes: { exclude: ['password'] } }, 
-      { model: Categories, as: 'categories', atributes: { exclude: ['PostsCategories'] } }],
+      [
+        { model: Users, as: 'user', atributes: { exclude: ['password'] } }, 
+      { model: Categories, as: 'categories', atributes: { exclude: ['PostsCategories'] } },
+    ],
   });
   return allPosts;
 };
 
-const findUser = async (id) => {
-  const findId = await Users.findByPk(id);
-  return findId;
+const findPostById = async (id) => {
+  const findedPost = await BlogPosts.findByPk(id, { include: [{ all: true }] }); // Creditos Lucas Lara 
+  return findedPost;
 };
 
 module.exports = {
   createPost,
   listAllPosts,
-  findUser,
+  findPostById,
 };

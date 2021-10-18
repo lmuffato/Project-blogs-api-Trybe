@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const { JWT_SECRET } = process.env;
-const { Categories } = require('../models');
+const { Categories, BlogPosts } = require('../models');
 
 const validateTitle = (req, res, next) => {
   const { title } = req.body;
@@ -39,9 +39,17 @@ const validateToken = (req, res, next) => {
   next();
 };
 
+const validatePostId = async (req, res, next) => {
+  const { id } = req.params;
+  const findPost = await BlogPosts.findByPk(id);
+  if (!findPost) return res.status(404).json({ message: 'Post does not exist' });
+  next();
+};
+
 module.exports = {
   validateTitle,
   validateContent,
   validateCategoryIds,
   validateToken,
+  validatePostId,
 };
