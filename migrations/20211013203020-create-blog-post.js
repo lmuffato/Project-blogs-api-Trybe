@@ -16,7 +16,6 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        primaryKey: true,
       },
       title: {
         allowNull: false,
@@ -28,10 +27,12 @@ module.exports = {
       },
       published: {
         allowNull: false,
+        defaultValue: Sequelize.NOW,
         type: Sequelize.DATE
       },
       updated: {
         allowNull: false,
+        defaultValue: Sequelize.NOW,
         type: Sequelize.DATE
       }
     });

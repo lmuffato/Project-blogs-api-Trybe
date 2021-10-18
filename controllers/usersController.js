@@ -30,8 +30,15 @@ const getUserById = async (req, res) => {
   res.status(httpStatus.ok).json(userById);
 };
 
+const userByEmail = async (email) => {
+  const usrByEmail = await User.findOne({ where: { email } });
+
+  return usrByEmail;
+};
+
 module.exports = {
   createUser,
   getAllUsers,
   getUserById,
+  userByEmail,
 };

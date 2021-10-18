@@ -11,6 +11,4 @@ createCategory);
 
 router.get('/', validateJWT, getAllCategories);
 
-// router.get('/:id', validateJWT, userIdExist, getUserById);
-
 module.exports = router; 

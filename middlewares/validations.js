@@ -1,6 +1,6 @@
 const errorMessages = require('../utils/errorMessages');
 const httpStatus = require('../utils/httpStatus');
-const { User } = require('../models');
+const { User, Category } = require('../models');
 
 const nameValidate = (req, res, next) => {
   const { displayName } = req.body;
@@ -89,12 +89,43 @@ const userIdExist = async (req, res, next) => {
   next();
 };
 
-const validateCategory = (req, res, next) => {
+const validateCategory = async (req, res, next) => {
   const { name } = req.body;
 
   if (!name) {
     return res.status(httpStatus.badRequest).json({ message: errorMessages.nameRequired });
   }
+
+  next();
+};
+
+const validatePost = async (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
+
+  if (!title) {
+    return res.status(httpStatus.badRequest).json({ message: errorMessages.titleRequired });
+  }
+
+  if (!content) {
+    return res.status(httpStatus.badRequest).json({ message: errorMessages.contentRequired });
+  }
+
+  if (!categoryIds) {
+    return res.status(httpStatus.badRequest).json({ message: errorMessages.categoryIdRequired });
+  }
+
+  next();
+};
+
+const validateExistCategory = (req, res, next) => {
+  const { categoryIds } = req.body;
+  const findCategory = async (categoryId) => Category.findByPk(categoryId);
+  
+  categoryIds.every(async (id) => {
+    if (await findCategory(id) === null) {
+      return res.status(httpStatus.badRequest).json({ message: errorMessages.categoryNotFound });
+    }
+  }); 
 
   next();
 };
@@ -106,4 +137,6 @@ module.exports = {
   passwordValidate,
   userIdExist,
   validateCategory,
+  validatePost,
+  validateExistCategory,
 };
