@@ -37,6 +37,11 @@ const userExists = {
   status: 409,
 };
 
+const userDoesNotExist = {
+  message: 'User does not exist',
+  status: 404,
+};
+
 const emptyEmail = {
   message: '"email" is not allowed to be empty',
   status: 400,
@@ -64,4 +69,5 @@ module.exports = {
   emptyEmail,
   emptyPassword,
   invalidFields,
+  userDoesNotExist,
 };

@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 
 app.post('/user', rescue(user.createUser));
 app.post('/login', rescue(user.login));
+app.get('/user/:id', rescue(user.validateToken), rescue(user.getById));
 app.get('/user', rescue(user.validateToken), rescue(user.getAll));
 
 app.use(errors);

@@ -18,10 +18,16 @@ const getAll = async (_req, res) => {
   return res.status(200).json(result);
 };
 
-const validateToken = (req, res, next) => {
+const validateToken = (req, _res, next) => {
   const token = req.headers.authorization;
   tokenFcts.verifyToken(token);
   return next();
+};
+
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const result = await userService.getById(id);
+  return res.status(200).json(result);
 };
 
 module.exports = {
@@ -29,4 +35,5 @@ module.exports = {
   login,
   getAll,
   validateToken,
+  getById,
 };
