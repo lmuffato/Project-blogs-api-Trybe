@@ -7,8 +7,13 @@ module.exports = (sequelize, DataTypes) => {
     image: DataTypes.STRING,
   },
   {
-    timestamp: false,
-    tableName: 'users',
+    timestamps: false,
+    tableName: 'Users',
   });
+
+  User.associate = (models) => {
+    User.hasMany(models.BlogPost, { as: 'BlogPosts', foreignKey: 'userId' });
+  };
+  
   return User;
 }; 
