@@ -57,4 +57,25 @@ const getAll = async () => {
   }
 };
 
-module.exports = { create, getAll };
+const getById = async (id) => {
+  try {
+    const postExists = await BlogPost.findByPk(id);
+
+    if (!postExists) return errorMap.postNotExist;
+
+    const result = await BlogPost.findOne({
+      where: { id },
+      include: [
+        { model: User, as: 'user' },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+  
+    return result;
+  } catch (error) {
+    console.error(error);
+    return errorMap.internalError;
+  }
+};
+
+module.exports = { create, getAll, getById };

@@ -19,6 +19,11 @@ Router.post('/', [
   postController.create,
 ]);
 
+Router.get('/:id', [
+  validateToken,
+  postController.getById,
+]);
+
 Router.get('/', [
   validateToken,
   postController.getAll,

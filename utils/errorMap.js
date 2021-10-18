@@ -95,6 +95,12 @@ module.exports = {
       message: '"categoryIds" not found',
     },
   },
+  postNotExist: {
+    error: {
+      code: 404,
+      message: 'Post does not exist',
+    },
+  },
   tokenNotFound: {
     error: {
       code: 401,
