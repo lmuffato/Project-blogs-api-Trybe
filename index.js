@@ -64,7 +64,9 @@ app.post('/post', [
   validateCategoryId,
 ], blogPostControllers.create);
 
-app.get('/post', blogPostControllers.getAll);
+app.get('/post', [
+  authToken,
+], blogPostControllers.getAll);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
