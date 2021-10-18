@@ -47,10 +47,11 @@ const login = async (body) => {
 
 const getAll = async () => {
   const users = await User.findAll();
+  console.log(users);
 
   if (!users) return { status: 400, message: 'Users empty' };
 
-  return { status: 200, data: { users } };
+  return { status: 200, data: users };
 };
 
 module.exports = {
