@@ -45,7 +45,31 @@ async function getPosts(req, res, next) {
   }
 }
 
+async function getPostById(req, res, next) {
+  try {
+    const token = req.headers.authorization;
+    const { id } = req.params;
+    const { status } = getStatusCode('ok');
+
+    validation.verifyToken(token);
+
+    const post = await BlogPost.findOne({
+      where: { id },
+      include: [
+          { model: User, as: 'user' },
+          { model: Category, as: 'categories' },
+        ],
+    });
+    validation.isConditionValid(post, 'notFound', 'Post does not exist');
+
+    res.status(status).json(post);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   createPost,
   getPosts,
+  getPostById,
 };
