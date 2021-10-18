@@ -1,7 +1,7 @@
 require('dotenv').config();
 const PostService = require('../services/PostService');
 const { validateToken } = require('../services/validations');
-const { Users, BlogPosts } = require('../models');
+const { Users, BlogPosts, Categories } = require('../models');
 
 const INTERNAL_ERROR = 'Algo deu errado';
 
@@ -38,6 +38,7 @@ const getAllPosts = async (req, res) => {
     const posts = await BlogPosts.findAll({
       include: [
         { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Categories, as: 'category', through: { attributes: [] } },
       ],
     });
 
