@@ -16,4 +16,9 @@ const createCategory = rescue(async (req, res) => {
   res.status(201).json(newCategory.dataValues);
 });
 
-module.exports = { createCategory };
+const getCategories = rescue(async (_req, res) => {
+  const allCategories = await Category.findAll();
+  res.status(200).json(allCategories);
+});
+
+module.exports = { createCategory, getCategories };
