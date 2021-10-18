@@ -19,7 +19,6 @@ const getAll = async (_req, res) => {
 
 const getById = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
   const { message, statusCode, user } = await userService.getById(id);
   return res.status(statusCode).json(message ? { message } : (user));
 };

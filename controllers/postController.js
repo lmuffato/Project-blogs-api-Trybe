@@ -11,7 +11,14 @@ const getAllPosts = async (_req, res) => {
   return res.status(statusCode).json(posts);
 };
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const { message, statusCode, post } = await postService.getById(id);
+  return res.status(statusCode).json(message ? { message } : (post));
+};
+
 module.exports = {
   createPost,
   getAllPosts,
+  getById,
 };
