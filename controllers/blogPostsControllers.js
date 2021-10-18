@@ -1,5 +1,8 @@
 const { Router } = require('express');
-const { validateCategoryIds, existsCategory } = require('../middlewares/categoryIdsValidations');
+const {
+  validateCategoryIds,
+  existsCategory,
+  notExistsCategory } = require('../middlewares/categoryIdsValidations');
 const validateContent = require('../middlewares/contentValidations');
 const validateTitle = require('../middlewares/titleValidations');
 const verifyToken = require('../middlewares/utils/verifyToken');
@@ -27,6 +30,29 @@ BlogPosts.post('/',
       return res.status(500).json({ message: `Erro: ${e.message}` });
     }
   });
+BlogPosts
+  .put('/:id',
+    validateTitle,
+    validateContent,
+    validateJWT,
+    notExistsCategory, async (req, res) => {
+      try {
+        const { id } = req.params;
+        const { title, content } = req.body;
+        const user = verifyToken(req.headers.authorization);
+        await BlogPost.update({ title, content }, { where: { id, userId: user.id } });
+        const updatePost = await BlogPost.findOne({
+          where: { id },
+          include: [
+            { model: Category, as: 'categories', through: { attributes: [] } },
+          ],
+        });
+        if (updatePost.userId === user.id) return res.status(200).json(updatePost);
+        return res.status(401).json({ message: 'Unauthorized user' });
+      } catch (e) {
+        return res.status(500).json({ message: `Erro: ${e.message}` });
+      }
+    });
 
 BlogPosts.get('/', validateJWT, async (req, res) => {
   const posts = await BlogPost.findAll({
