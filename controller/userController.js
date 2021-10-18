@@ -48,7 +48,7 @@ const userLogin = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   const get = await userService.getAll();
-  console.log('🚀 ~ file: userController.js ~ line 51 ~ getAllUsers ~ get', get);
+  // console.log('🚀 ~ file: userController.js ~ line 51 ~ getAllUsers ~ get', get);
   res.status(HTTP_OK_STATUS).json(get);
 };
 
