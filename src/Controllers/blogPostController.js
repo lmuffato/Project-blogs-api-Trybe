@@ -1,4 +1,5 @@
 const blogPostServices = require('../Services/blogPostServices');
+const blogPostModel = require('../Models/blogPostModel');
 
 const addBlogPost = async (req, res) => {
   const { title: newTitle, content: newContent, categoryIds } = req.body;
@@ -13,8 +14,15 @@ const addBlogPost = async (req, res) => {
   return res.status(code).json({ message });
 };
 
+const getAllPosts = async (req, res) => {
+  const { code, allPosts } = await blogPostModel.getAllPosts();
+  console.log([...allPosts]);
+  return res.status(code).json([...allPosts]);
+};
+
 module.exports = {
   addBlogPost,
+  getAllPosts,
 };
 
 // Foram realizadas consultas na PR da colega Ana Ventura para assimilar 
