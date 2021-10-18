@@ -10,6 +10,16 @@ const createUser = async (req, res) => {
   return res.status(201).json({ token });
 };
 
+const login = async (req, res) => {
+  const { email, password } = req.body;
+ 
+  const { token, code, message } = await UserService.login(email, password);
+  if (message) return res.status(code).json({ message });
+
+  return res.status(200).json({ token });
+};
+
 module.exports = {
   createUser,
+  login,
 };

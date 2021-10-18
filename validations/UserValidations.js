@@ -1,7 +1,11 @@
 const { User } = require('../models');
 
 const requiredField = (param) => {
-  if (!param) return true;
+  if (param === undefined) return true;
+};
+
+const blankField = (param) => {
+  if (param === '') return true;
 };
 
 const lengthCaracteres = (param, length) => {
@@ -11,9 +15,7 @@ const lengthCaracteres = (param, length) => {
 const emailInvalid = (email) => (!email.match(/\S+@\S+\.\S+/));
 
 const checkEmail = async (email) => {
-  console.log(email);
   const userEmail = await User.findOne({ where: { email } });
-  console.log(userEmail);
   if (userEmail) return true;
 };
 
@@ -29,6 +31,8 @@ const message = {
   messageLengthName: '"displayName" length must be at least 8 characters long',
   messageLengthPassword: '"password" length must be 6 characters long',
   messageEmailExisting: 'User already registered',
+  messageEmailBlank: '"email" is not allowed to be empty',
+  messagePasswordBlank: '"password" is not allowed to be empty',
 };
 
 const validateCreateUser = (displayName, password) => {
@@ -43,7 +47,11 @@ const validateCreateUser = (displayName, password) => {
 };
 
 const validateEmail = async (email) => {
-  const { messageEmailRequired, messageEmailInvalid, messageEmailExisting } = message;
+  const { 
+    messageEmailRequired, 
+    messageEmailInvalid, 
+    messageEmailExisting, 
+  } = message;
   const { code400, code409 } = status;
 
   switch (true) {
@@ -54,7 +62,26 @@ const validateEmail = async (email) => {
   }
 };
 
+const validateLogin = async (email, password) => {
+  const { 
+    messageEmailRequired, 
+    messagePassword, 
+    messageEmailBlank, 
+    messagePasswordBlank,
+  } = message;
+  const { code400 } = status;
+
+  switch (true) {
+    case requiredField(email): return { code: code400, message: messageEmailRequired };
+    case requiredField(password): return { code: code400, message: messagePassword };
+    case blankField(email): return { code: code400, message: messageEmailBlank };
+    case blankField(password): return { code: code400, message: messagePasswordBlank };
+    default: return {};
+  }
+};
+
 module.exports = {
   validateEmail,
   validateCreateUser,
+  validateLogin,
 };
