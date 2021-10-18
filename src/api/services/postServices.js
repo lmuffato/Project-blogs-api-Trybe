@@ -132,6 +132,8 @@ const queryServices = async (query) => {
   return { code: HTTP_OK_STATUS, search };
 };
 
+// Criando esse texto para poder commitar o requisito 13 que não apareceu no git
+
 module.exports = {
   createServices,
   readAllServices,
