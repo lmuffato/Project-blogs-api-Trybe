@@ -12,11 +12,16 @@ const userController = require('./controllers/userController');
 const validateToken = require('./middlewares/token');
 const validateLogin = require('./middlewares/validateLogin');
 const loginController = require('./controllers/loginController');
+const validateCategories = require('./middlewares/validateCategories');
+const categoriesControllers = require('./controllers/categoriesController');
  
 app.post('/user', validateUser, userController.createUser);
 app.post('/login', validateLogin, loginController.userLogin);
 app.get('/user', validateToken.validateToken, userController.getUser);
 app.get('/user/:id', validateToken.validateToken, userController.getUserById);
+app.post('/categories', 
+validateToken.validateToken, validateCategories, categoriesControllers.createCategories);
+app.get('/categories', validateToken.validateToken, categoriesControllers.getCategories);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
