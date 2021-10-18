@@ -25,17 +25,17 @@ module.exports = {
         onDelete: 'CASCADE',
         primaryKey: true,
       },
-      categoryId: {
-        type: Sequelize.INTEGER,
-        field: 'categoryId',
-        references: {
-          model: 'Categories',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        primaryKey: true,
-      },
+      // categoryId: {
+      //   type: Sequelize.INTEGER,
+      //   field: 'categoryId',
+      //   references: {
+      //     model: 'Categories',
+      //     key: 'id'
+      //   },
+      //   onUpdate: 'CASCADE',
+      //   onDelete: 'CASCADE',
+      //   primaryKey: true,
+      // },
       published: {
         allowNull: false,
         type: Sequelize.DATE,
