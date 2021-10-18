@@ -38,7 +38,8 @@ const getUserById = async (id) => {
 
 const checkEmailExists = async (email) => {
   const exists = await User.findOne({ where: { email } });
-  if (exists) return true;
+  
+  if (exists) return exists.dataValues;
 };
 
 module.exports = {

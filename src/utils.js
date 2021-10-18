@@ -18,6 +18,10 @@ const status = {
   EXPIRED_TOKEN: 'Expired or invalid token',
   USER_NOT_FOUND: 'User does not exist',
   NAME_CATEGORIES: '"name" is required',
+  TITLE_ERROR: '"title" is required',
+  CONTENT_ERROR: '"content" is required',
+  CATEGORYID_ERROR: '"categoryIds" is required',
+  CATEGORY_NOT_FOUND: '"categoryIds" not found',
 };
 
 module.exports = {

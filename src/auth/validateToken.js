@@ -19,7 +19,8 @@ module.exports = async (req, res, next) => {
     if (!userVerify) {
       return res.status(status.UNAUTHORIZED).json({ message: status.EXPIRED_TOKEN });
     }
-
+    const { id } = userVerify;
+    req.user = id;
     return next();
   } catch (err) {
     return res.status(status.UNAUTHORIZED).json({ message: status.EXPIRED_TOKEN });
