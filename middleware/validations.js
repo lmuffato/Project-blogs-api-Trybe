@@ -89,6 +89,36 @@ const userNotRegistered = rescue(async (req, res, next) => {
   return next();
 });
 
+const validatePost = (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
+  if (!title) {
+    return res.status(httpStatus.BAD_REQUEST).json({
+      message: '"title" is required',
+    });
+  }
+  if (!content) {
+    return res.status(httpStatus.BAD_REQUEST).json({
+      message: '"content" is required',
+    });
+  }
+  if (!categoryIds) {
+    return res.status(httpStatus.BAD_REQUEST).json({
+      message: '"categoryIds" is required',
+    });
+  }
+  return next();
+};
+
+const isCategoryEmpty = (req, res, next) => {
+  const { categoryIds } = req.body;
+  if (!categoryIds.includes(1 || 2)) {
+    return res.status(httpStatus.BAD_REQUEST).json({
+      message: '"categoryIds" not found',
+    });
+  }
+  return next();
+};
+
 module.exports = {
   nameValidate,
   emailValidate,
@@ -96,4 +126,6 @@ module.exports = {
   emailAlreadyExists,
   empty,
   userNotRegistered,
+  validatePost,
+  isCategoryEmpty,
 };
