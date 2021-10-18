@@ -7,7 +7,8 @@ const validateToken = (req, res, next) => {
   if (!token) return res.status(401).json({ message: 'Token not found' });
 
   try {
-    jwt.verify(token, JWT_SECRET);
+    const userPayload = jwt.verify(token, JWT_SECRET);
+    req.user = userPayload.dataValues;
 
     next();
   } catch (_err) {
