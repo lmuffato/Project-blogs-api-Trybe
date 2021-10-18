@@ -68,9 +68,18 @@ const updatePost = async (id, userId, data) => {
   return { statusCode: 200, post };
 };
 
+const removePost = async (id, userId) => {
+  const checkAuthor = await BlogPost.findByPk(id);
+  if (!checkAuthor) return { statusCode: 404, message: 'Post does not exist' };
+  if (checkAuthor.userId !== userId) return { statusCode: 401, message: 'Unauthorized user' };
+  await BlogPost.destroy({ where: { id } });
+  return { statusCode: 204 };
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getById,
   updatePost,
+  removePost,
 };
