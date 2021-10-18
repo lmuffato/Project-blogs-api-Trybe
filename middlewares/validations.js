@@ -120,12 +120,17 @@ const validatePost = async (req, res, next) => {
 const validateExistCategory = (req, res, next) => {
   const { categoryIds } = req.body;
   const findCategory = async (categoryId) => Category.findByPk(categoryId);
-  
+
+  let test = true;
   categoryIds.every(async (id) => {
     if (await findCategory(id) === null) {
-      return res.status(httpStatus.badRequest).json({ message: errorMessages.categoryNotFound });
+      test = false;
     }
-  }); 
+  });
+  
+  if (test === false) {
+    return res.status(httpStatus.badRequest).json({ message: errorMessages.categoryNotFound });
+  }
 
   next();
 };
