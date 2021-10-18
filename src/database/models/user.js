@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = (models) => {
     User.hasMany(models.BlogPost,
-      { foreignKey: 'user_id', as: 'blogposts' });
+      { foreignKey: 'userId', as: 'blogposts' });
   };
 
   return User;
