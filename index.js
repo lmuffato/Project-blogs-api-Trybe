@@ -39,3 +39,5 @@ userController.login);
 // --------- Category ----------
 
 app.post('/categories', validateJWTToken, categoriesController.createCategory);
+
+app.get('/categories', validateJWTToken, categoriesController.findAllCategories);
