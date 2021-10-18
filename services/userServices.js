@@ -20,6 +20,7 @@ const create = async (body) => {
   if (error) return { status: 400, message: error.details[0].message };
 
   const email = await findEmail(body.email);
+  console.log(email);
   if (email) return { status: 409, message: 'User already registered' };
 
   const user = await User.create(body);
@@ -29,6 +30,22 @@ const create = async (body) => {
   return { status: 201, data: { token } };
 };
 
+const login = async (body) => {
+  const { error } = Schema.Login.validate(body);
+  if (error) return { status: 400, message: error.details[0].message };
+
+  const { email, password } = body;
+
+  const checkEmail = await findEmail(email);
+  if (!checkEmail 
+  || checkEmail.dataValues.password !== password) return { status: 400, message: 'Invalid fields' };
+
+  const token = jwt.sign({ data: checkEmail.dataValues }, SECRET, jwtConfig);
+
+  return { status: 200, data: { token } };
+};
+
 module.exports = {
   create,
+  login,
 };
