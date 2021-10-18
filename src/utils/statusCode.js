@@ -1,10 +1,10 @@
 const statusCode = {
-  ok: { status: 200 },
-  created: { status: 201 },
-  badRequest: { status: 400 },
-  unauthorized: { status: 401 },
-  notFound: { status: 404 },
-  conflict: { status: 409 },
+  ok: 200,
+  created: 201,
+  badRequest: 400,
+  unauthorized: 401,
+  notFound: 404,
+  conflict: 409,
  };
 
 function getStatusCode(code) {

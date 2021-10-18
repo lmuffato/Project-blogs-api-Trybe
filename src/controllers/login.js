@@ -5,7 +5,6 @@ const { getStatusCode } = require('../utils/statusCode');
 async function login(req, res, next) {
   try {
     const { email, password } = req.body;
-    const { status } = getStatusCode('ok');
 
     validation.verifyEmail(email);
     validation.verifyPassword(password);
@@ -15,7 +14,7 @@ async function login(req, res, next) {
     const user = await User.findOne({ where: { email } });
     validation.isConditionValid(user, 'badRequest', 'Invalid fields');
 
-    res.status(status).json({ token });
+    res.status(getStatusCode('ok')).json({ token });
   } catch (error) {
     next(error);
   }

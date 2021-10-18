@@ -6,14 +6,13 @@ async function createCategory(req, res, next) {
   try {
     const token = req.headers.authorization;
     const { name } = req.body;
-    const { status } = getStatusCode('created');
 
     validation.isRequired(name, 'name');
     validation.verifyToken(token);
 
     const category = await Category.create({ name });
 
-    res.status(status).json(category);
+    res.status(getStatusCode('created')).json(category);
   } catch (error) {
     next(error);
   }
@@ -22,13 +21,12 @@ async function createCategory(req, res, next) {
 async function getCategories(req, res, next) {
   try {
     const token = req.headers.authorization;
-    const { status } = getStatusCode('ok');
 
     validation.verifyToken(token);
 
     const categories = await Category.findAll();
 
-    res.status(status).json(categories);
+    res.status(getStatusCode('ok')).json(categories);
   } catch (error) {
     next(error);
   }
