@@ -10,7 +10,7 @@ describe('8 - Sua aplicação deve ter o endpoint GET `/post`', () => {
     shell.exec('npx sequelize-cli db:seed:all $');
   });
 
-  it.skip('Será validado que é possível listar blogpost com sucesso', async () => {
+  it('Será validado que é possível listar blogpost com sucesso', async () => {
     let token;
     await frisby
       .post(`${url}/login`,

@@ -38,13 +38,12 @@ const getAllPosts = async (req, res) => {
     const posts = await BlogPosts.findAll({
       include: [
         { model: Users, as: 'user', attributes: { exclude: ['password'] } },
-        { model: Categories, as: 'category', through: { attributes: [] } },
+        { model: Categories, as: 'categories', through: { attributes: [] } },
       ],
     });
 
     await Promise.all([posts]);
 
-    console.log('aaaaaaaaaaaaaaaaaaaaa', posts);
     return res.status(200).json(posts);
   } catch (e) {
     res.status(500).json({ message: INTERNAL_ERROR });
