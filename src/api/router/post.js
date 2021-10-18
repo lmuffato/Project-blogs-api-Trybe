@@ -13,6 +13,7 @@ const {
   readAllController,
   readByIdController,
   updateController,
+  deleteController,
 } = require('../controllers/postController');
 
 const router = Router();
@@ -45,6 +46,12 @@ router.put(
   validateTitle,
   validateContent,
   updateController,
+);
+
+router.delete(
+  '/:id',
+  validateToken,
+  deleteController,
 );
 
 module.exports = router;

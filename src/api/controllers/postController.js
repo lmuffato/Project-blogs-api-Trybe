@@ -5,6 +5,7 @@ const {
   readAllServices,
   readByIdServices,
   updateServices,
+  deleteServices,
 } = require('../services/postServices');
 
 const createController = async (req, res) => {
@@ -61,9 +62,27 @@ const updateController = async (req, res) => {
   }
 };
 
+const deleteController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { id: userIdToken, displayName: nameUserToken } = req.post;
+    const data = { userIdToken, nameUserToken, id };
+    const { isEmpty, isDifferent, code, message } = await deleteServices(data);
+
+    if (isEmpty) return res.status(code).json({ message });
+
+    if (isDifferent) return res.status(code).json({ message });
+
+    return res.status(code).json();
+  } catch (e) {
+    return res.status(HTTP_SERVER_ERROR).json({ message: e.message });
+  }
+};
+
 module.exports = {
   createController,
   readAllController,
   readByIdController,
   updateController,
+  deleteController,
 };

@@ -4,6 +4,7 @@ const {
   HTTP_CREATED,
   HTTP_OK_STATUS,
   HTTP_UNAUTHORIZED,
+  HTTP_NO_CONTENT,
 } = require('../status');
 
 const { BlogPost, Categorie, User } = require('../models');
@@ -85,9 +86,35 @@ const updateServices = async ({ userIdToken, nameUserToken, id, title, content }
   return { isUpdated: true, code: HTTP_OK_STATUS, updatePost };
 };
 
+const deleteServices = async ({ userIdToken, nameUserToken, id }) => {
+  const postFound = await BlogPost.findByPk(id);
+
+  if (!postFound) {
+    return {
+      isEmpty: true,
+      code: HTTP_NOT_FOUND,
+      message: 'Post does not exist',
+    };
+  }
+
+  const { displayName } = await User.findByPk(postFound.userId);
+
+  if (displayName !== nameUserToken && postFound.userId !== userIdToken) {
+    return {
+      isDifferent: true,
+      code: HTTP_UNAUTHORIZED,
+      message: 'Unauthorized user',
+    };
+  }
+
+  await BlogPost.destroy({ where: { id } });
+  return { code: HTTP_NO_CONTENT };
+};
+
 module.exports = {
   createServices,
   readAllServices,
   readByIdServices,
   updateServices,
+  deleteServices,
 };
