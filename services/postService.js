@@ -16,7 +16,18 @@ const getAll = async () => {
   return { status: 200, data: posts };
 };
 
+const getById = async (id) => {
+  const post = await Post.findByPk(id, { 
+    include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return { status: 200, data: post };
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };

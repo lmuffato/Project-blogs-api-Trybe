@@ -65,3 +65,8 @@ postController.create);
 app.get('/post',
 authMiddlewares.authValidation,
 postController.getAll);
+
+app.get('/post/:id',
+authMiddlewares.authValidation,
+postMiddlewares.checkExistingIdPost,
+postController.getById);
