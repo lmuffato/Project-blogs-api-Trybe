@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const { Users } = require('../models');
+const { User } = require('../models');
 
 const SECRET = 'testedoprojeto';
 const jwtConfig = {
@@ -9,7 +9,7 @@ const jwtConfig = {
 };
 
 const findEmail = async (email) => {
-  const checkEmail = await Users.findOne({ where: { email } });
+  const checkEmail = await User.findOne({ where: { email } });
   return checkEmail;
 };
 
@@ -18,7 +18,7 @@ const create = async (body) => {
 
   if (email) return { status: 409, message: 'User already registered' };
 
-  const user = await Users.create(body);
+  const user = await User.create(body);
 
   const token = jwt.sign({ data: user.dataValues }, SECRET, jwtConfig);
 
