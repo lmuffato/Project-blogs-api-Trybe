@@ -23,9 +23,7 @@ const validateCategories = async (req, res, next) => {
       } return true;
     }));
   const check = checkCategories.some((boolean) => boolean === false);
-  console.log(check);
   if (check) {
-    console.log(check);
     return res.status(400).json({ message: '"categoryIds" not found' });
   }
   next();

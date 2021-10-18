@@ -10,6 +10,8 @@ const {
 const router = Router();
 
 router.post('/post', validateTitle, validateContent, validateCategories, validateJWT, createPost);
-router.get('/post', validateJWT, getPosts);
+router.get('/post',
+validateJWT,
+getPosts);
 
 module.exports = router;

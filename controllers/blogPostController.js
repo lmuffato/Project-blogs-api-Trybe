@@ -15,7 +15,7 @@ const createPost = async (req, res) => {
 };
 
 const getPosts = async (req, res) => {
-  const posts = await database.BlogPosts.findAll();
+  const posts = await database.BlogPosts.findAll({ include: [{ all: true }] });
   return res.status(200).json(posts);
 };
 
