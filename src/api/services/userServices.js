@@ -13,6 +13,7 @@ const {
   HTTP_CREATED,
   HTTP_OK_STATUS,
   HTTP_NOT_FOUND,
+  HTTP_NO_CONTENT,
 } = require('../status');
 
 const { User } = require('../models');
@@ -65,8 +66,15 @@ const readByIdServices = async (id) => {
   };
 };
 
+const deleteServices = async ({ displayName }) => {
+  await User.destroy({ where: { displayName } });
+
+  return { code: HTTP_NO_CONTENT };
+};
+
 module.exports = {
   createServices,
   readAllServices,
   readByIdServices,
+  deleteServices,
 };

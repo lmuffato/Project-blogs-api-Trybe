@@ -4,6 +4,7 @@ const {
   createServices, 
   readAllServices,
   readByIdServices,
+  deleteServices,
 } = require('../services/userServices');
 
 const createController = async (req, res) => {
@@ -43,8 +44,20 @@ const readByIdController = async (req, res) => {
   }
 };
 
+const deleteController = async (req, res) => {
+  try {
+    const { displayName } = req.user;
+    const { code } = await deleteServices({ displayName });
+
+    return res.status(code).json();
+  } catch (e) {
+    return res.status(HTTP_SERVER_ERROR).json({ message: e.message });
+  }
+};
+
 module.exports = {
   createController,
   readAllController,
   readByIdController,
+  deleteController,
 };

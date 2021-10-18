@@ -12,6 +12,7 @@ const {
   createController,
   readAllController,
   readByIdController,
+  deleteController,
 } = require('../controllers/userController');
 
 const router = Router();
@@ -35,6 +36,12 @@ router.get(
   '/:id',
   validateToken,
   readByIdController,
+);
+
+router.delete(
+  '/me',
+  validateToken,
+  deleteController,
 );
 
 module.exports = router;
