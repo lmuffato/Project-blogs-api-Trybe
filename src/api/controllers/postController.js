@@ -6,6 +6,7 @@ const {
   readByIdServices,
   updateServices,
   deleteServices,
+  queryServices,
 } = require('../services/postServices');
 
 const createController = async (req, res) => {
@@ -79,10 +80,24 @@ const deleteController = async (req, res) => {
   }
 };
 
+const queryController = async (req, res) => {
+  try {
+    const { q } = req.query;
+    const { isNull, code, search } = await queryServices(q);
+
+    if (isNull) return res.status(code).json(search);
+    
+    return res.status(code).json(search);
+  } catch (e) {
+    return res.status(HTTP_SERVER_ERROR).json({ message: e.message });
+  }
+};
+
 module.exports = {
   createController,
   readAllController,
   readByIdController,
   updateController,
   deleteController,
+  queryController,
 };

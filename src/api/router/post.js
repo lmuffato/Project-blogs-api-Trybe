@@ -14,6 +14,7 @@ const {
   readByIdController,
   updateController,
   deleteController,
+  queryController,
 } = require('../controllers/postController');
 
 const router = Router();
@@ -27,6 +28,11 @@ router.post(
   createController,
 );
 
+router.get(
+  '/search',
+  validateToken,
+  queryController,
+);
 router.get(
   '/',
   validateToken,

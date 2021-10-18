@@ -1,3 +1,5 @@
+const { Op } = require('sequelize');
+
 const {
   HTTP_BAD_REQUEST,
   HTTP_NOT_FOUND,
@@ -111,10 +113,30 @@ const deleteServices = async ({ userIdToken, nameUserToken, id }) => {
   return { code: HTTP_NO_CONTENT };
 };
 
+const queryServices = async (query) => {
+  const search = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        { title: { [Op.like]: `%${query}%` } },
+        { content: { [Op.like]: `%${query}%` } },
+      ],
+    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Categorie, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  if (!search) return { isNull: true, code: HTTP_UNAUTHORIZED, search: [] };
+  
+  return { code: HTTP_OK_STATUS, search };
+};
+
 module.exports = {
   createServices,
   readAllServices,
   readByIdServices,
   updateServices,
   deleteServices,
+  queryServices,
 };
