@@ -7,6 +7,7 @@ const httpStatus = {
   forbidden: 403,
   notFound: 404,
   conflict: 409,
+  serverError: 500,
 };
 
 module.exports = httpStatus;

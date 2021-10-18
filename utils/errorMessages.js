@@ -8,6 +8,7 @@ const errorMessages = {
   invalidEmail: '"email" must be a valid email',
   invalidFields: 'Invalid fields',
   invalidToken: 'Expired or invalid token',
+  InternalServer: 'Internal Server Error',
   noEmail: '"email" is required',
   nameLength: '"displayName" length must be at least 8 characters long',
   nameRequired: '"name" is required',
