@@ -16,19 +16,14 @@ app.get('/', (request, response) => {
 });
 
 app.post('/user', UserController.createUser);
-
 app.post('/login', UserController.userLogin);
-
 app.get('/user', UserController.getAllUsers);
-
 app.get('/user/:id', UserController.getUserById);
 
 app.post('/categories', CategoryController.createCategory);
-
 app.get('/categories', CategoryController.getAllCategories);
 
 app.post('/post', BlogPostController.createPost);
-
 app.get('/post', BlogPostController.getAllPosts);
 
 app.use(ErrorMiddleware);
