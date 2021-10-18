@@ -11,6 +11,7 @@ const {
   userRouter,
   loginRouter,
   categoryRouter,
+  postRouter,
 } = require('./routers');
 
 // ---------------------------------------------------- USERS ---------------------------------------------------- //
@@ -22,6 +23,10 @@ app.use('/login', loginRouter);
 // -------------------------------------------------- CATEGORIES ------------------------------------------------- //
 
 app.use('/categories', categoryRouter);
+
+// -------------------------------------------------- BLOGPOSTS -------------------------------------------------- //
+
+app.use('/post', postRouter);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {

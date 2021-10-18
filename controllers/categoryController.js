@@ -3,9 +3,8 @@ const { CREATED, OK } = require('../utils/statusCodeMap');
 
 const create = async (req, res) => {
   const { name } = req.body;
-  const { authorization: token } = req.headers;
 
-  const result = await categoryService.create(name, token);
+  const result = await categoryService.create(name);
 
   const { error } = result;
 
@@ -15,9 +14,7 @@ const create = async (req, res) => {
 };
 
 const getAll = async (req, res) => {
-  const { authorization: token } = req.headers;
-
-  const result = await categoryService.gettAll(token);
+  const result = await categoryService.gettAll();
 
   const { error } = result;
 

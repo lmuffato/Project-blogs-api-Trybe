@@ -9,7 +9,7 @@ const validateToken = (req, _res, next) => {
     if (!token) next(tokenNotFound.error);
 
     const decodedToken = jwt.verify(token, SECRET);
-    
+
     req.token = decodedToken;
 
     next();

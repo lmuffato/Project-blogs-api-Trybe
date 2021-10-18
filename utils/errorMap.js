@@ -71,6 +71,30 @@ module.exports = {
       message: 'Invalid fields',
     },
   },
+  titleIsRequired: {
+    error: {
+      code: 400,
+      message: '"title" is required',
+    },
+  },
+  contentIsRequired: {
+    error: {
+      code: 400,
+      message: '"content" is required',
+    },
+  },
+  categoryidIsRequired: {
+    error: {
+      code: 400,
+      message: '"categoryIds" is required',
+    },
+  },
+  categoryidsNotFound: {
+    error: {
+      code: 400,
+      message: '"categoryIds" not found',
+    },
+  },
   tokenNotFound: {
     error: {
       code: 401,

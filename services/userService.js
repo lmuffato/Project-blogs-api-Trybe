@@ -90,4 +90,4 @@ const getById = async (id) => {
   }
 };
 
-module.exports = { create, login, gettAll, getById };
+module.exports = { create, login, gettAll, getById, findUserByEmail };
