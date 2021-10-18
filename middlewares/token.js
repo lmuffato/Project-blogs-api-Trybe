@@ -9,16 +9,15 @@ const jwtConfig = {
 
 const token = (userData) => {
   const tokenUser = jwt.sign(userData, PASSWORD, jwtConfig);
-  return tokenUser;  
+  return { token: tokenUser };  
 };
 
 const validateToken = async (req, res, next) => {
-  try {  
   const tokenUser = req.headers.authorization;
   if (!tokenUser) {
     return res.status(401).json({ message: 'Token not found' });
   }
-
+  try { 
   const validation = jwt.verify(tokenUser, PASSWORD);
     res.user = validation;
     next();
