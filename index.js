@@ -16,4 +16,7 @@ app.get('/', (request, response) => {
 // Requisito 01
 app.post('/user', Users.create);
 
+// Requisito 02
+app.post('/login', Users.login);
+
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
