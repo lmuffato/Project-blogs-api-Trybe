@@ -1,7 +1,7 @@
 require('dotenv').config();
 const PostService = require('../services/PostService');
 const { validateToken } = require('../services/validations');
-// const { Categories } = require('../models');
+const { Users, BlogPosts } = require('../models');
 
 const INTERNAL_ERROR = 'Algo deu errado';
 
@@ -16,7 +16,6 @@ const createPosts = async (req, res) => {
     }
     const dataPost = await PostService.createPosts(title, content, categoryIds, token);
     if (dataPost.message) {
-      console.log(dataPost);
       return res.status(dataPost.numberStatus).json({ message: dataPost.message });
     }
 
@@ -28,27 +27,27 @@ const createPosts = async (req, res) => {
   }
 };
 
-const getAllPosts = async (_req, _res) => {
-  // try {
-  //   const { title, content, categoryIds } = req.body;
-  //   const token = req.headers.authorization;
+const getAllPosts = async (req, res) => {
+  try {
+    const token = req.headers.authorization;
 
-  //   const verifyTokenError = validateToken(token);
-  //   if (verifyTokenError) {
-  //     return res.status(verifyTokenError.numberStatus).json({ message: verifyTokenError.message });
-  //   }
-  //   const dataPost = await PostService.createPosts(title, content, categoryIds, token);
-  //   if (dataPost.message) {
-  //     console.log(dataPost);
-  //     return res.status(dataPost.numberStatus).json({ message: dataPost.message });
-  //   }
+    const verifyTokenError = validateToken(token);
+    if (verifyTokenError) {
+      return res.status(verifyTokenError.numberStatus).json({ message: verifyTokenError.message });
+    }
+    const posts = await BlogPosts.findAll({
+      include: [
+        { model: Users, as: 'user', through: { exclude: ['password'] } },
+      ],
+    });
 
-  //   const { ID: id, userId } = dataPost;
+    await Promise.all([posts]);
 
-  //   return res.status(201).json({ id, userId, title, content });
-  // } catch (e) {
-  //   res.status(500).json({ message: INTERNAL_ERROR });
-  // }
+    console.log('aaaaaaaaaaaaaaaaaaaaa', posts);
+    return res.status(200).json(posts);
+  } catch (e) {
+    res.status(500).json({ message: INTERNAL_ERROR });
+  }
 };
 
 module.exports = {

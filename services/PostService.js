@@ -19,11 +19,12 @@ const createPosts = async (title, content, categoryIds, token) => {
   const validateByCategory = await validations.validateByCategory(categoryIds);
   if (validateByCategory) return validateByCategory;
   const post = await BlogPosts.create({ title, content, userId });
-  
-  categoryIds.forEach(async (categoryId) => {
-    const postId = await post.dataValues.id;
-    await PostsCategories.create(postId, categoryId);
+  const postId = await post.dataValues.id;
+  const postcategorys = categoryIds.map(async (categoryId) => {
+    await PostsCategories.create({ postId, categoryId });
   });
+
+  await Promise.all(postcategorys);
 
   return { ID: post.dataValues.id, userId };
 };

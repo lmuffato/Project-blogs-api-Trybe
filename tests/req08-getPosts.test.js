@@ -3,14 +3,14 @@ const shell = require('shelljs');
 
 const url = 'http://localhost:3000';
 
-describe.skip('8 - Sua aplicação deve ter o endpoint GET `/post`', () => {
+describe('8 - Sua aplicação deve ter o endpoint GET `/post`', () => {
   beforeEach(() => {
     shell.exec('npx sequelize-cli db:drop');
     shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate $');
     shell.exec('npx sequelize-cli db:seed:all $');
   });
 
-  it('Será validado que é possível listar blogpost com sucesso', async () => {
+  it.skip('Será validado que é possível listar blogpost com sucesso', async () => {
     let token;
     await frisby
       .post(`${url}/login`,
