@@ -89,6 +89,13 @@ const ERROR_CATEGORY_NAME = {
   },
 };
 
+const ERROR_CATEGORY_NOT_FOUND = {
+  error: {
+    status: 400,
+    message: '"categoryIDs" not found',
+  },
+};
+
 module.exports = {
   ERROR_DISPLAY_NAME_LENGTH,
   ERROR_EMAIL_REQUIRED,
@@ -103,4 +110,5 @@ module.exports = {
   ERROR_JWT,
   ERROR_USER_NOT_FOUND,
   ERROR_CATEGORY_NAME,
+  ERROR_CATEGORY_NOT_FOUND,
 };

@@ -16,3 +16,5 @@ module.exports = (sequelize, DataTypes) => {
   };
   return BlogPost;
 };
+
+// Associação e relacionamento feito com base no material da aula ao vivo e no artigo do link: https://medium.com/@rogeriothe_48115/relacionamentos-com-sequelize-guia-final-2b3baf21b2a1
