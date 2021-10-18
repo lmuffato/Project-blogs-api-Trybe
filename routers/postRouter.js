@@ -19,6 +19,11 @@ Router.post('/', [
   postController.create,
 ]);
 
+Router.get('/', [
+  validateToken,
+  postController.getAll,
+]);
+
 Router.use((err, _req, res, _next) => {
   const { code, message } = err;
   return res.status(code).json({ message });

@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { Category, BlogPost } = require('../models');
+const { Category, BlogPost, User } = require('../models');
 const errorMap = require('../utils/errorMap');
 
 const { Op } = Sequelize;
@@ -41,4 +41,20 @@ const create = async (post, token) => {
   }
 };
 
-module.exports = { create };
+const getAll = async () => {
+  try {
+    const result = await BlogPost.findAll({
+      include: [
+        { model: User, as: 'user' },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+  
+    return result;
+  } catch (error) {
+    console.error(error);
+    return errorMap.internalError;
+  }
+};
+
+module.exports = { create, getAll };
