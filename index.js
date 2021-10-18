@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const validations = require('./middlewares/validations');
 const userController = require('./controllers/usersController');
+const categoriesController = require('./controllers/categoriesController');
 const { validateJWTToken } = require('./auth/authJWT');
 
 const app = express();
@@ -34,3 +35,7 @@ app.post('/login',
 validations.validateEmailIsNotEmpty,
 validations.validatePasswordIsNotEmpty,
 userController.login);
+
+// --------- Category ----------
+
+app.post('/categories', validateJWTToken, categoriesController.createCategory);
