@@ -32,7 +32,12 @@ async function getPosts(req, res, next) {
 
     validation.verifyToken(token);
 
-    const categories = await BlogPost.findAll();
+    const categories = await BlogPost.findAll({
+      include: [
+        { model: User, as: 'user' },
+        { model: Category, as: 'categories' },
+      ],
+    });
 
     res.status(status).json(categories);
   } catch (error) {
