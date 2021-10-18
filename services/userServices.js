@@ -46,9 +46,7 @@ const login = async (body) => {
 };
 
 const getAll = async () => {
-  const users = await User.findAll({
-    include: { model: User },
-  });
+  const users = await User.findAll();
 
   if (!users) return { status: 400, message: 'Users empty' };
 
