@@ -19,7 +19,13 @@ const login = async (req, res) => {
   return res.status(200).json({ token });
 };
 
+const listUsers = async (req, res) => {
+  const list = await UserService.listUsers();
+  return res.status(200).json(list);
+};
+
 module.exports = {
   createUser,
   login,
+  listUsers,
 };
