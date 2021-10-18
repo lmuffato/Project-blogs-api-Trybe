@@ -51,3 +51,7 @@ app.post('/post',
   validations.validateContent,
   validations.validateCategoryId,
   postsController.createPost);
+
+  app.get('/post',
+  validateJWTToken,
+  postsController.findAllPosts);

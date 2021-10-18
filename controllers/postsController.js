@@ -17,6 +17,16 @@ async function createPost(req, res) {
   return res.status(201).json(newPost);
 }
 
+async function findAllPosts(_req, res) {
+  try {
+ const allPosts = await BlogPost.findAll({ include: [{ all: true }] });
+  return res.status(200).json(allPosts); 
+} catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
+}
+
 module.exports = {
   createPost,
+  findAllPosts,
 };
