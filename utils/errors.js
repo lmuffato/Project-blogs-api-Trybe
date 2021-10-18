@@ -92,7 +92,7 @@ const ERROR_CATEGORY_NAME = {
 const ERROR_CATEGORY_NOT_FOUND = {
   error: {
     status: 400,
-    message: '"categoryIDs" not found',
+    message: '"categoryIds" not found',
   },
 };
 
