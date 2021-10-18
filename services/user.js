@@ -4,12 +4,15 @@ const { userValidation } = require('../utils/schema');
 
 const { SEGREDO } = process.env;
 
+const OK_STATUS = 200;
 const CREATED_STATUS = 201;
 const BAD_REQUEST_STATUS = 400;
 const CONFLICT_STATUS = 409;
 
+// ------------------------------------ CREATE --------------------------------------------- //
+
 const createUserService = async (displayName, email, password, image) => {
-    const { error } = userValidation.validate(displayName, email, password, image);
+    const { error } = userValidation.validate({ displayName, email, password, image });
 
     if (error) {
       return {
@@ -33,6 +36,14 @@ const createUserService = async (displayName, email, password, image) => {
     return { status: CREATED_STATUS, data: { token } };
 };
 
+// ------------------------------------ GETALL --------------------------------------------- //
+
+const getAllUsersService = async () => {
+  const users = await User.findAll();
+  return { status: OK_STATUS, data: users };
+};
+
 module.exports = {
   createUserService,
+  getAllUsersService,
 };
