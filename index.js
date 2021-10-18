@@ -14,6 +14,8 @@ const validateLogin = require('./middlewares/validateLogin');
 const loginController = require('./controllers/loginController');
 const validateCategories = require('./middlewares/validateCategories');
 const categoriesControllers = require('./controllers/categoriesController');
+const validatePosts = require('./middlewares/validatePosts');
+const postsController = require('./controllers/postsController');
  
 app.post('/user', validateUser, userController.createUser);
 app.post('/login', validateLogin, loginController.userLogin);
@@ -22,6 +24,7 @@ app.get('/user/:id', validateToken.validateToken, userController.getUserById);
 app.post('/categories', 
 validateToken.validateToken, validateCategories, categoriesControllers.createCategories);
 app.get('/categories', validateToken.validateToken, categoriesControllers.getCategories);
+app.post('/post', validateToken.validateToken, validatePosts, postsController.createPosts);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
