@@ -8,6 +8,7 @@ const {
   getUserByIdController,
 } = require('./controllers/user');
 const { loginController } = require('./controllers/login');
+const { createCategoryController } = require('./controllers/categories');
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,10 +20,17 @@ app.get('/', (request, response) => {
   response.send();
 });
 
+// --------------------------------------- USER ------------------------------ //
+
 app.post('/user', createUserController);
 app.get('/user', validateToken, getAllUserController);
 app.get('/user/:id', validateToken, getUserByIdController);
 
+// --------------------------------------- LOGIN ------------------------------ //
+
 app.post('/login', loginController);
+
+// --------------------------------------- CATEGORY ------------------------------ //
+app.post('/categories', validateToken, createCategoryController);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));

@@ -12,7 +12,12 @@ const loginValidation = Joi.object({
   password: Joi.string().required(),
 });
 
+const categoriesValidation = Joi.object({
+  name: Joi.string().required(),
+});
+
 module.exports = {
   userValidation,
   loginValidation,
+  categoriesValidation,
 };
