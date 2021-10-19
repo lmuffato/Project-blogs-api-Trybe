@@ -14,9 +14,7 @@ const createUserController = async (req, res) => {
 // ------------------------------------ GETALL --------------------------------------------- //
 
 const getAllUserController = async (_req, res) => {
-  const { status, data, message } = await getAllUsersService();
-
-  if (message) return res.status(status).json({ message });
+  const { status, data } = await getAllUsersService();
   
   res.status(status).json(data);
 };
