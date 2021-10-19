@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 
 app.get('/user', validateWebToken, usersController.getAllUser);
 app.get('/user/:id', validateWebToken, usersController.getUserById);
+app.get('/categories', validateWebToken, categoryController.getAllCategories);
 app.post('/user', usersController.create);
 app.post('/login', loginController.logIn);
 app.post('/categories', validateWebToken, categoryController.createCategory);
