@@ -63,6 +63,11 @@ const invalidFields = {
   status: 400,
 };
 
+const categoryNotFound = {
+  message: '"categoryIds" not found',
+  status: 400,
+};
+
 module.exports = {
   tokenNotFound,
   expOrInvalidToken,
@@ -77,4 +82,5 @@ module.exports = {
   invalidFields,
   userDoesNotExist,
   nameRequired,
+  categoryNotFound,
 };

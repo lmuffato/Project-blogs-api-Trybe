@@ -20,7 +20,7 @@ const getAll = async (_req, res) => {
 
 const validateToken = (req, _res, next) => {
   const token = req.headers.authorization;
-  tokenFcts.verifyToken(token);
+  req.user = tokenFcts.verifyToken(token);
   return next();
 };
 

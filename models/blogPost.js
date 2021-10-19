@@ -1,24 +1,24 @@
-const BlogPost = async (sequelize, DataTypes) => {
-  const blogpost = await sequelize.define('BlogPost', {
+const BlogPost = (sequelize, DataTypes) => {
+  const blogpost = sequelize.define('BlogPost', {
     // id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: { type: DataTypes.STRING },
     content: { type: DataTypes.STRING },
-    // userId: { type: DataTypes.integer, foreignKey: true }, NAO INFORMAR
+    userId: { type: DataTypes.INTEGER }, 
 
     // DUVIDA - POR QUE USAR LINHA 9 nao 10?
-    published: { type: DataTypes.DATE },
+    // published: { type: DataTypes.DATE },
     // createdAt: {
-      //   type: DataTypes.DATE,
-      //   as / fields : 'published',
-      //   autoIncrement: true,
+    //     type: DataTypes.DATE,
+    //     as: 'published',
+    //   //   autoIncrement: true,
     // },
-    updated: { type: DataTypes.DATE },
+    // // updated: { type: DataTypes.DATE },
     // updatedAt: {
     //   type: DataTypes.DATE,
     //   as: 'updated',
-    //   autoIncrement: true,
+    // //   autoIncrement: true,
     // },
-  });
+  }, { timestamps: false });
   return blogpost;
 };
 

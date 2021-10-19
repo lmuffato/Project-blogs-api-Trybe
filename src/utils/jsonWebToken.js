@@ -9,12 +9,13 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const createToken = (payload) => jwt.sign({ userData: payload }, JWT_SECRET, jwtConfig);
+const createToken = (payload) => jwt.sign(payload, JWT_SECRET, jwtConfig);
 
 const verifyToken = (token) => {
   if (!token) throw errorsObject.tokenNotFound;
-  jwt.verify(token, JWT_SECRET);
-  return true;
+  const payload = jwt.verify(token, JWT_SECRET);
+  console.log(payload);
+  return payload;
 };
 
 module.exports = {

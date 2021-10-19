@@ -13,23 +13,25 @@ const createUser = async (displayName, email, password, image) => {
   validateFct.validateEmail(email);
   validateFct.validatePassword(password);
   await emailExists(email);
-  await User.create({ displayName, email, password, image });
-  return tokenFunctions.createToken({ displayName, email });
+  const user = await User.create({ displayName, email, password, image });
+  const { _password, ...userWithoutPass } = user.dataValues;
+  return tokenFunctions.createToken(userWithoutPass);
 };
 
-const login = async (email, password) => {
+const login = async (email, pass) => {
   validateFct.validateEmail(email);
-  validateFct.validatePassword(password);
+  validateFct.validatePassword(pass);
   const result = await User.findOne({ 
-    where: { email, password },
+    where: { email, password: pass },
   });
   if (!result) throw error.invalidFields;
-  return tokenFunctions.createToken({ email });
+  const { password, ...userWithoutPass } = result.dataValues;
+  return tokenFunctions.createToken(userWithoutPass);
 };
 
 const getAll = async () => {
   const result = await User.findAll({
-    attributes: { exclude: ['password'] }
+    attributes: { exclude: ['password'] },
   });
   return result;
 };
