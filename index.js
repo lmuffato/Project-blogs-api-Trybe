@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const validations = require('./middleware/authentication');
+const authentication = require('./middleware/authentication');
 const userController = require('./controllers/userController');
 
 const app = express();
@@ -16,8 +16,12 @@ app.get('/', (_request, response) => {
 });
 
 app.post('/user',
-  validations.validEmail,
-  validations.validEmailFormat,
-  validations.validName,
-  validations.validPassword,
+  authentication.validEmail,
+  authentication.validEmailFormat,
+  authentication.validName,
+  authentication.validPassword,
   userController.createUser);
+
+  app.post('/login', authentication.emailRequired, 
+  authentication.passwordRequired, 
+  userController.userLogin);

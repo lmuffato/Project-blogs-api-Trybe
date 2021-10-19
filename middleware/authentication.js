@@ -5,6 +5,8 @@ const EMAIL_REQUIRED = '"email" is required';
 const EMAIL_VALID = '"email" must be a valid email';
 const PASSWORD_REQUIRED = '"password" is required';
 const PASSWORD_LENGTH = '"password" length must be 6 characters long';
+const EMAIL_NOT_EMPTY = '"email" is not allowed to be empty';
+const PASSWORD_NOT_EMPTY = '"password" is not allowed to be empty';
 
 const nameLenth = 8;
 const passwordLenth = 6;
@@ -49,9 +51,34 @@ const validPassword = (req, res, next) => {
   next();
 };
 
+const passwordRequired = (req, res, next) => {
+  const { password } = req.body;
+  if (!password && password !== '') {
+    return res.status(HTTP_BAD_REQUEST).json({ message: PASSWORD_REQUIRED });
+  }
+  if (password === '') {
+    return res.status(HTTP_BAD_REQUEST).json({ message: PASSWORD_NOT_EMPTY });
+  }
+  next();
+};
+
+const emailRequired = (req, res, next) => {
+  const { email } = req.body;
+    if (!email && email !== '') {
+    return res.status(HTTP_BAD_REQUEST)
+      .json({ message: EMAIL_REQUIRED });
+  }
+  if (email === '') {
+    return res.status(HTTP_BAD_REQUEST).json({ message: EMAIL_NOT_EMPTY });
+  }
+  next();
+};
+
 module.exports = {
   validName,
   validEmail,
   validEmailFormat,
   validPassword,
+  emailRequired,
+  passwordRequired,
 };
