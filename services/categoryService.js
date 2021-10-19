@@ -11,6 +11,15 @@ const create = async (body) => {
   return { status: 201, data: newCategory };
 };
 
+const getAll = async () => {
+  const categories = await Category.findAll();
+
+  if (!categories) return { status: 400, message: 'Categories empty' };
+
+  return { status: 200, data: categories };
+};
+
 module.exports = {
   create,
+  getAll,
 };
