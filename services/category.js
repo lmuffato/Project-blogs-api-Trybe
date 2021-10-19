@@ -8,4 +8,9 @@ const createCategory = async (name) => {
     return { status: 201, message: category };
 };
 
-module.exports = { createCategory };
+const getCategories = async () => {
+    const category = await Category.findAll();
+    return { status: 200, message: category };
+};
+
+module.exports = { createCategory, getCategories };
