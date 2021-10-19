@@ -6,6 +6,7 @@
     "dotenv": "^8.6.0",
     "eslint-config-trybe-backend": "1.0.3",
     "express": "^4.17.1",
+    "joi-objectid": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "2.1.0",
     "sequelize": "6.3.4",
