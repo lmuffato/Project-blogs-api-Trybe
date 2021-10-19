@@ -43,3 +43,11 @@ exports.getAll = async () => {
 
   return users;
 };
+
+exports.getOne = async (id) => {
+  const user = await User.findByPk(id);
+
+  if (!user) throw new AppError(404, 'User does not exist');
+
+  return user;
+};
