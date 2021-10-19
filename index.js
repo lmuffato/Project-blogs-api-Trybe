@@ -15,4 +15,4 @@ app.get('/', (request, response) => {
 
 app.use(UserRoutes);
 
-app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
+app.listen(PORT, 'localhost', () => console.log(`ouvindo porta ${PORT}!`));
