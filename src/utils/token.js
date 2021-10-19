@@ -1,7 +1,7 @@
 const Jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const { SECRET_TOKEN } = process.env;
+const { JWT_SECRET } = process.env;
 
 const jwtConfig = {
   algorithm: 'HS256',
@@ -18,7 +18,7 @@ const checkIfTokenExists = (token) => {
 
 const isTokenValid = (token) => {
   try {
-    Jwt.verify(token, SECRET_TOKEN);
+    Jwt.verify(token, JWT_SECRET);
   } catch (err) {
     err.message = 'jwt malformed';
     err.code = 401;
@@ -28,7 +28,7 @@ const isTokenValid = (token) => {
 
 const createToken = (user) => {
   const { password: _, ...payload } = user;
-  const token = Jwt.sign(payload, SECRET_TOKEN, jwtConfig);
+  const token = Jwt.sign(payload, JWT_SECRET, jwtConfig);
   return token;
 };
 
@@ -36,7 +36,7 @@ const validateToken = (req, _res, next) => {
   const token = req.headers.authorization;
   checkIfTokenExists(token);
   isTokenValid(token);
-  const payload = Jwt.verify(token, SECRET_TOKEN);
+  const payload = Jwt.verify(token, JWT_SECRET);
   req.user = payload;
   next();
 };
