@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const userRouter = require('./routes/userRoutes');
+const categoryRouter = require('./routes/categoryRoutes');
 const errorHandler = require('./controllers/errorController');
 const authController = require('./controllers/authController');
 
@@ -16,6 +17,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', userRouter);
+app.use('/categories', categoryRouter);
 app.use('/login', authController.login);
 
 app.use(errorHandler);

@@ -2,7 +2,7 @@ const AppError = require('../utils/AppError');
 
 module.exports = (err, _req, res, _next) => {
   console.log('ERROR NAME: ', err.name);
-  console.log(Object.keys(err));
+  console.log(err);
 
   if (err instanceof AppError) {
     return res.status(err.code).json({ message: err.message });
