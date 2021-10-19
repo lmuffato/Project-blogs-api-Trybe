@@ -6,6 +6,8 @@ const HTTP_BAD_REQUEST = 400;
 const HTTP_NOT_FOUND = 404;
 
 const NAME_REQUIRED = '"name" is required';
+const CATEGORY_ID_REQUIRED = '"categoryIds" is required';
+const CATEGORY_ID_NOT_FOUND = '"categoryIds" not found';
 
 const createCategory = async (req, res) => {
   const { name } = req.body;
@@ -29,7 +31,20 @@ const findAllCategories = async (_req, res) => {
   }
 };
 
+const validCategoryId = async (req, res, next) => {
+  const { categoryIds } = req.body;
+  if (!categoryIds) {
+    return res.status(HTTP_BAD_REQUEST).json({ message: CATEGORY_ID_REQUIRED });
+  }
+  const isIdExists = await Category.findOne({ where: { id: categoryIds[0] } });
+  if (!isIdExists) { 
+    return res.status(HTTP_BAD_REQUEST).json({ message: CATEGORY_ID_NOT_FOUND });
+  }
+  next();
+};
+
 module.exports = {
   createCategory,
   findAllCategories,
+  validCategoryId,
 };

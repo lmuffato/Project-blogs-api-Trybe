@@ -7,6 +7,7 @@ const PASSWORD_REQUIRED = '"password" is required';
 const PASSWORD_LENGTH = '"password" length must be 6 characters long';
 const EMAIL_NOT_EMPTY = '"email" is not allowed to be empty';
 const PASSWORD_NOT_EMPTY = '"password" is not allowed to be empty';
+const TITLE_REQUIRED = '"title" is required';
 
 const nameLenth = 8;
 const passwordLenth = 6;
@@ -74,6 +75,22 @@ const emailRequired = (req, res, next) => {
   next();
 };
 
+const validTitle = (req, res, next) => {
+  const { title } = req.body;
+  if (!title) {
+    return res.status(HTTP_BAD_REQUEST).json({ message: TITLE_REQUIRED });
+  }
+  next();
+};
+
+const validContent = (req, res, next) => {
+  const { content } = req.body;
+  if (!content) {
+    return res.status(400).json({ message: '"content" is required' });
+  }
+  next();
+};
+
 module.exports = {
   validName,
   validEmail,
@@ -81,4 +98,6 @@ module.exports = {
   validPassword,
   emailRequired,
   passwordRequired,
+  validTitle,
+  validContent,
 };
