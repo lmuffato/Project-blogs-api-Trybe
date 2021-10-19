@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const Users = require('./controller/userController');
+const Categories = require('./controller/categoryController');
 const validateJWT = require('./middleware/auth/validateJWT');
 
 const app = express();
@@ -25,5 +26,8 @@ app.get('/user/:id', validateJWT, Users.getById);
 
 // Requisito 02
 app.post('/login', Users.login);
+
+// Requisito 05
+app.post('/categories', validateJWT, Categories.create);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
