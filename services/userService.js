@@ -35,3 +35,11 @@ exports.login = async ({ email, password }) => {
 
   return token;
 };
+
+exports.getAll = async () => {
+  // Exclusão do atributo password consultado na documentação do sequelize
+  // https://sequelize.org/master/manual/model-querying-basics.html#simple-select-queries
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+
+  return users;
+};

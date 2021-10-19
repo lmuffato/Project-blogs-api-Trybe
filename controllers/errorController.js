@@ -17,7 +17,7 @@ module.exports = (err, _req, res, _next) => {
   }
 
   if (err.name === 'JsonWebTokenError') {
-    return res.status(401).json({ message: 'jwt malformed' });
+    return res.status(401).json({ message: 'Expired or invalid token' });
   }
 
   res.status(500).json({ message: 'Something went wront' });

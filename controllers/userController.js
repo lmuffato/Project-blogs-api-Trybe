@@ -11,3 +11,13 @@ exports.create = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getAll = async (req, res, next) => {
+  try {
+    const users = await userService.getAll();
+
+    return res.status(200).json(users);
+  } catch (err) {
+    next(err);
+  }
+};
