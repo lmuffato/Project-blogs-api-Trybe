@@ -11,6 +11,15 @@ const create = async (req, res) => {
   res.status(status).json(blogPost);
 };
 
+const getAll = async (req, res) => {
+  const { id } = req.user;
+
+  const { status, message, blogPosts } = await blogPostService.getAll(id);
+  if (!blogPosts) return res.status(status).json({ message });
+  res.status(status).json(blogPosts); 
+};
+
 module.exports = {
   create,
+  getAll,
 };
