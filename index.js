@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const userController = require('./controllers/user');
 const categoryController = require('./controllers/category');
+const blogPostController = require('./controllers/blogPost');
 const validateToken = require('./middlewares/jwtAuth');
 
 const app = express();
@@ -11,8 +12,10 @@ app.post('/user', userController.createUser);
 app.post('/login', userController.loginUser);
 app.get('/user/:id', validateToken, userController.getUserById);
 app.get('/user', validateToken, userController.getUser);
+
 app.post('/categories', validateToken, categoryController.createCategory);
 app.get('/categories', validateToken, categoryController.getCategories);
+app.post('/post', validateToken, blogPostController.createPost);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {

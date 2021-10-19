@@ -46,7 +46,9 @@ const loginUser = async (displayName, email, password) => {
     const findUser = await User.findOne({ where: { email, password } });
     if (!findUser) return MESSAGE.invalidFields;
 
-    const tokenPayload = { displayName, email };
+    const userId = findUser.dataValues.id;
+    
+    const tokenPayload = { userId, displayName, email };
     const token = jwt.sign(tokenPayload, secret, jwtConfig);
 
     return { status: 200, message: token };
