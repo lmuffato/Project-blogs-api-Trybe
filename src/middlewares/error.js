@@ -1,5 +1,4 @@
 const error = (err, _req, res, _next) => {
-  console.log('entrou no middleware de erro');
   console.log(err);
   if (err.name === 'JsonWebTokenError') {
     return res.status(401).json({ message: 'Expired or invalid token' }); 

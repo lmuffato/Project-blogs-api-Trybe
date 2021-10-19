@@ -22,7 +22,7 @@ const validatePassword = (password) => {
 const validatePost = (bodyObject) => {
   const { error } = Joi.object({
     title: Joi.string().required(),
-    categoryIds: Joi.integer().required(),
+    categoryIds: Joi.array().required(),
     content: Joi.string().required(),
   }).validate(bodyObject);
   if (error) throw error;

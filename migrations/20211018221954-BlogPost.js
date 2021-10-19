@@ -16,18 +16,22 @@ module.exports = {
         type: Sequelize.STRING,
       },
       userId: {
-        type: Sequelize.integer,
-        foreignKey: true,
+        type: Sequelize.INTEGER,
+        // foreignKey: true, POR QUE NAO DEVE SER FOREIGKEY?
+        references: {
+          model: 'Users',
+          key: 'id',
+        }
       },
       createdAt: {
         type: Sequelize.DATE,
-        as: 'published',
-        autoIncrement: true,
+        field: 'published',
+        defaultValue: new Date(),
       },
       updatedAt: {
         type: Sequelize.DATE,
-        as: 'updated',
-        autoIncrement: true,
+        field: 'updated',
+        defaultValue: new Date(),
       },
       });
   },

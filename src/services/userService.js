@@ -20,18 +20,25 @@ const createUser = async (displayName, email, password, image) => {
 const login = async (email, password) => {
   validateFct.validateEmail(email);
   validateFct.validatePassword(password);
-  const result = await User.findOne({ where: { email, password } });
+  const result = await User.findOne({ 
+    where: { email, password },
+  });
   if (!result) throw error.invalidFields;
   return tokenFunctions.createToken({ email });
 };
 
 const getAll = async () => {
-  const result = await User.findAll({});
+  const result = await User.findAll({
+    attributes: { exclude: ['password'] }
+  });
   return result;
 };
 
 const getById = async (id) => {
-  const result = await User.findByPk(id);
+  const result = await User.findByPk(
+    id, 
+    { attributes: { exclude: ['password'] } },
+  );
   if (!result) throw error.userDoesNotExist;
   return result;
 };

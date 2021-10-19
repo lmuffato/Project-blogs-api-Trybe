@@ -1,6 +1,6 @@
 const BlogPost = async (sequelize, DataTypes) => {
   const blogpost = await sequelize.define('BlogPost', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    // id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: { type: DataTypes.STRING },
     content: { type: DataTypes.STRING },
     // userId: { type: DataTypes.integer, foreignKey: true }, NAO INFORMAR
@@ -9,7 +9,7 @@ const BlogPost = async (sequelize, DataTypes) => {
     published: { type: DataTypes.DATE },
     // createdAt: {
       //   type: DataTypes.DATE,
-      //   as: 'published',
+      //   as / fields : 'published',
       //   autoIncrement: true,
     // },
     updated: { type: DataTypes.DATE },

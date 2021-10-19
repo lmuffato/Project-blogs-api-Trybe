@@ -4,6 +4,7 @@ const rescue = require('express-rescue');
 const errors = require('./src/middlewares/error');
 const user = require('./src/controllers/userControler');
 const category = require('./src/controllers/categoryController');
+const post = require('./src/controllers/blogPostController');
 
 const app = express();
 
@@ -16,6 +17,8 @@ app.get('/user', rescue(user.validateToken), rescue(user.getAll));
 
 app.post('/categories', rescue(user.validateToken), rescue(category.createCategory));
 app.get('/categories', rescue(user.validateToken), rescue(category.getAll));
+
+app.post('/post', rescue(user.validateToken), rescue(post.createPost));
 
 app.use(errors);
 
