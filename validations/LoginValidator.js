@@ -16,7 +16,7 @@ const passwordValidate = (password, response) => {
     if (!password) return response.status(400).json({ message: passwordMessageUndefined });
 };
 
-const userValidate = (request, response, next) => {
+const loginValidator = (request, response, next) => {
     const { email, password } = request.body;
 
     emailValidate(email, response);
@@ -25,4 +25,4 @@ const userValidate = (request, response, next) => {
     return next();
 };
 
-module.exports = userValidate;
+module.exports = loginValidator;
