@@ -1,12 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const routes = require('./routes');
+const route = require('./routes/routes');
 const erroMessage = require('./middlewares/error');
 
 const app = express();
 app.use(bodyParser.json());
 
-app.use('/user', routes.User);
+app.use(route);
 
 app.use(erroMessage);
 
