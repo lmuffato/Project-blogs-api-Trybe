@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { createUser } = require('./controller/user');
+const { userLogin } = require('./controller/login');
 
 const app = express();
 
@@ -14,3 +15,4 @@ app.get('/', (request, response) => {
 });
 
 app.post('/user', createUser);
+app.post('/login', userLogin);

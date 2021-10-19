@@ -1,5 +1,4 @@
 const Joi = require('../middleware/schema');
-// const { newToken } = require('../middleware/token');
 const { User } = require('../models');
 
 function check(data) {
