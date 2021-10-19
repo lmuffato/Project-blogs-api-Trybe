@@ -20,7 +20,7 @@
     "test-coverage": "jest --runInBand --coverage",
     "debug": "nodemon index.js",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
-    "restore": "sequelize db:drop && sequelize db:create && sequelize db:migrate"
+    "restart-migration": "sequelize db:drop && sequelize db:create && sequelize db:migrate"
   },
   "devDependencies": {
     "eslint": "6.8.0",
