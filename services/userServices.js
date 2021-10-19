@@ -56,7 +56,7 @@ const getAll = async () => {
 const getById = async (id) => {
   const userById = await User.findOne({ where: { id } });
 
-  if (!userById) return { status: 400, message: 'User does not exist' };
+  if (!userById) return { status: 404, message: 'User does not exist' };
 
   return { status: 200, data: userById };
 };
