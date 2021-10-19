@@ -27,6 +27,9 @@ app.get('/user/:id', validateJWT, Users.getById);
 // Requisito 02
 app.post('/login', Users.login);
 
+// Requisito 06
+app.get('/categories', validateJWT, Categories.getAll);
+
 // Requisito 05
 app.post('/categories', validateJWT, Categories.create);
 
