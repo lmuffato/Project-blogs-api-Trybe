@@ -18,8 +18,7 @@ const jwtConfig = {
 
 const secret = process.env.SECRET;
 
-const createUser = async (displayName, email, password, _image) => {
-
+const createUser = async (displayName, email, password, image) => {
     const displayNameResponse = validateDisplayName(displayName);
     if (displayNameResponse !== MESSAGE.success) return displayNameResponse;
 
@@ -31,12 +30,12 @@ const createUser = async (displayName, email, password, _image) => {
     const passwordResponse = validatePassword(password);
     if (passwordResponse !== MESSAGE.success) return passwordResponse;
 
-    const tokenPayload = { displayName, email };
+    const tokenPayload = { displayName, email, image };
     const token = jwt.sign(tokenPayload, secret, jwtConfig);
     return { status: 201, token };
 };
 
-const loginUser = async (displayName, email, password) => {
+const loginUser = async (email, password) => {
     if (email === undefined) return MESSAGE.emailNotExists;
     if (password === undefined) return MESSAGE.passwordNotExists;
 
@@ -48,7 +47,7 @@ const loginUser = async (displayName, email, password) => {
 
     const userId = findUser.dataValues.id;
     
-    const tokenPayload = { userId, displayName, email };
+    const tokenPayload = { userId, email };
     const token = jwt.sign(tokenPayload, secret, jwtConfig);
 
     return { status: 200, message: token };
