@@ -1,4 +1,4 @@
-const { in: opIn } = require('sequelize').Op
+const { in: opIn } = require('sequelize').Op;
 const { BlogPost, Category } = require('../../models');
 const validateFcts = require('../utils/validateFunctions');
 const error = require('../utils/errorsObject');
