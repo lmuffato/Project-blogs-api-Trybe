@@ -40,8 +40,15 @@ const listUsers = async () => {
   return list;
 };
 
+const listUserId = async (id) => {
+  const user = await User.findByPk(id);
+  if (!user) return { code: 404, message: 'User does not exist' };
+  return { user };
+};
+
 module.exports = {
   createUser,
   login,
   listUsers,
+  listUserId,
 };
