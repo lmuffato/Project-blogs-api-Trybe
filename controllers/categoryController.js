@@ -9,3 +9,12 @@ exports.create = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getAll = async (_req, res, next) => {
+  try {
+    const categories = await categoryService.getAll();
+    res.status(200).json(categories);
+  } catch (err) {
+    next(err);
+  }
+};
