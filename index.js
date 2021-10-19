@@ -7,7 +7,6 @@ app.use(express.json());
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
 app.use(UserRoutes);
 
@@ -15,3 +14,5 @@ app.use(UserRoutes);
 app.get('/', (request, response) => {
   response.send();
 });
+
+app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
