@@ -12,7 +12,12 @@ const Login = Joi.object({
   password: Joi.string().length(6).required(),
 });
 
+const Category = Joi.object({
+  name: Joi.string().required(),
+});
+
 module.exports = {
   User,
   Login,
+  Category,
 };
