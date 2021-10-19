@@ -20,6 +20,9 @@ app.get('/user', validateJWT, Users.getAll);
 // Requisito 01
 app.post('/user', Users.create);
 
+// Requisito 04
+app.get('/user/:id', validateJWT, Users.getById);
+
 // Requisito 02
 app.post('/login', Users.login);
 
