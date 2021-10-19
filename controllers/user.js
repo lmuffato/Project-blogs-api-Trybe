@@ -32,4 +32,10 @@ const loginUser = async (req, res) => {
     return res.status(login.status).json({ message: login.message });
 };
 
-module.exports = { createUser, loginUser };
+const getUser = async (req, res) => {
+    console.log(req.user);
+    const users = await User.findAll({ attributes: { exclude: ['password'] } });
+    return res.status(200).json(users);
+};
+
+module.exports = { createUser, loginUser, getUser };

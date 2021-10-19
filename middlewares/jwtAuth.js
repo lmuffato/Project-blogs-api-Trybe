@@ -6,14 +6,14 @@ const secret = process.env.SECRET;
 const validateToken = async (req, res, next) => {
     const { authorization } = req.headers;
 
-    if (!authorization) return res.status(401).json({ message: 'missing auth token' });
+    if (!authorization) return res.status(401).json({ message: 'Token not found' });
 
     try {
         const tokenPayload = jwt.verify(authorization, secret);
         req.user = tokenPayload;
         next();
     } catch (e) {
-        return res.status(401).json({ message: 'jwt malformed' });
+        return res.status(401).json({ message: 'Expired or invalid token' });
     }
 };
 
