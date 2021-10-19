@@ -6,6 +6,7 @@
     "dotenv": "8.2.0",
     "eslint-config-trybe-backend": "1.0.3",
     "express": "4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.1.0",
     "sequelize": "^6.3.4",
     "shelljs": "0.8.4"
@@ -18,7 +19,8 @@
     "test": "jest --runInBand",
     "test-coverage": "jest --runInBand --coverage",
     "debug": "nodemon index.js",
-    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
+    "restore": "sequelize db:drop && sequelize db:create && sequelize db:migrate"
   },
   "devDependencies": {
     "eslint": "6.8.0",
