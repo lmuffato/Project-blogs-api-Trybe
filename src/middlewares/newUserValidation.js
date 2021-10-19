@@ -1,4 +1,4 @@
-const newUserSchema = require('./schemas/newUserSchema');
+const { newUserSchema } = require('./schemas/userSchema');
 
 module.exports = async (req, res, next) => {
   const user = req.body;

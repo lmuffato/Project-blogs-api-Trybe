@@ -11,6 +11,8 @@ const error = require('./src/middlewares/error');
 
 const PORT = process.env.PORT || 3000;
 app.use('/user', routes.User);
+app.use('/login', routes.Login);
+
 app.use(error);
 
 // não remova esse endpoint, e para o avaliador funcionar
