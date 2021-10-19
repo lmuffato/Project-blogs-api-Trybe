@@ -1,7 +1,7 @@
 const AppError = require('../utils/AppError');
 
 module.exports = (err, _req, res, _next) => {
-  console.log('ERROR CODE: ', err.name);
+  console.log('ERROR NAME: ', err.name);
   console.log(Object.keys(err));
 
   if (err instanceof AppError) {
