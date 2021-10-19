@@ -17,7 +17,16 @@ const getAll = async (_req, res) => {
   res.status(status).json(blogPosts); 
 };
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+
+  const { status, message, blogPost } = await blogPostService.getById(id);
+  if (!blogPost) return res.status(status).json({ message });
+  res.status(status).json(blogPost); 
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };

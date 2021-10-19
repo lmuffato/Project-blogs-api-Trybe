@@ -21,6 +21,7 @@ app.get('/categories', validateToken, categoryController.getAll);
 
 app.post('/post', validateToken, blogPostController.create);
 app.get('/post', validateToken, blogPostController.getAll);
+app.get('/post/:id', validateToken, blogPostController.getById);
 
 app.get('/', (_request, response) => {
   response.send();
