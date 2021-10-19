@@ -47,15 +47,23 @@ const login = async (body) => {
 
 const getAll = async () => {
   const users = await User.findAll();
-  console.log(users);
 
   if (!users) return { status: 400, message: 'Users empty' };
 
   return { status: 200, data: users };
 };
 
+const getById = async (id) => {
+  const userById = await User.findOne({ where: { id } });
+
+  if (!userById) return { status: 400, message: 'User does not exist' };
+
+  return { status: 200, data: userById };
+};
+
 module.exports = {
   create,
   login,
   getAll,
+  getById,
 };
