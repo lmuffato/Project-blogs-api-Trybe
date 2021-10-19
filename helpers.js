@@ -58,6 +58,22 @@ const nameRequired = {
   message: '"name" is required',
 };
 
+const titleRequired = {
+  message: '"title" is required',
+};
+
+const contentRequired = {
+  message: '"content" is required',
+};
+
+const categoryIdsRequired = {
+  message: '"categoryIds" is required',
+};
+
+const ifCategoryIdsExists = {
+  message: '"categoryIds" not found',
+};
+
 module.exports = {
   HTTP_OK_STATUS,
   HTTP_CREATED_STATUS,
@@ -79,4 +95,8 @@ module.exports = {
   invToken,
   userNotExists,
   nameRequired,
+  titleRequired,
+  contentRequired,
+  categoryIdsRequired,
+  ifCategoryIdsExists,
 };
