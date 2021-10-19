@@ -43,6 +43,10 @@ const MESSAGE = {
         status: 400,
         message: '"password" is required',
     },
+    categoryNameIsRequired: {
+        status: 400,
+        message: '"name" is required',
+    },
 };
 
 module.exports = MESSAGE;
