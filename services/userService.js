@@ -22,6 +22,7 @@ async function createUser(data) {
     return { status: 409, error: 'User already registered' };
   } 
   await User.create({ displayName, email, password, image });
+  // await User.create({ data }); Outra forma de criar o objeto
   return { status: 201, message: 'User created' };
 }
 

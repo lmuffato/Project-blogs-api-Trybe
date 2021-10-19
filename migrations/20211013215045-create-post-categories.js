@@ -2,7 +2,8 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('PostsCategories', { postId: {
+    await queryInterface.createTable('PostsCategories', { 
+      postId: {
       type: Sequelize.INTEGER,
       allowNull: false,
       onUpdate: 'CASCADE',
