@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser'); 
 
-const routes = require('./router/userRoute');
+const userRouter = require('./router/userRoute');
 
 const app = express();
 
@@ -14,4 +14,4 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.use(routes);
+app.use('/user', userRouter);
