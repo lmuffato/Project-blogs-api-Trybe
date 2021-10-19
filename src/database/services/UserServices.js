@@ -21,6 +21,7 @@ const createUser = async (userData) => {
   return token;
 };
 
+/* Source: https://github.com/tryber/sd-09-project-blogs-api/tree/henriquebelias-blogs-api */
 const userLogin = async ({ email, password }) => {
   const user = await User.findOne({ where: { email, password } });
 
@@ -38,7 +39,9 @@ const userLogin = async ({ email, password }) => {
   return token;
 };
 
-const getAllUsers = () => User.findAll({ attributes: { exclude: ['password'] } });
+const getAllUsers = () => {
+  User.findAll({ attributes: { exclude: ['password'] } });
+};
 
 const getUserById = async (id) => {
   const user = await User.findOne({ where: { id }, attributes: { exclude: ['password'] } });

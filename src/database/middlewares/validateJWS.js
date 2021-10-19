@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const SECRET = 'segredo_mais_secreto';
 
+/* Source: https://github.com/tryber/sd-09-project-blogs-api/tree/henriquebelias-blogs-api */
 const validateJWT = (req, res, next) => {
   const token = req.headers.authorization;
 

@@ -11,10 +11,7 @@ const validatePost = validate(Joi.object({
 }));
 
 /* Source: https://github.com/tryber/sd-09-project-blogs-api/tree/henriquebelias-blogs-api */
-const createPost = [
-  validateJWT,
-  validatePost,
-  rescue(async (req, res, next) => {
+const createPost = [validateJWT, validatePost, rescue(async (req, res, next) => {
     const { title, content, categoryIds } = req.body;
     const newPost = await BlogPostService.createPost({ title, content, categoryIds });
 
@@ -22,11 +19,9 @@ const createPost = [
   }),
 ];
 
-const getAllPosts = [
-  validateJWT,
-  rescue(async (req, res) => {
+const getAllPosts = [validateJWT, rescue(async (_req, res) => {
     const posts = await BlogPostService.getAllPosts();
-
+    
     return res.status(200).json(posts);
   }),
 ];

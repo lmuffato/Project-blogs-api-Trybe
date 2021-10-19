@@ -9,21 +9,15 @@ const validateCategory = validate(Joi.object({
 }));
 
 /* Source: https://github.com/tryber/sd-09-project-blogs-api/tree/henriquebelias-blogs-api */
-const createCategory = [
-  validateJWT,
-  validateCategory,
-  rescue(async (req, res) => {
+const createCategory = [validateJWT, validateCategory, rescue(async (req, res) => {
     const { name } = req.body;
-
     const newCategory = await CategoryService.createCategory({ name });
 
     return res.status(201).json(newCategory);
   }),
 ];
 
-const getAllCategories = [
-  validateJWT,
-  rescue(async (_req, res) => {
+const getAllCategories = [validateJWT, rescue(async (_req, res) => {
     const categories = await CategoryService.getAllCategories();
 
     return res.status(200).json(categories);

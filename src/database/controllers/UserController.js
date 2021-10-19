@@ -17,9 +17,7 @@ const validateLogin = validate(Joi.object({
 }));
 
 /* Source: https://github.com/tryber/sd-09-project-blogs-api/tree/henriquebelias-blogs-api */
-const createUser = [
-  validateUser,
-  rescue(async (req, res, next) => {
+const createUser = [validateUser, rescue(async (req, res, next) => {
     const { displayName, email, password, image } = req.body;
     const token = await UserService.createUser({ displayName, email, password, image });
 
@@ -28,9 +26,7 @@ const createUser = [
 ];
 
 /* Source: https://github.com/tryber/sd-09-project-blogs-api/tree/henriquebelias-blogs-api */
-const userLogin = [
-  validateLogin,
-  rescue(async (req, res, next) => {
+const userLogin = [validateLogin, rescue(async (req, res, next) => {
     const { email, password } = req.body;
     const token = await UserService.userLogin({ email, password });
 
@@ -38,18 +34,14 @@ const userLogin = [
   }),
 ];
 
-const getAllUsers = [
-  validateJWT,
-  rescue(async (_req, res) => {
+const getAllUsers = [validateJWT, rescue(async (_req, res) => {
     const users = await UserService.getAllUsers();
 
     return res.status(200).json(users);
   }),
 ];
 
-const getUserById = [
-  validateJWT,
-  rescue(async (req, res, next) => {
+const getUserById = [validateJWT, rescue(async (req, res, next) => {
     const { id } = req.params;
     const user = await UserService.getUserById(id);
 
