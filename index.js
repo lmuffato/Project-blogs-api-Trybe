@@ -14,6 +14,7 @@ app.get('/user', validateWebToken, usersController.getAllUser);
 app.get('/user/:id', validateWebToken, usersController.getUserById);
 app.get('/categories', validateWebToken, categoryController.getAllCategories);
 app.get('/post', validateWebToken, blogPostController.getAllBlogPosts);
+app.get('/post/:id', validateWebToken, blogPostController.getBlogPostById);
 app.post('/user', usersController.create);
 app.post('/login', loginController.logIn);
 app.post('/categories', validateWebToken, categoryController.createCategory);
