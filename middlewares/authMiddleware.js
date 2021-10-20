@@ -11,10 +11,8 @@ function validateJWT(req, res, next) {
   }
 
   try {
-    const { email, userId, role } = jwt.verify(token, JWTsecret);
+    const { email } = jwt.verify(token, JWTsecret);
     req.email = email;
-    req.userId = userId;
-    req.role = role;
   } catch (err) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
