@@ -1,43 +1,61 @@
 const Joi = require('joi');
 
-const displayNameValidate = (displayName, response) => {
+function displayNameValidate(displayName) {
   const displayNameValidation = Joi.string().min(8).required();
   const displayNameIsValid = displayNameValidation.validate(displayName);
-  const displayNameMessage = '"displayName" length must be at least 8 characters long';
 
-  if (displayNameIsValid.error) return response.status(400).json({ message: displayNameMessage });
-};
+  return !!displayNameIsValid.error;
+}
 
-const emailValidate = (email, response) => {
+function emailValidate(email) {
   const emailValidation = Joi.string().email().required();
   const emailIsValid = emailValidation.validate(email);
-  const emailMessageInvalid = '"email" must be a valid email';
-  const emailMessageUndefined = '"email" is required';
 
-  if (!email) return response.status(400).json({ message: emailMessageUndefined });
-  if (emailIsValid.error) return response.status(400).json({ message: emailMessageInvalid });
-};
+  return !!emailIsValid.error;
+}
 
-const passwordValidate = (password, response) => {
+function passwordValidate(password) {
   const passwordValidation = Joi.string().min(6).required();
   const passwordIsValid = passwordValidation.validate(password);
-  const passwordMessageInvalid = '"password" length must be 6 characters long';
-  const passwordMessageUndefined = '"password" is required';
 
-  if (!password) return response.status(400).json({ message: passwordMessageUndefined });
-  if (passwordIsValid.error) {
-    return response.status(400).json({ message: passwordMessageInvalid });
-  }
-};
+  return !!passwordIsValid.error;
+}
 
-const userValidate = (request, response, next) => {
+function userValidate(request, response, next) {
   const { displayName, email, password } = request.body;
 
-  displayNameValidate(displayName, response);
-  emailValidate(email, response);
-  passwordValidate(password, response);
+  const displayNameMessage = '"displayName" length must be at least 8 characters long';
+  const emailMessage = '"email" must be a valid email';
+  const passwordMessage = '"password" length must be 6 characters long';
 
-  return next();
-};
+  switch (true) {
+    case displayNameValidate(displayName):
+      return response.status(400).json({ message: displayNameMessage });
+    case emailValidate(email):
+      return response.status(400).json({ message: emailMessage });
+    case passwordValidate(password):
+      return response.status(400).json({ message: passwordMessage });
+    default:
+      return next();
+  }
+}
 
-module.exports = userValidate;
+function userRequired(request, response, next) {
+  const { email, password } = request.body;
+
+  const emailMessageUndefined = '"email" is required';
+  const passwordMessageUndefined = '"password" is required';
+
+  switch (undefined) {
+    case email:
+      return response.status(400).json({ message: emailMessageUndefined });
+    case password:
+      return response.status(400).json({ message: passwordMessageUndefined });
+    default:
+      console.log(email);
+      console.log(password);
+      return next();
+  }
+}
+
+module.exports = { userValidate, userRequired };

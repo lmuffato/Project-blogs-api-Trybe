@@ -6,9 +6,9 @@ async function createUser(request, response) {
     const { displayName, email, password, image } = request.body;
     await saveUser({ displayName, email, password, image });
     const token = generateToken(email, password);
-    response.status(201).json({ token });
+    return response.status(201).json({ token });
   } catch (error) {
-    response.status(409).json({ message: error.message });
+    return response.status(409).json({ message: error.message });
   }
 }
 

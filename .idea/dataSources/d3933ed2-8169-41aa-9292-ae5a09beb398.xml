@@ -1103,24 +1103,52 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <table id="286" parent="2" name="SequelizeMeta">
       <Collation>utf8_unicode_ci</Collation>
     </table>
-    <column id="287" parent="286" name="name">
+    <table id="287" parent="2" name="Users"/>
+    <column id="288" parent="286" name="name">
       <Position>1</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="288" parent="286" name="name">
+    <index id="289" parent="286" name="name">
       <ColNames>name</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="289" parent="286" name="PRIMARY">
+    <key id="290" parent="286" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>name</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="290" parent="286" name="name">
+    <key id="291" parent="286" name="name">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>name</UnderlyingIndexName>
+    </key>
+    <column id="292" parent="287" name="id">
+      <Position>1</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="293" parent="287" name="displayName">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="294" parent="287" name="email">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="295" parent="287" name="password">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="296" parent="287" name="image">
+      <Position>5</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <key id="297" parent="287" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
     </key>
   </database-model>
 </dataSource>
