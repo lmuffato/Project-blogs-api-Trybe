@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParse = require('body-parser');
 const controllerUser = require('./controller/user');
 const controllerCategory = require('./controller/category');
+const controllerBlogPost = require('./controller/blogPost');
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.get('/user/:id', controllerUser.findId);
 app.post('/categories', controllerCategory.createCategory);
 
 app.get('/categories', controllerCategory.findCategory);
+
+app.post('/post', controllerBlogPost.createBlogPost);
 
 app.use((err, _req, res, _next) => {
   const { message, status } = err;

@@ -11,8 +11,7 @@ const validateUser = joi.object({
 
 const jwtSecret = 'passwordNivelHard';
 
-const createUser = async (user) => {
-  const { displayName, email, password, image } = user;
+const createUser = async ({ displayName, email, password, image }) => {
   const { error } = validateUser.validate({ displayName, email, password });
 
   if (error) {
@@ -28,8 +27,10 @@ const createUser = async (user) => {
 
   await User.create({ displayName, email, password, image });
 
-  const jwtConfig = { expiresIn: '1d', algorithm: 'HS256' };
-  const token = jwt.sign(user, jwtSecret, jwtConfig);
+  const [findUser] = await User.findAll({ where: { email } });
+
+
+  const token = jwt.sign(findUser.dataValues, jwtSecret);
 
   return token;
 };
