@@ -17,8 +17,6 @@ const create = async (body, userId) => {
   const post = await BlogPost
     .create({ title, content, userId, published: new Date(), updated: new Date() });
 
-  console.log(post);
-
   return { status: 201, data: post };
 };
 
