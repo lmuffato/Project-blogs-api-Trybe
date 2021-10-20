@@ -11,12 +11,22 @@ const createUser = rescue(async (req, res, next) => {
 
 const getAll = async (req, res) => {
   const users = await userService.getAll();
-  console.log(req.user);
+  // console.log(req.user);
 
   res.status(200).json(users);
+};
+
+const findById = async (req, res, next) => {
+  const { id } = req.params;
+  const user = await userService.findById(id);
+
+  if (user.error) return next(user.error);
+
+  res.status(200).json(user);
 };
 
 module.exports = {
   createUser,
   getAll,
+  findById,
 };
