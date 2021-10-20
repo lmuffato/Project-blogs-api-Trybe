@@ -26,3 +26,4 @@ app.get('/user', validateToken, User.getUser);
 app.get('/user/:id', validateToken, User.getById);
 app.get('/categories', validateToken, Category.getCategories);
 app.get('/post', validateToken, BlogPost.getPosts);
+app.get('/post/:id', validateToken, BlogPost.getById);
