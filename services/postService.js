@@ -18,6 +18,15 @@ async function categoriesExists(categoryIds) {
   return false;
 }
 
+async function updatePostsCategories(postId, categoryIds) {
+  const postsCategoriesPromises = categoryIds.map(async (catId) => {
+    const postCatUpdate = await PostsCategories.create({ postId, categoryId: catId });
+    return postCatUpdate;
+  });
+
+  await Promise.all(postsCategoriesPromises);
+}
+
 async function create({ title, categoryIds, content, email }) {
   const categoriesAreValid = await categoriesExists(categoryIds);
   
