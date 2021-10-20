@@ -23,7 +23,7 @@ const errors = {
     code: 400,
     message: `"${field}" is not allowed to be empty`,
   }),
-  userNotExists: {
+  userEmailNotExists: {
     code: 400,
     message: 'Invalid fields',
   },
@@ -38,6 +38,10 @@ const errors = {
   invalidToken: {
     code: 401,
     message: 'Expired or invalid token',
+  },
+  notFoundUser: {
+    code: 404,
+    message: 'User does not exist',
   },
 };
 
