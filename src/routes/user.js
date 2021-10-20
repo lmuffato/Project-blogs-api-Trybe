@@ -1,8 +1,9 @@
 const express = require('express');
-const controller = require('../controllers');
+const rescue = require('express-rescue');
+const { userControllers } = require('../controllers');
 
 const router = express.Router();
 
-router.get('/ping', controller.user);
+router.post('/', rescue(userControllers.createUser));
 
 module.exports = router;
