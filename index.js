@@ -26,3 +26,4 @@ app.get('/user', tokenAuth, usersController.getUsers);
 app.get('/user/:id', tokenAuth, usersController.getUser);
 
 app.post('/categories', tokenAuth, categoryController.create);
+app.get('/categories', tokenAuth, categoryController.getCategories);
