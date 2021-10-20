@@ -20,4 +20,6 @@ router.post('/',
   validCategoryIds,
   PostController.createPosts);
 
+router.get('/', authValidation, PostController.getAll);
+
 module.exports = router;
