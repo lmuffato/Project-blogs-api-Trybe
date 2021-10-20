@@ -1,3 +1,5 @@
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+
 ![trybe-project-blogs-api](https://socialify.git.ci/rafaelgeronimo/trybe-project-blogs-api/image?description=1&descriptionEditable=%5BTrybe%20Project%5D%20Blogs%20API&language=1&owner=1&theme=Light)
 
 ## 📗 Sobre
@@ -11,7 +13,7 @@ Nesse projeto, praticamos o desenvolvimento de um back-end usando `ORM` com o pa
 
 **Módulo**: Desenvolvimento Back-end
 
-**Bloco**: Arquiterura: SOLID e ORM
+**Bloco**: Arquitetura: SOLID e ORM
 
 ## O que foi desenvolvido
 
