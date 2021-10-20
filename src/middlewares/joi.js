@@ -7,4 +7,9 @@ const userJoi = Joi.object({
   image: Joi.string(),
 });
 
-module.exports = { userJoi };
+const loginJoi = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+});
+
+module.exports = { userJoi, loginJoi };

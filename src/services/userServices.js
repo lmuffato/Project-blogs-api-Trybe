@@ -1,6 +1,6 @@
 // dica de implementação e uso do joi: bia zidioti
 const schema = require('../middlewares/joi');
-const { Users } = require('../../models');
+const { User } = require('../../models');
 const httpStatus = require('../status/status');
 // const errorCodes = require('../error/errorCodes');
 
@@ -22,7 +22,7 @@ async function createUserServices(data) {
 
   const { displayName, email, password, image } = data;
 
-  const searchUser = await Users.findOne({
+  const searchUser = await User.findOne({
     where: { email },
   });
 
@@ -30,7 +30,7 @@ async function createUserServices(data) {
     return { status: httpStatus.CONFLICT_STATUS, error: 'User already registered' };
   }
 
-  await Users.create({ displayName, email, password, image });
+  await User.create({ displayName, email, password, image });
 
   return { status: httpStatus.HTTP_CREATE_STATUS, message: 'User created' };
 }
