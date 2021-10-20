@@ -16,4 +16,4 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/', nameValidator, emailValidator, passwordValidator, usersController.create);
+app.post('/user', nameValidator, emailValidator, passwordValidator, usersController.create);
