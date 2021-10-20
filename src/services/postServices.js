@@ -18,22 +18,12 @@ const getAllPosts = async () => {
   console.log('entrei');
   const posts = await BlogPosts.findAll({ 
     include: [
-      { model: User, as: 'user' },
-      // { model: Categories, as: 'categories', through: { attributes: ['id', 'name'] } },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: Categories, as: 'categories' }],
     });
 
   console.log(posts);
   return posts;
 };
-
-// const getAllPosts = async () => {
-//   const posts = await BlogPosts.findAll({
-//     attributes: ['id', 'title', 'content', 'published', 'updated'],
-//     include: [
-//     { model: User, as: 'users' },
-//     { model: Categories, as: 'categories', through: { attributes: ['id', 'name'] } }],
-//   });
-// }
 
 module.exports = { createBlogPost, getPostsByCategoryId, getAllPosts };

@@ -15,13 +15,13 @@ module.exports = {
         type: Sequelize.STRING
       },
       published: {
-        allowNull: true,
-        default: Sequelize.NOW,
+        // allowNull: true,
+        // default: Sequelize.NOW,
         type: Sequelize.DATE,
       },
-        updated: {
-        allowNull: true,
-        default: Sequelize.NOW,
+      updated: {
+        // allowNull: true,
+        // default: Sequelize.NOW,
         type: Sequelize.DATE,
       },
       userId: {
@@ -29,7 +29,8 @@ module.exports = {
         allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        field: 'userId',
+        // defaultValue: 1,
+        // field: 'userId',
         references: {
           model: 'Users',
           Key: 'id'
