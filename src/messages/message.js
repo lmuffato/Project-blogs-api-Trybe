@@ -9,6 +9,8 @@ const message = {
   passwordShort: '"password" length must be 6 characters long',
   passwordRequired: '"password" is required',
   userExist: 'User already registered',
+  tokenEmpty: 'Token not found',
+  tokenInvalid: 'Expired or invalid token',
 };
 
 module.exports = {

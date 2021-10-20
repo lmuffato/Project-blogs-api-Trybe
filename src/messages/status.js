@@ -3,6 +3,7 @@ const status = {
   created: 201,
   conflict: 409,
   OK: 200,
+  unauthorized: 401,
 };
 
 module.exports = status;

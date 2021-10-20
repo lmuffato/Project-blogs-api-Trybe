@@ -5,7 +5,7 @@ const { middlewaresUser } = require('../middlewares');
 
 const router = express.Router();
 
-router.post('/', middlewaresUser.validate, rescue(userControllers.createUser));
-router.get('/', rescue(userControllers.getUsers));
+router.post('/', middlewaresUser.validateUser, rescue(userControllers.createUser));
+router.get('/', middlewaresUser.validateToken, rescue(userControllers.getUsers));
 
 module.exports = router;

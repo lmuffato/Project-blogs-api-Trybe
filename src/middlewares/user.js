@@ -1,5 +1,6 @@
 const { status, message } = require('../messages');
 const { User } = require('../models');
+const { verify } = require('../auth/jwtFunctions');
 
 const checkDisplayName = (req, res, next) => {
   const { displayName } = req.body;
@@ -53,11 +54,44 @@ const checkUserExist = async (req, res, next) => {
   next();
 };
 
-const validate = [
+const existToken = (req, res, next) => {
+  const { authorization: token } = req.headers;
+
+  if (!token) {
+    return res.status(status.unauthorized).json({ message: message.tokenEmpty });
+  }
+
+  next();
+};
+
+const checkToken = (req, res, next) => {
+  try {
+    const { authorization: token } = req.headers;
+    verify(token);
+  } catch (e) {
+    if (e) {
+    return res
+      .status(status.unauthorized)
+      .json({ message: message.tokenInvalid });
+    }
+  }
+
+  next();
+};
+
+const validateUser = [
   checkDisplayName,
   checkEmail,
   checkPassword,
   checkUserExist,
 ];
 
-module.exports = { validate };
+const validateToken = [
+  existToken,
+  checkToken,
+];
+
+module.exports = {
+  validateUser,
+  validateToken,
+};
