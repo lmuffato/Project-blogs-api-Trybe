@@ -7,4 +7,9 @@ const createCategories = async (req, res) => {
     return res.status(status).json(data);
 };
 
-module.exports = { createCategories };
+const getAllCategories = async (_req, res) => {
+    const { status, data } = await categoriesService.getAllCategories();
+    return res.status(status).json(data);
+};
+
+module.exports = { createCategories, getAllCategories };
