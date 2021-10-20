@@ -29,4 +29,11 @@ module.exports = {
       .notEmpty()
       .withMessage(errors.emptyField('password')),
   ],
+  createCategory: () => [
+    body('name')
+      .exists()
+      .withMessage(errors.nullField('name'))
+      .notEmpty()
+      .withMessage(errors.emptyField('name')),
+  ],
 };
