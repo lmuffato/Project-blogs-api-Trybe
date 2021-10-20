@@ -52,8 +52,6 @@ function userRequired(request, response, next) {
     case password:
       return response.status(400).json({ message: passwordMessageUndefined });
     default:
-      console.log(email);
-      console.log(password);
       return next();
   }
 }

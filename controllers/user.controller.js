@@ -1,4 +1,4 @@
-const { saveUser } = require('../services/user.service');
+const { saveUser, signIn } = require('../services/user.service');
 const { generateToken } = require('../security/auth');
 
 async function createUser(request, response) {
@@ -12,4 +12,15 @@ async function createUser(request, response) {
   }
 }
 
-module.exports = { createUser };
+async function login(request, response) {
+  try {
+    const { email, password } = request.body;
+    await signIn(email, password);
+    const token = generateToken(email, password);
+    return response.status(200).json({ token });
+  } catch (error) {
+    return response.status(400).json({ message: error.message });
+  }
+}
+
+module.exports = { createUser, login };

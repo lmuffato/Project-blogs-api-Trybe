@@ -7,4 +7,11 @@ async function saveUser(user) {
   return !!userSaved;
 }
 
-module.exports = { saveUser };
+async function signIn(email, password) {
+  const userOrNull = await User.findOne({ where: { email, password } });
+  console.log(userOrNull);
+  if (userOrNull === null) throw new Error('Invalid fields');
+  return true;
+}
+
+module.exports = { saveUser, signIn };
