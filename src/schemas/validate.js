@@ -36,4 +36,21 @@ module.exports = {
       .notEmpty()
       .withMessage(errors.emptyField('name')),
   ],
+  createPost: () => [
+    body('title')
+      .exists()
+      .withMessage(errors.nullField('title'))
+      .notEmpty()
+      .withMessage(errors.emptyField('title')),
+    body('categoryIds')
+      .exists()
+      .withMessage(errors.nullField('categoryIds'))
+      .notEmpty()
+      .withMessage(errors.emptyField('categoryIds')),
+    body('content')
+      .exists()
+      .withMessage(errors.nullField('content'))
+      .notEmpty()
+      .withMessage(errors.emptyField('content')),
+  ],
 };

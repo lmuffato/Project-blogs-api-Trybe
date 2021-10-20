@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const userRouter = require('./routes/user');
 const loginRouter = require('./routes/login');
 const categoriesRouter = require('./routes/categories');
+const postRouter = require('./routes/post');
 
 const app = express();
 
@@ -17,5 +18,6 @@ app.get('/', (request, response) => {
 app.use('/user', userRouter);
 app.use('/login', loginRouter);
 app.use('/categories', categoriesRouter);
+app.use('/post', postRouter);
 
 module.exports = app;

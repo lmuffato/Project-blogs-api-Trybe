@@ -18,6 +18,8 @@ const auth = (req, res, next) => {
       .json({ message: invalidToken.message });
   }
 
+  req.user = validToken.data;
+
   next();
 };
 

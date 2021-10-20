@@ -43,6 +43,10 @@ const errors = {
     code: 404,
     message: 'User does not exist',
   },
+  notFoundCategory: {
+    code: 400,
+    message: '"categoryIds" not found',
+  },
 };
 
 module.exports = errors;
