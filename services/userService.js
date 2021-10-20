@@ -9,12 +9,15 @@ const createNewUser = async (displayName, email, password, image) => {
 };
 
 const createLogin = async (email, password) => {
-  await Users.findOne({ where: { email, password } });
-  const token = await genToken(email);
+  const result = await Users.findOne({ where: { email, password } });
+  const token = genToken(result);
   return token;
 };
+
+const getAllUsers = async () => Users.findAll();
 
 module.exports = {
   createNewUser,
   createLogin,
+  getAllUsers,
 };
