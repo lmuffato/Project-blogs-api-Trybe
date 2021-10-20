@@ -5,6 +5,7 @@ const message = {
   emailRequired: '"email" is required',
   emailRegistered: 'User already registered',
   fieldsEmpty: 'Invalid fields',
+  nameEmpty: '"name" is required',
   passwordEmpty: '"password" is not allowed to be empty',
   passwordShort: '"password" length must be 6 characters long',
   passwordRequired: '"password" is required',
