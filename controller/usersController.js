@@ -16,6 +16,22 @@ const create = (req, res) => {
     });
 };
 
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  const user = { email, password };
+
+  const token = createToken(user);
+
+  const findUser = await User.findOne({ where: { email } });
+
+  if (findUser === null) {
+    return res.status(400).json({ message: 'Invalid fields' }); 
+  }
+
+  res.status(200).json(token);
+};
+
 module.exports = {
   create,
+  login,
 }; 

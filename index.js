@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const usersController = require('./controller/usersController');
 const { nameValidator,
 emailValidator,
-passwordValidator } = require('./auth/validations');
+passwordValidator,
+loginValidator } = require('./auth/validations');
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,3 +18,4 @@ app.get('/', (request, response) => {
 });
 
 app.post('/user', nameValidator, emailValidator, passwordValidator, usersController.create);
+app.post('/login', loginValidator, usersController.login);
