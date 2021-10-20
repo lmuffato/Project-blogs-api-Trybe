@@ -8,6 +8,7 @@ const message = {
   passwordEmpty: '"password" is not allowed to be empty',
   passwordShort: '"password" length must be 6 characters long',
   passwordRequired: '"password" is required',
+  userEmpty: 'User does not exist',
   userExist: 'User already registered',
   tokenEmpty: 'Token not found',
   tokenInvalid: 'Expired or invalid token',

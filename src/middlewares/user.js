@@ -79,6 +79,17 @@ const checkToken = (req, res, next) => {
   next();
 };
 
+const checkUserId = async (req, res, next) => {
+  const { id } = req.params;
+  const searchId = await User.findOne({ where: { id } });
+
+  if (!searchId) {
+    return res.status(status.notFound).json({ message: message.userEmpty });
+  }
+  
+  next();
+};
+
 const validateUser = [
   checkDisplayName,
   checkEmail,
@@ -91,7 +102,14 @@ const validateToken = [
   checkToken,
 ];
 
+const validateListUser = [
+  checkUserId,
+  existToken,
+  checkToken,
+];
+
 module.exports = {
   validateUser,
   validateToken,
+  validateListUser,
 };
