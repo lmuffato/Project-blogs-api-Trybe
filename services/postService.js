@@ -42,6 +42,18 @@ async function create({ title, categoryIds, content, email }) {
   };
 }
 
+async function getAll() {
+  const posts = await BlogPosts.findAll(
+    { include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Categories, as: 'categories', through: { attributes: [] } },
+    ] },
+  );
+
+  return posts;
+}
+
 module.exports = {
   create,
+  getAll,
 };
