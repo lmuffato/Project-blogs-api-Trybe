@@ -1,14 +1,14 @@
 const { newToken } = require('../middlewares/token');
 const { Users } = require('../models');
 
-const findByField = async (parameter) => {
-  const result = await Users.findOne({ where: { email: parameter } });
+const findByEmail = async (email) => {
+  const result = await Users.findOne({ where: { email } });
   return result;
 };
 
 const createUser = async (newUser) => {
   const { displayName, email, password, image } = newUser;
-  const emailAlreadyExist = await findByField(email);
+  const emailAlreadyExist = await findByEmail(email);
 
   if (emailAlreadyExist) {
     return { 
@@ -50,8 +50,15 @@ const findById = async (id) => {
   return user.dataValues;
 };
 
+const deleteUser = async (email) => {
+  await Users.destroy({
+    where: { email },
+  });
+};
+
 module.exports = {
   createUser,
   getAll,
   findById,
+  deleteUser,
 };
