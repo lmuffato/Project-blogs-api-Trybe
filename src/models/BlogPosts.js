@@ -7,9 +7,9 @@ const BlogPosts = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
   }, { timestamps: false, tableName: 'BlogPosts' });
   
-  BlogPosts.associate = (models) => {
-    BlogPosts.belongsTo(models.User, {
-      foreignkey: 'userId', as: 'user',
+  blogPosts.associate = (models) => {
+    blogPosts.belongsTo(models.User, {
+      foreignKey: 'userId', as: 'user',
     });
   };
 

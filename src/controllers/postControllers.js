@@ -1,6 +1,7 @@
-const { createBlogPost, getPostsByCategoryId } = require('../services/postServices');
+const rescue = require('express-rescue');
+const { createBlogPost, getPostsByCategoryId, getAllPosts } = require('../services/postServices');
 const { postSchema } = require('../schemas/validatePostDatas');
-const { HTTP_BAD_REQUEST, HTTP_CREATED_STATUS } = require('../utils/statusHTTP');
+const { HTTP_BAD_REQUEST, HTTP_CREATED_STATUS, HTTP_OK_STATUS } = require('../utils/statusHTTP');
 const { notFoundCategory } = require('../utils/errorMessages');
 
 const createPost = async (req, res) => {
@@ -21,4 +22,9 @@ const createPost = async (req, res) => {
   return res.status(HTTP_CREATED_STATUS).json(post);
 };
 
-module.exports = { createPost };
+const getAllBlogPosts = rescue(async (_req, res) => {
+  const posts = await getAllPosts();
+  return res.status(HTTP_OK_STATUS).json(posts);
+});
+
+module.exports = { createPost, getAllBlogPosts };

@@ -10,7 +10,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        allowNull: false,
+        primaryKey: true,
       },
       categoryId: {
         type: Sequelize.INTEGER,
@@ -20,7 +20,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        allowNull: false,
+        primaryKey: true,
       }
     })
   },
