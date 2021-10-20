@@ -9,6 +9,7 @@ const {
 } = require('./controllers/user');
 const { loginController } = require('./controllers/login');
 const { createCategoryController, getAllCategoryController } = require('./controllers/categories');
+const { createPostController } = require('./controllers/post');
 
 const app = express();
 app.use(bodyParser.json());
@@ -33,5 +34,8 @@ app.post('/login', loginController);
 // --------------------------------------- CATEGORY ------------------------------ //
 app.post('/categories', validateToken, createCategoryController);
 app.get('/categories', validateToken, getAllCategoryController);
+
+// --------------------------------------- POST ------------------------------ //
+app.post('/post', validateToken, createPostController);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
