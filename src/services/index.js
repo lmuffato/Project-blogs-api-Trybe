@@ -1,3 +1,7 @@
-const servicesControllers = require('./user');
+const userServices = require('./user');
+const loginServices = require('./login');
 
-module.exports = { servicesControllers };
+module.exports = {
+  userServices,
+  loginServices,
+};

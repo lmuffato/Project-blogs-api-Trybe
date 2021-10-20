@@ -12,6 +12,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', router.user);
+app.use('/login', router.login);
 
 app.use(middlewares.error);
 

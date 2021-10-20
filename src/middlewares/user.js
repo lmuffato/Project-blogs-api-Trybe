@@ -1,7 +1,6 @@
 const { status, message } = require('../messages');
 const { User } = require('../models');
 
-// const { displayName, email, password, image } = req.body;
 const checkDisplayName = (req, res, next) => {
   const { displayName } = req.body;
   const MINLENGTH = 8;
