@@ -5,7 +5,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
-const { createUser, getAllUsers } = require('./controllers/user');
+const { createUser, getAllUsers, getById } = require('./controllers/user');
 const { userLogin } = require('./controllers/login');
 const { tokenValidation } = require('./middlewares/tokenValidation');
 
@@ -19,5 +19,7 @@ app.post('/user', createUser);
 app.post('/login', userLogin);
 
 app.get('/user', tokenValidation, getAllUsers);
+
+app.get('/user/:id', tokenValidation, getById);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));

@@ -20,4 +20,12 @@ async function getAllUsers(_req, res, _next) {
   return res.status(status).json(data);
 }
 
-module.exports = { createUser, getAllUsers };
+async function getById(req, res, _next) {
+  const { status, message, data } = await userService.getById(req.params.id);
+  if (message) {
+    return res.status(status).json({ message });
+  }
+  return res.status(status).json(data);
+}
+
+module.exports = { createUser, getAllUsers, getById };

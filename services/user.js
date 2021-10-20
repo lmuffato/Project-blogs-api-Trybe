@@ -29,4 +29,12 @@ async function getAllUsers() {
   return { status: 200, data: users };
 }
 
-module.exports = { createUser, getAllUsers };
+async function getById(id) {
+  const userById = await User.findByPk(id);
+  if (!userById) {
+    return { status: 404, message: 'User does not exist' };
+  }
+  return { status: 200, data: userById };
+}
+
+module.exports = { createUser, getAllUsers, getById };

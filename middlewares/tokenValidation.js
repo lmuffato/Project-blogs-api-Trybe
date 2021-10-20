@@ -2,11 +2,6 @@ const jwt = require('jsonwebtoken');
 
 const { JWT_SECRET } = process.env;
 
-// function verify(token) {
-//   const payload = jwt.verify(token, JWT_SECRET);
-//   return payload;
-// }
-
 function tokenValidation(req, res, next) {
   const { authorization: token } = req.headers;
   if (!token) {
