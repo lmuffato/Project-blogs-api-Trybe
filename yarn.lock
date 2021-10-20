@@ -2176,6 +2176,11 @@
     "jest-message-util" "^26.6.2"
     "jest-regex-util" "^26.0.0"
 
+"express-rescue@^1.1.31":
+  "integrity" "sha512-nX/xfFoB0yjpNqEjI/4y8bafg/agtYFHetGb6/jENv4JEmPDR87d2AjlNsECxRKXsrPjXLQA6YXWluZ9j0QSOA=="
+  "resolved" "https://registry.npmjs.org/express-rescue/-/express-rescue-1.1.31.tgz"
+  "version" "1.1.31"
+
 "express@4.17.1":
   "integrity" "sha512-mHJ9O79RqluphRrcw2X/GTh3k9tVv8YcoyY4Kkh4WDMUYKRZUq0h1o0w2rrrxBqM7VoeUVqgb27xlEMXTnYt4g=="
   "resolved" "https://registry.npmjs.org/express/-/express-4.17.1.tgz"
