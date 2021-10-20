@@ -28,7 +28,7 @@ const validateInfos = (title, content, categoryIds) => {
 
 const existCategory = async (categoryIds) => {
   const allCategories = await Category.findAll({ where: { id: categoryIds } });
-  if (allCategories.length !== categoryIds.length) return EXISTS_CATEGORY;
+  if (allCategories.length !== categoryIds.length || !allCategories) return EXISTS_CATEGORY;
 };
 
 const createPost = async (title, content, categoryIds) => {

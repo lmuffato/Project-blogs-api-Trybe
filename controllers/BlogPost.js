@@ -1,7 +1,7 @@
 const rescue = require('express-rescue');
 
 const BlogPostServices = require('../services/BlogPost');
-const { BlogPost, PostCategory } = require('../models');
+const { BlogPost, PostCategory, User, Category } = require('../models');
 
 const createPost = rescue(async (req, res) => {
   const { title, categoryIds, content } = req.body;
@@ -19,4 +19,14 @@ const createPost = rescue(async (req, res) => {
   res.status(201).json(resultValues);
 });
 
-module.exports = { createPost };
+const getPosts = rescue(async (req, res) => {
+  const allPosts = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  res.status(200).json(allPosts);
+});
+
+module.exports = { createPost, getPosts };
