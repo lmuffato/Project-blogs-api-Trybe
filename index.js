@@ -42,3 +42,5 @@ app.post('/post',
   middleValidPost.validCategory,
   middleValidUser.verifyToken,
   controllerPost.createPost);
+
+app.get('/post', middleValidUser.verifyToken, controllerPost.getPosts);
