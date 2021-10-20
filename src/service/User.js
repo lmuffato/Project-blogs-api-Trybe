@@ -16,9 +16,7 @@ const createUser = async (data) => {
   const findEmail = await Model.User.findOne({ where: { email } });
   
   if (findEmail) return { status: 409, error: 'User already registered' };
-  
-  const response = await Model.User.create(data);
-  console.log(response);
+  await Model.User.create(data);
   return { status: 201, message: 'User created' };
 };
 
