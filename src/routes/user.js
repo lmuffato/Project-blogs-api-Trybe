@@ -6,5 +6,6 @@ const { middlewaresUser } = require('../middlewares');
 const router = express.Router();
 
 router.post('/', middlewaresUser.validate, rescue(userControllers.createUser));
+router.get('/', rescue(userControllers.getUsers));
 
 module.exports = router;
