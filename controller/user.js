@@ -10,4 +10,11 @@ async function createUser(req, res, next) {
     } catch (error) { next({ status: 500, error }); }
 }
 
-module.exports = { createUser };
+async function getAll(_req, res) {
+    const { status, data, message } = await userService.getAll();
+    if (message) return res.status(status).json(message);
+
+    return res.status(status).json(data);
+}
+
+module.exports = { createUser, getAll };

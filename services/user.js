@@ -26,4 +26,9 @@ async function createUser(data) {
     return { status: 201, message: 'Usuário criado com sucesso' };
 }
 
-module.exports = { createUser };
+async function getAll() {
+    const users = await User.findAll();
+    return { status: 200, data: users };
+}
+
+module.exports = { createUser, getAll };
