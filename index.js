@@ -6,6 +6,7 @@ const { nameValidator,
 emailValidator,
 passwordValidator,
 loginValidator } = require('./auth/validations');
+const { tokenAuth } = require('./auth/tokenAuth');
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,3 +20,5 @@ app.get('/', (request, response) => {
 
 app.post('/user', nameValidator, emailValidator, passwordValidator, usersController.create);
 app.post('/login', loginValidator, usersController.login);
+
+app.get('/user', tokenAuth, usersController.getUsers);
