@@ -32,7 +32,8 @@ module.exports = {
       updated: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.NOW,
+        onUpdate: 'SET DEFAULT'
       },
     });
   },
