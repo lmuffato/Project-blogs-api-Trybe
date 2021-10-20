@@ -54,8 +54,23 @@ const getBlogPostById = async (id) => {
     return existBlogPost;
 };
 
+const updateBlogPost = async (userId, title, content, categoryId) => {
+    const existFields = blogPostSchema.validatedEditFields(userId, title, content, categoryId);
+
+    if (existFields) return existFields;
+
+    const blogPost = await BlogPost.update(    
+        { title, content, categoryId },
+    );
+
+    console.log(blogPost);
+
+    return blogPost;
+};
+
 module.exports = {
     createBlogPost,
     getAllBlogPosts,
     getBlogPostById,
+    updateBlogPost,
 };

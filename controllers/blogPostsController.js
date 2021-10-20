@@ -5,9 +5,7 @@ const create = rescue(async (req, res) => {
     const { title, content, categoryIds } = req.body;
     const { id } = req.payload;
 
-    const blogPost = await blogPostService.createBlogPost(title, content, categoryIds, id);
- 
-    //   console.log(blogPost);
+    const blogPost = await blogPostService.createBlogPost(id, title, content, categoryIds);
    
     if (blogPost.message) return res.status(blogPost.code).json({ message: blogPost.message });
 
@@ -30,8 +28,20 @@ const getBlogPostById = rescue(async (req, res) => {
     return res.status(200).json(blogPost);
 });
 
+const updateBlogPost = rescue(async (req, res) => {
+    const { title, content, categoryIds } = req.body;
+    const { id: userId } = req.payload;
+
+    const blogPost = await blogPostService.updateBlogPost(userId, title, content, categoryIds);
+    
+    if (blogPost.message) return res.status(blogPost.code).json({ message: blogPost.message });
+
+    return res.status(200).json(blogPost);
+});
+
 module.exports = {
     create,
     getAllBlogPosts,
     getBlogPostById,
+    updateBlogPost,
 };
