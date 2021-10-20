@@ -2,8 +2,17 @@
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="WS-212.5284.41">
     <data-source name="blogs-api@localhost" uuid="d3933ed2-8169-41aa-9292-ae5a09beb398">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
-      <schema-mapping />
+      <database-info product="MySQL" version="8.0.26-0ubuntu0.20.04.3" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.26" exact-driver-version="8.0">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <user-name>willian</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="blogs_api" />
+        </introspection-scope>
+      </schema-mapping>
     </data-source>
   </component>
 </project>
