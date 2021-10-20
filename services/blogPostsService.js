@@ -1,5 +1,5 @@
 const blogPostSchema = require('../schemas/blogPostsSchema');
-const { BlogPost } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 
 const createBlogPost = async (title, content, categoryIds, userId) => {
     const existTitle = blogPostSchema.validateTitle(title);
@@ -15,6 +15,27 @@ const createBlogPost = async (title, content, categoryIds, userId) => {
     return getBlogPost;
 };
 
+const getAllBlogPosts = async () => {
+    const blogPosts = await BlogPost.findAll({
+        include: [
+          { model: User,
+            as: 'user', 
+            attributes: { exclude: ['password'] },
+          },
+          {
+            model: Category,
+            as: 'categories',
+            through: { attributes: [] },
+          },
+        ],
+
+    });
+
+    console.log(blogPosts);
+    return blogPosts;
+};
+
 module.exports = {
     createBlogPost,
+    getAllBlogPosts,
 };
