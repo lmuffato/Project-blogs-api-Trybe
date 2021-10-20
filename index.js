@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { createUser, getAll } = require('./controller/user');
+const { createUser, getAll, getById } = require('./controller/user');
 const { userLogin } = require('./controller/login');
 const { tokenValidation } = require('./middleware/tokenValidation');
 
@@ -18,3 +18,4 @@ app.get('/', (request, response) => {
 app.post('/user', createUser);
 app.post('/login', userLogin);
 app.get('/user', tokenValidation, getAll);
+app.get('/user/:id', tokenValidation, getById);

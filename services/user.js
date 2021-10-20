@@ -6,7 +6,7 @@ function check(data) {
 
     if (error) {
         return { status: 400, error: error.details[0].message };
-    } 
+    }
     return false;
 }
 
@@ -31,4 +31,11 @@ async function getAll() {
     return { status: 200, data: users };
 }
 
-module.exports = { createUser, getAll };
+const getById = async (id) => {
+    const user = await User.findByPk(id);
+    if (!user) return { status: 404, message: 'User does not exist' };
+
+    return { status: 200, data: user };
+};
+
+module.exports = { createUser, getAll, getById };
