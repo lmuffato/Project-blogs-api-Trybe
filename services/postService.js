@@ -1,4 +1,4 @@
-const { BlogPosts, User, Categories } = require('../models');
+const { BlogPosts, User, Categories, PostsCategories } = require('../models');
 
 async function getUserIdFromEmail(email) {
   const { id } = await User.findOne({ where: { email } });
@@ -39,6 +39,8 @@ async function create({ title, categoryIds, content, email }) {
   const createdBlogPost = await BlogPosts.create({
     title, content, userId,
   });
+
+  await updatePostsCategories(createdBlogPost.id, categoryIds);
 
   return {
     code: 201,
