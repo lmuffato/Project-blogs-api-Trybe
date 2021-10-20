@@ -31,6 +31,14 @@ const errors = {
     code: 401,
     message: 'Invalid password',
   },
+  tokenNotFound: {
+    code: 401,
+    message: 'Token not found',
+  },
+  invalidToken: {
+    code: 401,
+    message: 'Expired or invalid token',
+  },
 };
 
 module.exports = errors;
