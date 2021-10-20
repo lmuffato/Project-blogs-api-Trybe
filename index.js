@@ -34,6 +34,9 @@ app.get('/categories', validateJWT, Categories.getAll);
 // Requisito 05
 app.post('/categories', validateJWT, Categories.create);
 
+// Requisito 08
+app.get('/post', validateJWT, BlogPost.getAll);
+
 // Requisito 07
 app.post('/post', validateJWT, BlogPost.create);
 
