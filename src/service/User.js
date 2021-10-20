@@ -20,6 +20,15 @@ const createUser = async (data) => {
   return { status: 201, message: 'User created' };
 };
 
+const getAll = async () => {
+  const findUsers = await Model.User.findAll();
+  return {
+    status: 200,
+    data: findUsers,
+  };
+};
+
 module.exports = {
   createUser,
+  getAll,
 };

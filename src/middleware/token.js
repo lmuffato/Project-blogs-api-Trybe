@@ -10,6 +10,20 @@ const newToken = (user) => {
   return token;
 };
 
+const validateToken = (req, res, next) => {
+  const { authorization: token } = req.headers;
+  if (!token) return res.status(401).json({ message: 'Token not found' });
+
+  try {
+    const { data } = jwt.verify(token, SECRET_PASS);
+    req.user = data;
+    return next();
+  } catch (err) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
+};
+
 module.exports = {
   newToken,
+  validateToken,
 };
