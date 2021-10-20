@@ -1,3 +1,5 @@
+![trybe-project-blogs-api](https://socialify.git.ci/rafaelgeronimo/trybe-project-blogs-api/image?description=1&descriptionEditable=%5BTrybe%20Project%5D%20Blogs%20API&language=1&owner=1&theme=Light)
+
 ## 📗 Sobre
 
 Projeto desenvolvido para o módulo de Desenvolvimento Back-end da Trybe, onde estudamos os princípios da Arquitetura SOLID e ORM (Interface da aplicação com o banco de dados e Associations).
