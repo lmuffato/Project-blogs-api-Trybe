@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   // Ajuda da Bia Zidioti
-/*     User.associate = (models) => {
+/*  User.associate = (models) => {
     User.hasMany(models.BlogPost, { as: 'blogPost', foreignKey: 'userId' });
   }; */
 
