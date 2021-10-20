@@ -5,7 +5,7 @@ const { User } = require('../models');
 const secret = process.env.SECRET || 'senha_dificil';
 
 const create = async (email) => {
-  const searchEmail = await User.findOne({ where: { email } }); 
+  const searchEmail = await User.findOne({ where: { email } });
   const payload = { email, id: searchEmail.id };
   const jwtConfig = { algorithm: 'HS256', expiresIn: '12h' };
   const token = jwt.sign(payload, secret, jwtConfig);
