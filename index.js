@@ -5,8 +5,9 @@ const app = express();
 
 app.use(bodyParser.json());
 
-const { createUser } = require('./controllers/user');
+const { createUser, getAllUsers } = require('./controllers/user');
 const { userLogin } = require('./controllers/login');
+const { tokenValidation } = require('./middlewares/tokenValidation');
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
@@ -16,5 +17,7 @@ app.get('/', (request, response) => {
 app.post('/user', createUser);
 
 app.post('/login', userLogin);
+
+app.get('/user', tokenValidation, getAllUsers);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));

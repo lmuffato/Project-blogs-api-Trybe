@@ -12,4 +12,12 @@ async function createUser(req, res, _next) {
   }
 }
 
-module.exports = { createUser };
+async function getAllUsers(_req, res, _next) {
+  const { status, message, data } = await userService.getAllUsers();
+  if (message) {
+    return res.status(status).json(message);
+  }
+  return res.status(status).json(data);
+}
+
+module.exports = { createUser, getAllUsers };
