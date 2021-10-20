@@ -13,4 +13,15 @@ const createCategory = async (req, res) => {
   }
 };
 
-module.exports = { createCategory };
+const getAllCategories = async (req, res) => {
+  try {
+    const categories = await Category.findAll({ raw: true });
+
+    return res.status(200).json(categories);
+  } catch (e) {
+    console.log(e.message);
+    return res.status(500).json({ message: 'Algo deu errado!' });
+  }
+};
+
+module.exports = { createCategory, getAllCategories };
