@@ -16,8 +16,15 @@ const Category = Joi.object({
   name: Joi.string().required(),
 });
 
+const BlogPost = Joi.object({
+  titler: Joi.string().required(),
+  content: Joi.string().required(),
+  categoryIds: Joi.array().required(),
+});
+
 module.exports = {
   User,
   Login,
   Category,
+  BlogPost,
 };
