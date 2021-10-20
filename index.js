@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser'); 
 
 const userRouter = require('./router/userRoute');
+const loginRouter = require('./router/loginRoute');
 
 const app = express();
 
@@ -15,3 +16,4 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', userRouter);
+app.use('/login', loginRouter);
