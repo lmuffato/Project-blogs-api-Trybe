@@ -25,7 +25,15 @@ Para fazer um post é necessário usuário e login, portanto foi trabalhada a **
 
 ## 🚀 Demo
 
-Em breve
+URL Base: https://rafaelgeronimo-blogs-api.herokuapp.com/
+
+Rotas:
+https://rafaelgeronimo-blogs-api.herokuapp.com/user
+https://rafaelgeronimo-blogs-api.herokuapp.com/login
+https://rafaelgeronimo-blogs-api.herokuapp.com/categories
+https://rafaelgeronimo-blogs-api.herokuapp.com/post
+
+Obs.: O método `POST` na rota `/user` é a única que não é necessário o token `authotization` no header da requisição. Todos os demais métodos exigem essa variável para autenticação.
 
 ## 🖼 Captura de tela
 
