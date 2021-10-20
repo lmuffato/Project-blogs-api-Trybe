@@ -10,13 +10,13 @@
     "express-validator": "^6.13.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "2.1.0",
-    "sequelize": "6.3.4",
+    "sequelize": "^6.3.4",
     "shelljs": "0.8.4"
   },
   "main": "./src/api/server.js",
   "scripts": {
     "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate $",
-    "start": "nodemon .",
+    "start": "node .",
     "drop": "npx sequelize-cli db:drop $",
     "seed": "npx sequelize-cli db:seed:all $",
     "test": "jest --runInBand",
