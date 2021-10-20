@@ -42,8 +42,20 @@ const getUsers = async (_req, res) => {
     });
 };
 
+const getUser = async (req, res) => {
+  User.findByPk(req.params.id)
+    .then((user) => {
+      const { id, displayName, email, image } = user;
+      res.status(200).json({ id, displayName, email, image });
+    })
+    .catch(() => {
+      res.status(404).json({ message: 'User does not exist' });
+    });
+  };
+  
 module.exports = {
   create,
   login,
   getUsers,
+  getUser,
 }; 

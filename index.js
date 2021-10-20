@@ -22,3 +22,4 @@ app.post('/user', nameValidator, emailValidator, passwordValidator, usersControl
 app.post('/login', loginValidator, usersController.login);
 
 app.get('/user', tokenAuth, usersController.getUsers);
+app.get('/user/:id', tokenAuth, usersController.getUser);
