@@ -1,4 +1,4 @@
-const { BlogPost, Category } = require('../models');
+const { BlogPost, Category, User } = require('../models');
 
 const Schema = require('../utils/schema');
 
@@ -20,8 +20,22 @@ const create = async (body, userId) => {
   return { status: 201, data: post };
 };
 
+const getAll = async () => {
+  const posts = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user' },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  if (!posts) return { status: 400, message: 'Posts empty' };
+
+  return { status: 200, data: posts };
+};
+
 module.exports = {
   create,
+  getAll,
 };
 
 /* 
