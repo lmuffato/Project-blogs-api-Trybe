@@ -10,5 +10,10 @@ const User = Joi.object({
 const Login = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required(),
-}); 
-module.exports = { User, Login };
+});
+
+const Categories = Joi.object({
+  name: Joi.string().required(),
+});
+
+module.exports = { User, Login, Categories };
