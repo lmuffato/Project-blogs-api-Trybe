@@ -4,7 +4,9 @@ const bodyParser = require('body-parser');
 const controllerUser = require('./controllers/controllerUser');
 const controllerLogin = require('./controllers/controllerLogin');
 const controllerCategory = require('./controllers/controllerCategory');
+const controllerPost = require('./controllers/controllerPost');
 const middleValidUser = require('./middlewares/userValidations');
+const middleValidPost = require('./middlewares/postValidations');
 
 const app = express();
 app.use(bodyParser.json());
@@ -34,3 +36,9 @@ app.get('/user/:id', middleValidUser.verifyToken, controllerUser.getUserById);
 app.post('/categories', middleValidUser.verifyToken, controllerCategory.createCategory);
 
 app.get('/categories', middleValidUser.verifyToken, controllerCategory.getCategories);
+
+app.post('/post',
+  middleValidPost.validTitleContent,
+  middleValidPost.validCategory,
+  middleValidUser.verifyToken,
+  controllerPost.createPost);

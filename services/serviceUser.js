@@ -2,15 +2,15 @@ const { User } = require('../models');
 const createToken = require('../auth/jwtFunctions');
 
 const createUser = async (data) => {
-  const { email } = data;
+  const { displayName, email, password, image } = data;
 
   const findUser = await User.findOne({ where: { email } });
   if (findUser) return { status: 409, data: { message: 'User already registered' } };
 
-  await User.create(data);
+  await User.create({ displayName, email, password, image });
 
-  const payload = { ...email };
-  const token = await createToken.create(payload);
+  const payload = { email };
+  const token = createToken.create(payload);
 
   return { status: 201, data: { token } };
 };

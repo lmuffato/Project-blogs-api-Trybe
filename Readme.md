@@ -35,13 +35,17 @@
 -- Dropa o banco
   - npm run drop 
 
--- Cria o banco e gera as tabelas
+-- Start MYSQL(1)
+  - sudo systemctl start mysql
+
+-- Cria o banco e gera as tabelas(2)
   - npm run prestart
 
--- Insere dados na tabela
+-- Insere dados na tabela(3)
   - npm run seed
 
-
+-- Rodar App
+  - npm run debug(4)
 
 - Para rodar as migrations
   - npx sequelize db:migrate
