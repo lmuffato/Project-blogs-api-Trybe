@@ -10,8 +10,14 @@ const routes = require('./src/routes');
 const error = require('./src/middlewares/error');
 
 const PORT = process.env.PORT || 3000;
+
+// Rotas
+
 app.use('/user', routes.User);
+
 app.use('/login', routes.Login);
+
+app.use('/categories', routes.Categories);
 
 app.use(error);
 

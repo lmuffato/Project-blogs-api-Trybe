@@ -11,8 +11,7 @@ const login = async (loginData) => {
   if (!userData || userData.password !== password) {
     return {
       code: 400,
-      message: 'Invalid fields'
-      ,
+      message: 'Invalid fields',
     };
   }
 
