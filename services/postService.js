@@ -78,8 +78,32 @@ async function getById(id) {
   return { code: 200, post };
 }
 
+async function editPost(id, title, content, email) {
+  const userIdRequesting = await getUserIdFromEmail(email);
+
+  const post = await BlogPosts.findByPk(id,
+    { include: [
+      { model: Categories, as: 'categories', through: { attributes: [] } },
+    ] });
+
+  if (userIdRequesting !== post.userId) {
+    return { code: 401, message: 'Unauthorized user' };
+  }
+
+  return {
+    code: 200,
+    editedPost: {
+      title,
+      content,
+      userId: post.userId,
+      categories: post.categories,
+    },
+  };
+}
+
 module.exports = {
   create,
   getAll,
   getById,
+  editPost,
 };
