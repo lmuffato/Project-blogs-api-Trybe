@@ -1,8 +1,11 @@
-const { post, category } = require('../models');
+const { post, category, user } = require('../models');
 const { postValidation } = require('../utils/schema');
 
+const OK_STATUS = 200;
 const CREATED_STATUS = 201;
 const BAD_REQUEST_STATUS = 400;
+
+// ---------------------------------------- CREATE ------------------------------------------------ //
 
 const createPostService = async (title, content, categoryIds, userId) => {
   const { error } = postValidation.validate({ title, content, categoryIds });
@@ -26,6 +29,20 @@ const createPostService = async (title, content, categoryIds, userId) => {
   return { status: CREATED_STATUS, data: blogPost };
 };
 
+// ---------------------------------------- GETALL ------------------------------------------------ //
+
+const getAllPostService = async () => {
+  const posts = await post.findAll({ 
+    include: [
+      { model: user, as: 'user', attributes: { exclude: ['password'] } },
+      { model: category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return { status: OK_STATUS, data: posts };
+};
+
 module.exports = {
   createPostService,
+  getAllPostService,
 };
