@@ -1,7 +1,18 @@
 const { BlogPost } = require('../models');
+const newPostValidations = require('./validations/newPostValidations');
 
 exports.create = async ({ title, content, categoryIds, userId }) => {
+  newPostValidations.validateTitle(title);
+  newPostValidations.validateContent(content);
+  newPostValidations.validateCategoryId(categoryIds);
+  await newPostValidations.verifyCategories(categoryIds);
+
   const newPost = await BlogPost.create({ title, content, categoryIds, userId });
 
-  return newPost;
+  return {
+    id: newPost.null,
+    userId: newPost.dataValues.userId,
+    title: newPost.dataValues.title,
+    content: newPost.dataValues.content,
+  };
 };

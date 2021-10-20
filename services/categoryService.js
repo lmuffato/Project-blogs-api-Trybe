@@ -20,3 +20,9 @@ exports.getAll = async () => {
 
   return categories;
 };
+
+exports.getOne = async (id) => {
+  const category = await Category.findOne({ where: { id } });
+
+  return category;
+};
