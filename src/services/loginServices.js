@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
-const { User } = require('../../models');
+const { User } = require('../models');
 const loginJoi = require('../middlewares/joi');
 const httpStatus = require('../status/status');
 
-const secret = 'supersecret';
+const { JWT_SECRET } = process.env;
 
 const userLogin = async (data) => {
   const { error } = loginJoi.loginJoi.validate(data);
@@ -18,7 +18,7 @@ const userLogin = async (data) => {
     return { status: httpStatus.BAD_REQUEST, message: 'Invalid fields' };
   }
 
-  const token = jwt.sign({ data: user }, secret);
+  const token = jwt.sign({ data: user }, JWT_SECRET);
 
   return { status: httpStatus.HTTP_OK_STATUS, data: { token } };
 };

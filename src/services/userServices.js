@@ -1,6 +1,6 @@
 // dica de implementação e uso do joi: bia zidioti
 const schema = require('../middlewares/joi');
-const { User } = require('../../models');
+const { User } = require('../models');
 const httpStatus = require('../status/status');
 // const errorCodes = require('../error/errorCodes');
 
@@ -35,4 +35,10 @@ async function createUserServices(data) {
   return { status: httpStatus.HTTP_CREATE_STATUS, message: 'User created' };
 }
 
-module.exports = { createUserServices };
+const getAllUser = async () => {
+  const users = await User.findAll();
+
+  return { status: httpStatus.HTTP_OK_STATUS, data: users };
+};
+
+module.exports = { createUserServices, getAllUser };
