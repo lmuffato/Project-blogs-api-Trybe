@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const usersController = require('./controller/usersController');
+const categoryController = require('./controller/categoriesController');
 const { nameValidator,
 emailValidator,
 passwordValidator,
@@ -23,3 +24,5 @@ app.post('/login', loginValidator, usersController.login);
 
 app.get('/user', tokenAuth, usersController.getUsers);
 app.get('/user/:id', tokenAuth, usersController.getUser);
+
+app.post('/categories', tokenAuth, categoryController.create);
