@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config('');
 
-const SECRET = process.env.JWT_SECRET || 'segredinhosecreto';
+const SECRET = process.env.JWT_SECRET || 'umasenhasupersecreta';
+
 const jwtConfig = { expiresIn: '1h', algorithm: 'HS256' };
 
 const newToken = (payload) => {

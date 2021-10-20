@@ -16,7 +16,7 @@ const createUser = async (newUser) => {
       message: 'User already registered', 
     }; 
   }
-  const { password: _, ...userWithoutPassword } = await Users.create({ 
+  const { dataValues: { password: _, ...userWithoutPassword } } = await Users.create({ 
     displayName, email, password, image, 
   });
 
@@ -24,6 +24,15 @@ const createUser = async (newUser) => {
   return token;
 };
 
+const getAll = async () => {
+  const users = await Users.findAll({
+    attributes: { exclude: 'password' },
+  });
+
+  return users;
+};
+
 module.exports = {
   createUser,
+  getAll,
 };

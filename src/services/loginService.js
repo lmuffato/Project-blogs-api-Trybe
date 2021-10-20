@@ -8,8 +8,6 @@ const login = async (loginData) => {
     where: { email },
   });
 
-  console.log(userData);
-
   if (!userData || userData.password !== password) {
     return {
       code: 400,
@@ -18,7 +16,8 @@ const login = async (loginData) => {
     };
   }
 
-  const { password: _, ...userWithoutPassword } = userData;
+  const { dataValues: { password: _, ...userWithoutPassword } } = userData;
+
   const token = newToken(userWithoutPassword);
 
   return token;
