@@ -12,7 +12,7 @@ async function createToken(user) {
     expiresIn: '7d',
   };
   const token = jwt.sign({ data: user }, secret, jwtConfig);
-  return { token };
+  return token;
 }
 
 const validToken = async (req, res, next) => {
