@@ -14,6 +14,7 @@ app.get('/', (request, response) => {
 const usersController = require('./src/controllers/usersController');
 const loginController = require('./src/controllers/loginController');
 const categoriesController = require('./src/controllers/categoriesController');
+const blogPostsController = require('./src/controllers/blogPostsController');
 
 const nameValidation = require('./src/middlewares/nameValidation');
 const emailValidation = require('./src/middlewares/emailValidation');
@@ -33,3 +34,5 @@ app.post('/login', emailValidation, passwordValidation,
 
 app.post('/categories', tokenValidation, categoryValidation, categoriesController.create);
 app.get('/categories', tokenValidation, categoriesController.getAll);
+
+app.post('/post', tokenValidation, blogPostsController.create);
