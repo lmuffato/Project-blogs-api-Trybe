@@ -4,6 +4,7 @@ const userController = require('./src/controller/User');
 const logInController = require('./src/controller/login');
 const midError = require('./src/middleware/error');
 const validateToken = require('./src/middleware/token'); 
+const categoriesCtrl = require('./src/controller/categories');
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.get('/user/:id', validateToken.validateToken, userController.getById);
 
 app.post('/user', userController.createUser); 
 app.post('/login', logInController.logInUser);
+app.post('/categories', validateToken.validateToken, categoriesCtrl.createCategories);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
