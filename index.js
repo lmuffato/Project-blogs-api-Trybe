@@ -12,6 +12,7 @@ app.get('/', (request, response) => {
 });
 
 const usersController = require('./src/controllers/usersController');
+const loginController = require('./src/controllers/loginController');
 
 const nameValidation = require('./src/middlewares/nameValidation');
 const emailValidation = require('./src/middlewares/emailValidation');
@@ -20,3 +21,5 @@ const { existingUserValidation } = require('./src/middlewares/existingUserValida
 
 app.post('/user', nameValidation, emailValidation, passwordValidation, existingUserValidation,
 usersController.create);
+
+app.post('/login', loginController.successfulLogin);
