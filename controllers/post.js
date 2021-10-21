@@ -1,5 +1,10 @@
 const postService = require('../services/post');
 
+async function getAllPosts(_req, res, _next) {
+  const { status, data } = await postService.getAllPosts();
+  return res.status(status).json(data);
+}
+
 async function createPost(req, res, _next) {
   console.log('reqUser', req.user);
   const { status, data, message } = await postService.createPost(req.body, req.user);
@@ -9,4 +14,4 @@ async function createPost(req, res, _next) {
   return res.status(status).json(data);
 }
 
-module.exports = { createPost };
+module.exports = { createPost, getAllPosts };
