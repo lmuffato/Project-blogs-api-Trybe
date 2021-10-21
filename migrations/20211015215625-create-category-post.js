@@ -13,7 +13,7 @@ module.exports = {
         onDelete: 'CASCADE',
         primaryKey: true,
       },
-      CategoryId: {
+      categoryId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Categories',
@@ -23,7 +23,7 @@ module.exports = {
         onDelete: 'CASCADE',
         primaryKey: true,
       },
-    });
+    }, { timestamps: false });
   },
 
   down: async (queryInterface, _Sequelize) => {
