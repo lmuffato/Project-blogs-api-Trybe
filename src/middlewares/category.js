@@ -42,4 +42,12 @@ const validateCategory = [
   checkToken,
 ];
 
-module.exports = { validateCategory };
+const validateToken = [
+  existToken,
+  checkToken,
+];
+
+module.exports = {
+  validateCategory,
+  validateToken,
+};
