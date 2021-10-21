@@ -1,5 +1,13 @@
 const postService = require('../services/post');
 
+async function getPostById(req, res, _next) {
+  const { status, data, message } = await postService.getPostById(req.params.id);
+  if (message) {
+    return res.status(status).json({ message });
+  }
+  return res.status(status).json(data);
+}
+
 async function getAllPosts(_req, res, _next) {
   const { status, data } = await postService.getAllPosts();
   return res.status(status).json(data);
@@ -14,4 +22,4 @@ async function createPost(req, res, _next) {
   return res.status(status).json(data);
 }
 
-module.exports = { createPost, getAllPosts };
+module.exports = { createPost, getAllPosts, getPostById };

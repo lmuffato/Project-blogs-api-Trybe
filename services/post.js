@@ -1,6 +1,19 @@
 const joi = require('../middlewares/schema');
 const { Post, Category, User } = require('../models');
 
+async function getPostById(id) {
+  const post = await Post.findByPk(id, {
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  if (!post) {
+    return { status: 404, message: 'Post does not exist' };
+  }
+  return { status: 200, data: post };
+}
+
 async function getAllPosts() {
   const posts = await Post.findAll({
     include: [
@@ -27,4 +40,4 @@ if (getCategories.length !== categoryIds.length) {
   return { status: 201, data: post };
 }
 
-module.exports = { createPost, getAllPosts };
+module.exports = { createPost, getAllPosts, getPostById };
