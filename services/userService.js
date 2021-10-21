@@ -4,6 +4,18 @@ const { User } = require('../models');
 
 const secret = 'Nanii!!!';
 
+const doesHaveEmailAndPassword = (email, password) => {
+  if (!email) { 
+    return { code: 'BAD_REQUEST',
+  err: { message: '"email" is required' } };
+  }
+  if (!password) { 
+    return { code: 'BAD_REQUEST',
+    err: { message: '"password" is required' } };
+    }
+  return true;
+};
+
 const errCases = ({ validName, emailValidFormat, newEmail, validPassword }) => {
   switch (false) {
     case validName: return { code: 'BAD_REQUEST',
@@ -19,14 +31,17 @@ const errCases = ({ validName, emailValidFormat, newEmail, validPassword }) => {
 };
 
 const newUserValidations = async (displayName, email, password) => {
-  if (!email) { 
-    return { code: 'BAD_REQUEST',
-  err: { message: '"email" is required' } };
-  }
-  if (!password) { 
-    return { code: 'BAD_REQUEST',
-    err: { message: '"password" is required' } };
-    }
+  // if (!email) { 
+  //   return { code: 'BAD_REQUEST',
+  // err: { message: '"email" is required' } };
+  // }
+  // if (!password) { 
+  //   return { code: 'BAD_REQUEST',
+  //   err: { message: '"password" is required' } };
+  //   }
+  const hasEmailAndPassword = doesHaveEmailAndPassword(email, password);
+  console.log(hasEmailAndPassword);
+  if (hasEmailAndPassword.err) return hasEmailAndPassword;
   const validName = displayName.length >= 8;
   const emailValidFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // source: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
   const newEmail = await User.findAll()
@@ -56,6 +71,24 @@ const addNewUser = async (displayName, email, password, image) => {
   }
 };
 
+const loginValidations = async () => {
+  
+};
+
+const requestLogin = async (email, password) => {
+  const isValid = await loginValidations(email, password);
+  if (isValid.err) return isValid;
+  try {
+    const token = jwt.sign({ payload: { email } }, secret);
+    
+    return token;
+  } catch (err) {
+    console.log(err.message);
+    return { code: 'SERVER_ERROR', err: { message: 'Algo deu errado' } };
+  }
+};
+
 module.exports = {
   addNewUser,
+  requestLogin,
 };
