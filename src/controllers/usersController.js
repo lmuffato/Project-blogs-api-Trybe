@@ -9,6 +9,15 @@ const getAll = async (req, res) => {
   return res.status(200).json(users);
 };
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  
+  const user = await User.findByPk(id);
+  if (user === null) return res.status(404).json({ message: 'User does not exist' });
+
+  return res.status(200).json(user.dataValues);
+};
+
 const create = async (req, res) => {
   const { displayName, email, password, image } = req.body;
 
@@ -22,4 +31,5 @@ const create = async (req, res) => {
 module.exports = {
   create,
   getAll,
+  getById,
 };
