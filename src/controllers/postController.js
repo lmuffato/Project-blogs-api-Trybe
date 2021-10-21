@@ -4,7 +4,8 @@ const { create, getAllPosts, getPostById } = require('../services/postService');
 const createNewPost = async (req, res, next) => {
   try {
     const { title, content } = req.body;
-    const { id } = req.user.data.dataValues;
+    const { id } = req.user.data;
+    console.log('📓 ~ file: postController.js ~ line 8 ~ createNewPost ~ req.user', req.user);
 
     const userId = id; 
     const rawNewPost = await create({ title, content, userId });
