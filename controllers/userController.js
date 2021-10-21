@@ -15,7 +15,7 @@ const addNewUser = async (req, res) => {
   const { body: { displayName, email, password, image } } = req;
   const token = await userService.addNewUser(displayName, email, password, image);
   if (token.err) {
-    return res.status(status[token.code]).json({ message: token.err });
+    return res.status(status[token.code]).json(token.err);
   }
   return res.status(status.CREATED).json({ token });
 };

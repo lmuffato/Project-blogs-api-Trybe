@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
   BlogPosts.associate = (models) => {
-  BlogPosts.belongsTo(models.Users,
-      { foreignKey: 'id', as: 'User' });
+  BlogPosts.belongsTo(models.User,
+      { foreignKey: 'userId', as: 'User' });
   };
   return BlogPosts;
 };
