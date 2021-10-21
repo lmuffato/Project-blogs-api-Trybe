@@ -51,6 +51,15 @@ const errors = {
     code: 404,
     message: 'Post does not exist',
   },
+  notEditable: {
+    code: 400,
+    message: 'Categories cannot be edited',
+  },
+  unauthorized: {
+    code: 401,
+    message: 'Unauthorized user',
+  },
+
 };
 
 module.exports = errors;

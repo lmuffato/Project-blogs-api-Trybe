@@ -20,7 +20,7 @@ module.exports = (sequelize, _DataTypes) => {
   const PostsCategories = sequelize.define(
     'PostsCategories',
     {},
-    { timestamps: false, underscored: true },
+    { timestamps: false },
   );
 
   PostsCategories.associate = (models) => {

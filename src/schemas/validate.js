@@ -53,4 +53,16 @@ module.exports = {
       .notEmpty()
       .withMessage(errors.emptyField('content')),
   ],
+  updatePost: () => [
+    body('title')
+      .exists()
+      .withMessage(errors.nullField('title'))
+      .notEmpty()
+      .withMessage(errors.emptyField('title')),
+    body('content')
+      .exists()
+      .withMessage(errors.nullField('content'))
+      .notEmpty()
+      .withMessage(errors.emptyField('content')),
+  ],
 };

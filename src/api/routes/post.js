@@ -9,6 +9,7 @@ const checkCategoryExists = require('../../middlewares/checkCategoryExists');
 const auth = require('../../middlewares/auth');
 const validate = require('../../schemas/validate');
 const fieldsValidation = require('../../middlewares/fieldsValidation');
+const validateOnUpdate = require('../../middlewares/validateOnUpdate');
 
 const postRouter = express.Router();
 
@@ -26,6 +27,12 @@ postRouter
 postRouter
   .route('/:id')
   .get(auth, getPost)
-  .put(auth, updatePost);
+  .put(
+    auth,
+    validate.updatePost(),
+    fieldsValidation,
+    validateOnUpdate,
+    updatePost,
+  );
 
 module.exports = postRouter;

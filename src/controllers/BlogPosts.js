@@ -56,17 +56,8 @@ const updatePost = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, content } = req.body;
-    const post = await BlogPosts.getPostById(id);
 
-    if (!post) {
-      return res
-        .status(notFoundPost.code)
-        .json({ message: notFoundPost.message });
-    }
-
-    const updatedId = await BlogPosts.updatePost({ title, content }, id);
-
-    const updatedPost = await BlogPosts.getPostById(updatedId);
+    const updatedPost = await BlogPosts.updatePost({ title, content }, id);
 
     return res.status(200).json(updatedPost);
   } catch (err) {

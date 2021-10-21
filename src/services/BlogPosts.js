@@ -22,8 +22,13 @@ const getAllPosts = async () => {
 };
 
 const updatePost = async (data, id) => {
-  const [postId] = await BlogPosts.update(data, { where: { id } });
-  return postId;
+  const post = await BlogPosts.update(data, { where: { id } }).then(() =>
+    BlogPosts.findByPk(id, {
+      include: [
+        { model: Categories, as: 'categories', through: { attributes: [] } },
+      ],
+    }));
+  return post;
 };
 
 const createPost = async (data) => {
