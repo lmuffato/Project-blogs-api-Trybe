@@ -32,5 +32,5 @@ module.exports = {
   loginJoi,
   categoriesJoi,
   postUpdateJoi,
-  postsJoi
+  postsJoi,
 };
