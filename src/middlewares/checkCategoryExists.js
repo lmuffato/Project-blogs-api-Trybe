@@ -11,7 +11,6 @@ const checkCategoryExists = async (req, res, next) => {
   );
 
   if (nonExistentCategory.length) {
-    console.log(nonExistentCategory);
     return res
       .status(notFoundCategory.code)
       .json({ message: notFoundCategory.message });

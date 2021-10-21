@@ -3,6 +3,7 @@ const {
   createPost,
   getAllPosts,
   getPost,
+  updatePost,
 } = require('../../controllers/BlogPosts');
 const checkCategoryExists = require('../../middlewares/checkCategoryExists');
 const auth = require('../../middlewares/auth');
@@ -22,6 +23,9 @@ postRouter
     createPost,
   );
 
-postRouter.route('/:id').get(auth, getPost);
+postRouter
+  .route('/:id')
+  .get(auth, getPost)
+  .put(auth, updatePost);
 
 module.exports = postRouter;

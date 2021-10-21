@@ -5652,6 +5652,11 @@
     "umzug" "^2.3.0"
     "yargs" "^13.1.0"
 
+"sequelize-noupdate-attributes@^1.0.0":
+  "integrity" "sha1-cKtyRWN0KyxvutxQfJHAEEG1+zg="
+  "resolved" "https://registry.npmjs.org/sequelize-noupdate-attributes/-/sequelize-noupdate-attributes-1.0.0.tgz"
+  "version" "1.0.0"
+
 "sequelize-pool@^6.0.0":
   "integrity" "sha512-4YwEw3ZgK/tY/so+GfnSgXkdwIJJ1I32uZJztIEgZeAO6HMgj64OzySbWLgxj+tXhZCJnzRfkY9gINw8Ft8ZMg=="
   "resolved" "https://registry.npmjs.org/sequelize-pool/-/sequelize-pool-6.1.0.tgz"

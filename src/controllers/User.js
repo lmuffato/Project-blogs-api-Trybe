@@ -24,7 +24,7 @@ const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
     
-    const user = await Users.findByPk(id);
+    const user = await Users.findByPk(id, { raw: true });
     
     if (!user) {
       return res
@@ -32,8 +32,8 @@ const getUserById = async (req, res) => {
       .json({ message: notFoundUser.message });
     }
 
-    const { password, ...rest } = Users.dataValues;
-    
+    const { password, ...rest } = user;
+
     return res.status(200).json(rest);
   } catch (e) {
     return res.status(500).json({ message: 'Algo deu errado' });

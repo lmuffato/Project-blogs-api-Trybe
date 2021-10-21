@@ -21,6 +21,11 @@ const getAllPosts = async () => {
   return posts;
 };
 
+const updatePost = async (data, id) => {
+  const [postId] = await BlogPosts.update(data, { where: { id } });
+  return postId;
+};
+
 const createPost = async (data) => {
   const { dataValues } = await BlogPosts.create(data);
   await insertPostCategories(data.categoryIds, dataValues.id);
@@ -28,4 +33,4 @@ const createPost = async (data) => {
   return dataValues;
 };
 
-module.exports = { getPostById, createPost, getAllPosts };
+module.exports = { getPostById, createPost, getAllPosts, updatePost };

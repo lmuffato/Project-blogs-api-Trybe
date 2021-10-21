@@ -52,4 +52,27 @@ const getPost = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getAllPosts, getPost };
+const updatePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, content } = req.body;
+    const post = await BlogPosts.getPostById(id);
+
+    if (!post) {
+      return res
+        .status(notFoundPost.code)
+        .json({ message: notFoundPost.message });
+    }
+
+    const updatedId = await BlogPosts.updatePost({ title, content }, id);
+
+    const updatedPost = await BlogPosts.getPostById(updatedId);
+
+    return res.status(200).json(updatedPost);
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).json({ message: 'Algo deu errado' });
+  }
+};
+
+module.exports = { createPost, getAllPosts, getPost, updatePost };
