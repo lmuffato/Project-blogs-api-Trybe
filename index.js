@@ -21,13 +21,14 @@ const passwordValidation = require('./src/middlewares/passwordValidation');
 const { existingUserValidation,
   userNotFoundValidation } = require('./src/middlewares/existingUserValidation');
 const { tokenValidation } = require('./src/middlewares/loginValidation');
+const categoryValidation = require('./src/middlewares/categoryValidation');
 
 app.post('/user', nameValidation, emailValidation, passwordValidation, existingUserValidation,
   usersController.create);
 app.get('/user', tokenValidation, usersController.getAll);
 app.get('/user/:id', tokenValidation, usersController.getById);
 
-app.post('/categories', categoriesController.create);
-
 app.post('/login', emailValidation, passwordValidation,
   userNotFoundValidation, loginController.successfulLogin);
+
+app.post('/categories', tokenValidation, categoryValidation, categoriesController.create);
