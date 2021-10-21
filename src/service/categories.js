@@ -10,6 +10,15 @@ const createCategories = async (data) => {
   return { status: 201, data: category };
 };
 
+const allCategories = async (data) => {
+  const { error } = Joi.Categories.validate(data);
+  if (error) return { status: 400, message: error.details[0].message };
+
+  const categories = await Category.findAll();
+  return { status: 200, data: categories };
+};
+
 module.exports = {
   createCategories,
+  allCategories,
 };
