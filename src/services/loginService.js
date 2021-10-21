@@ -1,10 +1,10 @@
 const { newToken } = require('../middlewares/token');
-const { Users } = require('../models');
+const { User } = require('../models');
 
 const login = async (loginData) => {
   const { email, password } = loginData;
 
-  const userData = await Users.findOne({
+  const userData = await User.findOne({
     where: { email },
   });
 

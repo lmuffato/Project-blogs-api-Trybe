@@ -1,8 +1,8 @@
 const { newToken } = require('../middlewares/token');
-const { Users } = require('../models');
+const { User } = require('../models');
 
 const findByEmail = async (email) => {
-  const result = await Users.findOne({ where: { email } });
+  const result = await User.findOne({ where: { email } });
   return result;
 };
 
@@ -16,7 +16,7 @@ const createUser = async (newUser) => {
       message: 'User already registered', 
     }; 
   }
-  const { dataValues: { password: _, ...userWithoutPassword } } = await Users.create({ 
+  const { dataValues: { password: _, ...userWithoutPassword } } = await User.create({ 
     displayName, email, password, image, 
   });
 
@@ -25,7 +25,7 @@ const createUser = async (newUser) => {
 };
 
 const getAll = async () => {
-  const users = await Users.findAll({
+  const users = await User.findAll({
     attributes: { exclude: 'password' },
   });
 
@@ -33,17 +33,15 @@ const getAll = async () => {
 };
 
 const findById = async (id) => {
-  const user = await Users.findOne({
+  const user = await User.findOne({
     where: { id },
     attributes: { exclude: 'password' },
   });
 
   if (!user) {
     return {
-      error: {
-        code: 404,
-        message: 'User does not exist',
-      },
+      code: 404,
+      message: 'User does not exist',
     };
   }
 
@@ -51,7 +49,7 @@ const findById = async (id) => {
 };
 
 const deleteUser = async (email) => {
-  await Users.destroy({
+  await User.destroy({
     where: { email },
   });
 };

@@ -20,7 +20,7 @@ const findById = async (req, res, next) => {
   const { id } = req.params;
   const user = await userService.findById(id);
 
-  if (user.error) return next(user.error);
+  if (user.code) return next(user);
 
   res.status(200).json(user);
 };

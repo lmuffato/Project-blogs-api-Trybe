@@ -19,6 +19,8 @@ app.use('/login', routes.Login);
 
 app.use('/categories', routes.Categories);
 
+app.use('/post', routes.Post);
+
 app.use(error);
 
 // não remova esse endpoint, e para o avaliador funcionar
