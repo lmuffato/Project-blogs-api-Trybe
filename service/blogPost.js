@@ -21,10 +21,10 @@ const createBlogPost = async (date, token) => {
 
   const idCategoryes = await Category.findAll();
 
-  idCategoryes.forEach(({ id }) => {
-    const idCategorye = categoryIds.some((idUser) => (idUser === id));
+  categoryIds.forEach((idCat) => {
+    const result = idCategoryes.some(({ id }) => (idCat === id));
 
-    if (!idCategorye) throw addErro('"categoryIds" not found', 400);
+    if (!result) throw addErro('"categoryIds" not found', 400);
   });
 
   const newBlogPost = await BlogPost.create({ title, content, userId });
