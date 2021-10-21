@@ -1,4 +1,4 @@
-const { BlogPost, Category, PostsCategory, User } = require('../models');
+const { BlogPost, Category, User } = require('../models');
 
 const createPost = async (req, res) => {
     const { title, content, categoryIds } = req.body;
@@ -7,7 +7,7 @@ const createPost = async (req, res) => {
     const updated = new Date();
 
     // criar um post na tabela BlogPost
-    const post = await BlogPost.create({ title, content, userId, published, updated });
+    await BlogPost.create({ title, content, userId, published, updated });
 
     const found = categoryIds.every(async (categoryId) => {
         const result = await Category.findOne({ where: { id: categoryId } });
