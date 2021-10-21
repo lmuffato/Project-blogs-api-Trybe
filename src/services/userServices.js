@@ -41,4 +41,18 @@ const getAllUser = async () => {
   return { status: httpStatus.HTTP_OK_STATUS, data: users };
 };
 
-module.exports = { createUserServices, getAllUser };
+const getUserById = async (id) => {
+  const user = await User.findByPk(id);
+
+  if (!user) {
+    return { status: 404, message: 'User does not exist' };
+  }
+
+  return { status: 200, data: user };
+};
+
+module.exports = {
+  createUserServices,
+  getAllUser,
+  getUserById,
+};
