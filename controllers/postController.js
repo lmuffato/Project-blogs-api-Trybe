@@ -11,3 +11,11 @@ exports.create = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getAll = async (req, res, next) => {
+  try {
+    res.status(200).send('Toma aqui todos os posts');
+  } catch (err) {
+    next(err);
+  }
+};
