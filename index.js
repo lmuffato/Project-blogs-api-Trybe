@@ -37,3 +37,5 @@ app.post('/categories', tokenValidation, categoryValidation, categoriesControlle
 app.get('/categories', tokenValidation, categoriesController.getAll);
 
 app.post('/post', blogPostsValidations, tokenValidation, blogPostsController.create);
+
+app.get('/post', tokenValidation, blogPostsController.getAll);

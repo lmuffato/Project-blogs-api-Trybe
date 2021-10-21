@@ -1,12 +1,21 @@
-const { BlogPost, User } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 require('dotenv').config();
+
+const getAll = async (req, res) => {
+  const posts = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return res.status(200).json(posts);
+};
 
 const create = async (req, res) => {
   const { title, content } = req.body;
   const { email } = req.user;
   
   const { id } = await User.findOne({ where: { email } });
-  // console.log(id);
 
   const newPost = await BlogPost.create({
     title,
@@ -21,4 +30,5 @@ const create = async (req, res) => {
 
 module.exports = {
   create,
+  getAll,
 };
