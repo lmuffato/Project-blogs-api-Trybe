@@ -16,10 +16,16 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        foreignKey: true,
+        allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
       },
       published: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updated: {
         type: Sequelize.DATE

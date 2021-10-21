@@ -9,9 +9,9 @@ module.exports = (req, res, next) => {
 
   const payload = jwt.verify(authorization, SECRET);
 
-  const { _id } = payload;
+  const { dataValues: { id } } = payload;
 
-  req.user = _id;
+  req.user = id;
 
   next();
   } catch (_e) {

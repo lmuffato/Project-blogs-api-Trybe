@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userController = require('./controllers/UserController');
 const CategoryController = require('./controllers/CategoryController');
+const BlogPostController = require('./controllers/BlogPostController');
 const AuthUser = require('./validations/AuthUser');
 
 const app = express();
@@ -13,6 +14,7 @@ app.get('/user', AuthUser, userController.listUsers);
 app.get('/user/:id', AuthUser, userController.listUserId);
 app.post('/categories', AuthUser, CategoryController.createCategory);
 app.get('/categories', AuthUser, CategoryController.listCategories);
+app.post('/post', AuthUser, BlogPostController.createPost);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
