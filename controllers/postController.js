@@ -14,7 +14,9 @@ exports.create = async (req, res, next) => {
 
 exports.getAll = async (req, res, next) => {
   try {
-    res.status(200).send('Toma aqui todos os posts');
+    const posts = await postService.getAll();
+
+    res.status(200).send(posts);
   } catch (err) {
     next(err);
   }
