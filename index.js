@@ -13,4 +13,10 @@ app.get('/', (request, response) => {
 
 const usersController = require('./src/controllers/usersController');
 
-app.post('/user', usersController.create);
+const nameValidation = require('./src/middlewares/nameValidation');
+const emailValidation = require('./src/middlewares/emailValidation');
+const passwordValidation = require('./src/middlewares/passwordValidation');
+const { existingUserValidation } = require('./src/middlewares/existingUserValidation');
+
+app.post('/user', nameValidation, emailValidation, passwordValidation, existingUserValidation,
+usersController.create);
