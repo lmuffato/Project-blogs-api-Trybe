@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { Category } = require('../models');
 
 const error = {
@@ -27,8 +28,10 @@ const categoryRequired = (req, res, next) => {
 
 const categoryNotFound = async (req, res, next) => {
   const { categoryIds } = req.body;
-  const findCategory = await Category.findOne({ where: { id: categoryIds[0] } });
-  if (!findCategory) return res.status(400).json({ message: error.categoryIdsNotFound });
+  const findAllCategory = await Category.findAll({ where: { id: { [Op.and]: [categoryIds] } } });
+  if (findAllCategory.length !== categoryIds.length) {
+    return res.status(400).json({ message: error.categoryIdsNotFound });
+  }
   next();
 };
 
