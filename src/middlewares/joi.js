@@ -12,4 +12,25 @@ const loginJoi = Joi.object({
   password: Joi.string().required(),
 });
 
-module.exports = { userJoi, loginJoi };
+const categoriesJoi = Joi.object({
+  name: Joi.string().required(),
+});
+
+const postsJoi = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+  categoryIds: Joi.array().required(),
+});
+
+const postUpdateJoi = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+});
+
+module.exports = {
+  userJoi,
+  loginJoi,
+  categoriesJoi,
+  postUpdateJoi,
+  postsJoi
+};
