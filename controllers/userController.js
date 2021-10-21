@@ -4,7 +4,7 @@ const userService = require('../services/userService');
 const secrete = process.env.JWT_SECRET;
 
 const jwtConfig = {
-  expiresIn: '1h',
+  expiresIn: '1d',
   algorithm: 'HS256',
 };
 
@@ -20,4 +20,10 @@ const createUser = async (req, res, next) => {
   return res.status(201).json({ token });
 };
 
-module.exports = { createUser };
+const getAllUsers = async (_req, res, _next) => {
+  const allUsers = await userService.getAllUsers();
+
+  return res.status(200).json(allUsers);
+};
+
+module.exports = { createUser, getAllUsers };
