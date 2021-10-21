@@ -4,7 +4,7 @@ const { createUser, getAll, getById } = require('./controller/user');
 const { userLogin } = require('./controller/login');
 const { tokenValidation } = require('./middleware/tokenValidation');
 const { createCategories, getAllCategories } = require('./controller/categories');
-const { createPost, getAllPost } = require('./controller/post');
+const { createPost, getAllPost, getByIdPost } = require('./controller/post');
 
 const app = express();
 
@@ -28,3 +28,4 @@ app.get('/categories', tokenValidation, getAllCategories);
 
 app.post('/post', tokenValidation, createPost);
 app.get('/post', tokenValidation, getAllPost);
+app.get('/post/:id', tokenValidation, getByIdPost);
