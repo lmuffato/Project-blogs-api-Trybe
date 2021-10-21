@@ -8,11 +8,11 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
-          model: 'BlogsPosts',
+          model: 'BlogPosts',
           key: 'id'
         },
       },
-      categoriesId: {
+      categoryId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         onUpdate: 'CASCADE',
@@ -22,14 +22,6 @@ module.exports = {
           key: 'id'
         },
       },
-/*       createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      } */
     });
   },
   down: async (queryInterface, Sequelize) => {

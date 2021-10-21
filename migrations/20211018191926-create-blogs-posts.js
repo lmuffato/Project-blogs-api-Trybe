@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       content: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -24,19 +24,21 @@ module.exports = {
           key: 'id',
         }
       },
-/*       createdAt: {
+     createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        field: 'published',
+        defaultValue: new Date() 
       },
-      updatedAt: {
+    updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }, */
-      published: Sequelize.DATE,
-      updated: Sequelize.DATE,
+        type: Sequelize.DATE,
+        field: 'updated',
+        defaultValue: new Date() 
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('BlogsPosts');
+    await queryInterface.dropTable('BlogPosts');
   }
 };

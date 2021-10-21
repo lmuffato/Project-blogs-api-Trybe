@@ -20,6 +20,7 @@ app.get('/', (request, response) => {
 app.get('/user', validateToken.validateToken, userController.getAll);
 app.get('/user/:id', validateToken.validateToken, userController.getById);
 app.get('/categories', validateToken.validateToken, categoriesCtrl.allCategories);
+app.get('/post', validateToken.validateToken, postController.getAllPosts);
 
 app.post('/user', userController.createUser); 
 app.post('/login', logInController.logInUser);

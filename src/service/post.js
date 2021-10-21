@@ -1,5 +1,15 @@
 const joi = require('../middleware/joi');
-const { Post, Category } = require('../../models');
+const { Post, Category, User } = require('../../models');
+
+const getAllPosts = async () => {
+  const posts = await Post.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return { status: 200, data: posts };
+};
 
 const createPost = async (data, { id: userId }) => {
   const { error } = joi.Post.validate(data);
@@ -18,4 +28,5 @@ const createPost = async (data, { id: userId }) => {
 
 module.exports = {
   createPost,
+  getAllPosts,
 };
