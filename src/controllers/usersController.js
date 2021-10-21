@@ -4,6 +4,11 @@ require('dotenv').config();
 
 const SECRET = process.env.JWT_SECRET;
 
+const getAll = async (req, res) => {
+  const users = await User.findAll();
+  return res.status(200).json(users);
+};
+
 const create = async (req, res) => {
   const { displayName, email, password, image } = req.body;
 
@@ -16,4 +21,5 @@ const create = async (req, res) => {
 
 module.exports = {
   create,
+  getAll,
 };

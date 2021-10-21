@@ -19,9 +19,11 @@ const emailValidation = require('./src/middlewares/emailValidation');
 const passwordValidation = require('./src/middlewares/passwordValidation');
 const { existingUserValidation,
   userNotFoundValidation } = require('./src/middlewares/existingUserValidation');
+const { tokenValidation } = require('./src/middlewares/loginValidation');
 
 app.post('/user', nameValidation, emailValidation, passwordValidation, existingUserValidation,
   usersController.create);
+app.get('/user', tokenValidation, usersController.getAll);
 
 app.post('/login', emailValidation, passwordValidation,
   userNotFoundValidation, loginController.successfulLogin);
