@@ -8,6 +8,7 @@ const { tokenValidate } = require('../middlewares/tokenValidate');
 
 const router = express.Router();
 router.get('/user', tokenValidate, userController.getAllUsers);
+router.get('/user/:id', tokenValidate, userController.getUser);
 router.post('/user', validateUser, userController.createUser);
 
 router.post('/login', validateEmail, loginController.login);
