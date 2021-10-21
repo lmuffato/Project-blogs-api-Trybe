@@ -2,7 +2,12 @@ const { BlogPosts, Users, Categories } = require('../models');
 const { insertPostCategories } = require('./PostCategories');
 
 const getPostById = async (id) => {
-  const post = await BlogPosts.findByPk(id, { raw: true });
+  const post = await BlogPosts.findByPk(id, {
+    include: [
+      { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Categories, as: 'categories', through: { attributes: [] } },
+    ],
+  });
   return post;
 };
 

@@ -1,5 +1,9 @@
 const express = require('express');
-const { createPost, getAllPosts } = require('../../controllers/BlogPosts');
+const {
+  createPost,
+  getAllPosts,
+  getPost,
+} = require('../../controllers/BlogPosts');
 const checkCategoryExists = require('../../middlewares/checkCategoryExists');
 const auth = require('../../middlewares/auth');
 const validate = require('../../schemas/validate');
@@ -17,5 +21,7 @@ postRouter
     checkCategoryExists,
     createPost,
   );
+
+postRouter.route('/:id').get(auth, getPost);
 
 module.exports = postRouter;
