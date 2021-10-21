@@ -32,4 +32,4 @@ app.post('/login', emailValidation, passwordValidation,
   userNotFoundValidation, loginController.successfulLogin);
 
 app.post('/categories', tokenValidation, categoryValidation, categoriesController.create);
-app.get('/categories', categoriesController.getAll);
+app.get('/categories', tokenValidation, categoriesController.getAll);
