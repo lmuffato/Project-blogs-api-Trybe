@@ -12,7 +12,7 @@ const {
 const MESSAGE = require('../util/Message');
 
 const jwtConfig = {
-    expiresIn: '20m',
+    expiresIn: '1h',
     algorithm: 'HS256',
 };
 
