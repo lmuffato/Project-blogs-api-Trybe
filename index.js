@@ -24,6 +24,7 @@ const { tokenValidation } = require('./src/middlewares/loginValidation');
 app.post('/user', nameValidation, emailValidation, passwordValidation, existingUserValidation,
   usersController.create);
 app.get('/user', tokenValidation, usersController.getAll);
+app.get('/user/:id', tokenValidation, usersController.getById);
 
 app.post('/login', emailValidation, passwordValidation,
   userNotFoundValidation, loginController.successfulLogin);
