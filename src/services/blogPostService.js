@@ -17,12 +17,26 @@ const getAllPosts = async () => {
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: Category, as: 'categories', through: { attributes: [] } },
+      // o as está descrito na modell. Como cada post so tem um user, nomeei no singular. 
+      // como a associacao de post x categories eh n:n nomeiei no plural
     ],
   });
+  return result;
+};
+
+const getPostById = async (id) => {
+  const result = await BlogPost.findByPk(id, { 
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  if (!result) throw error.postDoesNotExist;
   return result;
 };
 
 module.exports = {
   createPost,
   getAllPosts,
+  getPostById,
 };

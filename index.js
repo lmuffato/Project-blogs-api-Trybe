@@ -19,6 +19,7 @@ app.post('/categories', rescue(user.validateToken), rescue(category.createCatego
 app.get('/categories', rescue(user.validateToken), rescue(category.getAll));
 
 app.post('/post', rescue(user.validateToken), rescue(post.createPost));
+app.get('/post/:id', rescue(user.validateToken), rescue(post.getPostById));
 app.get('/post', rescue(user.validateToken), rescue(post.getAllPosts));
 
 app.use(errors);
