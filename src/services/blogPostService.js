@@ -1,5 +1,6 @@
-const { in: opIn } = require('sequelize').Op;
-const { BlogPost, Category } = require('../../models');
+const { in: opIn } = require('sequelize').Op; 
+// opIn é o mesmo que in, mas por ser uma palavra reservada, o Sequelize utiliza o opIn
+const { BlogPost, Category, User } = require('../../models');
 const validateFcts = require('../utils/validateFunctions');
 const error = require('../utils/errorsObject');
 
@@ -11,6 +12,17 @@ const createPost = async (title, categoryIds, content, userId) => {
   return result;
 };
 
+const getAllPosts = async () => {
+  const result = await BlogPost.findAll({ 
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return result;
+};
+
 module.exports = {
   createPost,
+  getAllPosts,
 };

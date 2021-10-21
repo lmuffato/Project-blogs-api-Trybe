@@ -33,7 +33,7 @@ module.exports = {
         field: 'updated',
         defaultValue: new Date(),
       },
-      });
+    });
   },
 
   down: async (queryInterface, Sequelize) => {

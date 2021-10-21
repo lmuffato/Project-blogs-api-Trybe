@@ -14,7 +14,7 @@ const createToken = (payload) => jwt.sign(payload, JWT_SECRET, jwtConfig);
 const verifyToken = (token) => {
   if (!token) throw errorsObject.tokenNotFound;
   const payload = jwt.verify(token, JWT_SECRET);
-  console.log(payload);
+  console.log('verify', payload);
   return payload;
 };
 

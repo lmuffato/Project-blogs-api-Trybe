@@ -11,6 +11,13 @@ const User = (sequelize, DataTypes) => {
     // createdAt: false,
     // updatedAt: 'updateTimestamp',
   });
+  user.associate = (models) => {
+    user.hasMany(models.BlogPost, {
+      foreignKey: 'userId',
+      // Se hasMany a foreignKey será da tabela target(BlogPost)
+      as: 'post',
+    });
+  };
 
   return user;
 };

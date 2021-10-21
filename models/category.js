@@ -1,7 +1,7 @@
 const Category = (sequelize, DataTypes) => {
   const category = sequelize.define('Category', {
     name: DataTypes.STRING,
-  }, { timestamps: false });
+  }, { timestamps: false, tablename: 'Categories' });
   return category;
 };
 
