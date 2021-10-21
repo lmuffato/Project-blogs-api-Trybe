@@ -16,7 +16,7 @@ const jwtConfig = {
     algorithm: 'HS256',
 };
 
-const secret = process.env.SECRET;
+const secret = process.env.JWT_SECRET;
 
 const createUser = async (displayName, email, password, image) => {
     const displayNameResponse = validateDisplayName(displayName);
