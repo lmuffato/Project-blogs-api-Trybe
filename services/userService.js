@@ -16,7 +16,7 @@ const doesHaveEmailAndPassword = (email, password) => {
   return true;
 };
 
-const errCases = ({ validName, emailValidFormat, newEmail, validPassword }) => {
+const newUserErrCases = ({ validName, emailValidFormat, newEmail, validPassword }) => {
   switch (false) {
     case validName: return { code: 'BAD_REQUEST',
     err: { message: '"displayName" length must be at least 8 characters long' } };
@@ -31,25 +31,21 @@ const errCases = ({ validName, emailValidFormat, newEmail, validPassword }) => {
 };
 
 const newUserValidations = async (displayName, email, password) => {
-  // if (!email) { 
-  //   return { code: 'BAD_REQUEST',
-  // err: { message: '"email" is required' } };
-  // }
-  // if (!password) { 
-  //   return { code: 'BAD_REQUEST',
-  //   err: { message: '"password" is required' } };
-  //   }
   const hasEmailAndPassword = doesHaveEmailAndPassword(email, password);
-  console.log(hasEmailAndPassword);
+
   if (hasEmailAndPassword.err) return hasEmailAndPassword;
+  
   const validName = displayName.length >= 8;
+  
   const emailValidFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // source: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+  
   const newEmail = await User.findAll()
   .then((users) => users.every(({ email: userEmail }) => userEmail !== email))
     .catch((_err) => ({ code: 'SERVER_ERROR', err: { message: 'Algo deu errado' } })); 
-  const validPassword = password.length >= 6;
   
-  const isValid = errCases({ validName, emailValidFormat, newEmail, validPassword }); 
+    const validPassword = password.length >= 6;
+  
+    const isValid = newUserErrCases({ validName, emailValidFormat, newEmail, validPassword }); 
 
   return isValid;
 };
@@ -71,8 +67,13 @@ const addNewUser = async (displayName, email, password, image) => {
   }
 };
 
-const loginValidations = async () => {
-  
+const loginValidations = async (email, password) => {
+  const validEmail =
+  (email === '') ? { code: 'SERVER_ERROR', err: { message: 'Algo deu errado' } }
+  : null;
+  const hasEmailAndPassword = doesHaveEmailAndPassword(email, password);
+
+  if (hasEmailAndPassword.err) return hasEmailAndPassword;
 };
 
 const requestLogin = async (email, password) => {
