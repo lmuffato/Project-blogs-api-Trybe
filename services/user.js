@@ -23,8 +23,8 @@ const createUser = async (displayName, email, password, image) => {
     if (displayNameResponse !== MESSAGE.success) return displayNameResponse;
 
     if (!email) return MESSAGE.emailNotExists;
-    const emailResponse = await validateEmail(email);
 
+    const emailResponse = await validateEmail(email);
     if (emailResponse !== MESSAGE.success) return emailResponse;
 
     const passwordResponse = validatePassword(password);
@@ -32,6 +32,9 @@ const createUser = async (displayName, email, password, image) => {
 
     const tokenPayload = { displayName, email, image };
     const token = jwt.sign(tokenPayload, secret, jwtConfig);
+    
+    await User.create({ displayName, email, password, image });
+
     return { status: 201, token };
 };
 

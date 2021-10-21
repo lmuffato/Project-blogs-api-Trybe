@@ -12,12 +12,14 @@ const validateEmail = async (email) => {
     if (!filter.test(email)) return MESSAGE.emailNotValid;
 
     const findUser = await User.findOne({ where: { email } });
+    console.log(findUser);
     if (findUser !== null) return MESSAGE.emailAlreadyExists;
 
     return MESSAGE.success;
 };
 
 const validatePassword = (password) => {
+    if (!password) return MESSAGE.passwordNotExists;
     if (password.length < 6) return MESSAGE.passwordNotValid;
     return MESSAGE.success;
 };

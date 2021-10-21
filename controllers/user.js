@@ -3,9 +3,14 @@ const { User } = require('../models');
 
 const createUser = async (req, res) => {
     const { displayName, email, password, image } = req.body;
+    
     const user = await userService.createUser(displayName, email, password, image);
-    if (user.status === 400) return res.status(user.status).json({ message: user.message });
-    if (user.status === 201) return res.status(user.status).json({ token: user.message });
+
+    if (user.status === 409 || user.status === 400) {
+        return res.status(user.status).json({ message: user.message });
+    }
+
+    if (user.status === 201) return res.status(user.status).json({ token: user.token });
 };
 
 const loginUser = async (req, res) => {
