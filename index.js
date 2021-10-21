@@ -13,6 +13,7 @@ app.get('/', (request, response) => {
 
 const usersController = require('./src/controllers/usersController');
 const loginController = require('./src/controllers/loginController');
+const categoriesController = require('./src/controllers/categoriesController');
 
 const nameValidation = require('./src/middlewares/nameValidation');
 const emailValidation = require('./src/middlewares/emailValidation');
@@ -24,8 +25,9 @@ const { tokenValidation } = require('./src/middlewares/loginValidation');
 app.post('/user', nameValidation, emailValidation, passwordValidation, existingUserValidation,
   usersController.create);
 app.get('/user', tokenValidation, usersController.getAll);
-
 app.get('/user/:id', tokenValidation, usersController.getById);
+
+app.post('/categories', categoriesController.create);
 
 app.post('/login', emailValidation, passwordValidation,
   userNotFoundValidation, loginController.successfulLogin);
