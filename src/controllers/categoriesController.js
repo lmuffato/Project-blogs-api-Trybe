@@ -1,15 +1,20 @@
 const categoriesService = require('../services/categoriesService');
 
-const createCategory = async (req, res, next) => {
+const createCategory = async (req, res) => {
   const { name } = req.body;
 
   const category = await categoriesService.createCategory({ name });
 
-  if (category.error) return next(category.error);
-
   res.status(201).json(category);
+};
+
+const findCategories = async (req, res) => {
+  const categories = await categoriesService.findCategories();
+
+  res.status(200).json(categories);
 };
 
 module.exports = {
   createCategory,
+  findCategories,
 };
