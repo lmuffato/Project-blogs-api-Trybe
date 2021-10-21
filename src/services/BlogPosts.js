@@ -1,13 +1,26 @@
-const { BlogPost } = require('../models');
+const { BlogPosts, Users, Categories } = require('../models');
+const { insertPostCategories } = require('./PostCategories');
 
 const getPostById = async (id) => {
-  const post = await BlogPost.findByPk(id, { raw: true });
+  const post = await BlogPosts.findByPk(id, { raw: true });
   return post;
 };
 
-const createPost = async (data) => {
-    const { dataValues } = await BlogPost.create(data);
-    return dataValues;
+const getAllPosts = async () => {
+  const posts = await BlogPosts.findAll({
+    include: [
+      { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Categories, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return posts;
 };
 
-module.exports = { getPostById, createPost };
+const createPost = async (data) => {
+  const { dataValues } = await BlogPosts.create(data);
+  await insertPostCategories(data.categoryIds, dataValues.id);
+
+  return dataValues;
+};
+
+module.exports = { getPostById, createPost, getAllPosts };

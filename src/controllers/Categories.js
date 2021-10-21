@@ -1,10 +1,10 @@
-const { Category } = require('../models');
+const { Categories } = require('../models');
 
 const createCategory = async (req, res) => {
   try {
     const { name } = req.body;
 
-    const newCategory = await Category.create({ name });
+    const newCategory = await Categories.create({ name });
 
     return res.status(201).json(newCategory);
   } catch (e) {
@@ -15,7 +15,7 @@ const createCategory = async (req, res) => {
 
 const getAllCategories = async (req, res) => {
   try {
-    const categories = await Category.findAll({ raw: true });
+    const categories = await Categories.findAll({ raw: true });
 
     return res.status(200).json(categories);
   } catch (e) {

@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { Users } = require('../models');
 const tokenService = require('../services/token');
 const { notFoundUser } = require('../utils/errors');
 
@@ -6,7 +6,7 @@ const createUser = async (req, res) => {
   try {
     const { displayName, email, password, image } = req.body;
 
-    const { id } = await User.create({ displayName, email, password, image });
+    const { id } = await Users.create({ displayName, email, password, image });
     const token = tokenService.generate(id);
     return res.status(201).json({ token });
   } catch (e) {
@@ -16,7 +16,7 @@ const createUser = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
-  const users = await User.findAll();
+  const users = await Users.findAll();
   return res.status(200).json(users);
 };
 
@@ -24,7 +24,7 @@ const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
     
-    const user = await User.findByPk(id);
+    const user = await Users.findByPk(id);
     
     if (!user) {
       return res
@@ -32,7 +32,7 @@ const getUserById = async (req, res) => {
       .json({ message: notFoundUser.message });
     }
 
-    const { password, ...rest } = user.dataValues;
+    const { password, ...rest } = Users.dataValues;
     
     return res.status(200).json(rest);
   } catch (e) {

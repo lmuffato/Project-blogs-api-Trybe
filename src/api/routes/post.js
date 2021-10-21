@@ -1,5 +1,5 @@
 const express = require('express');
-const { createPost } = require('../../controllers/BlogPosts');
+const { createPost, getAllPosts } = require('../../controllers/BlogPosts');
 const checkCategoryExists = require('../../middlewares/checkCategoryExists');
 const auth = require('../../middlewares/auth');
 const validate = require('../../schemas/validate');
@@ -9,6 +9,7 @@ const postRouter = express.Router();
 
 postRouter
   .route('/')
+  .get(auth, getAllPosts)
   .post(
     auth,
     validate.createPost(),

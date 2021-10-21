@@ -7,7 +7,7 @@ const createPost = async (req, res) => {
 
     const currentDate = new Date();
 
-    const { id } = await BlogPosts.createPost({
+    const post = await BlogPosts.createPost({
       title,
       categoryIds,
       content,
@@ -15,7 +15,7 @@ const createPost = async (req, res) => {
       published: currentDate,
       updated: currentDate,
     });
-    const { published, updated, ...rest } = await BlogPosts.getPostById(id);
+    const { published, updated, ...rest } = post;
     return res.status(201).json(rest);
   } catch (err) {
     console.log(err.message);
@@ -23,4 +23,15 @@ const createPost = async (req, res) => {
   }
 };
 
-module.exports = { createPost };
+const getAllPosts = async (_req, res) => {
+  try {
+    const posts = await BlogPosts.getAllPosts();
+    console.log(posts);
+    return res.status(200).json(posts);
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).json({ message: 'Algo deu errado' });
+  }
+};
+
+module.exports = { createPost, getAllPosts };
