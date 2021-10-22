@@ -13,9 +13,11 @@ const loginUser = async (email, password) => {
   validations.validatePassword(password);
   await validations.validateLogin(email, password);
 
-  const { password: passDB, ...userInformation } = await Users.findOne({ where: { email } });
-  const token = jwt.sign({ data: userInformation }, process.env.JWT_SECRET, jwtConfig);
+  const { password: passDB, ...userInformation } = await Users.findOne({ where: { email } })
+    .then(({ dataValues }) => dataValues);
 
+  const token = jwt.sign({ data: userInformation }, process.env.JWT_SECRET, jwtConfig);
+  
   return ({ status: 200, message: token });
 };
 
