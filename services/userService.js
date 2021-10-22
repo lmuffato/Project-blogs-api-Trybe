@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 const { User } = require('../models');
-const user = require('../models/user');
 
 const secret = 'Nanii!!!';
 
@@ -94,12 +93,6 @@ const loginValidations = async (email, password) => {
   const isValid = (email !== undefined && password !== undefined) 
     ? await loginErrCases(email, password) 
     : doesHaveEmailAndPassword(email, password);
-  // console.log(`email: ${email}\npassword: ${password}\n err: ${isValid.err.message}`);
-  // if (isValid.err) return isValid;
-
-  // const hasEmailAndPassword = doesHaveEmailAndPassword(email, password);
-
-  // if (hasEmailAndPassword.err) return hasEmailAndPassword;
 
   return isValid;
 };
