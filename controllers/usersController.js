@@ -25,4 +25,15 @@ usersRouter.get('/', validateJWT, async (_req, res) => {
   }
 });
 
+usersRouter.get('/:id', validateJWT, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await usersService.findUser(id);
+    res.status(response.status).json(response.message);
+  } catch (e) {
+    if (!e.status) return res.status(500).json({ message: 'Erro interno', error: e });
+    return res.status(e.status).json({ message: e.message });
+  }
+});
+
 module.exports = usersRouter;
