@@ -5,8 +5,7 @@ const service = require('../services/User');
 const secret = 'secretToken';
 
 const validateJWT = async (req, res, next) => {
-  const token = req.headers.authorization;
- 
+  const { authorization: token } = req.headers;
   if (!token || token === ' ') {
     return res.status(401).json({ message: 'Token not found' });
   }
