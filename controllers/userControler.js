@@ -20,4 +20,10 @@ async function createUser(req, res, next) {
     return res.status(status).json(data);
 }
 
-module.exports = { createUser, findUsers };
+async function findById(req, res) {
+  const { status, data, message } = await userService.findById(req.params.id);
+  if (message) return res.status(status).json({ message });
+  return res.status(status).json(data);
+}
+
+module.exports = { createUser, findUsers, findById };

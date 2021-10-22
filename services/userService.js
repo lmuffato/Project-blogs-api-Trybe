@@ -31,4 +31,10 @@ async function findUsers() {
   return { status: 200, data: users };
 }
 
-module.exports = { createUser, findUsers };
+async function findById(id) {
+  const users = await User.findByPk(id);
+  if (!users) return { status: 404, message: 'User does not exist' };
+  return { status: 200, data: users };
+}
+
+module.exports = { createUser, findUsers, findById };
