@@ -1,5 +1,12 @@
-const { StatusCodes: { CREATED, OK } } = require('http-status-codes');
-const { create, listAllUsers, getUserById } = require('../services/userService');
+const {
+  StatusCodes: { CREATED, OK, INTERNAL_SERVER_ERROR, NO_CONTENT },
+} = require('http-status-codes');
+const {
+  create,
+  listAllUsers,
+  getUserById,
+  remove,
+} = require('../services/userService');
 const login = require('../services/loginService');
 
 const createNewUser = async (req, res, next) => {
@@ -16,7 +23,7 @@ const loginUser = async (req, res, next) => {
     const token = await login(req.body);
     res.status(OK).json(token);
   } catch (e) {
-    next(e);
+    next({ statusCode: INTERNAL_SERVER_ERROR, message: e.message });
   }
 };
 
@@ -25,7 +32,7 @@ const getEveryone = async (_req, res, next) => {
     const allUsers = await listAllUsers();
     return res.status(OK).json(allUsers);
   } catch (e) {
-    next(e);
+    next({ statusCode: INTERNAL_SERVER_ERROR, message: e.message });
   }
 };
 
@@ -35,7 +42,18 @@ const getByID = async (req, res, next) => {
     const oneUser = await getUserById(id);
     return res.status(OK).json(oneUser);
   } catch (e) {
-    next(e);
+    next({ statusCode: INTERNAL_SERVER_ERROR, message: e.message });
+  }
+};
+
+const removeMySelf = async (req, res, next) => {
+  try {
+    const { id } = req.user.data;
+    console.log('📓 ~ file: userController.js ~ line 52 ~ removeMySelf ~ id', id);
+    await remove(id);
+    return res.status(NO_CONTENT).send();
+  } catch (e) {
+    next({ statusCode: INTERNAL_SERVER_ERROR, message: e.message });
   }
 };
 
@@ -44,4 +62,5 @@ module.exports = {
   loginUser,
   getEveryone,
   getByID,
+  removeMySelf,
 };

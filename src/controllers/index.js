@@ -3,6 +3,7 @@ const {
   loginUser,
   getEveryone,
   getByID,
+  removeMySelf,
 } = require('./userController');
 const { createNewCategory, getAllCategories } = require('./categoryController');
 const {
@@ -25,4 +26,5 @@ module.exports = {
   getSinglePost,
   updatePost,
   deletePost,
+  removeMySelf,
 };
