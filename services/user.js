@@ -4,7 +4,7 @@ const { userValidation } = require('../utils/schema');
 
 require('dotenv').config();
 
-const { SEGREDO } = process.env;
+const { JWT_SECRET } = process.env;
 
 const OK_STATUS = 200;
 const CREATED_STATUS = 201;
@@ -27,7 +27,7 @@ const createUserService = async (displayName, email, password, image) => {
     const { dataValues: { id, displayName: name, email: userEmail } } = newUser;
     const payload = { id, name, userEmail };
 
-    const token = jwt.sign(payload, SEGREDO);
+    const token = jwt.sign(payload, JWT_SECRET);
 
     return { status: CREATED_STATUS, data: { token } };
 };

@@ -3,7 +3,7 @@ const { User } = require('../models');
 const { loginValidation } = require('../utils/schema');
 require('dotenv').config();
 
-const { SEGREDO } = process.env;
+const { JWT_SECRET } = process.env;
 
 const OK_STATUS = 200;
 const BAD_REQUEST_STATUS = 400;
@@ -28,7 +28,7 @@ const loginService = async (data) => {
   const { id, email } = findUser;
   const payload = { id, email };
 
-  const token = jwt.sign(payload, SEGREDO);
+  const token = jwt.sign(payload, JWT_SECRET);
 
   return { status: OK_STATUS, data: { token } };
 };
