@@ -18,4 +18,20 @@ console.log(registered);
   }
   return getToken(email, password);
 };
-    module.exports = { createUser, checkUser };
+
+const findAll = async () => {
+  const users = await User.findAll();
+  console.log(users);
+  return users;
+};
+
+const searchUser = async ({ email }) => {
+  console.log('chegada user', email);
+  const searchEmail = await User.findOne({ where: { email } });
+    if (searchEmail === null) {
+      return '!exist';
+    }
+    return searchEmail;
+  };
+
+  module.exports = { createUser, checkUser, searchUser, findAll };

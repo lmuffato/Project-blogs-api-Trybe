@@ -36,4 +36,23 @@ const checkUser = rescue(async (req, res) => {
     }
 });
 
-module.exports = { createUser, checkUser };
+/* const searchUser = rescue(async (req, res) => {
+  try {
+      const users = await service.searchUser();
+      
+      if (users === '!exist') {
+        return res.status(400).json({ message: 'Usuario não encontrado' });
+      }
+      return res.status(200).json(users);
+    } catch (e) {
+      console.log(e.message);
+      res.status(500).json({ message: 'Algo deu errado' });
+    }
+}); */
+const findAll = rescue(async (req, res) => {
+  const users = await service.findAll();
+  console.log(users);
+  res.status(200).json(users);
+});
+
+module.exports = { createUser, checkUser, findAll };
