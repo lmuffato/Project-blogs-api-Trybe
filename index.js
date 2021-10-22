@@ -44,3 +44,5 @@ app.post('/post',
   controllerPost.createPost);
 
 app.get('/post', middleValidUser.verifyToken, controllerPost.getPosts);
+
+app.get('/post/:id', middleValidUser.verifyToken, controllerPost.getPostById);
