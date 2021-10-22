@@ -6,7 +6,6 @@ const requiredField = (param) => {
 
 const listCategoryId = async (categoryId) => {
   const category = await Categorie.findOne({ where: { id: categoryId }, in: { categoryId } });
-  console.log(category);
   if (!category) return true;
 };
 
