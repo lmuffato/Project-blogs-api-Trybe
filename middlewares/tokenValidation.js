@@ -16,7 +16,7 @@ const validateToken = (req, res, next) => {
   try {
     const payload = jwt.verify(token, SEGREDO);
     req.user = payload;
-    next();
+    return next();
   } catch (e) {
     console.log(e.message);
     return res.status(UNAUTHORIZED_STATUS).json({ message: 'Expired or invalid token' });
