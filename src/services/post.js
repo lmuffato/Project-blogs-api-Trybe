@@ -1,14 +1,21 @@
 const { Op } = require('sequelize');
-const { BlogPost } = require('../models');
+const { BlogPost, Category } = require('../models');
 
-// baita gambiarra, ajeitar isso depois
 const createPost = async ({ title, content }, userId) => {
   await BlogPost.create({ title, content, userId });
   const findPost = await BlogPost.findAll({
     where: { title: { [Op.eq]: title } },
-    attributes: { exclude: ['published', 'updated', 'categoryIds'] },
+    attributes: { exclude: ['published', 'updated'] },
   });
   return findPost[0];
 };
 
-module.exports = { createPost };
+const searchCategory = async (categoryIds) => {
+  const categories = await Category.count({ where: { id: categoryIds } });
+  return categories;
+};
+
+module.exports = {
+  createPost,
+  searchCategory,
+};
