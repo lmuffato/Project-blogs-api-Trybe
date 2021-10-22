@@ -16,6 +16,8 @@ const createCategoryService = async (name) => {
     };
   }
 
+  // Ref. para local da message: Felipe Flores (https://github.com/tryber/sd-010-a-project-blogs-api/pull/15)
+
   const category = await Category.create({ name });
 
   return { status: CREATED_STATUS, data: category };

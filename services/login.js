@@ -17,6 +17,8 @@ const loginService = async (data) => {
     };
   }
 
+  // Ref. para local da message: Felipe Flores (https://github.com/tryber/sd-010-a-project-blogs-api/pull/15)
+
   const findUser = await User.findOne({ where: { email: data.email } });
   if (!findUser) {
     return {

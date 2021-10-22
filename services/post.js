@@ -16,6 +16,8 @@ const createPostService = async (post, { id: userId }) => {
     };
   }
 
+  // Ref. para local da message: Felipe Flores (https://github.com/tryber/sd-010-a-project-blogs-api/pull/15)
+
   const { title, content, categoryIds } = post;
 
   const categoryExist = await Category.findAll({ where: { id: categoryIds } });
