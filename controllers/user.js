@@ -51,8 +51,16 @@ const checkUser = rescue(async (req, res) => {
 }); */
 const findAll = rescue(async (req, res) => {
   const users = await service.findAll();
-  console.log(users);
   res.status(200).json(users);
 });
-
-module.exports = { createUser, checkUser, findAll };
+const findById = rescue(async (req, res) => {
+  const { id } = req.params;
+  const user = await service.findById({ id });
+  if (user === '!exist') {
+    return res
+      .status(404)
+      .json({ message: 'User does not exist' });
+  }
+    res.status(200).json(user);
+});
+module.exports = { createUser, checkUser, findAll, findById };

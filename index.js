@@ -19,4 +19,6 @@ app.post('/login',
 
 app.get('/user', [validateJWT, controller.findAll]);
 
+app.get('/user/:id', [validateJWT, controller.findById]);
+
 app.listen(3000, () => console.log('ouvindo porta 3000!'));

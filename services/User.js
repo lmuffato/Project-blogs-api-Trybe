@@ -26,7 +26,6 @@ const findAll = async () => {
 };
 
 const searchUser = async ({ email }) => {
-  console.log('chegada user', email);
   const searchEmail = await User.findOne({ where: { email } });
     if (searchEmail === null) {
       return '!exist';
@@ -34,4 +33,12 @@ const searchUser = async ({ email }) => {
     return searchEmail;
   };
 
-  module.exports = { createUser, checkUser, searchUser, findAll };
+  const findById = async ({ id }) => {
+    const user = await User.findByPk(+id);
+      if (user === null) {
+        return '!exist';
+      }
+      return user;
+    };
+
+  module.exports = { createUser, checkUser, searchUser, findAll, findById };
