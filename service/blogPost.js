@@ -1,6 +1,6 @@
 const joi = require('@hapi/joi');
-const { BlogPost, Category } = require('../models');
-const { addErro, validateTokenAndReturnId } = require('../util');
+const { BlogPost, Category, PostCategory, User } = require('../models');
+const { addErro, validateTokenAndReturnId, validateToken } = require('../util');
 
 const validateBlogPot = joi.object({
   title: joi.string().required(),
@@ -8,10 +8,9 @@ const validateBlogPot = joi.object({
   categoryIds: joi.required(),
 });
 
-const createBlogPost = async (date, token) => {
+const createBlogPost = async ({ title, content, categoryIds }, token) => {
   const userId = validateTokenAndReturnId(token);
 
-  const { title, content, categoryIds } = date;
   const { error } = validateBlogPot.validate({ title, content, categoryIds });
 
   if (error) {
@@ -28,10 +27,34 @@ const createBlogPost = async (date, token) => {
   });
 
   const newBlogPost = await BlogPost.create({ title, content, userId });
+  const { id } = newBlogPost.dataValues;
+
+  const addPostCategory = await categoryIds.map(async (idCat) => (
+    PostCategory.create({ postId: id, categoryId: idCat })
+  ));
+  await Promise.all(addPostCategory);
 
   return newBlogPost;
 };
 
+const findAllPost = async (token) => {
+  validateToken(token);
+    const posts = await BlogPost.findAll({ include: [{
+      model: User,
+      as: 'user',
+      attributes: { exclude: ['password'] },
+    },
+    {
+      model: Category,
+      as: 'categories',
+      through: { attributes: [] },
+    },
+  ] });
+
+  return posts;
+};
+
 module.exports = {
   createBlogPost,
+  findAllPost,
 };

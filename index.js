@@ -25,6 +25,8 @@ app.get('/categories', controllerCategory.findCategory);
 
 app.post('/post', controllerBlogPost.createBlogPost);
 
+app.get('/post', controllerBlogPost.findAllPost);
+
 app.use((err, _req, res, _next) => {
   const { message, status } = err;
   res.status(status).json({ message });

@@ -11,6 +11,17 @@ const createBlogPost = rescue(
   },
 );
 
+const findAllPost = rescue(
+  async (req, res) => {
+    const { authorization } = req.headers;
+
+    const posts = await serviceBlogPost.findAllPost(authorization);
+
+    res.status(200).json(posts);
+  },
+);
+
 module.exports = {
   createBlogPost,
+  findAllPost,
 };
