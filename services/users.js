@@ -31,7 +31,9 @@ const getUsers = async (_token) => {
 
   // if (verifyTokenValidity.errorCode) return verifyTokenValidity;
 
-  const allUsers = await User.findAll();
+  const allUsers = await User.findAll({ attributes: {
+    exclude: ['password'],
+  } });
   return allUsers;
 };
 
