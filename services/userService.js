@@ -76,7 +76,7 @@ const loginErrCases = async (email, password) => {
     })
     .catch((err) => {
       console.log(err.message, email, password);
-      return { code: 'SERVER_ERROR', err: { message: 'Algo deu errado' } }
+      return { code: 'SERVER_ERROR', err: { message: 'Algo deu errado' } };
     });
     
     switch (false) {
@@ -91,13 +91,15 @@ const loginErrCases = async (email, password) => {
 };
 
 const loginValidations = async (email, password) => {
-  const isValid = await loginErrCases(email, password);
-  console.log(isValid);
-  if (isValid.err) return isValid;
+  const isValid = (email !== undefined && password !== undefined) 
+    ? await loginErrCases(email, password) 
+    : doesHaveEmailAndPassword(email, password);
+  // console.log(`email: ${email}\npassword: ${password}\n err: ${isValid.err.message}`);
+  // if (isValid.err) return isValid;
 
-  const hasEmailAndPassword = doesHaveEmailAndPassword(email, password);
+  // const hasEmailAndPassword = doesHaveEmailAndPassword(email, password);
 
-  if (hasEmailAndPassword.err) return hasEmailAndPassword;
+  // if (hasEmailAndPassword.err) return hasEmailAndPassword;
 
   return isValid;
 };
