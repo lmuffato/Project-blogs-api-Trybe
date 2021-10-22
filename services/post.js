@@ -1,4 +1,4 @@
-const { post, category, user } = require('../models');
+const { Post, Category, User } = require('../models');
 const { postValidation } = require('../utils/schema');
 
 const OK_STATUS = 200;
@@ -7,8 +7,8 @@ const BAD_REQUEST_STATUS = 400;
 
 // ---------------------------------------- CREATE ------------------------------------------------ //
 
-const createPostService = async (title, content, categoryIds, userId) => {
-  const { error } = postValidation.validate({ title, content, categoryIds });
+const createPostService = async (post, { id: userId }) => {
+  const { error } = postValidation.validate(post);
   if (error) {
     return {
       status: BAD_REQUEST_STATUS,
@@ -16,7 +16,9 @@ const createPostService = async (title, content, categoryIds, userId) => {
     };
   }
 
-  const categoryExist = await category.findAll({ where: { id: categoryIds } });
+  const { title, content, categoryIds } = post;
+
+  const categoryExist = await Category.findAll({ where: { id: categoryIds } });
   if (categoryExist.length !== categoryIds.length) {
     return {
       status: BAD_REQUEST_STATUS,
@@ -24,7 +26,7 @@ const createPostService = async (title, content, categoryIds, userId) => {
     };
   }
   const dataPost = { title, content, userId, published: new Date(), updated: new Date() };
-  const blogPost = await post.create(dataPost);
+  const blogPost = await Post.create(dataPost);
 
   return { status: CREATED_STATUS, data: blogPost };
 };
@@ -32,10 +34,10 @@ const createPostService = async (title, content, categoryIds, userId) => {
 // ---------------------------------------- GETALL ------------------------------------------------ //
 
 const getAllPostService = async () => {
-  const posts = await post.findAll({ 
+  const posts = await Post.findAll({ 
     include: [
-      { model: user, as: 'user', attributes: { exclude: ['password'] } },
-      { model: category, as: 'categories', through: { attributes: [] } },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
 

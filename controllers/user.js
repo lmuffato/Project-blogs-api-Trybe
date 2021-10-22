@@ -22,7 +22,8 @@ const getAllUserController = async (_req, res) => {
 // ------------------------------------ GETBYID --------------------------------------------- //
 
 const getUserByIdController = async (req, res) => {
-  const { status, data, message } = await getUserByIdService();
+  const { id } = req.params;
+  const { status, data, message } = await getUserByIdService(id);
 
   if (message) return res.status(status).json({ message });
 

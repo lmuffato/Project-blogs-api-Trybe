@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const { SEGREDO } = process.env;
 
@@ -13,11 +14,11 @@ const validateToken = (req, res, next) => {
   }
 
   try {
-    const { data } = jwt.verify(token, SEGREDO);
-    req.user = data;
-
-    return next();
-  } catch (_e) {
+    const payload = jwt.verify(token, SEGREDO);
+    req.user = payload;
+    next();
+  } catch (e) {
+    console.log(e.message);
     return res.status(UNAUTHORIZED_STATUS).json({ message: 'Expired or invalid token' });
   }
 };

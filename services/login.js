@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const { loginValidation } = require('../utils/schema');
+require('dotenv').config();
 
 const { SEGREDO } = process.env;
 
@@ -24,7 +25,10 @@ const loginService = async (data) => {
     };
   }
 
-  const token = jwt.sign({ data: findUser }, SEGREDO);
+  const { id, email } = findUser;
+  const payload = { id, email };
+
+  const token = jwt.sign(payload, SEGREDO);
 
   return { status: OK_STATUS, data: { token } };
 };
