@@ -4,7 +4,7 @@ const bodyparser = require('body-parser');
 
 const app = express();
 app.use(bodyparser.json());
-const service = require('../services/User');
+const service = require('../services/UserService');
 
 const createUser = rescue(async (req, res) => {
   try {

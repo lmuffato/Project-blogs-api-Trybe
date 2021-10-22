@@ -1,6 +1,6 @@
 // validateJWT.js
 const jwt = require('jsonwebtoken');
-const service = require('../services/User');
+const service = require('../services/UserService');
 
 const secret = 'secretToken';
 

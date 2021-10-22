@@ -1,9 +1,11 @@
 const express = require('express');
 const bodyparser = require('body-parser');
-const controller = require('./controllers/user');
+const controllerUser = require('./controllers/userController');
 const { validEmail, validPassword, validateDisplayName } = require('./validations/user');
 const { validEmailLogin, validPasswordLogin } = require('./validations/login');
 const { validateJWT } = require('./validations/validateJWT');
+const controllerCategory = require('./controllers/categoryController'); 
+const { validateCategoryName } = require('./validations/category');
 
 const app = express();
 app.use(bodyparser.json());
@@ -13,12 +15,14 @@ app.get('/', (request, response) => {
 });
 
 app.post('/user', 
-  [validEmail, validPassword, validateDisplayName, controller.createUser]);
+  [validEmail, validPassword, validateDisplayName, controllerUser.createUser]);
 app.post('/login', 
-  [validEmailLogin, validPasswordLogin, controller.checkUser]);
+  [validEmailLogin, validPasswordLogin, controllerUser.checkUser]);
 
-app.get('/user', [validateJWT, controller.findAll]);
+app.get('/user', [validateJWT, controllerUser.findAll]);
 
-app.get('/user/:id', [validateJWT, controller.findById]);
+app.get('/user/:id', [validateJWT, controllerUser.findById]);
 
+app.post('/categories', 
+  [validateCategoryName, validateJWT, controllerCategory.createCategory]);
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
