@@ -110,7 +110,19 @@ const requestLogin = async (email, password) => {
   }
 };
 
+const getAllUsers = async (token) => {
+  if (!token) return { code: 'UNAUTHORIZED', err: { message: 'Token not found' } };
+  try {
+    await jwt.verify(token, secret);
+    return User.findAll();
+  } catch (err) {
+    console.log(err.message);
+    return { code: 'UNAUTHORIZED', err: { message: 'Expired or invalid token' } };
+  }
+};
+
 module.exports = {
   addNewUser,
   requestLogin,
+  getAllUsers,
 };
