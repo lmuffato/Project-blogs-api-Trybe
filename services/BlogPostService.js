@@ -5,7 +5,9 @@ const createPost = async (title, content, categoryIds, userId) => {
   const validations = await validationPost(title, categoryIds, content);
   if (validations.message) return validations;
 
-  const newPost = await BlogPost.create({ userId, title, content });
+  const newPost = await BlogPost.create(
+    { userId, title, content, published: new Date(), updated: new Date() },
+  );
   return { newPost };
 };
 
