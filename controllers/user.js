@@ -17,18 +17,21 @@ const loginUser = async (req, res) => {
 };
 
 const getUsers = async (req, res) => {
-    const token = req.headers.authorization;
-    const getUsersAll = await userService.getUsers(token);
-    console.log(getUsersAll);
-  //   if (getUsersAll.errorCode) {
-  //  return res.status(getUsersAll.errorCode)
-  //   .json(getUsersAll.errorInfo); 
-  // }
+    const getUsersAll = await userService.getUsers();
     return res.status(200).json(getUsersAll);  
+};
+
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  const user = await userService.getUserById(id);
+  console.log(user);
+  return user.errorCode ? res.status(user.errorCode).json(user.errorInfo)
+  : res.status(200).json(user);
 };
 
 module.exports = {
   createUser,
   loginUser,
   getUsers,
+  getUserById,
 };

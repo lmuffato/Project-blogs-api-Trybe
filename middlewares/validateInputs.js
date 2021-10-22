@@ -48,18 +48,13 @@ const validatePassword = (req, res, next) => {
   next();
 };
 
-const validateToken = (req, res, next) => {
+const validateToken = async (req, res, next) => {
   const token = req.headers.authorization;
+  const secret = process.env.JWT_SECRET;
 
   if (!token) {
     return res.status(401).json({ message: 'Token not found' });
   }
-  next();
-};
-
-const expiredToken = async (req, res, next) => {
-  const token = req.headers.authorization;
-  const secret = process.env.JWT_SECRET;
 
   try {
     const user = await helpers.verifyTokenValid(token, secret);
@@ -69,6 +64,10 @@ const expiredToken = async (req, res, next) => {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
+
+// const expiredToken = async (req, res, next) => {
+//   const token = req.headers.authorization;
+// };
 
 const validateCreateUser = [
   validateEmail,
@@ -86,5 +85,4 @@ module.exports = {
   validateCreateUser,
   validateLogin,
   validateToken,
-  expiredToken,
 };

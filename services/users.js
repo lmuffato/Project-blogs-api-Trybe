@@ -26,15 +26,23 @@ const loginUser = async (email) => {
   return token;
 };
 
-const getUsers = async (_token) => {
-  // const verifyTokenValidity = await helpers.verifyTokenValid(token, secret);
-
-  // if (verifyTokenValidity.errorCode) return verifyTokenValidity;
-
+const getUsers = async () => {
   const allUsers = await User.findAll({ attributes: {
     exclude: ['password'],
   } });
   return allUsers;
+};
+
+const getUserById = async (id) => {
+  const user = await User.findOne({ where: { id } });
+  // console.log(user);
+  if (!user) {
+    return {
+      errorCode: 404,
+      errorInfo: { message: 'User does not exist' },
+    };
+  }
+  return user;
 };
 
 // const getUserByEmail = async (email) => {
@@ -47,5 +55,6 @@ module.exports = {
   createUser,
   loginUser,
   getUsers,
+  getUserById,
   // getUserByEmail,
 };

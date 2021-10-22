@@ -19,6 +19,9 @@ app.get('/', (request, response) => {
 app.post('/user', middlewaresUser.validateCreateUser, userController.createUser);
 
 app.get('/user', middlewaresUser.validateToken, 
-  middlewaresUser.expiredToken, userController.getUsers);
+   userController.getUsers);
+
+app.get('/user/:id', middlewaresUser.validateToken, 
+   userController.getUserById);
 
 app.post('/login', middlewaresLogin.validateLogin, userController.loginUser);
