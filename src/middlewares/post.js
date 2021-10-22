@@ -78,7 +78,11 @@ const checkPostExist = async (req, res, next) => {
   }
 
   next();
-}; 
+};
+
+// const checkCategory = (req, res, next) => {
+//   const { categoryIds } req.
+// }
 
 const validatePost = [
   existToken,
@@ -100,8 +104,14 @@ const validateListPost = [
   checkPostExist,
 ];
 
+const validateUpdate = [
+  existToken,
+  checkToken,
+];
+
 module.exports = {
   validatePost,
   validateToken,
   validateListPost,
+  validateUpdate,
 };
