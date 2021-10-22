@@ -5,6 +5,7 @@ const error = require('./middlewares/erros');
 const Login = require('./controllers/loginController');
 const Token = require('./middlewares/tokenValidation');
 const Category = require('./controllers/categoryController');
+const Post = require('./controllers/postController');
 
 const app = express();
 
@@ -26,5 +27,9 @@ app.post('/login', Login.login);
 // Categories
 app.get('/categories', Token.tokenValidation, Category.findCategories);
 app.post('/categories', Token.tokenValidation, Category.createCategory);
+
+// Post 
+app.get('/post', Token.tokenValidation, Post.findPost);
+
 app.use(error);
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
