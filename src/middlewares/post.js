@@ -69,6 +69,17 @@ const checkContent = (req, res, next) => {
   next();
 };
 
+const checkPostExist = async (req, res, next) => {
+  const { id } = req.params; 
+  const existPost = await postServices.getPost(id);
+
+  if (!existPost) {
+    return res.status(status.notFound).json({ message: message.postEmpty });
+  }
+
+  next();
+}; 
+
 const validatePost = [
   existToken,
   checkToken,
@@ -83,7 +94,14 @@ const validateToken = [
   checkToken,
 ];
 
+const validateListPost = [
+  existToken,
+  checkToken,
+  checkPostExist,
+];
+
 module.exports = {
   validatePost,
   validateToken,
+  validateListPost,
 };
