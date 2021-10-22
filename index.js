@@ -30,6 +30,7 @@ app.post('/categories', Token.tokenValidation, Category.createCategory);
 
 // Post 
 app.get('/post', Token.tokenValidation, Post.findPost);
+app.get('/post/:id', Token.tokenValidation, Post.findPostById);
 
 app.use(error);
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
