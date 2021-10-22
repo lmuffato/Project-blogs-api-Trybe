@@ -1,19 +1,19 @@
 module.exports = (sequelize, _DataTypes) => {
-  const PostsCategories = sequelize.define('PostsCategories', {}, {
-    tableName: 'PostsCategories', timestamps: false,
+  const PostsCategories = sequelize.define('PostsCategory', {}, {
+    timestamps: false,
   });
 
   PostsCategories.associate = (models) => {
     models.BlogPost.belongsToMany(models.Category, {
-      as: 'categories',
       through: PostsCategories,
       foreignKey: 'postId',
+      as: 'categories',
       otherKey: 'categoryId',
     });
     models.Category.belongsToMany(models.BlogPost, {
-      as: 'posts',
       through: PostsCategories,
       foreignKey: 'categoryId',
+      as: 'posts',
       otherKey: 'postId',
     });
   };
