@@ -78,6 +78,12 @@ const validatePost = [
   checkContent,
 ];
 
+const validateToken = [
+  existToken,
+  checkToken,
+];
+
 module.exports = {
   validatePost,
+  validateToken,
 };
