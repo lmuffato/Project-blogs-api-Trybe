@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+/* const jwt = require('jsonwebtoken');
 
 const SECRET = 'mimimi';
 
@@ -12,4 +12,4 @@ const token = jwt.sign(payload, SECRET, jwtConfig);
 return { token };
 }
 
-module.exports = { newToken };
+module.exports = { newToken }; */

@@ -12,4 +12,12 @@ async function createUser(req, res, next) {
   }
  }
 
-module.exports = { createUser };
+ async function findUsers(_req, res) {
+    const { status, data, message } = await userService.findUsers();
+    if (message) {
+    return res.status(status).json(message);
+    }
+    return res.status(status).json(data);
+}
+
+module.exports = { createUser, findUsers };
