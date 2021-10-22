@@ -18,4 +18,6 @@ app.get('/', (request, response) => {
 
 app.post('/user', middlewaresUser.validateCreateUser, userController.createUser);
 
+app.get('/user', middlewaresUser.validateToken, userController.getUsers);
+
 app.post('/login', middlewaresLogin.validateLogin, userController.loginUser);

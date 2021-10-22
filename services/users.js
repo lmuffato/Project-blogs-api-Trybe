@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const helpers = require('../helpers/functionsHelpers');
 const { User } = require('../models');
 
 const secret = process.env.JWT_SECRET;
@@ -25,15 +26,23 @@ const loginUser = async (email) => {
   return token;
 };
 
+const getUsers = async (token) => {
+  const verifyTokenValidity = await helpers.verifyTokenValid(token, secret);
+
+  if (verifyTokenValidity.errorCode) return verifyTokenValidity;
+
+  const allUsers = await User.findAll();
+  return allUsers;
+};
+
+const getUserByEmail = async (email) => {
+ const user = await User.findOne({ where: { email } });
+ return user;
+};
+
 module.exports = {
   createUser,
   loginUser,
+  getUsers,
+  getUserByEmail,
 };
-  
-  // const criarUsuario = async (usuario) => {
-  // const { email } = usuario;
-  // const emailExiste = await buscarEmail(email);
-  // if (emailExiste) return 'existe';
-  // const { password, ...dadosUsuario } = await Users.create(usuario);
-  // return novoToken(dadosUsuario);
-  // };

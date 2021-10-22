@@ -46,6 +46,15 @@ const validatePassword = (req, res, next) => {
   next();
 };
 
+const validateToken = (req, res, next) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+  next();
+};
+
 const validateCreateUser = [
   validateEmail,
   emailAlreadyExists,
@@ -61,4 +70,5 @@ const validateLogin = [
 module.exports = {
   validateCreateUser,
   validateLogin,
+  validateToken,
 };
