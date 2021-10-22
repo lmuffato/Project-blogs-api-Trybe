@@ -11,7 +11,6 @@ const validateCategories = async (categoryIds) => {
 };
 
 const createPost = async (blogPost, id) => {
-  // console.log(userId);
   const { title, content, categoryIds } = blogPost;
 
   const newPost = await BlogPost
@@ -39,7 +38,46 @@ const findPost = async () => {
   return post;
 };
 
+const findById = async (id) => {
+  const post = await BlogPost.findByPk(id, {
+    include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  if (!post) {
+    return {
+      code: 404,
+      message: 'Post does not exist',
+    };
+  }
+
+  return post;
+};
+
+const updatePost = async (id, newData) => {
+  const { title, content } = newData;
+  await BlogPost.update(
+    { title, content },
+    { where: {
+      id,
+    } },
+  );
+
+  const postUpdated = await BlogPost.findByPk(id, {
+    include: [
+      // { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return postUpdated;
+};
+
 module.exports = {
   createPost,
   findPost,
+  findById,
+  updatePost,
 };

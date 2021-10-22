@@ -6,6 +6,12 @@ const newPostSchema = Joi.object({
   categoryIds: Joi.array().required(),
 });
 
+const updatePostSchema = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+});
+
 module.exports = {
   newPostSchema,
+  updatePostSchema,
 };
