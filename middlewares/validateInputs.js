@@ -1,4 +1,6 @@
 const { User } = require('../models');
+require('dotenv').config();
+const helpers = require('../helpers/functionsHelpers');
 
 const validateEmail = async (req, res, next) => {
    const { email } = req.body;
@@ -55,6 +57,19 @@ const validateToken = (req, res, next) => {
   next();
 };
 
+const expiredToken = async (req, res, next) => {
+  const token = req.headers.authorization;
+  const secret = process.env.JWT_SECRET;
+
+  try {
+    const user = await helpers.verifyTokenValid(token, secret);
+    req.user = user;
+    next();
+  } catch (_err) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
+};
+
 const validateCreateUser = [
   validateEmail,
   emailAlreadyExists,
@@ -71,4 +86,5 @@ module.exports = {
   validateCreateUser,
   validateLogin,
   validateToken,
+  expiredToken,
 };

@@ -19,10 +19,11 @@ const loginUser = async (req, res) => {
 const getUsers = async (req, res) => {
     const token = req.headers.authorization;
     const getUsersAll = await userService.getUsers(token);
-    if (getUsersAll.errorCode) {
-   return res.status(getUsersAll.errorCode)
-    .json(getUsersAll.errorInfo); 
-  }
+    console.log(getUsersAll);
+  //   if (getUsersAll.errorCode) {
+  //  return res.status(getUsersAll.errorCode)
+  //   .json(getUsersAll.errorInfo); 
+  // }
     return res.status(200).json(getUsersAll);  
 };
 

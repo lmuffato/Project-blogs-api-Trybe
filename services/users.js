@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const helpers = require('../helpers/functionsHelpers');
+require('dotenv').config();
+// const helpers = require('../helpers/functionsHelpers');
 const { User } = require('../models');
 
 const secret = process.env.JWT_SECRET;
@@ -9,8 +10,7 @@ const createUser = async (displayName, email, password, image) => {
     email,
   };
 
-  const token = await jwt.sign(credentials, secret);
-  console.log('console.log do token', token);
+  const token = jwt.sign(credentials, secret);
   await User.create({ displayName, email, password, image });
 
   return token;
@@ -26,23 +26,24 @@ const loginUser = async (email) => {
   return token;
 };
 
-const getUsers = async (token) => {
-  const verifyTokenValidity = await helpers.verifyTokenValid(token, secret);
+const getUsers = async (_token) => {
+  // const verifyTokenValidity = await helpers.verifyTokenValid(token, secret);
 
-  if (verifyTokenValidity.errorCode) return verifyTokenValidity;
+  // if (verifyTokenValidity.errorCode) return verifyTokenValidity;
 
   const allUsers = await User.findAll();
   return allUsers;
 };
 
-const getUserByEmail = async (email) => {
- const user = await User.findOne({ where: { email } });
- return user;
-};
+// const getUserByEmail = async (email) => {
+//  const user = await User.findAll({ where: { email } });
+//  console.log(user);
+//  return user;
+// };
 
 module.exports = {
   createUser,
   loginUser,
   getUsers,
-  getUserByEmail,
+  // getUserByEmail,
 };
