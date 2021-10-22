@@ -1,13 +1,17 @@
-const { Op } = require('sequelize');
+// const { Op } = require('sequelize');
 const { BlogPost, Category, User } = require('../models');
 
-const createPost = async ({ title, content }, userId) => {
-  await BlogPost.create({ title, content, userId });
-  const findPost = await BlogPost.findAll({
-    where: { title: { [Op.eq]: title } },
-    attributes: { exclude: ['published', 'updated'] },
-  });
-  return findPost[0];
+const createPost = async (post, userId) => {
+  // await BlogPost.create({ title, content, userId });
+  // const findPost = await BlogPost.findAll({
+  //   where: { title: { [Op.eq]: title } },
+  //   attributes: { exclude: ['published', 'updated'] },
+  // });
+  // return findPost[0];
+
+  const formatPost = { ...post, userId };
+  const create = await BlogPost.create(formatPost);
+  return create;
 };
 
 const searchCategory = async (categoryIds) => {
