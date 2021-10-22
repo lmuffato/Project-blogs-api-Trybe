@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const { User } = require('../models');
+const user = require('../models/user');
 
 const secret = 'Nanii!!!';
 
@@ -67,13 +68,38 @@ const addNewUser = async (displayName, email, password, image) => {
   }
 };
 
+const loginErrCases = async (email, password) => {
+  const isValidUser = await User.findOne({ where: { email, password } })
+    .then((user) => {
+      if (user) return user;
+      return false;
+    })
+    .catch((err) => {
+      console.log(err.message, email, password);
+      return { code: 'SERVER_ERROR', err: { message: 'Algo deu errado' } }
+    });
+    
+    switch (false) {
+      case email !== '': return { code: 'BAD_REQUEST',
+      err: { message: '"email" is not allowed to be empty' } };
+      case password !== '': return { code: 'BAD_REQUEST',
+      err: { message: '"password" is not allowed to be empty' } };
+      case isValidUser: return { code: 'BAD_REQUEST',
+      err: { message: 'Invalid fields' } };
+      default: return isValidUser;
+    }
+};
+
 const loginValidations = async (email, password) => {
-  const validEmail =
-  (email === '') ? { code: 'SERVER_ERROR', err: { message: 'Algo deu errado' } }
-  : null;
+  const isValid = await loginErrCases(email, password);
+  console.log(isValid);
+  if (isValid.err) return isValid;
+
   const hasEmailAndPassword = doesHaveEmailAndPassword(email, password);
 
   if (hasEmailAndPassword.err) return hasEmailAndPassword;
+
+  return isValid;
 };
 
 const requestLogin = async (email, password) => {

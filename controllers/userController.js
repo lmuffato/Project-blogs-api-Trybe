@@ -22,7 +22,7 @@ const addNewUser = async (req, res) => {
 
 const requestLogin = async (req, res) => {
   const { body: { email, password } } = req;
-  const token = await userService.addNewUser(email, password);
+  const token = await userService.requestLogin(email, password);
   if (token.err) {
     return res.status(status[token.code]).json(token.err);
   }
