@@ -13,7 +13,8 @@ app.get('/', (request, response) => {
 
 app.use('/user', router.user);
 app.use('/login', router.login);
-app.use('/categories', router.categories);
+app.use('/categories', router.category);
+app.use('/post', router.post);
 
 app.use(middlewares.error);
 
