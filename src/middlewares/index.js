@@ -3,7 +3,13 @@ const { validUser, checkIfUserExists } = require('./user');
 const login = require('./login');
 const Auth = require('./Authentication');
 const categoryCheck = require('./category');
-const { validPost, checkIfCategoryExists, checkIfPostExists, allowUpdate } = require('./post');
+const {
+  validPost,
+  checkIfCategoryExists,
+  checkIfPostExists,
+  allowUpdate,
+  allowDelete,
+} = require('./post');
 
 module.exports = {
   error,
@@ -16,4 +22,5 @@ module.exports = {
   checkIfCategoryExists,
   checkIfPostExists,
   allowUpdate,
+  allowDelete,
 };

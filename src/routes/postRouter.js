@@ -1,13 +1,21 @@
 const { Router } = require('express');
 
-const { createNewPost, getPosts, getSinglePost, updatePost } = require('../controllers');
+const {
+  createNewPost,
+  getPosts,
+  getSinglePost,
+  updatePost,
+  deletePost,
+} = require('../controllers');
 
-const { 
+const {
   Auth,
   validPost,
   checkIfCategoryExists,
   checkIfPostExists,
-  allowUpdate } = require('../middlewares');
+  allowUpdate,
+  allowDelete,
+} = require('../middlewares');
 
 const router = Router();
 const postValidation = [validPost, checkIfCategoryExists];
@@ -18,5 +26,6 @@ router.post('/', postValidation, createNewPost);
 router.get('/', getPosts);
 router.get('/:id', checkIfPostExists, getSinglePost);
 router.put('/:id', allowUpdate, updatePost);
+router.delete('/:id', allowDelete, deletePost);
 
 module.exports = router;

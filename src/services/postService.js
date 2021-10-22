@@ -26,10 +26,15 @@ const updateASinglePost = async (id, { title, content }) => {
   return postUpdated;
 };
 
+const remove = async (id) => {
+  await BlogPost.destroy({ where: { id } });
+};
+
 module.exports = {
   create,
   getCategoryById,
   getAllPosts,
   getPostById,
   updateASinglePost,
+  remove,
 };

@@ -42,10 +42,21 @@ const allowUpdate = async (req, _res, next) => {
     const { id } = req.params;
     const { id: userId } = req.user.data;
     const verifying = await getPostById(id);
-    if (!verifying) return next({ statusCode: BAD_REQUEST, message: 'Post does not Exist' });
+    if (!verifying) return next({ statusCode: BAD_REQUEST, message: 'Post does not exist' });
     if (userId !== verifying.userId) {
       return next({ statusCode: UNAUTHORIZED, message: 'Unauthorized user' });
   } 
+  next();
+};
+
+const allowDelete = async (req, _res, next) => {
+  const { id } = req.params;
+  const { id: userId } = req.user.data;
+  const verifying = await getPostById(id);
+  if (!verifying) return next({ statusCode: NOT_FOUND, message: 'Post does not exist' });
+  if (userId !== verifying.userId) {
+      return next({ statusCode: UNAUTHORIZED, message: 'Unauthorized user' });
+  }
   next();
 };
 
@@ -54,4 +65,5 @@ module.exports = {
   checkIfCategoryExists,
   checkIfPostExists,
   allowUpdate,
+  allowDelete,
 };
