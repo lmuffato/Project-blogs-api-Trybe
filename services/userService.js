@@ -70,8 +70,8 @@ const addNewUser = async (displayName, email, password, image) => {
 
 const loginErrCases = async (email, password) => {
   const isValidUser = await User.findOne({ where: { email, password } })
-    .then((user) => {
-      if (user) return user;
+    .then((userLogin) => {
+      if (userLogin) return userLogin;
       return false;
     })
     .catch((err) => {
