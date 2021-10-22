@@ -9,4 +9,9 @@ async function createCategory(data) {
   return { status: 201, data: category };
 }
 
-module.exports = { createCategory };
+async function findCategories() {
+  const categories = await Category.findAll();
+  return { status: 200, data: categories };
+}
+
+module.exports = { createCategory, findCategories };
