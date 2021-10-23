@@ -21,3 +21,15 @@ exports.getAll = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getOne = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const post = await postService.getOne(id);
+
+    return res.status(200).json(post);
+  } catch (err) {
+    next(err);
+  }
+};

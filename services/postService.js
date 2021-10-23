@@ -1,3 +1,4 @@
+const AppError = require('../utils/AppError');
 const { BlogPost, User, Category } = require('../models');
 const newPostValidations = require('./validations/newPostValidations');
 
@@ -26,4 +27,17 @@ exports.getAll = async () => {
   });
 
   return posts;
+};
+
+exports.getOne = async (id) => {
+  const post = await BlogPost.findByPk(id, {
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  if (!post) throw new AppError(404, 'Post does not exist');
+
+  return post;
 };

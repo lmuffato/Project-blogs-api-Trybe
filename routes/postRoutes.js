@@ -8,4 +8,7 @@ router.route('/')
   .get(authController.verify, postController.getAll)
   .post(authController.verify, postController.create);
 
+router.route('/:id')
+  .get(authController.verify, postController.getOne);
+
 module.exports = router;
