@@ -1,4 +1,5 @@
 const postService = require('../services/postService');
+const AppError = require('../utils/AppError');
 
 exports.create = async (req, res, next) => {
   try {
@@ -38,6 +39,8 @@ exports.updateOne = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { title, content } = req.body;
+
+    if (req.body.categoryIds) throw new AppError(400, 'Categories cannot be edited');
 
     const updatedPost = await postService.updateOne({ id, title, content });
 
