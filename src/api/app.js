@@ -15,6 +15,7 @@ app.get('/', (request, response) => {
 });
 
 route.users(app);
+route.login(app);
 
 app.use(error);
 

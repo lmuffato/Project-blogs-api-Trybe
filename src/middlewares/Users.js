@@ -16,6 +16,24 @@ const userValidation = (displayName, email, password, image) => {
   if (error) throw error;
 };
 
+const loginValidation = (email, password) => {
+  const { error } = Joi.object({
+    email: Joi.string().email().required()
+      .messages({ 
+        'email.required': '"email" is required',
+        'email.string': '"email" is not allowed to be empty',
+       }),
+    password: Joi.string().required().length(6)
+      .messages({
+      'password.required': '"password" is required',
+      'password.string': '"password" is not allowed to be empty',
+      
+    }),
+  }).validate({ email, password });
+
+  if (error) throw error;
+};
+
 const emailFormatValidator = (email) => {
   const regexMatch = /\S+@\S+\.\S+/;
   if (!regexMatch.test(email)) {
@@ -28,4 +46,5 @@ const emailFormatValidator = (email) => {
 module.exports = {
   userValidation,
   emailFormatValidator,
+  loginValidation,
 };
