@@ -22,7 +22,10 @@ const getCategories = async (_req, res) => {
     });
 };
 
+const findCategory = async (categoryId) => Category.findByPk(categoryId);
+
 module.exports = {
   create,
   getCategories,
+  findCategory,
 }; 

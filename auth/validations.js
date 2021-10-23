@@ -1,3 +1,5 @@
+const { findCategory } = require('../controller/categoriesController');
+
 const nameValidator = (req, res, next) => {
   const { displayName } = req.body;
 
@@ -55,9 +57,37 @@ const loginValidator = (req, res, next) => {
   next();
 };
 
+const postValidator = (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
+
+ if (!title) {
+  return res.status(400).json({ message: '"title" is required' });
+} if (!content) {
+  return res.status(400).json({ message: '"content" is required' });
+} if (!categoryIds) {
+  return res.status(400).json({ message: '"categoryId" is required' });
+}
+
+  next();
+};
+
+const categoryValidator = (req, res, next) => {
+  const { categoryIds } = req.body;
+
+  // Onde por o findCategory? Aqui ou no Controler?
+
+  categoryIds.every(async (id) => {
+    if (await findCategory(id) === null) {
+      return res.status(400).json({ message: '"categoryIds" not found' });
+    } return next();
+  });
+};
+
 module.exports = {
   nameValidator,
   emailValidator,
   passwordValidator,
   loginValidator,
+  postValidator,
+  categoryValidator,
 }; 

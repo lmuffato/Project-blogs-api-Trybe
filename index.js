@@ -3,10 +3,10 @@ const bodyParser = require('body-parser');
 
 const usersController = require('./controller/usersController');
 const categoryController = require('./controller/categoriesController');
-const { nameValidator,
-emailValidator,
-passwordValidator,
-loginValidator } = require('./auth/validations');
+const postsController = require('./controller/postsController');
+
+const { nameValidator, emailValidator, passwordValidator,
+loginValidator, postValidator, categoryValidator } = require('./auth/validations');
 const { tokenAuth } = require('./auth/tokenAuth');
 
 const app = express();
@@ -27,3 +27,5 @@ app.get('/user/:id', tokenAuth, usersController.getUser);
 
 app.post('/categories', tokenAuth, categoryController.create);
 app.get('/categories', tokenAuth, categoryController.getCategories);
+
+app.post('/post', tokenAuth, postValidator, categoryValidator, postsController.create);
