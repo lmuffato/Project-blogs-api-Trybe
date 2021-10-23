@@ -121,8 +121,22 @@ const getAllUsers = async (token) => {
   }
 };
 
+const getUserByID = async (token, id) => {
+  if (!token) return { code: 'UNAUTHORIZED', err: { message: 'Token not found' } };
+  try {
+    await jwt.verify(token, secret);
+    const user = await User.findByPk(id);
+    if (!user) return { code: 'NOT_FOUND', err: { message: 'User does not exist' } };
+    return user;
+  } catch (err) {
+    console.log(err.message);
+    return { code: 'UNAUTHORIZED', err: { message: 'Expired or invalid token' } };
+  }
+};
+
 module.exports = {
   addNewUser,
   requestLogin,
   getAllUsers,
+  getUserByID,
 };
