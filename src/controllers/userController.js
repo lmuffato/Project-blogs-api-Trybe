@@ -12,7 +12,15 @@ const getUsers = async (req, res) => {
   return res.status(status).json(response);
 };
 
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  const { authorization: token } = req.headers;
+  const { status, response } = await userService.getUserById(id, token);
+  return res.status(status).json(response);
+};
+
 module.exports = {
   addUser,
   getUsers,
+  getUserById,
 };

@@ -45,6 +45,13 @@ const userAlreadyExists = {
   },
 };
 
+const userNotExists = {
+  status: 404,
+  error: {
+    message: 'User does not exist',
+  },
+};
+
 const tokenNotFound = {
   status: 401,
   error: {
@@ -85,9 +92,11 @@ const validatePassword = (password) => {
 
 const validateUserExists = async (email) => {
   const userExists = await User.findOne({ where: { email } });
-  if (userExists) {
-    throw userAlreadyExists;
-  }
+  if (userExists) throw userAlreadyExists;
+};
+
+const validateUser = (user) => {
+  if (!user) throw userNotExists;
 };
 
 const validateToken = (token) => {
@@ -105,5 +114,6 @@ module.exports = {
   validateEmail,
   validatePassword,
   validateUserExists,
+  validateUser,
   validateToken,
 };

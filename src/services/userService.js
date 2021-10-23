@@ -23,7 +23,16 @@ const getUsers = async (token) => {
   return { status: 200, response: users };
 };
 
+const getUserById = async (id, token) => {
+  userValidation.validateToken(token);
+  const user = await User.findByPk(id);
+  userValidation.validateUser(user);
+  delete user.dataValues.password;
+  return { status: 200, response: user.dataValues };
+};
+
 module.exports = {
   addUser,
   getUsers,
+  getUserById,
 };
