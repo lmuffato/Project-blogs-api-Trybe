@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "trybe",
+    "password": "12345678",
+    "database": "blogs_api",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "trybe",
+    "password": "12345678",
+    "database": "blogs_api",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "trybe",
+    "password": "12345678",
+    "database": "blogs_api",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
