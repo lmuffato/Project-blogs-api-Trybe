@@ -16,15 +16,17 @@ const create = (req, res) => {
     });
 };
 
+const findUser = async (email) => User.findOne({ where: { email } });
+
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = { email, password };
 
   const token = createToken(user);
 
-  const findUser = await User.findOne({ where: { email } });
+  const findUserEmail = findUser(email);
 
-  if (findUser === null) {
+  if (findUserEmail === null) {
     return res.status(400).json({ message: 'Invalid fields' }); 
   }
 
@@ -58,4 +60,5 @@ module.exports = {
   login,
   getUsers,
   getUser,
-}; 
+  findUser,
+};

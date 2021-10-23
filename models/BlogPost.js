@@ -3,9 +3,9 @@ module.exports = (sequelize, DataTypes) => {
   {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    userId: DataTypes.INTEGER,
-    published: DataTypes.STRING,
-    updated: DataTypes.STRING,
+    userId: { type: DataTypes.INTEGER, foreignKey: true },
+    createdAt: { type: DataTypes.DATE, field: 'published' },
+    updatedAt: { type: DataTypes.DATE, field: 'updated' },
   },
   {
     tableName: 'blogPosts',

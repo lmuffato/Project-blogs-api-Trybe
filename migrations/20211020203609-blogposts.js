@@ -10,23 +10,18 @@ module.exports = {
         primaryKey: true,
       },
       title: Sequelize.STRING,
-      content: Sequelize.TEXT,
-      userId: {
-        type: Sequelize.INTEGER,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Users',
-          key: 'id',
-        },
+      content: Sequelize.STRING,
+      userId: { 
+        type: DataTypes.INTEGER,
+        foreignKey: true
       },
-      createdAt: { 
-        type: Sequelize.DATE, 
-        field: 'published' 
+      createdAt: {
+        type: DataTypes.DATE,
+        field: 'published'
       },
-      updatedAt: { 
-        type: Sequelize.DATE, 
-        field: 'updated' 
+      updatedAt: {
+        type: DataTypes.DATE,
+        field: 'updated'
       },
     });
   },

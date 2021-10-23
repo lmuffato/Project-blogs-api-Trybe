@@ -65,7 +65,7 @@ const postValidator = (req, res, next) => {
 } if (!content) {
   return res.status(400).json({ message: '"content" is required' });
 } if (!categoryIds) {
-  return res.status(400).json({ message: '"categoryId" is required' });
+  return res.status(400).json({ message: '"categoryIds" is required' });
 }
 
   next();
