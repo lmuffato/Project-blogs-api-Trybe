@@ -20,11 +20,11 @@ const getPost = async (req, res) => {
 };
 
 const updatePost = async (req, res) => {
-  const data = req.body;
+  const dataForUpdate = req.body;
   const { id } = req.params;
-  const userId = req.user.id;
+  // const userId = req.user.id;
 
-  const update = await postServices.updatePost(data, id, userId);
+  const update = await postServices.updatePost(dataForUpdate, id);
   return res.status(status.OK).json(update);
 };
 

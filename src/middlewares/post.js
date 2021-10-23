@@ -1,6 +1,7 @@
 const { status, message } = require('../messages');
 const { verify } = require('../auth/jwtFunctions');
 const { postServices } = require('../services');
+const { BlogPost } = require('../models');
 
 const existToken = (req, res, next) => {
   const { authorization: token } = req.headers;
@@ -80,9 +81,29 @@ const checkPostExist = async (req, res, next) => {
   next();
 };
 
-// const checkCategory = (req, res, next) => {
-//   const { categoryIds } req.
-// }
+const checkCategoryId = (req, res, next) => {
+  const { categoryIds } = req.body;
+
+  if (categoryIds) {
+    return res.status(status.badRequest).json({ message: message.categoryNotEdit });
+  }
+
+  next();
+};
+
+const checkUser = async (req, res, next) => {
+  const { id } = req.params;
+  const userIdUpdate = req.user.id;
+  // console.log(userIdUpdate);
+  const { dataValues: { userId: userIdRegistered } } = await BlogPost.findByPk(id);
+  // console.log(userIdRegistered);
+
+  if (userIdUpdate !== userIdRegistered) {
+    return res.status(status.unauthorized).json({ message: message.userUnauthorized });
+  }
+
+  next();
+};
 
 const validatePost = [
   existToken,
@@ -107,6 +128,10 @@ const validateListPost = [
 const validateUpdate = [
   existToken,
   checkToken,
+  checkCategoryId,
+  checkUser,
+  checkTitle,
+  checkContent,
 ];
 
 module.exports = {

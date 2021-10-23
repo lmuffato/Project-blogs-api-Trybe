@@ -1,6 +1,7 @@
 const message = {
   categoryidEmpty: '"categoryIds" is required',
   categoryIdNotFound: '"categoryIds" not found',
+  categoryNotEdit: 'Categories cannot be edited',
   contentEmpty: '"content" is required',
   displayNameShort: '"displayName" length must be at least 8 characters long',
   emailNotValid: '"email" must be a valid email',
@@ -18,6 +19,7 @@ const message = {
   tokenInvalid: 'Expired or invalid token',
   userEmpty: 'User does not exist',
   userExist: 'User already registered',
+  userUnauthorized: 'Unauthorized user',
 };
 
 module.exports = {
