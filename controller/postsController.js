@@ -1,4 +1,4 @@
-const { BlogPost } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 const { verify } = require('../auth/tokenAuth');
 const { findUser } = require('./usersController');
 
@@ -19,6 +19,19 @@ const create = async (req, res) => {
   res.status(201).json(post);
 };
 
+const getPosts = async (_req, res) => {
+  BlogPost.findAll({ include: [{ model: User, as: 'user' },
+  { model: Category, as: 'categories', atributes: ['id', 'name'] }] })
+      .then((posts) => {
+      res.status(200).json(posts);
+    })
+    .catch((e) => {
+      console.log(e.message);
+      res.status(500).json({ message: 'Deu ruim' });
+    });
+};
+
 module.exports = {
   create,
+  getPosts,
 }; 

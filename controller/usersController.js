@@ -24,7 +24,7 @@ const login = async (req, res) => {
 
   const token = createToken(user);
 
-  const findUserEmail = findUser(email);
+  const findUserEmail = await findUser(email);
 
   if (findUserEmail === null) {
     return res.status(400).json({ message: 'Invalid fields' }); 
