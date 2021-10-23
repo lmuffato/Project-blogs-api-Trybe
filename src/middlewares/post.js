@@ -94,16 +94,25 @@ const checkCategoryId = (req, res, next) => {
 const checkUser = async (req, res, next) => {
   const { id } = req.params;
   const userIdUpdate = req.user.id;
-  // console.log(userIdUpdate);
   const { dataValues: { userId: userIdRegistered } } = await BlogPost.findByPk(id);
-  // console.log(userIdRegistered);
-
+  
   if (userIdUpdate !== userIdRegistered) {
     return res.status(status.unauthorized).json({ message: message.userUnauthorized });
   }
 
   next();
 };
+
+// const checkExistPost = async (req, res, next) => {
+//   const { id } = req.params;
+//   const findPost = await BlogPost.findByPk(id);
+
+//   if (!findPost) {
+//     return res.status(status.notFound).json({ message: message.postEmpty });
+//   }
+
+//   next();
+// };
 
 const validatePost = [
   existToken,
@@ -134,9 +143,18 @@ const validateUpdate = [
   checkContent,
 ];
 
+const validateDelete = [
+  existToken,
+  checkToken,
+  checkUser,
+  checkPostExist,
+  // checkExistPost,
+];
+
 module.exports = {
   validatePost,
   validateToken,
   validateListPost,
   validateUpdate,
+  validateDelete,
 };
