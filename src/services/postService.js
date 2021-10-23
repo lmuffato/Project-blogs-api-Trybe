@@ -9,7 +9,7 @@ const addPost = async (title, categoryIds, content, token) => {
   const email = postValidation.validateToken(token);
   const findUser = await User.findOne({ where: { email } });
   const newPost = await BlogPost.create({
-    userId: findUser.dataValues.id,
+    userId: findUser.id,
     title,
     content,
   });

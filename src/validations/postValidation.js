@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { Category } = require('../models');
+require('dotenv').config();
 
 const titleIsRequired = {
   status: 400,
