@@ -1,7 +1,7 @@
 const { User } = require('../../models');
 const { createToken } = require('../../utils/token');
 const { userValidation, emailFormatValidator } = require('../../middlewares/Users');
-const { findByEmail } = require('./findByEmail');
+const findByEmail = require('./findByEmail');
 
 const createUser = async (newUser) => {
   const { displayName, email, password, image } = newUser;
