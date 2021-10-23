@@ -64,3 +64,9 @@ exports.updateOne = async ({ id, title, content }) => {
     categories: post.dataValues.categories,
   };
 };
+
+exports.deleteOne = async (id) => {  
+  await BlogPost.destroy({ where: { id } });
+
+  return true;
+};

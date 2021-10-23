@@ -10,6 +10,7 @@ router.route('/')
 
 router.route('/:id')
   .get(authController.verify, postController.getOne)
-  .put(authController.verify, authController.verifySameUser, postController.updateOne);
+  .put(authController.verify, authController.verifySameUser, postController.updateOne)
+  .delete(authController.verify, authController.verifySameUser, postController.deleteOne);
 
 module.exports = router;

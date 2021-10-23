@@ -36,12 +36,17 @@ exports.verify = async (req, _res, next) => {
 };
 
 exports.verifySameUser = async (req, _res, next) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  const post = await postService.getOne(id);
-  if (req.user.id !== post.userId) {
-    return next(new AppError(401, 'Unauthorized user'));
+    const post = await postService.getOne(id);
+
+    if (req.user.id !== post.userId) {
+      return next(new AppError(401, 'Unauthorized user'));
+    }
+
+    next();
+  } catch (err) {
+    next(err);
   }
-
-  next();
 };

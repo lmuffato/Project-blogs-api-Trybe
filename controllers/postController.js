@@ -49,3 +49,15 @@ exports.updateOne = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.deleteOne = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    await postService.deleteOne(id);
+
+    return res.status(204).end();
+  } catch (err) {
+    next(err);
+  }
+};
