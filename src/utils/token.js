@@ -10,7 +10,7 @@ const jwtConfig = {
 
 const checkIfTokenExists = (token) => {
   if (!token) {
-    const error = new Error('missing auth token');
+    const error = new Error('Token not found');
     error.code = 401;
     throw error;
   }
@@ -20,7 +20,7 @@ const isTokenValid = (token) => {
   try {
     Jwt.verify(token, JWT_SECRET);
   } catch (err) {
-    err.message = 'jwt malformed';
+    err.message = 'Expired or invalid token';
     err.code = 401;
     throw err;
   }
