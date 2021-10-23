@@ -51,3 +51,9 @@ exports.getOne = async (id) => {
 
   return user;
 };
+
+exports.deleteMe = async (id) => {
+  await User.destroy({ where: { id } });
+
+  return true;
+};

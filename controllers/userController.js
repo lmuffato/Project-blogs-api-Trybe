@@ -33,3 +33,15 @@ exports.getOne = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.deleteMe = async (req, res, next) => {
+  try {
+    const { user: { id } } = req;
+
+    await userService.deleteMe(id);
+
+    return res.status(204).end();
+  } catch (err) {
+    next(err);
+  }
+};

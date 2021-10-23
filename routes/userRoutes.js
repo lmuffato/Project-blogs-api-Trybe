@@ -8,6 +8,8 @@ router.route('/')
   .get(authController.verify, userController.getAll)
   .post(userController.create);
 
+router.route('/me').delete(authController.verify, userController.deleteMe);
+
 router.route('/:id').get(authController.verify, userController.getOne);
 
 module.exports = router;
