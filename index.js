@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser').json;
 const userController = require('./controllers/userController');
+const categoryController = require('./controllers/categoryController');
 
 const app = express();
 app.use(bodyParser());
@@ -17,3 +18,6 @@ app.get('/user', userController.getAllUsers);
 app.get('/user/:id', userController.getUserByID);
 
 app.post('/login', userController.requestLogin);
+
+// categoryController
+app.post('/categories', categoryController.addCategory);
