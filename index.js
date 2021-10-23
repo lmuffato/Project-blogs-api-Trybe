@@ -30,3 +30,4 @@ app.get('/categories', tokenAuth, categoryController.getCategories);
 
 app.post('/post', tokenAuth, postValidator, categoryValidator, postsController.create);
 app.get('/post', tokenAuth, postsController.getPosts);
+app.get('/post/:id', tokenAuth, postsController.getPost);
