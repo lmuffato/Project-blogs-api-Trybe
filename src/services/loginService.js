@@ -9,8 +9,8 @@ const jwtConfig = {
 const login = async (email, password) => {
   loginValidation.validateEmail(email);
   loginValidation.validatePassword(password);
-  const user = await loginValidation.validateLogin(email, password);
-  const token = jwt.sign({ data: user }, process.env.JWT_SECRET, jwtConfig);
+  await loginValidation.validateLogin(email, password);
+  const token = jwt.sign({ email }, process.env.JWT_SECRET, jwtConfig);
   return { status: 200, response: { token } };
 };
 

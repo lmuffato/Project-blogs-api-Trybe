@@ -36,13 +36,13 @@ const passwordIsEmpty = {
 };
 
 const validateEmail = (email) => {
-  if (!email) throw emailIsRequired;
   if (email === '') throw emailIsEmpty;
+  if (!email) throw emailIsRequired;
 };
 
 const validatePassword = (password) => {
-  if (!password) throw passwordIsRequired;
   if (password === '') throw passwordIsEmpty;
+  if (!password) throw passwordIsRequired;
 };
 
 const validateLogin = async (email, password) => {
