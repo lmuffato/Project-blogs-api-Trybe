@@ -45,10 +45,17 @@ const userAlreadyExists = {
   },
 };
 
-const UNAUTHORIZED_MISSING_TOKEN = {
+const tokenNotFound = {
   status: 401,
   error: {
-    message: 'missing auth token',
+    message: 'Token not found',
+  },
+};
+
+const tokenInvalid = {
+  status: 401,
+  error: {
+    message: 'Expired or invalid token',
   },
 };
 
@@ -84,11 +91,12 @@ const validateUserExists = async (email) => {
 };
 
 const validateToken = (token) => {
+  if (!token) throw tokenNotFound;
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     return decoded;
   } catch (err) {
-    throw UNAUTHORIZED_MISSING_TOKEN;
+    throw tokenInvalid;
   }
 };
 

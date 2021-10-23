@@ -8,6 +8,7 @@ const app = express();
 app.use(express.json());
 
 app.use('/user', userRouter);
+app.use('/users', userRouter);
 app.use('/login', loginRouter);
 
 app.use((error, _req, res, _next) => res.status(error.status).json(error.error));

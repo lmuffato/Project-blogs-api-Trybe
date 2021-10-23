@@ -17,6 +17,13 @@ const addUser = async (displayName, email, password, image) => {
   return { status: 201, response: { token } };
 };
 
+const getUsers = async (token) => {
+  userValidation.validateToken(token);
+  const users = await User.findAll();
+  return { status: 200, response: users };
+};
+
 module.exports = {
   addUser,
+  getUsers,
 };
