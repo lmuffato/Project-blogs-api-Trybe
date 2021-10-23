@@ -41,3 +41,23 @@ exports.getOne = async (id) => {
 
   return post;
 };
+
+exports.updateOne = async ({ id, title, content }) => {
+  const updatedPost = await BlogPost.update(
+    { title, content },
+    { where: { id } },
+  );
+
+  const post = await BlogPost.findByPk(id, {
+    include: [
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return {
+    title: post.dataValues.title, 
+    content: post.dataValues.content, 
+    userId: post.dataValues.userId, 
+    categories: post.dataValues.categories,
+  };
+};

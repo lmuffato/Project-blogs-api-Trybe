@@ -9,6 +9,7 @@ router.route('/')
   .post(authController.verify, postController.create);
 
 router.route('/:id')
-  .get(authController.verify, postController.getOne);
+  .get(authController.verify, postController.getOne)
+  .put(authController.verify, postController.updateOne);
 
 module.exports = router;

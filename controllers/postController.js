@@ -33,3 +33,16 @@ exports.getOne = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.updateOne = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { title, content } = req.body;
+
+    const updatedPost = await postService.updateOne({ id, title, content });
+
+    return res.status(200).json(updatedPost);
+  } catch (err) {
+    next(err);
+  }
+};
