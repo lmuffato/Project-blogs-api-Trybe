@@ -8,6 +8,9 @@ router.route('/')
   .get(authController.verify, postController.getAll)
   .post(authController.verify, postController.create);
 
+  router.route('/search')
+    .get(authController.verify, postController.getSearch);
+
 router.route('/:id')
   .get(authController.verify, postController.getOne)
   .put(authController.verify, authController.verifySameUser, postController.updateOne)

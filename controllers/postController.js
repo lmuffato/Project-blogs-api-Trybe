@@ -61,3 +61,15 @@ exports.deleteOne = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getSearch = async (req, res, next) => {
+  try {
+    const { q } = req.query;
+
+    const posts = await postService.getSearch(q); 
+
+    res.status(200).send(posts);
+  } catch (err) {
+    next(err);
+  }
+};
