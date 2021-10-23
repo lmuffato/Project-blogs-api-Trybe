@@ -1,14 +1,6 @@
-// const { Op } = require('sequelize');
 const { BlogPost, Category, User } = require('../models');
 
 const createPost = async (post, userId) => {
-  // await BlogPost.create({ title, content, userId });
-  // const findPost = await BlogPost.findAll({
-  //   where: { title: { [Op.eq]: title } },
-  //   attributes: { exclude: ['published', 'updated'] },
-  // });
-  // return findPost[0];
-
   const formatPost = { ...post, userId };
   const create = await BlogPost.create(formatPost);
   return create;
@@ -42,23 +34,11 @@ const getPost = async (id) => {
 const updatePost = async (dataForUpdate, id) => {
   await BlogPost.update(dataForUpdate, { where: { id } });
   const postUpdated = await getPost(id);
-
   return postUpdated;
 };
 
-// const updatePost = async ({ title, content }, id, userId) => {
-//   const findPost = await BlogPost.findByPk(id, {
-//     include: [
-//       { model: User, as: 'user', attributes: { exclude: ['password'] } },
-//       { model: Category, as: 'categories', through: { attributes: [] } },
-//     ],
-//   });
-//   await BlogPost.update({ title, content }, { where: { id } });
-//   return { title, content, userId, categories: findPost.categories };
-// };
-
-const verifyUser = async () => {
-  
+const deleteUser = async (id) => {
+  await BlogPost.destroy({ where: { id } });
 };
 
 module.exports = {
@@ -67,5 +47,5 @@ module.exports = {
   getPosts,
   getPost,
   updatePost,
-  verifyUser,
+  deleteUser,
 };

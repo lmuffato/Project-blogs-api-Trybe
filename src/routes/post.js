@@ -9,5 +9,6 @@ router.post('/', middlewaresPost.validatePost, rescue(postControllers.createPost
 router.get('/', middlewaresPost.validateToken, rescue(postControllers.getPosts));
 router.get('/:id', middlewaresPost.validateListPost, rescue(postControllers.getPost));
 router.put('/:id', middlewaresPost.validateUpdate, rescue(postControllers.updatePost));
+router.delete('/:id', rescue(postControllers.deleteUser));
 
 module.exports = router;
