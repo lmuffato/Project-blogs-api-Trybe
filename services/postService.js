@@ -43,7 +43,10 @@ exports.getOne = async (id) => {
 };
 
 exports.updateOne = async ({ id, title, content }) => {
-  const updatedPost = await BlogPost.update(
+  newPostValidations.validateTitle(title);
+  newPostValidations.validateContent(content);
+
+  await BlogPost.update(
     { title, content },
     { where: { id } },
   );
