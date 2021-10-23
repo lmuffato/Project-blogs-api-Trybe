@@ -3,11 +3,6 @@ const { Category } = require('../models');
 const {
     ok,
     created,
-    noContent,
-    badRequest,
-    unauthorized,
-    notFound,
-    conflict,
 } = require('../utils/anwers');
 
 const create = async (req, res) => {
