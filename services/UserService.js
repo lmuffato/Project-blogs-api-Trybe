@@ -21,7 +21,6 @@ console.log(registered);
 
 const findAll = async () => {
   const users = await User.findAll();
-  console.log(users);
   return users;
 };
 

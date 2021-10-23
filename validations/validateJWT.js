@@ -17,7 +17,7 @@ const validateJWT = async (req, res, next) => {
     if (users === '!exist') {
       return res
         .status(401)
-        .json({ message: 'Expired or invalid token.' });
+        .json({ message: 'Invalid token.' });
     }
       next(); 
     } catch (err) {

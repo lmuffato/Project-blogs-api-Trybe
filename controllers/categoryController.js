@@ -21,4 +21,21 @@ const createCategory = rescue(async (req, res) => {
       }
   });
 
-  module.exports = { createCategory };
+  const findAllCategory = rescue(async (req, res) => {
+    try {
+        const findCategory = await service.findAllCategory();
+        
+        if (findCategory === '!exists') {
+          return res.status(409).json({ message: 'Category not found' });
+        }
+        return res.status(200).json(findCategory);
+      } catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: 'Algo deu errado' });
+      }
+  });
+
+  module.exports = { 
+    createCategory, 
+    findAllCategory,
+  };
