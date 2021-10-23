@@ -33,4 +33,30 @@ module.exports = {
       },
     },
   },
+  login: {
+    email: {
+      required: {
+        status: BAD_REQUEST,
+        message: '"email" is required',
+      },
+      empty: {
+        status: BAD_REQUEST,
+        message: '"email" is not allowed to be empty',
+      },
+    },
+    password: {
+      required: {
+        status: BAD_REQUEST,
+        message: '"password" is required',
+      },
+      empty: {
+        status: BAD_REQUEST,
+        message: '"password" is not allowed to be empty',
+      },
+    },
+    notExists: {
+      status: BAD_REQUEST,
+      message: 'Invalid fields',
+    },
+  },
 };
