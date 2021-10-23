@@ -9,6 +9,13 @@ const addCategory = async (name, token) => {
   return { status: 201, response: category.dataValues };
 };
 
+const getAllCategories = async (token) => {
+  userValidation.validateToken(token);
+  const categories = await Category.findAll();
+  return { status: 200, response: categories };
+};
+
 module.exports = {
   addCategory,
+  getAllCategories,
 };
