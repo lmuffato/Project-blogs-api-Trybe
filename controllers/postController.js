@@ -9,6 +9,13 @@ const { id: userId } = req.user;
   res.status(result.status).json(result.post);
 };
 
+const getAllPost = async (_req, res) => {
+  const result = await Posts.getAllPost();
+
+  res.status(result.status).json(result.posts);
+};
+
 module.exports = {
   createPost,
+  getAllPost,
 };
