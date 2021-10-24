@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 
 const userRouter = require('./routers/userRouter');
+const loginRouter = require('./routers/loginRouter');
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,6 +18,4 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', userRouter);
-
-/* app.post('/user', userController.create);
-app.get('/user', userController.getAll); */
+app.use('/login', loginRouter);
