@@ -16,6 +16,15 @@ const createPost = [
   }),
 ];
 
+const getAllPosts = [
+  validaToken,
+  rescue(async (_req, res) => {
+    const allBlogPosts = await postService.getAllPosts();
+    return res.status(httpCodes.OK).json(allBlogPosts);
+  }),
+];
+
 module.exports = {
   createPost,
+  getAllPosts,
 };
