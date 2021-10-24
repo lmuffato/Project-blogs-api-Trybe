@@ -24,6 +24,7 @@ app.post('/login', loginValidator, usersController.login);
 
 app.get('/user', tokenAuth, usersController.getUsers);
 app.get('/user/:id', tokenAuth, usersController.getUser);
+app.get('/user/me', tokenAuth, usersController.deleteUser);
 
 app.post('/categories', tokenAuth, categoryController.create);
 app.get('/categories', tokenAuth, categoryController.getCategories);

@@ -1,5 +1,6 @@
 const { User } = require('../models'); 
 const { createToken } = require('../auth/tokenCreation');
+const { verify } = require('../auth/tokenAuth');
 
 const create = (req, res) => {
   const { displayName, email, password, image } = req.body;
@@ -54,11 +55,24 @@ const getUser = async (req, res) => {
       res.status(404).json({ message: 'User does not exist' });
     });
   };
+
+  const deleteUser = async (req, res) => {
+    const { authorization } = req.headers;
   
+    const payload = verify(authorization);
+    const userEmail = payload.email;
+    const userData = await findUser(userEmail);
+    const userId = userData.id;
+  
+    await User.destroy({ where: { id: userId } });
+    return res.status(204).json();
+  };
+
 module.exports = {
   create,
   login,
   getUsers,
   getUser,
   findUser,
+  deleteUser,
 };
