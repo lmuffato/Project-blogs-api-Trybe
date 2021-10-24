@@ -7,6 +7,12 @@ const CheckUser = Joi.object({
   image: Joi.string(),
 });
 
+const checkLogin = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+});
+
 module.exports = {
   CheckUser,
+  checkLogin,
 };
