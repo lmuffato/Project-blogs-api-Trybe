@@ -2,7 +2,7 @@ const { Category } = require('../../models');
 
 const getAll = async (req, res) => {
   try {
-    const data = await Category.findAll({});
+    const data = await Category.findAll();
     return res.status(200).json(data);
   } catch (err) {
     res.status(500).json({ message: err.message });
