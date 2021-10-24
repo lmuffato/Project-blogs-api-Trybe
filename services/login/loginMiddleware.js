@@ -8,7 +8,7 @@ const verifyUserAndPassword = async (obj) => {
   return data;
 };
 
-const check = async (req, res, next) => {
+const verifyUserAndPasswordInDataBase = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const obj = { email, password };
@@ -21,4 +21,4 @@ const check = async (req, res, next) => {
   next();
 };
 
-module.exports = { check };
+module.exports = { verifyUserAndPasswordInDataBase };

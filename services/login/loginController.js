@@ -9,11 +9,11 @@ const router = Router();
 router.post('/',
 loginValidation.passwordValidation,
 loginValidation.emailValidation,
-loginMiddleware.check,
+loginMiddleware.verifyUserAndPasswordInDataBase,
 authMiddleware.tokenGenerator,
 async () => {});
 /* REQUISIÇÃO:
-http POST :3000/login/check email='MichaelSchumacher@gmail.com'
+http POST :3000/login/ email='MichaelSchumacher@gmail.com'
 */
 
 module.exports = router;
