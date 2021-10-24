@@ -21,3 +21,4 @@ app.post('/login', userController.requestLogin);
 
 // categoryController
 app.post('/categories', categoryController.addCategory);
+app.get('/categories', categoryController.getAllCategory);

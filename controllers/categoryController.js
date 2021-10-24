@@ -22,6 +22,19 @@ const addCategory = async (req, res) => {
   return res.status(status.CREATED).json({ id, name });
 };
 
+const getAllCategory = async (req, res) => {
+  const { headers: { authorization: token } } = req;
+  
+  const users = await categoryService.getAllCategory(token);
+  
+  if (users.err) {
+    return res.status(status[users.code]).json(users.err);
+  }
+  
+  res.status(status.OK).json(users);
+};
+
 module.exports = {
   addCategory,
+  getAllCategory,
 };
