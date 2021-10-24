@@ -16,13 +16,14 @@ const getById = async (req, res) => {
     const data = await User.findByPk(id,
       { attributes: { exclude: ['password'] },
     });
+    if (data === null) { return res.status(404).json({ message: 'User does not exist' }); }
     return res.status(200).json(data);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-// Buscar por id, utilizando where
+// Buscar por id utilizando where
 // const getById = async (req, res) => {
 //   try {
 //     const { id } = req.params;

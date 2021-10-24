@@ -29,6 +29,8 @@ http POST :3000/users displayName='Lucas' email='lucas' password='lucas' image='
 */
 
 router.get('/:id',
+authMiddleware.verifyEmptyToken,
+authMiddleware.tokenValidation,
 userMiddleware.getById,
 async () => {});
 /* REQUISIÇÃO:
