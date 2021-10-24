@@ -21,6 +21,7 @@ app.post('/login', Login.loginUser);
 
 // category
 app.post('/categories', validationToken, Category.createCategory);
+app.get('/categories', validationToken, Category.getAllCategory);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
