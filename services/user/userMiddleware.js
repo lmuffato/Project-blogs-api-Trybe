@@ -56,6 +56,7 @@ const createNew = async (req, res, next) => {
     // req.userInfo = removeKeyInObject(obj, 'password');
     // const newData = await User.create(obj);
     // return res.status(201).json(newData);
+    req.http = { code: 201 };
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

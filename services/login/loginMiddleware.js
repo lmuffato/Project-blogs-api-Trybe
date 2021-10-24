@@ -16,7 +16,7 @@ const check = async (req, res, next) => {
     const { displayName, image } = data;
     req.userInfo = { displayName, email, image };
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
   next();
 };

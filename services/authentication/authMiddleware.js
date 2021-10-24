@@ -35,9 +35,10 @@ const verifyUserExists = async (field, input) => {
 // Middleware que gera o token com base nas informações do usuário
 const tokenGenerator = async (req, res, _next) => {
   const { displayName, email, image } = req.userInfo;
+  const { code } = req.http;
   const obj = { displayName, email, image };
   const token = jwt.sign(obj, secret, jwtConfig('7d', 'HS256'));
-  return res.status(201).json({ token });
+  return res.status(code).json({ token });
 };
 
 // Middleware verifica se o token é válido
