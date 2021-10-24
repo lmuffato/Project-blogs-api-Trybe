@@ -3,12 +3,14 @@
 
 const verifyMissingFileds = (input, field) => {
   if (!input) { throw new Error(`"${field}" is required`); }
+  return false;
 };
 
 const verifyEmptyInput = (input, field) => { 
   if (input === '') {
     throw new Error(`"${field}" is required`);
   }
+  return false;
 };
 
 // Middleware para validação do email
