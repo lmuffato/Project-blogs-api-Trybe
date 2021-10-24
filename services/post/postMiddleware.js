@@ -1,8 +1,14 @@
-const { BlogPost } = require('../../models');
+const { BlogPost, User, Category } = require('../../models');
 
 const getAll = async (req, res) => {
   try {
-    const data = await BlogPost.findAll();
+    const data = await BlogPost.findAll({
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] }, 
+        },
+      ],
+    });
     return res.status(200).json(data);
   } catch (err) {
     res.status(500).json({ message: err.message });

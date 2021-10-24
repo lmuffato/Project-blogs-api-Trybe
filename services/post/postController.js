@@ -1,11 +1,13 @@
 const { Router } = require('express');
 
 const postMiddleware = require('./postMiddleware'); 
-// const usersValidation = require('./usersValidation');
+const authMiddleware = require('../authentication/authMiddleware');
 
 const router = Router();
 
 router.get('/',
+authMiddleware.verifyEmptyToken,
+authMiddleware.tokenValidation,
 postMiddleware.getAll,
 async () => {});
 /* REQUISIÇÃO:
