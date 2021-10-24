@@ -17,6 +17,8 @@ http POST :3000/categories name='ciencia'
 */
 
 router.get('/',
+authMiddleware.verifyEmptyToken,
+authMiddleware.tokenValidation,
 categoryMiddleware.getAll,
 async () => {});
 /* REQUISIÇÃO:
