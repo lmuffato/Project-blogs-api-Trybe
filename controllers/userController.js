@@ -23,7 +23,22 @@ const getAll = (_req, res, _next) => {
     });
 };
 
+const getById = (req, res) => {
+  User.findByPk(req.params.id) 
+    .then(async (user) => {
+      if (user === null) {
+        return res.status(404).send({ message: 'User does not exist' });
+      }
+      res.status(200).json(user);
+    })
+    .catch((e) => {
+      console.log(e.message);
+      res.status(500).json({ message: 'Algo deu errado' });
+    });
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 }; 

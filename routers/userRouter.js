@@ -9,6 +9,10 @@ router.post('/', middlewares.nameLengthValidation,
   middlewares.emailValidation,
   middlewares.passwordValidation,
   userController.create);
-router.get('/', auth.tokenAuth, userController.getAll);
+
+router.get('/', auth.tokenAuth,
+userController.getAll);
+
+router.get('/:id', auth.tokenAuth, userController.getById);
 
 module.exports = router; 
