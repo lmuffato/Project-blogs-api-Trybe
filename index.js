@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const userRouter = require('./routers/userRouter');
 const loginRouter = require('./routers/loginRouter');
+const categoriesRouter = require('./routers/categoriesRouter');
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,3 +20,4 @@ app.get('/', (request, response) => {
 
 app.use('/user', userRouter);
 app.use('/login', loginRouter);
+app.use('/categories', categoriesRouter);

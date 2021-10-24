@@ -45,6 +45,11 @@ const unregisteredEmailError = {
   errorMessage: { message: 'Invalid fields' },
 };
 
+const nameRequiredError = {
+  status: 400,
+  errorMessage: { message: '"name" is required' },
+};
+
 const nameLengthValidation = (req, res, next) => {
   const { displayName } = req.body;
   if (displayName.length < 8) {
@@ -112,10 +117,19 @@ const passwordLoginValidation = async (req, res, next) => {
   next();
 };
 
+const categoryValidation = async (req, res, next) => {
+  const { name } = req.body;
+  if (name === undefined) {
+    return res.status(nameRequiredError.status).json(nameRequiredError.errorMessage);
+  }
+  next();
+};
+
 module.exports = {
   nameLengthValidation,
   emailValidation,
   passwordValidation,
   emailLoginValidation,
   passwordLoginValidation,
+  categoryValidation,
 }; 
