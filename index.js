@@ -31,3 +31,5 @@ app.post('/login', middlewaresLogin.validateLogin, userController.loginUser);
 
 app.post('/categories', middlewaresCategorie.validateName,
  middlewaresToken.validateToken, categoriesController.createCategorie);
+ 
+app.get('/categories', middlewaresToken.validateToken, categoriesController.getCategories);

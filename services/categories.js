@@ -8,6 +8,12 @@ const createCategorie = async (name) => {
   return categorie;
 };
 
+const getCategories = async () => {
+  const categories = await Category.findAll();
+  return categories;
+};
+
 module.exports = {
   createCategorie,
+  getCategories,
 };
