@@ -17,6 +17,7 @@ router.post('/',
 userValidation.nameValidation,
 userValidation.passwordValidation,
 userValidation.emailValidation,
+userValidation.emailAlreadyExists,
 userMiddleware.createNew,
 authMiddleware.tokenGenerator,
 async () => {});

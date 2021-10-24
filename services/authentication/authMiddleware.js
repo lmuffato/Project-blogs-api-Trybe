@@ -1,9 +1,11 @@
 const jwt = require('jsonwebtoken');
 
+require('dotenv').config(); // Configura o uso de variáveis de ambiente
+
 const { User } = require('../../models');
 
 // Chave secreta usada para encriptografar os dados.
-const secret = 'meuTokenSecreto';
+const secret = process.env.JWT_SECRET;
 
 const jwtConfig = (timeToExpires, algorithCript) => {
   const config = { expiresIn: timeToExpires, algorithm: algorithCript };
@@ -35,7 +37,7 @@ const tokenGenerator = async (req, res, _next) => {
   const { displayName, email, image } = req.userInfo;
   const obj = { displayName, email, image };
   const token = jwt.sign(obj, secret, jwtConfig('7d', 'HS256'));
-  return res.status(200).json({ token });
+  return res.status(201).json({ token });
 };
 
 // Middleware verifica se o token é válido

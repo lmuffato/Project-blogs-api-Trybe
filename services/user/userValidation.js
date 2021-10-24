@@ -14,7 +14,7 @@ const verifyLenghInputMustBeEqual = (input, minimumLength, field) => {
 
 const verifyMinimumInputLength = (input, minimumLength, field) => {
   if (input.length < minimumLength) {
-    throw new Error(`"${field}" length must be at least ${minimumLength} character long`);
+    throw new Error(`"${field}" length must be at least ${minimumLength} characters long`);
   }
 };
 
@@ -25,7 +25,7 @@ const verifyValidEmail = (email) => {
   }
 };
 
-const emailAlreadyExists = async (email) => {
+const verifyEmailAlreadyExists = async (email) => {
   const result = await User.findOne({ where: { email } });
   if (result !== null) { throw new Error('User already registered'); }
 };
@@ -37,8 +37,8 @@ const nameValidation = async (req, res, next) => {
   try {
     verifyEmptyInput(displayName, 'displayName');
     verifyMinimumInputLength(displayName, 8, 'displayName');
-  } catch (error) {
-    return res.status(400).json({ message: error.message });
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
   }
   next();
 };
@@ -49,8 +49,8 @@ const passwordValidation = async (req, res, next) => {
   try {
     verifyEmptyInput(password, 'password');
     verifyLenghInputMustBeEqual(password, 6, 'password');
-  } catch (error) {
-    return res.status(400).json({ message: error.message });
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
   }
   next();
 };
@@ -61,11 +61,25 @@ const emailValidation = async (req, res, next) => {
   try {
     verifyEmptyInput(email, 'email');
     verifyValidEmail(email);
-    await emailAlreadyExists(email);
-  } catch (error) {
-    return res.status(400).json({ message: error.message });
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
   }
   next();
 };
 
-module.exports = { nameValidation, passwordValidation, emailValidation };
+const emailAlreadyExists = async (req, res, next) => {
+  const { email } = req.body;
+  try {
+    await verifyEmailAlreadyExists(email);
+  } catch (error) {
+    return res.status(409).json({ message: error.message });
+  }
+  next();
+};
+
+module.exports = {
+  nameValidation,
+  passwordValidation,
+  emailValidation,
+  emailAlreadyExists,
+};
