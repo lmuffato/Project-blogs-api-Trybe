@@ -8,6 +8,7 @@ const { PORT = 3000 } = process.env;
 
 const Users = require('./controllers/userController');
 const Login = require('./controllers/loginController');
+const Category = require('./controllers/categoryController');
 const { validationToken } = require('./utils/util');
 
 // User
@@ -17,6 +18,9 @@ app.get('/user/:id', validationToken, Users.UserGetById);
 
 // login
 app.post('/login', Login.loginUser);
+
+// category
+app.post('/categories', validationToken, Category.createCategory);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 

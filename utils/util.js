@@ -29,8 +29,13 @@ const validationToken = (req, res, next) => {
   }
 };
 
+const checkCategories = Joi.object({
+  name: Joi.string().required(),
+});
+
 module.exports = {
   CheckUser,
   checkLogin,
   validationToken,
+  checkCategories,
 };
