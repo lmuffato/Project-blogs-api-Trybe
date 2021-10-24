@@ -44,8 +44,8 @@ const deleteById = async (req, res) => {
 
 const createNew = async (req, res) => {
   try {
-    const { title, content } = req.body;
-    const obj = { title, content };
+    const { title, content, categoryIds } = req.body;
+    const obj = { title, content, categoryIds };
     const newData = await BlogPost.create(obj);
     return res.status(201).json(newData);
   } catch (err) {
