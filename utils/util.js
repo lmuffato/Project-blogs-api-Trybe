@@ -33,9 +33,16 @@ const checkCategories = Joi.object({
   name: Joi.string().required(),
 });
 
+const checkPost = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+  categoryIds: Joi.array().required(),
+});
+
 module.exports = {
   CheckUser,
   checkLogin,
   validationToken,
   checkCategories,
+  checkPost,
 };
