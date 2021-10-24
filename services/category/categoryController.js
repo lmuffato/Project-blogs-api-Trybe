@@ -1,21 +1,26 @@
 const { Router } = require('express');
 
-const categoryMiddleware = require('./categoryMiddleware'); 
+const categoryMiddleware = require('./categoryMiddleware');
+const categoryValidation = require('./categoryValidation');
+const authMiddleware = require('../authentication/authMiddleware');
 
 const router = Router();
+
+router.post('/',
+categoryValidation.verifyInputs,
+authMiddleware.verifyEmptyToken,
+authMiddleware.tokenValidation,
+categoryMiddleware.createNew,
+async () => {});
+/* REQUISIÇÃO:
+http POST :3000/categories name='ciencia'
+*/
 
 router.get('/',
 categoryMiddleware.getAll,
 async () => {});
 /* REQUISIÇÃO:
 http GET :3000/categories
-*/
-
-router.post('/',
-categoryMiddleware.createNew,
-async () => {});
-/* REQUISIÇÃO:
-http POST :3000/categories name='ciencia'
 */
 
 router.get('/:id',

@@ -45,6 +45,8 @@ const deleteById = async (req, res) => {
 const createNew = async (req, res) => {
   try {
     const { name } = req.body;
+    console.log(name);
+    // const obj = { name: 'inovacao2' };
     const obj = { name };
     const newData = await Category.create(obj);
     return res.status(201).json(newData);
