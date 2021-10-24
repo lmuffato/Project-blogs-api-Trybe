@@ -6,4 +6,9 @@ const create = async (req, res) => {
   return res.status(userCreate.status).json(userCreate.message);
 };
 
-module.exports = { create };
+const getAll = async (_req, res) => {
+  const users = await user.getAll();
+  return res.status(users.status).json(users.message);
+};
+
+module.exports = { create, getAll };

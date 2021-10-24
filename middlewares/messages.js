@@ -1,5 +1,5 @@
 const {
-  status: { BAD_REQUEST, CONFLICT },
+  status: { BAD_REQUEST, CONFLICT, UNAUTHORIZED },
 } = require('../utils');
 
 module.exports = {
@@ -30,6 +30,16 @@ module.exports = {
       valid: {
         status: BAD_REQUEST,
         message: '"password" length must be 6 characters long',
+      },
+    },
+    get: {
+      tokenNotFound: {
+        status: UNAUTHORIZED,
+        message: 'Token not found',
+      },
+      invalidToken: {
+        status: UNAUTHORIZED,
+        message: 'Expired or invalid token',
       },
     },
   },
