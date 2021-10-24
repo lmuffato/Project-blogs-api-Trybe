@@ -7,6 +7,8 @@ const authMiddleware = require('../authentication/authMiddleware');
 const router = Router();
 
 router.get('/',
+authMiddleware.verifyEmptyToken,
+authMiddleware.tokenValidation,
 userMiddleware.getAll,
 async () => {});
 /* REQUISIÇÃO:

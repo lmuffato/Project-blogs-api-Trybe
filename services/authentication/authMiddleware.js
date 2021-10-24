@@ -12,12 +12,6 @@ const jwtConfig = (timeToExpires, algorithCript) => {
   return config;
 };
 
-const verifyEmptyToken = (input) => { 
-  if (!input || input === null || input === '') {
-    throw new Error('Token not found');
-  }
-};
-
 const verifyToken = (token) => {
   try {
     const decoded = jwt.verify(token, secret);
@@ -27,9 +21,10 @@ const verifyToken = (token) => {
   }
 };
 
-const verifyUserExists = async (field, input) => {
-  const result = await User.findOne({ where: { field: input } });
-  if (result !== null) { throw new Error('Expired or invalid token'); }
+const verifyUserExists = async (input, field) => {
+  const obj = { [field]: input };
+  const result = await User.findOne({ where: obj });
+  if (result === null || !result) { throw new Error('Expired or invalid token'); }
 };
 
 // Middleware que gera o token com base nas informações do usuário
@@ -41,20 +36,29 @@ const tokenGenerator = async (req, res, _next) => {
   return res.status(code).json({ token });
 };
 
-// Middleware verifica se o token é válido
+const verifyEmptyToken = async (req, res, next) => {
+  const token = req.headers.authorization;
+  try {
+    if (!token) return res.status(401).json({ message: 'Token not found' });
+  } catch (err) {
+    return res.status(401).json({ message: err.message });
+  }
+  next();
+};
+
 const tokenValidation = async (req, res, next) => {
   const token = req.headers.authorization;
   try {
-    verifyEmptyToken(token);
     const decoded = verifyToken(token);
-    await verifyUserExists('email', decoded.email);
-    next();
+    await verifyUserExists(decoded.email, 'email');
   } catch (err) {
-    return res.status(401).json({ message: 'jwt malformed' });
+    return res.status(401).json({ message: 'Expired or invalid token' });
   }
+  next();
 };
 
 module.exports = {
   tokenGenerator,
+  verifyEmptyToken,
   tokenValidation,
 };
