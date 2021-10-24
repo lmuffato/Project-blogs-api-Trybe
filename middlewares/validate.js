@@ -23,4 +23,14 @@ const validateEmail = (req, _res, next) => {
   next();
 };
 
-module.exports = { validateUser, validateEmail };
+const validateCategories = (req, _res, next) => {
+  const { error } = Joi.object({
+    name: Joi.string().required(),
+  }).validate(req.body);
+
+  if (error) return next(error);
+
+  next();
+};
+
+module.exports = { validateUser, validateEmail, validateCategories };
