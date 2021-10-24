@@ -6,7 +6,7 @@ const categoryController = require('./controller/categoriesController');
 const postsController = require('./controller/postsController');
 
 const { nameValidator, emailValidator, passwordValidator,
-loginValidator, postValidator, categoryValidator } = require('./auth/validations');
+loginValidator, postValidator, categoryValidator, updateValidator } = require('./auth/validations');
 const { tokenAuth } = require('./auth/tokenAuth');
 
 const app = express();
@@ -31,3 +31,4 @@ app.get('/categories', tokenAuth, categoryController.getCategories);
 app.post('/post', tokenAuth, postValidator, categoryValidator, postsController.create);
 app.get('/post', tokenAuth, postsController.getPosts);
 app.get('/post/:id', tokenAuth, postsController.getPost);
+app.put('/post/:id', tokenAuth, updateValidator, postsController.updatePost);
