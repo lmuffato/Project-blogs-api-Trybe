@@ -6,6 +6,6 @@ const router = Router();
 
 router.post('/', middlewares.passwordLoginValidation,
   middlewares.emailLoginValidation,
-  auth.login);
+  auth.createToken);
 
 module.exports = router;
