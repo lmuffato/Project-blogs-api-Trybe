@@ -2,6 +2,7 @@ const { Router } = require('express');
 
 const userMiddleware = require('./userMiddleware'); 
 const userValidation = require('./userValidation');
+const authMiddleware = require('../authentication/authMiddleware');
 
 const router = Router();
 
@@ -17,6 +18,7 @@ userValidation.nameValidation,
 userValidation.passwordValidation,
 userValidation.emailValidation,
 userMiddleware.createNew,
+authMiddleware.tokenGenerator,
 async () => {});
 /* REQUISIÇÃO:
 http POST :3000/users displayName='LucasMuffato' email='lucas@gmail.com' password='lucas123456' image='lucas'

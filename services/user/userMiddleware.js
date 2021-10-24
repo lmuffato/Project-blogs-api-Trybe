@@ -42,15 +42,24 @@ const deleteById = async (req, res) => {
   }
 };
 
-const createNew = async (req, res) => {
+// const removeKeyInObject = (obj, key) => {
+//   const { [key]: _, ...newObj } = obj;
+//   return newObj;
+// };
+
+const createNew = async (req, res, next) => {
   try {
     const { displayName, email, password, image } = req.body;
     const obj = { displayName, email, password, image };
-    const newData = await User.create(obj);
-    return res.status(201).json(newData);
+    await User.create(obj);
+    req.userInfo = { displayName, email, image };
+    // req.userInfo = removeKeyInObject(obj, 'password');
+    // const newData = await User.create(obj);
+    // return res.status(201).json(newData);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
+  next();
 };
 
 module.exports = { getAll, getById, updateById, deleteById, createNew };
