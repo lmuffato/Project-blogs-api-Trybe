@@ -77,3 +77,24 @@ const ve = (tokenV) => {
 
 console.log(ve(token.token));
 */
+
+// const objTest = { name: 'lucas', password: '12345', email: 'l@gmail.com' };
+
+// const verifyMissingFileds = (input, field) => {
+//   try {
+//     if (!input) { throw new Error(`"${field}" is not allowed to be empty`); }
+//     return input;
+//   } catch (err) {
+//     return ({ message: err.message });
+//   }
+// };
+
+// const { name, password } = objTest;
+
+// console.log(verifyMissingFileds(name, 'name'));
+// console.log(verifyMissingFileds(password, 'password'));
+// console.log(verifyMissingFileds(image, 'image'));
+
+// console.log(verifyMissingFileds(objTest, 'name'));
+// console.log(verifyMissingFileds(objTest, 'password'));
+// console.log(verifyMissingFileds(objTest, 'image'));
