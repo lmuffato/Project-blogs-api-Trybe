@@ -32,3 +32,4 @@ app.post('/post', tokenAuth, postValidator, categoryValidator, postsController.c
 app.get('/post', tokenAuth, postsController.getPosts);
 app.get('/post/:id', tokenAuth, postsController.getPost);
 app.put('/post/:id', tokenAuth, updateValidator, postsController.updatePost);
+app.delete('/post/:id', tokenAuth, postsController.deletePost);
