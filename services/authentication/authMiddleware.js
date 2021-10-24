@@ -1,3 +1,4 @@
+/*
 const jwt = require('jsonwebtoken');
 const usersServices = require('../users/usersServices');
 
@@ -49,3 +50,4 @@ const tokenValidation = async (req, res, next) => {
 };
 
 module.exports = { tokenGenerator, tokenValidation };
+*/

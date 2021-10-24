@@ -16,7 +16,6 @@ router.post('/',
 userValidation.nameValidation,
 userValidation.passwordValidation,
 userValidation.emailValidation,
-userValidation.emailUniqueValidation,
 userMiddleware.createNew,
 async () => {});
 /* REQUISIÇÃO:
