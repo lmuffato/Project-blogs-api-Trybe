@@ -9,6 +9,7 @@ router.post('/', auth.tokenAuth,
 middlewares.categoryValidation,
   categoriesController.create);
 
-router.get('/', categoriesController.getAll);
+router.get('/', auth.tokenAuth,
+categoriesController.getAll);
 
 module.exports = router; 
