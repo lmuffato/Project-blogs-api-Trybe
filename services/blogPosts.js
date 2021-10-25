@@ -34,6 +34,8 @@ const getAllPosts = async (_user) => {
   return allPosts;
 };
 
+// requisito 08 feito com a ajuda do colega Eduardo Costa.
+
 module.exports = {
   createBlogPost,
   getAllPosts,
