@@ -25,6 +25,7 @@ router.post('/login', validateEmail, loginController.login);
 router.get('/categories', tokenValidate, categorieController.getAllCategorie);
 router.post('/categories', tokenValidate, validateCategories, categorieController.createCategory);
 
+router.get('/post', tokenValidate, postController.getAllPost);
 router.post('/post', tokenValidate, validatePost, postController.createPost);
 
 module.exports = router;
