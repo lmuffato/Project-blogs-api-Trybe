@@ -38,4 +38,6 @@ app.get('/categories', middlewaresToken.validateToken, categoriesController.getC
 
 app.post('/post', middlewaresToken.validateToken, 
    middlewaresBlogPost.validateInputs, middlewaresBlogPost.validateCategoryExist,
-    blogPostController.createBlogPost);
+       blogPostController.createBlogPost);
+
+app.get('/post', middlewaresToken.validateToken, blogPostController.getAllPosts);

@@ -1,11 +1,12 @@
 const { BlogPost } = require('../models');
 const { User } = require('../models');
+const { Category } = require('../models');
 
 const getUserByEmail = async (email) => {
   const user = await User.findOne({ where: { email } });
   const userId = user.dataValues.id;
   return userId;
- };
+};
 
 const createBlogPost = async (title, categoryIds, content, user) => {
   const userEmail = user.email;
@@ -17,6 +18,23 @@ const createBlogPost = async (title, categoryIds, content, user) => {
   return createdPost;
 };
 
+const getAllPosts = async (_user) => {
+  // const userEmail = user.email;
+  const allPosts = await BlogPost.findAll({ 
+    include: [
+    { model: User, 
+      as: 'user',
+      attributes: 
+        { exclude: ['password'] } }, 
+    { model: Category,
+      as: 'categories', 
+      through: { attributes: [] } },
+  ] });
+  console.log('all posts', allPosts);
+  return allPosts;
+};
+
 module.exports = {
   createBlogPost,
+  getAllPosts,
 };
