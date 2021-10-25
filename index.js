@@ -46,4 +46,7 @@ app.get('/post/:id', validateJWT, BlogPost.getById);
 // Requisito 10
 app.put('/post/:id', validateJWT, BlogPost.update);
 
+// Requisito 11
+app.delete('/post/:id', validateJWT, BlogPost.deletePost);
+
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
