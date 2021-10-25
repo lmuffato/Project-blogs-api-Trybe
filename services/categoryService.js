@@ -1,7 +1,7 @@
 const { Category } = require('../models');
 
 const createCategoryS = async (newCat) => {
-  // ISSO NAO TA CONSEGUINDO RETORNAR NADA!
+  console.log('--------- CREATE CATEGORIES ----------');
   const category = await Category.create(newCat);
   return category;
 };
