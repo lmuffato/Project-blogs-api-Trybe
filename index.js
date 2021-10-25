@@ -8,9 +8,11 @@ app.use(bodyParser.json());
 const middlewaresUser = require('./middlewares/validateInputs');
 const middlewaresLogin = require('./middlewares/validateLogin');
 const middlewaresToken = require('./middlewares/validateToken');
+const middlewaresBlogPost = require('./middlewares/valitadeBlogPost');
 const middlewaresCategorie = require('./middlewares/validateCategorie');
 const userController = require('./controllers/user');
 const categoriesController = require('./controllers/categories');
+const blogPostController = require('./controllers/blogPosts');
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
@@ -30,6 +32,10 @@ app.get('/user/:id', middlewaresToken.validateToken,
 app.post('/login', middlewaresLogin.validateLogin, userController.loginUser);
 
 app.post('/categories', middlewaresCategorie.validateName,
- middlewaresToken.validateToken, categoriesController.createCategorie);
+  middlewaresToken.validateToken, categoriesController.createCategorie);
  
 app.get('/categories', middlewaresToken.validateToken, categoriesController.getCategories);
+
+app.post('/post', middlewaresToken.validateToken, 
+   middlewaresBlogPost.validateInputs, middlewaresBlogPost.validateCategoryExist,
+    blogPostController.createBlogPost);
