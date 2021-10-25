@@ -7,6 +7,7 @@ const {
   getPostById,
   updateASinglePost,
   remove,
+  getSearchTerm,
 } = require('../services/postService');
 
 const createNewPost = async (req, res, next) => {
@@ -63,10 +64,24 @@ const deletePost = async (req, res, next) => {
   }
 };
 
+const getPostByString = async (req, res, next) => {
+  try {
+    console.log('OIOIOI');
+    
+    const { q } = req.query;
+    console.log('📓 ~ file: postController.js ~ line 70 ~ getPostByString ~ q', q);
+    const postsSelected = await getSearchTerm(q);
+    return res.status(OK).json(postsSelected);
+  } catch (e) {
+    next({ statusCode: INTERNAL_SERVER_ERROR, message: e.message });
+  }
+};
+
 module.exports = {
   createNewPost,
   getPosts,
   getSinglePost,
   updatePost,
   deletePost,
+  getPostByString,
 };

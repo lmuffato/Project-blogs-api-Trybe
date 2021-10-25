@@ -6,6 +6,7 @@ const {
   getSinglePost,
   updatePost,
   deletePost,
+  getPostByString,
 } = require('../controllers');
 
 const {
@@ -24,6 +25,7 @@ router.use(Auth);
 
 router.post('/', postValidation, createNewPost);
 router.get('/', getPosts);
+router.get('/search', getPostByString);
 router.get('/:id', checkIfPostExists, getSinglePost);
 router.put('/:id', allowUpdate, updatePost);
 router.delete('/:id', allowDelete, deletePost);

@@ -12,6 +12,7 @@ const {
   getSinglePost,
   updatePost,
   deletePost,
+  getPostByString,
 } = require('./postController');
 
 module.exports = {
@@ -27,4 +28,5 @@ module.exports = {
   updatePost,
   deletePost,
   removeMySelf,
+  getPostByString,
 };

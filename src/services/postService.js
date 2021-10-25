@@ -1,4 +1,5 @@
-const { BlogPost, Category } = require('../models');
+const { Op } = require('sequelize');
+const { BlogPost, Category, User } = require('../models');
 
 const create = async (data) => {
   const newPost = await BlogPost.create(data);
@@ -30,6 +31,25 @@ const remove = async (id) => {
   await BlogPost.destroy({ where: { id } });
 };
 
+const getSearchTerm = async (query) => {
+  const singlePost = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        { title: { [Op.like]: `%${query}%` } },
+        { content: { [Op.like]: `%${query}%` } },
+      ],
+    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return singlePost;
+};
+
+// https://stackoverflow.com/questions/20695062/sequelize-or-condition-object/32543638
+
 module.exports = {
   create,
   getCategoryById,
@@ -37,4 +57,5 @@ module.exports = {
   getPostById,
   updateASinglePost,
   remove,
+  getSearchTerm,
 };
