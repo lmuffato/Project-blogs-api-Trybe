@@ -66,10 +66,7 @@ const deletePost = async (req, res, next) => {
 
 const getPostByString = async (req, res, next) => {
   try {
-    console.log('OIOIOI');
-    
     const { q } = req.query;
-    console.log('📓 ~ file: postController.js ~ line 70 ~ getPostByString ~ q', q);
     const postsSelected = await getSearchTerm(q);
     return res.status(OK).json(postsSelected);
   } catch (e) {

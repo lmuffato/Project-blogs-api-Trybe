@@ -49,7 +49,6 @@ const getByID = async (req, res, next) => {
 const removeMySelf = async (req, res, next) => {
   try {
     const { id } = req.user.data;
-    console.log('📓 ~ file: userController.js ~ line 52 ~ removeMySelf ~ id', id);
     await remove(id);
     return res.status(NO_CONTENT).send();
   } catch (e) {
