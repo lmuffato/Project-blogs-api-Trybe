@@ -6,6 +6,15 @@ const authMiddleware = require('../authentication/authMiddleware');
 
 const router = Router();
 
+router.get('/',
+authMiddleware.verifyEmptyToken,
+authMiddleware.tokenValidation,
+categoryMiddleware.getAll,
+async () => {});
+/* REQUISIÇÃO:
+http GET :3000/categories
+*/
+
 router.post('/',
 categoryValidation.verifyInputs,
 authMiddleware.verifyEmptyToken,
@@ -14,15 +23,6 @@ categoryMiddleware.createNew,
 async () => {});
 /* REQUISIÇÃO:
 http POST :3000/categories name='ciencia'
-*/
-
-router.get('/',
-authMiddleware.verifyEmptyToken,
-authMiddleware.tokenValidation,
-categoryMiddleware.getAll,
-async () => {});
-/* REQUISIÇÃO:
-http GET :3000/categories
 */
 
 router.get('/:id',

@@ -21,6 +21,14 @@ const verifyToken = (token) => {
   }
 };
 
+const verifyUserAndPassword = async (obj) => {
+  const data = await User.findOne({ where: obj });
+  if (!data || data === null || data === '') {
+    throw new Error('Invalid fields');
+  }
+  return data;
+};
+
 const verifyUserExists = async (input, field) => {
   const obj = { [field]: input };
   const result = await User.findOne({ where: obj });
@@ -29,7 +37,11 @@ const verifyUserExists = async (input, field) => {
 
 // Middleware que gera o token com base nas informações do usuário
 const tokenGenerator = async (req, res, _next) => {
-  const { displayName, email, image } = req.userInfo;
+  const { email, password } = req.body;
+  const objSearch = { email, password };
+  const data = await verifyUserAndPassword(objSearch);
+  const { displayName, image } = data;
+  // const { displayName, email, image } = req.userInfo;
   const { code } = req.http;
   const obj = { displayName, email, image };
   const token = jwt.sign(obj, secret, jwtConfig('7d', 'HS256'));
