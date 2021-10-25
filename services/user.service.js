@@ -4,6 +4,12 @@ async function listAllUsers() {
   return User.findAll();
 }
 
+async function findUserById(id) {
+  const userOrNull = await User.findOne({ where: { id } });
+  if (!userOrNull) throw new Error('User does not exist');
+  return userOrNull;
+}
+
 async function saveUser(user) {
   const userOrNull = await User.findOne({ where: { email: user.email } });
   if (userOrNull !== null) throw new Error('User already registered');
@@ -17,4 +23,4 @@ async function signIn(email, password) {
   return true;
 }
 
-module.exports = { listAllUsers, saveUser, signIn };
+module.exports = { listAllUsers, findUserById, saveUser, signIn };

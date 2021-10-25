@@ -1100,27 +1100,152 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <user id="285" parent="1" name="willian">
       <Host>localhost</Host>
     </user>
-    <table id="286" parent="2" name="SequelizeMeta">
+    <table id="286" parent="2" name="BlogPosts"/>
+    <table id="287" parent="2" name="Categories"/>
+    <table id="288" parent="2" name="PostsCategories"/>
+    <table id="289" parent="2" name="SequelizeMeta">
       <Collation>utf8_unicode_ci</Collation>
     </table>
-    <column id="287" parent="286" name="name">
+    <table id="290" parent="2" name="Users"/>
+    <column id="291" parent="286" name="id">
+      <Position>1</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="292" parent="286" name="userId">
+      <Position>2</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="293" parent="286" name="title">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="294" parent="286" name="content">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="295" parent="286" name="published">
+      <Position>5</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="296" parent="286" name="updated">
+      <Position>6</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="297" parent="286" name="userId">
+      <ColNames>userId</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="298" parent="286" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="299" parent="286" name="BlogPosts_ibfk_1">
+      <ColNames>userId</ColNames>
+      <RefTableName>Users</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="300" parent="287" name="id">
+      <Position>1</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="301" parent="287" name="name">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <key id="302" parent="287" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="303" parent="288" name="postId">
+      <Position>1</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="304" parent="288" name="categoryId">
+      <Position>2</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="305" parent="288" name="categoryId">
+      <ColNames>categoryId</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="306" parent="288" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>postId
+categoryId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="307" parent="288" name="PostsCategories_ibfk_1">
+      <ColNames>postId</ColNames>
+      <RefTableName>BlogPosts</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="308" parent="288" name="PostsCategories_ibfk_2">
+      <ColNames>categoryId</ColNames>
+      <RefTableName>Categories</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="309" parent="289" name="name">
       <Position>1</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="288" parent="286" name="name">
+    <index id="310" parent="289" name="name">
       <ColNames>name</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="289" parent="286" name="PRIMARY">
+    <key id="311" parent="289" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>name</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="290" parent="286" name="name">
+    <key id="312" parent="289" name="name">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>name</UnderlyingIndexName>
+    </key>
+    <column id="313" parent="290" name="id">
+      <Position>1</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="314" parent="290" name="displayName">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="315" parent="290" name="email">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="316" parent="290" name="password">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="317" parent="290" name="image">
+      <Position>5</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <key id="318" parent="290" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
     </key>
   </database-model>
 </dataSource>

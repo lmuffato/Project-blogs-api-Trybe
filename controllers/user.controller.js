@@ -1,4 +1,4 @@
-const { listAllUsers, saveUser, signIn } = require('../services/user.service');
+const { listAllUsers, saveUser, signIn, findUserById } = require('../services/user.service');
 const { generateToken } = require('../security/auth');
 
 async function listUsers(request, response) {
@@ -6,7 +6,16 @@ async function listUsers(request, response) {
     const users = await listAllUsers();
     return response.status(200).json(users);
   } catch (error) {
-    return response.status(401).json({ message: error.message });
+    return response.status(500).json({ message: error.message });
+  }
+}
+
+async function findUser(request, response) {
+  try {
+    const user = await findUserById(request.params.id);
+    return response.status(200).json(user);
+  } catch (error) {
+    return response.status(404).json({ message: error.message });
   }
 }
 
@@ -32,4 +41,4 @@ async function login(request, response) {
   }
 }
 
-module.exports = { listUsers, createUser, login };
+module.exports = { listUsers, findUser, createUser, login };
