@@ -16,7 +16,13 @@ const findByEmailS = async (email) => {
   return emailExists;
 };
 
+const getUsersS = async () => {
+  const users = await User.findAll();
+  return users;
+};
+
 module.exports = {
   createUserS,
   findByEmailS,
+  getUsersS,
 };

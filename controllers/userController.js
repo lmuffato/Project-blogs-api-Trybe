@@ -1,5 +1,5 @@
-const { STATUS_CREATE } = require('../utils/httpStatus');
-const { createUserS } = require('../services/userService');
+const { STATUS_CREATE, STATUS_OK } = require('../utils/httpStatus');
+const { createUserS, getUsersS } = require('../services/userService');
 
 const createUserC = async (req, res) => {
   const { displayName,
@@ -11,6 +11,12 @@ const createUserC = async (req, res) => {
   return res.status(STATUS_CREATE).json({ token: tokenNewUser });
 };
 
+const getUsersC = async (req, res) => {
+  const users = await getUsersS();
+  return res.status(STATUS_OK).json(users);
+};
+
 module.exports = {
   createUserC,
+  getUsersC,
 };

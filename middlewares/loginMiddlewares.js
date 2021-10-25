@@ -14,13 +14,14 @@ const {
 } = require('../utils/httpStatus');
 
 const verifyToken = (req, res, next) => {
+  const { authorization } = req.headers;
+  if (!authorization) return res.status(401).json({ message: 'Token not found' });
   try {
-    const token = req.headers.authorization;
-    const payload = jwt.verify(token, SECRET);
+    const { payload } = jwt.verify(authorization, SECRET);
     req.user = payload;
     return next();
   } catch (_e) {
-    return res.status(STATUS_UNAUTHORIZED).json({ message: 'invalid token' });
+    return res.status(STATUS_UNAUTHORIZED).json({ message: 'Expired or invalid token' });
   }
 };
 
