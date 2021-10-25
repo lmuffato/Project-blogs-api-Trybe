@@ -5,7 +5,7 @@ const getAll = async (req, res) => {
     const data = await User.findAll({ attributes: { exclude: ['password'] } });
     return res.status(200).json(data);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
@@ -19,7 +19,7 @@ const getById = async (req, res) => {
     if (data === null) { return res.status(404).json({ message: 'User does not exist' }); }
     return res.status(200).json(data);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
@@ -45,7 +45,7 @@ const updateById = async (req, res) => {
     await User.update(obj, { where: { id } });
   return res.status(200).json(obj);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
@@ -56,7 +56,7 @@ const deleteById = async (req, res) => {
     await dataToDelete.destroy();
     return res.status(200).json(dataToDelete);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
@@ -76,7 +76,7 @@ const createNew = async (req, res, next) => {
     // return res.status(201).json(newData);
     req.http = { code: 201 };
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
   next();
 };

@@ -5,7 +5,7 @@ const getAll = async (req, res) => {
     const data = await Category.findAll();
     return res.status(200).json(data);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
@@ -15,7 +15,7 @@ const getById = async (req, res) => {
     const data = await Category.findByPk(id);
     return res.status(200).json(data);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
@@ -27,7 +27,7 @@ const updateById = async (req, res) => {
     await Category.update(obj, { where: { id } });
   return res.status(200).json(obj);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
@@ -38,7 +38,7 @@ const deleteById = async (req, res) => {
     await dataToDelete.destroy();
     return res.status(200).json(dataToDelete);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
@@ -51,7 +51,7 @@ const createNew = async (req, res) => {
     const newData = await Category.create(obj);
     return res.status(201).json(newData);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 

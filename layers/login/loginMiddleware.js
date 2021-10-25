@@ -16,7 +16,7 @@ const verifyUserAndPasswordInDataBase = async (req, res, next) => {
     const { displayName, image } = data;
     req.userInfo = { displayName, email, image };
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
   next();
 };
