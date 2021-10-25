@@ -86,8 +86,6 @@ const deletePost = async (req, res) => {
         .json({ message: unauthorized.message });
     }
 
-    console.log(post);
-
     await BlogPosts.deletePost(post.id);
 
     return res.status(204).send();
@@ -99,4 +97,26 @@ const deletePost = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getAllPosts, getPost, updatePost, deletePost };
+const searchPost = async (req, res) => {
+  try {
+    const { q: searchTerm } = req.query;
+
+    const posts = await BlogPosts.searchPost(searchTerm);
+
+    return res.status(200).json(posts);
+  } catch (err) {
+    console.log(err.message);
+    return res
+      .status(internalError.code)
+      .json({ message: internalError.message });
+  }
+};
+
+module.exports = {
+  createPost,
+  getAllPosts,
+  getPost,
+  updatePost,
+  deletePost,
+  searchPost,
+};

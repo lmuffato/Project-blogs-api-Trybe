@@ -5,6 +5,7 @@ const {
   getPost,
   updatePost,
   deletePost,
+  searchPost,
 } = require('../../controllers/BlogPosts');
 const checkCategoryExists = require('../../middlewares/checkCategoryExists');
 const auth = require('../../middlewares/auth');
@@ -15,16 +16,7 @@ const checkPostExists = require('../../middlewares/checkPostExists');
 
 const postRouter = express.Router();
 
-postRouter
-  .route('/')
-  .get(auth, getAllPosts)
-  .post(
-    auth,
-    validate.createPost(),
-    fieldsValidation,
-    checkCategoryExists,
-    createPost,
-  );
+postRouter.route('/search').get(auth, searchPost);
 
 postRouter
   .route('/:id')
@@ -38,5 +30,16 @@ postRouter
     updatePost,
   )
   .delete(auth, checkPostExists, deletePost);
+
+postRouter
+  .route('/')
+  .get(auth, getAllPosts)
+  .post(
+    auth,
+    validate.createPost(),
+    fieldsValidation,
+    checkCategoryExists,
+    createPost,
+  );
 
 module.exports = postRouter;
