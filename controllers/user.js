@@ -17,7 +17,6 @@ const login = (req, res, next) => {
 };
 
 const getAll = (_req, res, next) => { 
-  console.log('usercontroller');
   User.getAll()
     .then((result) => res.status(SUCCESS_OK).json(result))
     .catch((err) => next(err));

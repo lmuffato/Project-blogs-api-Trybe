@@ -1,5 +1,5 @@
 const { Categories } = require('../services');
-const { SUCCESS_CREATED/* , SUCCESS_OK  */ } = require('../utils/statusCode');
+const { SUCCESS_CREATED, SUCCESS_OK } = require('../utils/statusCode');
 
 const create = (req, res, next) => {
   const { name } = req.body;
@@ -15,12 +15,11 @@ const create = (req, res, next) => {
 //     .catch((err) => next(err));
 // };
 
-// const getAll = (_req, res, next) => { 
-//   console.log('usercontroller');
-//   User.getAll()
-//     .then((result) => res.status(SUCCESS_OK).json(result))
-//     .catch((err) => next(err));
-// };
+const getAll = (_req, res, next) => { 
+  Categories.getAll()
+    .then((result) => res.status(SUCCESS_OK).json(result))
+    .catch((err) => next(err));
+};
 
 // const getById = (req, res, next) => { 
 //   const { id } = req.params;
@@ -32,6 +31,6 @@ const create = (req, res, next) => {
 module.exports = {
   create,
   // login,
-  // getAll,
+  getAll,
   // getById,
 };

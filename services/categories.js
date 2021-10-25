@@ -35,7 +35,7 @@ const create = async (name) => {
 //   return token;
 // };
 
-// const getAll = () => User.findAll().then((res) => res);
+const getAll = () => Category.findAll().then((res) => res);
 
 // const getById = (id) => User
 //   .findOne({ where: { id } })
@@ -47,6 +47,6 @@ const create = async (name) => {
 module.exports = {
   create,
   // login,
-  // getAll,
+  getAll,
   // getById,
 };
