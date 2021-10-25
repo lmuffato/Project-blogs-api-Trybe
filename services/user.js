@@ -1,6 +1,6 @@
 const { User } = require('../models');
 const { ValidateError, CreateToken } = require('../utils');
-const { CONFLICT } = require('../utils/statusCode');
+const { CONFLICT, BAD_REQUEST } = require('../utils/statusCode');
 
 const getByEmail = (email) => User.findOne({ where: { email } })
    .then((result) => result);
@@ -17,6 +17,23 @@ const create = async (userData) => {
   return { token };
 };
 
+const validateUserAccess = (user, email, password) => {
+  if (user === null) throw ValidateError(BAD_REQUEST, 'Invalid fields');
+
+  if (user.email !== email || user.password !== password) {
+    throw ValidateError(BAD_REQUEST, 'Invalid fields');
+  }
+};
+
+const login = async (email, password) => {
+  const user = await getByEmail(email);
+  validateUserAccess(user, email, password);
+  const { password: _, ...userPlayload } = user;
+  const token = CreateToken(userPlayload);
+  return token;
+};
+
 module.exports = {
   create,
+  login,
 };
