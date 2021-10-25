@@ -1,4 +1,4 @@
-//erros a serem consertados vistos no repositório do João Andrade Jr já citado
+//erros a serem consertados vistos no repositório do João Andrade Jr, já citado
 
 'use strict';
 module.exports = {
@@ -16,13 +16,13 @@ module.exports = {
       },
       categoryId: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
           model: 'Categories',
           key: 'id',
         },
-        primaryKey: true,
       },
     });
   },
