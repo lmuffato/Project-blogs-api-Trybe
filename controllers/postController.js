@@ -18,4 +18,12 @@ const getAllPost = async (_req, res, _next) => {
   return res.status(200).json(allPost);
 };
 
-module.exports = { createPost, getAllPost };
+const getPost = async (req, res, _next) => {
+    const { id } = req.params;
+
+    const searchPost = await postService.getCategory(id);
+
+    return res.status(200).json(searchPost);
+};
+
+module.exports = { createPost, getAllPost, getPost };

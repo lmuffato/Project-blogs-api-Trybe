@@ -5,6 +5,8 @@ const {
   validateCategories,
   validatePost,
 } = require('../middlewares/validate');
+
+const { checkForPost } = require('../middlewares/checkForPost');
 const userController = require('../controllers/userController');
 
 const loginController = require('../controllers/loginController');
@@ -25,6 +27,7 @@ router.post('/login', validateEmail, loginController.login);
 router.get('/categories', tokenValidate, categorieController.getAllCategorie);
 router.post('/categories', tokenValidate, validateCategories, categorieController.createCategory);
 
+router.get('/post/:id', tokenValidate, checkForPost, postController.getPost);
 router.get('/post', tokenValidate, postController.getAllPost);
 router.post('/post', tokenValidate, validatePost, postController.createPost);
 
