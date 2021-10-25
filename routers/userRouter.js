@@ -6,5 +6,6 @@ const userController = require('../controllers/userControllers');
 const userRouter = express.Router();
 
 userRouter.post('/', rescue(userController.addUser));
+userRouter.get('/', rescue(userController.getUsers));
 
 module.exports = userRouter;

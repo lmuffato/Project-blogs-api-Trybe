@@ -1,4 +1,7 @@
+const jwt = require('jsonwebtoken');
 const { User } = require('../../models');
+
+const secret = 'eumoronojambalai';
 
 const errorValidateName = {
   status: 400,
@@ -42,6 +45,20 @@ const errorValidEmailAlready = {
     },
 };
 
+const errorValidateToken = {
+  status: 401,
+    error: {
+      message: 'Expired or invalid token',
+    },
+};
+
+const errorValidateRequired = {
+  status: 401,
+    error: {
+      message: 'Token not found',
+    },
+};
+
 const validateName = (displayName) => {
   if (displayName.length < 8) throw errorValidateName;
 };
@@ -68,6 +85,21 @@ const validateEmailAlready = async (email) => {
   if (result) throw errorValidEmailAlready;
 };
 
+const validateToken = (token) => {
+  if (token) {
+    try {
+      const tokenVerify = jwt.verify(token, secret);
+      return tokenVerify;
+    } catch (err) {
+      throw errorValidateToken;
+    }
+  }
+};
+
+const validateTokenRequired = (token) => {
+  if (!token) throw errorValidateRequired;
+};
+
 module.exports = {
   validateName,
   validateEmail,
@@ -75,4 +107,6 @@ module.exports = {
   validatePassword,
   validatePasswordRequired,
   validateEmailAlready,
+  validateToken,
+  validateTokenRequired,
 };
