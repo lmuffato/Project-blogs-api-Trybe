@@ -76,7 +76,7 @@ const deletePost = async (id, userId) => {
 
   await BlogPost.destroy({ where: { id } });
 
-  return { status: 200, data: 'Post deleted with success' };
+  return { status: 204, data: 'Post deleted with success' };
 };
 
 module.exports = {
