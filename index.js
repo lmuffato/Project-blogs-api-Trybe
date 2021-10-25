@@ -40,6 +40,9 @@ app.post('/categories', validateJWT, Categories.create);
 // Requisito 08
 app.get('/post', validateJWT, BlogPost.getAll);
 
+// Requisito 13
+app.get('/post/search', validateJWT, BlogPost.getByTerm);
+
 // Requisito 07
 app.post('/post', validateJWT, BlogPost.create);
 
