@@ -32,6 +32,8 @@ const validateCategoryExist = async (req, res, next) => {
   next();
 };
 
+// requisito 07 feito com a ajuda do colega Lucas Godoi.
+
 module.exports = {
   validateInputs,
   validateCategoryExist,
