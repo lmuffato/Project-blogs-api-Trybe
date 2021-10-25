@@ -22,7 +22,7 @@ const verifyDiplayName = (req, res, next) => {
 
 const verifyEmail = (req, res, next) => {
   const { email } = req.body;
-  const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+  const emailPattern = /^\S+@\S+$/;
   if (!email) {
     return res.status(STATUS_BAD_REQUEST).json({ message: '"email" is required' });
   }
@@ -44,9 +44,10 @@ const verifyLengthPass = (req, res, next) => {
   return next();
 };
 
-const verifyEmailExists = (req, res, next) => {
+const verifyEmailExists = async (req, res, next) => {
   const { email } = req.body;
-  if (findByEmailS(email)) {
+  const emailExists = await findByEmailS(email);
+  if (emailExists) {
     return res.status(STATUS_CONFLICT).json({ message: 'User already registered' });
   }
   return next();
