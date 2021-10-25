@@ -16,7 +16,14 @@ const login = (req, res, next) => {
     .catch((err) => next(err));
 };
 
+const getAll = (_req, res, next) => { 
+  User.getAll()
+    .then((result) => res.status(SUCCESS_OK).json(result))
+    .catch((err) => next(err));
+};
+
 module.exports = {
   create,
   login,
+  getAll,
 };

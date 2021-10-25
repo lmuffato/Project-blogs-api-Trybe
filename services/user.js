@@ -33,7 +33,10 @@ const login = async (email, password) => {
   return token;
 };
 
+const getAll = () => User.findAll().then((res) => res);
+
 module.exports = {
   create,
   login,
+  getAll,
 };
