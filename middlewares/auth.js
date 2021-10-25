@@ -27,7 +27,7 @@ const tokenAuth = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
     jwt.verify(token, secret);
-    return next();
+    next();
   } catch (_e) {
     const token = req.headers.authorization;
     if (!token) return res.status(401).json({ message: 'Token not found' });

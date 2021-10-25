@@ -10,7 +10,7 @@ const postRouter = require('./routers/postRouter');
 const app = express();
 app.use(bodyParser.json());
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`ouvindo porta ${port}!`));
 
