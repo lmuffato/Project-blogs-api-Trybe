@@ -9,7 +9,6 @@ const addUsers = async (user) => {
   userValidations.validatePassword(user.password);
   await userValidations.validateEmailAlready(user.email);
   const result = await User.create(user);
-  console.log('olá seus vermes capitalistas', result.dataValues);
   return { status: 201, response: result.dataValues };
 };
 
