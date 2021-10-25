@@ -1,5 +1,14 @@
-const { saveUser, signIn } = require('../services/user.service');
+const { listAllUsers, saveUser, signIn } = require('../services/user.service');
 const { generateToken } = require('../security/auth');
+
+async function listUsers(request, response) {
+  try {
+    const users = await listAllUsers();
+    return response.status(200).json(users);
+  } catch (error) {
+    return response.status(401).json({ message: error.message });
+  }
+}
 
 async function createUser(request, response) {
   try {
@@ -23,4 +32,4 @@ async function login(request, response) {
   }
 }
 
-module.exports = { createUser, login };
+module.exports = { listUsers, createUser, login };

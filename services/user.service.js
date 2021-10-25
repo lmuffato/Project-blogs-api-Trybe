@@ -1,5 +1,9 @@
 const { User } = require('../models');
 
+async function listAllUsers() {
+  return User.findAll();
+}
+
 async function saveUser(user) {
   const userOrNull = await User.findOne({ where: { email: user.email } });
   if (userOrNull !== null) throw new Error('User already registered');
@@ -9,9 +13,8 @@ async function saveUser(user) {
 
 async function signIn(email, password) {
   const userOrNull = await User.findOne({ where: { email, password } });
-  console.log(userOrNull);
   if (userOrNull === null) throw new Error('Invalid fields');
   return true;
 }
 
-module.exports = { saveUser, signIn };
+module.exports = { listAllUsers, saveUser, signIn };
