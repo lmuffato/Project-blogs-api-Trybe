@@ -7,7 +7,7 @@ app.use(express.json());
 app.use('/user', userRouter);
 
 app.use((err, _req, res, _next) => {
-  console.log('ERRRÃO', err);
+  console.log(err);
   return res.status(err.status).json(err.error);
 });
 

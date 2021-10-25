@@ -2163,6 +2163,11 @@
     "jest-message-util" "^26.6.2"
     "jest-regex-util" "^26.0.0"
 
+"express-rescue@^1.1.31":
+  "integrity" "sha512-nX/xfFoB0yjpNqEjI/4y8bafg/agtYFHetGb6/jENv4JEmPDR87d2AjlNsECxRKXsrPjXLQA6YXWluZ9j0QSOA=="
+  "resolved" "https://registry.npmjs.org/express-rescue/-/express-rescue-1.1.31.tgz"
+  "version" "1.1.31"
+
 "express@4.17.1":
   "integrity" "sha512-mHJ9O79RqluphRrcw2X/GTh3k9tVv8YcoyY4Kkh4WDMUYKRZUq0h1o0w2rrrxBqM7VoeUVqgb27xlEMXTnYt4g=="
   "resolved" "https://registry.npmjs.org/express/-/express-4.17.1.tgz"
@@ -4721,11 +4726,6 @@
   "integrity" "sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg=="
   "resolved" "https://registry.npmjs.org/require-main-filename/-/require-main-filename-2.0.0.tgz"
   "version" "2.0.0"
-
-"rescue@^6.0.4":
-  "integrity" "sha512-vD2ly4P9GVGvEDujyRUJZ09cteJ+oBZ5brSsF2zvSJ7oXdUddIaOQ5P8PY0fpEpGvPGzvHdToTdZiVj5Dg3kww=="
-  "resolved" "https://registry.npmjs.org/rescue/-/rescue-6.0.4.tgz"
-  "version" "6.0.4"
 
 "resolve-cwd@^3.0.0":
   "integrity" "sha512-OrZaX2Mb+rJCpH/6CpSqt9xFVpN++x01XnN2ie9g6P5/3xelLAkXWVADpdz1IHD/KFfEXyE6V0U01OQ3UO2rEg=="
