@@ -20,17 +20,18 @@ module.exports = {
       image: {
         type: Sequelize.STRING
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
+      // createdAt: {
+      //   allowNull: false,
+      //   type: Sequelize.DATE
+      // },
+      // updatedAt: {
+      //   allowNull: false,
+      //   type: Sequelize.DATE
+      // }
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Users');
   }
+  
 };
