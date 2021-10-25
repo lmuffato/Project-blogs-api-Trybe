@@ -4722,6 +4722,11 @@
   "resolved" "https://registry.npmjs.org/require-main-filename/-/require-main-filename-2.0.0.tgz"
   "version" "2.0.0"
 
+"rescue@^6.0.4":
+  "integrity" "sha512-vD2ly4P9GVGvEDujyRUJZ09cteJ+oBZ5brSsF2zvSJ7oXdUddIaOQ5P8PY0fpEpGvPGzvHdToTdZiVj5Dg3kww=="
+  "resolved" "https://registry.npmjs.org/rescue/-/rescue-6.0.4.tgz"
+  "version" "6.0.4"
+
 "resolve-cwd@^3.0.0":
   "integrity" "sha512-OrZaX2Mb+rJCpH/6CpSqt9xFVpN++x01XnN2ie9g6P5/3xelLAkXWVADpdz1IHD/KFfEXyE6V0U01OQ3UO2rEg=="
   "resolved" "https://registry.npmjs.org/resolve-cwd/-/resolve-cwd-3.0.0.tgz"
