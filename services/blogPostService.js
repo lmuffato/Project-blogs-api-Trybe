@@ -47,10 +47,31 @@ const getById = async (id) => {
   return { status: 200, data: post };
 };
 
+const update = async (body, id, userId) => {
+  if (body.categoryIds) return { status: 400, message: 'Categories cannot be edited' };
+
+  const { error } = Schema.UpdateBlogPost.validate(body);
+  if (error) return { status: 400, message: error.details[0].message };
+
+  const checkPost = await BlogPost.findOne({ where: { id } });
+
+  if (userId !== checkPost.userId) return { status: 401, message: 'Unauthorized user' };
+
+  await BlogPost.update(
+    { ...body, updated: new Date() },
+    { where: { id } },
+  );
+
+  const { status, data } = await getById(id);
+
+  return { status, data };
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  update,
 };
 
 /* 
