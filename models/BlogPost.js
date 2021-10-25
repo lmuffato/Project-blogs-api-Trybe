@@ -4,18 +4,18 @@ module.exports = (sequelize, DataTypes) => {
       title: DataTypes.STRING,
       userId: { type: DataTypes.INTEGER, foreignKey: true },
       content: DataTypes.STRING,
-      published: DataTypes.STRING,
-      updated: DataTypes.STRING,
+      published: DataTypes.DATE,
+      updated: DataTypes.DATE,
     },
     {
       timestamps: false,
       tableName: 'BlogPosts',
       underscored: true,
     });
-  
+    // search: https://github.com/tryber/sd-010-a-project-blogs-api/pull/114/files
     BlogPost.associate = (models) => {
       BlogPost.belongsTo(models.User, 
-        { foreignKey: 'user_id', as: 'BlogPost' }); 
+        { foreignKey: 'user_id', as: 'user' }); 
     };
   
     return BlogPost;

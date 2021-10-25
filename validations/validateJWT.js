@@ -13,12 +13,13 @@ const validateJWT = async (req, res, next) => {
    try {
     const decoded = jwt.verify(token, secret);
     const { data: { email } } = decoded;
-    const users = await service.searchUser({ email });
-    if (users === '!exist') {
+    const user = await service.searchUser({ email });
+    if (user === '!exist') {
       return res
         .status(401)
         .json({ message: 'Invalid token.' });
     }
+    req.user = user;
       next(); 
     } catch (err) {
     return res.status(401).json({ message: 'Expired or invalid token' });

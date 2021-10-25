@@ -21,14 +21,23 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         field: 'user_id',
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        primaryKey: true,
       },
       published: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       updated: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
     });
   },
