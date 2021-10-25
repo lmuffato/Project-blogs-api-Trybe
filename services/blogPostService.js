@@ -1,3 +1,5 @@
+const { Op } = require('sequelize');
+
 const { BlogPost, Category, User } = require('../models');
 
 const Schema = require('../utils/schema');
@@ -79,12 +81,36 @@ const deletePost = async (id, userId) => {
   return { status: 204, message: 'Post deleted with success' };
 };
 
+const getByTerm = async (term) => {
+  console.log(term);
+  if (!term) {
+    const allPosts = await getAll();
+
+    return allPosts;
+  }
+
+  const filteredPosts = await BlogPost.findAll({
+    where: { 
+      [Op.or]: [{ title: term }, { content: term }],
+    },
+     include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  if (!filteredPosts) return { status: 200, data: [] };
+
+  return { status: 200, data: filteredPosts };
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
   deletePost,
+  getByTerm,
 };
 
 /* 
@@ -92,4 +118,10 @@ module.exports = {
   autenticado poderia fazer esse POST, e logo isso já diz que é um usuário no sistema.
   E assim podendo checkar se o número de ids cadastrados batem com o que está no banco.
   Entendi esses usos através do PR do Adelino Júnior https://github.com/tryber/sd-010-a-project-blogs-api/pull/10 
+*/
+
+/*
+  Sobre o uso dos Operators do Sequelize eu só consegui através da documentação:
+  https://sequelize.org/master/class/lib/model.js~Model.html#static-method-findAll
+  https://sequelize.org/master/manual/model-querying-basics.html
 */
