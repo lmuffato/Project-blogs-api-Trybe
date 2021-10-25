@@ -10,9 +10,10 @@ const authMiddleware = (req, _res, next) => {
     if (!token) {
       return next(ValidateError(UNAUTHORIZED, 'Token not found'));
     }
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
-    
-    req.user = payload;
+    const { dataValues } = jwt.verify(token, process.env.JWT_SECRET);
+    const { id } = dataValues;
+    req.userId = id;
+
     next();
   } catch (_error) {
     next(ValidateError(UNAUTHORIZED, 'Expired or invalid token'));

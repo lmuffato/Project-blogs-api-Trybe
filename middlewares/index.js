@@ -3,6 +3,7 @@ const validateUserData = require('./validateUserData');
 const validateUserAccess = require('./validateUserAccess');
 const authMiddleware = require('./authMiddleware');
 const validateCategoryData = require('./validateCategoryData');
+const validatePostData = require('./validatePostData');
 
 module.exports = {
   errMiddleware,
@@ -10,4 +11,5 @@ module.exports = {
   validateUserAccess,
   authMiddleware,
   validateCategoryData,
+  validatePostData,
 };
