@@ -1,9 +1,10 @@
 const { User } = require('../models');
 const { ValidateError, CreateToken } = require('../utils');
-const { CONFLICT, BAD_REQUEST } = require('../utils/statusCode');
+const { CONFLICT, BAD_REQUEST, NOT_FOUND } = require('../utils/statusCode');
 
-const getByEmail = (email) => User.findOne({ where: { email } })
-   .then((result) => result);
+const getByEmail = (email) => User
+  .findOne({ where: { email } })
+  .then((result) => result);
 
 const create = async (userData) => {
   const { displayName, email, password, image } = userData;
@@ -14,7 +15,7 @@ const create = async (userData) => {
   const { password: _, ...userPayload } = newUser;
 
   const token = CreateToken(userPayload);
-  return { token };
+  return token;
 };
 
 const validateUserAccess = (user, email, password) => {
@@ -27,6 +28,7 @@ const validateUserAccess = (user, email, password) => {
 
 const login = async (email, password) => {
   const user = await getByEmail(email);
+  
   validateUserAccess(user, email, password);
   const { password: _, ...userPlayload } = user;
   const token = CreateToken(userPlayload);
@@ -35,8 +37,16 @@ const login = async (email, password) => {
 
 const getAll = () => User.findAll().then((res) => res);
 
+const getById = (id) => User
+  .findOne({ where: { id } })
+  .then((res) => {
+    if (!res) throw ValidateError(NOT_FOUND, 'User does not exist');
+    return res;
+   });
+
 module.exports = {
   create,
   login,
   getAll,
+  getById,
 };

@@ -1,20 +1,21 @@
 const jwt = require('jsonwebtoken');
+const { ValidateError } = require('../utils');
 const { UNAUTHORIZED } = require('../utils/statusCode');
+
 require('dotenv').config();
 
-const authMiddleware = async (req, _res, next) => {
+const authMiddleware = (req, _res, next) => {
   try {
     const token = req.headers.authorization;
-    if (!token) return next({ status: UNAUTHORIZED, message: 'Token not found' });
-    jwt.verify(token, process.env.JWT_SECRET);
-    next();
-  } catch (error) {
-    if (error) {
-      return next({
-        status: UNAUTHORIZED,
-        message: 'Expired or invalid token',
-      });
+    if (!token) {
+      return next(ValidateError(UNAUTHORIZED, 'Token not found'));
     }
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    
+    req.user = payload;
+    next();
+  } catch (_error) {
+    next(ValidateError(UNAUTHORIZED, 'Expired or invalid token'));
   }
 };
 
