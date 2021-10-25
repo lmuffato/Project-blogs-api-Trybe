@@ -22,9 +22,15 @@ const BlogPost = Joi.object({
   categoryIds: Joi.array().required(),
 });
 
+const UpdateBlogPost = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+});
+
 module.exports = {
   User,
   Login,
   Category,
   BlogPost,
+  UpdateBlogPost,
 };
