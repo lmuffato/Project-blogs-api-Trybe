@@ -59,6 +59,13 @@ const errorValidateRequired = {
     },
 };
 
+const errorValidateUser = {
+  status: 404,
+    error: {
+      message: 'User does not exist',
+    },
+};
+
 const validateName = (displayName) => {
   if (displayName.length < 8) throw errorValidateName;
 };
@@ -100,6 +107,10 @@ const validateTokenRequired = (token) => {
   if (!token) throw errorValidateRequired;
 };
 
+const validateUser = (user) => {
+  if (!user) throw errorValidateUser;
+};
+
 module.exports = {
   validateName,
   validateEmail,
@@ -109,4 +120,5 @@ module.exports = {
   validateEmailAlready,
   validateToken,
   validateTokenRequired,
+  validateUser,
 };

@@ -24,7 +24,17 @@ const getUsers = async (token) => {
   return { status: 200, response };
 };
 
+const getUserById = async (token, id) => {
+  userValidations.validateToken(token);
+  userValidations.validateTokenRequired(token);
+  const result = await User.findOne({ where: { id } });
+  userValidations.validateUser(result);
+  delete result.dataValues.password;
+  return { status: 200, response: result.dataValues };
+};
+
 module.exports = {
   addUsers,
   getUsers,
+  getUserById,
 };
