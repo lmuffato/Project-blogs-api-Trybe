@@ -59,7 +59,10 @@ const errors = {
     code: 401,
     message: 'Unauthorized user',
   },
-
+  internalError: {
+    code: 500,
+    message: 'Something went wrongs',
+  },
 };
 
 module.exports = errors;

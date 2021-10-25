@@ -31,6 +31,10 @@ const updatePost = async (data, id) => {
   return post;
 };
 
+const deletePost = async (id) => {
+  await BlogPosts.destroy({ where: { id } });
+};
+
 const createPost = async (data) => {
   const { dataValues } = await BlogPosts.create(data);
   await insertPostCategories(data.categoryIds, dataValues.id);
@@ -38,4 +42,10 @@ const createPost = async (data) => {
   return dataValues;
 };
 
-module.exports = { getPostById, createPost, getAllPosts, updatePost };
+module.exports = {
+  getPostById,
+  createPost,
+  getAllPosts,
+  updatePost,
+  deletePost,
+};
