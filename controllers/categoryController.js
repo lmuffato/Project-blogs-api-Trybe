@@ -13,25 +13,28 @@ const status = {
 
 const addCategory = async (req, res) => {
   const { headers: { authorization: token }, body: { name: categoryName } } = req;
+  
   const category = await categoryService.addCategory(token, categoryName);
   
   if (category.err) {
     return res.status(status[category.code]).json(category.err);
   }
+  
   const { id, name } = category;
+  
   return res.status(status.CREATED).json({ id, name });
 };
 
 const getAllCategory = async (req, res) => {
   const { headers: { authorization: token } } = req;
   
-  const users = await categoryService.getAllCategory(token);
+  const categories = await categoryService.getAllCategory(token);
   
-  if (users.err) {
-    return res.status(status[users.code]).json(users.err);
+  if (categories.err) {
+    return res.status(status[categories.code]).json(categories.err);
   }
   
-  res.status(status.OK).json(users);
+  res.status(status.OK).json(categories);
 };
 
 module.exports = {

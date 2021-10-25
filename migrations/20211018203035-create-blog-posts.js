@@ -4,7 +4,7 @@ module.exports = {
     await queryInterface.createTable('BlogPosts', {
       id: {
         allowNull: false,
-        autoIncrement: false,
+        autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
@@ -15,6 +15,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       userId: {
+        defaultValue: 1,
         type: Sequelize.INTEGER,
         references: {
           model: 'Users',
