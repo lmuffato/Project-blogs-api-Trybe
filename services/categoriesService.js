@@ -10,6 +10,18 @@ const addCategories = async (categories, token) => {
   return { status: 201, response: result.dataValues };
 };
 
+const getCategories = async (token) => {
+  userValidations.validateToken(token);
+  userValidations.validateTokenRequired(token);
+  const categories = await Category.findAll();
+  const response = categories.map((category) => {
+    const { dataValues } = category;
+    return dataValues;
+  });
+  return { status: 200, response };
+};
+
 module.exports = {
   addCategories,
+  getCategories,
 };

@@ -6,5 +6,6 @@ const categoriesController = require('../controllers/categoriesController');
 const categoriesRouter = express.Router();
 
 categoriesRouter.post('/', rescue(categoriesController.addCategories));
+categoriesRouter.get('/', rescue(categoriesController.getCategories));
 
 module.exports = categoriesRouter;

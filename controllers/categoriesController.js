@@ -6,6 +6,13 @@ const addCategories = async (req, res) => {
   return res.status(status).json(response);
 };
 
+const getCategories = async (req, res) => {
+  const token = req.headers.authorization;
+  const { status, response } = await categoriesService.getCategories(token);
+  return res.status(status).json(response);
+};
+
 module.exports = {
   addCategories,
+  getCategories,
 };
