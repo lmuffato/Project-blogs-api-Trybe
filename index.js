@@ -43,4 +43,7 @@ app.post('/post', validateJWT, BlogPost.create);
 // Requisito 09
 app.get('/post/:id', validateJWT, BlogPost.getById);
 
+// Requisito 10
+app.put('/post/:id', validateJWT, BlogPost.update);
+
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
