@@ -11,7 +11,8 @@ const loginController = require('./layers/login/loginController');
 const app = express();
 app.use(bodyParser.json());
 
-const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
@@ -19,11 +20,8 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', userController);
-
 app.use('/post', postController);
-
 app.use('/categories', categoryController);
-
 app.use('/login', loginController);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}`));
