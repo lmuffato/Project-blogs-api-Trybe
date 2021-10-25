@@ -10,19 +10,21 @@ const tokenValidate = async (req, res, next) => {
   if (!authorization) {
     return next({ code: 401, message: 'Token not found' });
   }
-  
+
   try {
     const verifyToken = jwt.verify(authorization, secret);
-  
-    const validateUser = await Users.findOne({ where: { email: verifyToken.email } });
-  
+
+    const validateUser = await Users.findOne({
+      where: { email: verifyToken.email },
+    });
+
     if (!validateUser) {
       return next({ code: 401, message: 'Erro ao procurar usuário do token.' });
     }
     const { _id, password, ...user } = verifyToken;
-  
+
     req.validateUser = { id: _id, ...user };
-  
+
     next();
   } catch (error) {
     return next({ code: 401, message: 'Expired or invalid token' });
