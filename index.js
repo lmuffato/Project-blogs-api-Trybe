@@ -26,7 +26,7 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
-app.post('/user', nameValidation, emailValidation, passwordValidation, findEmail, users.create);
+app.post('/user', [nameValidation, emailValidation, passwordValidation, findEmail], users.create);
 
 app.get('/user/:id', tokenAuthentication, users.getById);
 
@@ -34,10 +34,10 @@ app.get('/user', tokenAuthentication, users.getAll);
 
 app.get('/categories', tokenAuthentication, categories.getAll);
 
-app.post('/categories', tokenAuthentication, validateName, categories.create);
+app.post('/categories', [tokenAuthentication, validateName], categories.create);
 
-app.post('post', tokenAuthentication, titleValidation, 
-  contentValidation, categoryIdValidation, posts.create);
+app.post('post', [tokenAuthentication, titleValidation, 
+  contentValidation, categoryIdValidation], posts.create);
 
 app.get('post', tokenAuthentication, posts.getAll);
 
