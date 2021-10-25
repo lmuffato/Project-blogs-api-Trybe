@@ -25,3 +25,6 @@ const validateUser = (req, _res, next) => {
 };
 
 module.exports = validateUser;
+
+// custom erro messages:
+// https://stackoverflow.com/questions/48720942/node-js-joi-how-to-display-a-custom-error-messages
