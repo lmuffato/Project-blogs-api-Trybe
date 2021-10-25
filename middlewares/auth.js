@@ -5,7 +5,7 @@ async function isAuth(request, response, next) {
 
   if (!authorization) return response.status(401).json({ message: 'Token not found' });
 
-  const tokenIsValid = await tokenValidation(authorization);
+  const tokenIsValid = await tokenValidation(authorization, request);
   if (!tokenIsValid) {
     return response.status(401).json({ message: 'Expired or invalid token' });
   }

@@ -12,11 +12,12 @@ function generateToken(email, password) {
   return jsonwebtoken.sign(tokenBody, JWT_SECRET, config);
 }
 
-async function tokenValidation(authorization) {
+async function tokenValidation(authorization, request) {
   try {
     const tokenData = jsonwebtoken.verify(authorization, JWT_SECRET);
     const { email, password } = tokenData;
     const user = await User.findOne({ where: { email, password } });
+    request.user = user;
     return !!user;
   } catch (error) {
     return false;

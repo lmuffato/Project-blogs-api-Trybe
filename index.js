@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userRoute = require('./routes/user.route');
 const categoryRoute = require('./routes/categories.route');
+const postRoute = require('./routes/post.route');
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(bodyParser.json());
 
 app.use(userRoute);
 app.use(categoryRoute);
+app.use(postRoute);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
