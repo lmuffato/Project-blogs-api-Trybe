@@ -25,6 +25,9 @@ app.post('/user', Users.create);
 // Requisito 04
 app.get('/user/:id', validateJWT, Users.getById);
 
+// Requisito 12
+app.delete('/user/me', validateJWT, Users.deleteUser);
+
 // Requisito 02
 app.post('/login', Users.login);
 
