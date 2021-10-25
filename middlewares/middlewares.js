@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Category } = require('../models');
 
 const nameLengthError = {
   status: 400,
@@ -48,6 +48,26 @@ const unregisteredEmailError = {
 const nameRequiredError = {
   status: 400,
   errorMessage: { message: '"name" is required' },
+};
+
+const titleRequiredError = {
+  status: 400,
+  errorMessage: { message: '"title" is required' },
+};
+
+const contentRequiredError = {
+  status: 400,
+  errorMessage: { message: '"content" is required' },
+};
+
+const categoryIdsRequiredError = {
+  status: 400,
+  errorMessage: { message: '"categoryIds" is required' },
+};
+
+const invalidCategoryError = {
+  status: 400,
+  errorMessage: { message: '"categoryIds" not found' },
 };
 
 const nameLengthValidation = (req, res, next) => {
@@ -125,6 +145,25 @@ const categoryValidation = async (req, res, next) => {
   next();
 };
 
+const postValidation = async (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
+  if (title === undefined) {
+    return res.status(titleRequiredError.status).json(titleRequiredError.errorMessage);
+  }
+  if (content === undefined) {
+    return res.status(contentRequiredError.status).json(contentRequiredError.errorMessage);
+  }
+  if (categoryIds === undefined) {
+    return res.status(categoryIdsRequiredError.status).json(categoryIdsRequiredError.errorMessage);
+  }
+  const categoryId = categoryIds[0]; 
+  const findedCategory = await Category.findOne({ where: { id: categoryId } });
+  if (findedCategory === null) {
+        return res.status(invalidCategoryError.status).json(invalidCategoryError.errorMessage);
+  }
+  next();
+};
+
 module.exports = {
   nameLengthValidation,
   emailValidation,
@@ -132,4 +171,5 @@ module.exports = {
   emailLoginValidation,
   passwordLoginValidation,
   categoryValidation,
+  postValidation,
 }; 
