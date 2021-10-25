@@ -3,10 +3,10 @@ const bodyParser = require('body-parser');
 
 require('dotenv').config(); // Configura o uso de variáveis de ambiente
 
-const userController = require('./services/user/userController');
-const postController = require('./services/post/postController');
-const categoryController = require('./services/category/categoryController');
-const loginController = require('./services/login/loginController');
+const userController = require('./layers/user/userController');
+const postController = require('./layers/post/postController');
+const categoryController = require('./layers/category/categoryController');
+const loginController = require('./layers/login/loginController');
 
 const app = express();
 app.use(bodyParser.json());

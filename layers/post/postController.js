@@ -22,6 +22,8 @@ http POST :3000/post title='meu titulo' content='meu texto'
 */
 
 router.get('/:id',
+authMiddleware.verifyEmptyToken,
+authMiddleware.tokenValidation,
 postMiddleware.getById,
 async () => {});
 /* REQUISIÇÃO:
