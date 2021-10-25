@@ -27,25 +27,25 @@ const {
     // categoryIdNotFound,
 } = require('../utils/messages');
 
-const {
-    ok,
-    created,
-    // noContent,
-    badRequest,
-    // unauthorized,
-    notFound,
-    // conflict,
-} = require('../utils/anwers');
+// const {
+//     ok,
+//     created,
+//     // noContent,
+//     badRequest,
+//     // unauthorized,
+//     notFound,
+//     // conflict,
+// } = require('../utils/anwers');
 
 const getAll = async (_req, res) => {
     const allUsers = await User.findAll();
-    res.status(ok).json(allUsers);
+    res.status(200).json(allUsers);
 };
 
 const create = async (req, res) => {
     const { displayName, email, password, image } = req.body;
     const userData = await User.create({ displayName, email, password, image });
-    res.status(created).json(userData);
+    res.status(201).json(userData);
 };
 
 const getByEmail = async (user) => {
@@ -63,17 +63,17 @@ const getToken = (user) => {
 const findUser = async (req, res) => {
     const { email, password } = req.body;
     const [user] = await getByEmail({ email, password });
-    if (!user) return res.status(badRequest).json(invalidFields);
+    if (!user) return res.status(400).json(invalidFields);
     const { email: dataEmail, password: dataPassword } = user.dataValues;
     const token = getToken({ dataEmail, dataPassword });
-    res.status(ok).json(token);
+    res.status(200).json(token);
 };
   
 const getById = async (req, res) => {
     const { id } = req.params;
     const [user] = await User.findAll({ where: { id } });
-    if (!user) return res.status(notFound).json(userNotExists);
-    res.status(ok).json({
+    if (!user) return res.status(404).json(userNotExists);
+    res.status(200).json({
       id: user.id,
       displayName: user.displayName,
       email: user.email,
