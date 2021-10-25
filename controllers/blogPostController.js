@@ -24,6 +24,19 @@ const addBlogPost = async (req, res) => {
   return res.status(status.CREATED).json(blogPost);
 };
 
+const getAllBlogPost = async (req, res) => {
+  const { headers: { authorization: token } } = req;
+  
+    const AllBlogPost = await blogPostService.getAllBlogPost(token);
+  
+  if (AllBlogPost.err) {
+    return res.status(status[AllBlogPost.code]).json(AllBlogPost.err);
+  }
+
+  return res.status(status.OK).json(AllBlogPost);
+};
+
 module.exports = {
   addBlogPost,
+  getAllBlogPost,
 };

@@ -26,3 +26,4 @@ app.get('/categories', categoryController.getAllCategory);
 
 // postController
 app.post('/post', blogPostController.addBlogPost);
+app.get('/post', blogPostController.getAllBlogPost);

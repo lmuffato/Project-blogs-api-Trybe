@@ -1,10 +1,10 @@
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const { getAllCategory } = require('./categoryService');
 
-const { BlogPost } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 
-// const secret = 'Nanii!!!';
+const secret = 'Nanii!!!';
 
 const hasRequiredFields = (token, title, content, categoryIds) => {
   switch (true) {
@@ -58,6 +58,21 @@ const addBlogPost = async (token, title, content, categoryIds) => {
   }
 };
 
+const getAllBlogPost = async (token) => {
+  if (!token) return { code: 'UNAUTHORIZED', err: { message: 'Token not found' } };
+  try {
+    await jwt.verify(token, secret);
+    return BlogPost.findAll({
+      include: [{ model: User, as: 'user' },
+        { model: Category, as: 'categories', through: { attributes: [] } }],
+    });
+  } catch (err) {
+    console.log(err.message);
+    return { code: 'UNAUTHORIZED', err: { message: 'Expired or invalid token' } };
+  }
+};
+
 module.exports = {
   addBlogPost,
+  getAllBlogPost,
 };
