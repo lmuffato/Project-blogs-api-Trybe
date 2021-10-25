@@ -1,5 +1,5 @@
 const getUserByEmail = require('../services/getUserByEmail');
-const { userEmailNotExists } = require('../utils/errors');
+const { notFoundUser } = require('../utils/errors');
 
 const checkUserExists = async (req, res, next) => {
   const { email } = req.body;
@@ -8,8 +8,8 @@ const checkUserExists = async (req, res, next) => {
 
   if (!userByEmail) {
     return res
-      .status(userEmailNotExists.code)
-      .json({ message: userEmailNotExists.message });
+      .status(notFoundUser.code)
+      .json({ message: notFoundUser.message });
   }
 
   req.user = userByEmail.dataValues;

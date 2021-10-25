@@ -15,6 +15,21 @@ const createUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const {
+      user: { id },
+    } = req;
+
+    await Users.destroy({ where: { id } });
+
+    return res.status(204).send();
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).json({ message: 'Algo deu errado' });
+  }
+};
+
 const getAllUsers = async (req, res) => {
   const users = await Users.findAll();
   return res.status(200).json(users);
@@ -23,13 +38,13 @@ const getAllUsers = async (req, res) => {
 const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
-    
+
     const user = await Users.findByPk(id, { raw: true });
-    
+
     if (!user) {
       return res
-      .status(notFoundUser.code)
-      .json({ message: notFoundUser.message });
+        .status(notFoundUser.code)
+        .json({ message: notFoundUser.message });
     }
 
     const { password, ...rest } = user;
@@ -40,4 +55,4 @@ const getUserById = async (req, res) => {
   }
 };
 
-module.exports = { createUser, getAllUsers, getUserById };
+module.exports = { createUser, getAllUsers, getUserById, deleteUser };
