@@ -2,14 +2,14 @@ const { BlogPost, User, Category } = require('../models');
 
 const {
     ok,
-    created,
+    // created,
 } = require('../utils/anwers');
 
 const create = async (req, res) => {
   const { title, content } = req.body;
   const userId = req.user;
   const createdPost = await BlogPost.create({ title, content, userId });
-  res.status(created).json(createdPost);
+  res.status(200).json(createdPost);
 };
 
 const getAll = async (_req, res) => {
