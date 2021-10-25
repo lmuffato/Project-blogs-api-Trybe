@@ -1,4 +1,13 @@
-const { saveCategory } = require('../services/category.service');
+const { saveCategory, listAllCategories } = require('../services/category.service');
+
+async function listCategories(request, response) {
+  try {
+    const categories = await listAllCategories();
+    return response.status(200).json(categories);
+  } catch (error) {
+    return response.status(500).json({ message: error.message });
+  }
+}
 
 async function createCategory(request, response) {
   try {
@@ -10,4 +19,4 @@ async function createCategory(request, response) {
   }
 }
 
-module.exports = { createCategory };
+module.exports = { createCategory, listCategories };
