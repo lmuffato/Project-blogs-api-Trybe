@@ -47,10 +47,21 @@ const deletePost = async (req, res) => {
   return res.status(status).json({ message });
 };
 
+const getByTerm = async (req, res) => {
+  const { q } = req.query;
+
+  const { status, data, message } = await BlogPost.getByTerm(q);
+
+  if (message) return res.status(status).json({ message });
+
+  return res.status(status).json(data);
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
   deletePost,
+  getByTerm,
 };
