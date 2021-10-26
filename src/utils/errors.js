@@ -8,6 +8,7 @@ const errors = {
   emptyFieldError: (field) => `"${field}" is not allowed to be empty`,
   loginError: 'Invalid fields',
   userNotExistError: 'User does not exist',
+  postNotExistError: 'Post does not exist',
   userAlreadyExistError: 'User already registered',
 };
 

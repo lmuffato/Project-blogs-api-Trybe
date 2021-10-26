@@ -13,7 +13,7 @@ module.exports = {
         categoryIds,
       );
       const responseMessage = response.post ? response.post : { message: response.message };
-      
+
       return res.status(response.status).json(responseMessage);
     } catch (err) {
       return {
@@ -39,6 +39,6 @@ module.exports = {
 
     return res
       .status(response.status)
-      .json(response.posts ? response.posts : { message: response.message });
+      .json(response.allPosts ? response.allPosts : { message: response.message });
   },
 };

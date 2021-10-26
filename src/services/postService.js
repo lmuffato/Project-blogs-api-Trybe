@@ -1,4 +1,4 @@
-const { httpStatusCode } = require('../utils/errors');
+const { httpStatusCode, errors } = require('../utils/errors');
 
 const postsModel = require('../models/postsModel');
 const validatePostFields = require('../validations/postsValidations');
@@ -39,10 +39,11 @@ module.exports = {
     if (id) {
       const post = await postsModel.findPost(id);
 
-      return {
-        status: httpStatusCode.ok,
-        post,
-      };
+      if (!post) {
+        return { status: httpStatusCode.notFound, message: errors.postNotExistError };
+      }
+
+      return { status: httpStatusCode.ok, post };
     }
 
     const allPosts = await postsModel.findPost();
