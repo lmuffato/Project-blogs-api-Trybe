@@ -19,20 +19,20 @@ function validateContent(content) {
   }
 }
 
-async function validadeCategoriesIds(categoriesIds) {
-  if (categoriesIds) {
+async function validadeCategoriesIds(categoryIds) {
+  if (categoryIds) {
     const isNotValid = await Promise.all(
-      categoriesIds.map((category) => categoriesModel.getOneCategory(category)),
+      categoryIds.map((category) => categoriesModel.getOneCategory(category)),
       ).then((res) => res.some((categorie) => !categorie));
   
     if (isNotValid) {
       return {
-        status: httpStatusCode.notFound,
+        status: httpStatusCode.badRequest,
         message: '"categoryIds" not found',
       }; 
     }
   }
-  if (!categoriesIds) {
+  if (!categoryIds) {
     return {
       status: httpStatusCode.badRequest,
       message: errors.requiredError('categoryIds'),
@@ -40,10 +40,10 @@ async function validadeCategoriesIds(categoriesIds) {
   }
 }
 
-async function validatePostFields(title, content, categoriesIds) {
+async function validatePostFields(title, content, categoryIds) {
   const response = validateTitle(title) 
     || validateContent(content)
-    || await validadeCategoriesIds(categoriesIds);
+    || await validadeCategoriesIds(categoryIds);
 
   return response;
 }

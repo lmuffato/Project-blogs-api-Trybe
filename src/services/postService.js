@@ -5,12 +5,12 @@ const validatePostFields = require('../validations/postsValidations');
 const validateToken = require('../validations/tokenValidations');
 
 module.exports = {
-  async createPost(token, title, content, categoriesIds) {
+  async createPost(token, title, content, categoryIds) {
     const decodedToken = validateToken(token);
 
     if (!decodedToken.id) return decodedToken;
 
-    const validations = await validatePostFields(title, content, categoriesIds);
+    const validations = await validatePostFields(title, content, categoryIds);
 
     if (validations) {
       return validations;
