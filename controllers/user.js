@@ -11,4 +11,10 @@ const getAll = async (_req, res) => {
   return res.status(users.status).json(users.message);
 };
 
-module.exports = { create, getAll };
+const getOne = async (req, res) => {
+  const { id } = req.params;
+  const oneUser = await user.getOne(id);
+  return res.status(oneUser.status).json(oneUser.message);
+};
+
+module.exports = { create, getAll, getOne };
