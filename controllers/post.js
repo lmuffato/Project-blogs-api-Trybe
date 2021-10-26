@@ -1,5 +1,5 @@
 const { Post } = require('../services');
-const { SUCCESS_CREATED, SUCCESS_OK } = require('../utils/statusCode');
+const { SUCCESS_CREATED, SUCCESS_OK, SUCCESS_NO_CONTENT } = require('../utils/statusCode');
 
 const create = (req, res, next) => {
   const { title, content, categoryIds } = req.body;
@@ -35,9 +35,18 @@ const update = async (req, res, next) => {
       .catch((err) => next(err));
 };
 
+const exclude = async (req, res, next) => {
+  const { id } = req.params;
+  await Post.getById(id);
+  Post.exclude(id)
+      .then((result) => res.status(SUCCESS_NO_CONTENT).json(result))
+      .catch((err) => next(err));
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
+  exclude,
 };

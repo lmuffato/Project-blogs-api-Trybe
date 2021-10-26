@@ -9,6 +9,7 @@ router
   .post('/', authMiddleware, validatePostData, Post.create)
   .get('/:id', authMiddleware, Post.getById)
   .get('/', authMiddleware, Post.getAll)
-  .put('/:id', authMiddleware, validateAuthUpdate, validatePostDataUpdate, Post.update);
+  .put('/:id', authMiddleware, validateAuthUpdate, validatePostDataUpdate, Post.update)
+  .delete('/:id', authMiddleware, validateAuthUpdate, Post.exclude);
 
 module.exports = router;
