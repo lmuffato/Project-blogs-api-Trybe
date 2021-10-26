@@ -16,7 +16,6 @@ module.exports = {
       return validations;
     }
 
-    console.log({ userId: decodedToken.id, title, content });
     const post = await postsModel.createPost(decodedToken.id, title, content);
 
     if (post) {
@@ -29,6 +28,28 @@ module.exports = {
     return {
       status: httpStatusCode.badRequest,
       message: 'num foi possivi',
+    };
+  },
+
+  async getPost(token, id) {
+    const decodedToken = validateToken(token);
+
+    if (!decodedToken.id) return decodedToken;
+
+    if (id) {
+      const post = await postsModel.findPost(id);
+
+      return {
+        status: httpStatusCode.ok,
+        post,
+      };
+    }
+
+    const allPosts = await postsModel.findPost();
+
+    return {
+      status: httpStatusCode.ok,
+      allPosts,
     };
   },
 };

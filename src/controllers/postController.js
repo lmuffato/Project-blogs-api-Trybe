@@ -22,14 +22,14 @@ module.exports = {
     const token = req.headers.authorization;
 
     if (id) {
-      const response = await postService.getPosts(token, id);
+      const response = await postService.getPost(token, id);
 
       return res
         .status(response.status)
         .json(response.post ? response.post : { message: response.message });
     }
 
-    const response = await postService.getPosts(token);
+    const response = await postService.getPost(token);
 
     return res
       .status(response.status)
