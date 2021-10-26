@@ -12,7 +12,6 @@ const createUserS = async (newUser) => {
 
 const findByEmailS = async (email) => {
   const emailExists = await User.findOne({ where: { email } });
-  console.log(`-------emailExists${emailExists}--------`);
   return emailExists;
 };
 

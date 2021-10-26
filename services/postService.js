@@ -1,13 +1,15 @@
 const { Category, BlogPost } = require('../models');
 
+const verifyCategories = async (arrCatIds) => {
+  const categoriesOk = await Category.findAll({ where: { id: arrCatIds } });
+  return categoriesOk.length === arrCatIds.length;
+};
+
 const createPostS = async (newPost) => {
   const { categoryIds } = newPost; // its array
-  const allCategories = await Category.findAll();
-  const allCategoriesId = allCategories
-    .map((category) => categoryIds.includes(category.id));
-  // verify if exists ids
-  console.log(`${allCategoriesId.length} e ${categoryIds.length}`);
-  if (allCategoriesId.length !== categoryIds.length) {
+  // console.log('------------ create post ----------');
+  const itsOk = await verifyCategories(categoryIds);
+  if (!itsOk) {
     return null;
   }
   const createdPost = await BlogPost.create(newPost);

@@ -3,7 +3,6 @@ const { User } = require('../models');
 
 const createPostC = async (req, res) => {
   const { title, content, categoryIds } = req.body;
-  // console.log({ req });
   const { email } = req.user;
   const foundUser = await User.findOne({ where: { email } });
   const { id: userId } = foundUser;
