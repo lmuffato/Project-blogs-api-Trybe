@@ -1,8 +1,12 @@
 const userModel = require('../models/userModel');
-const { errors } = require('../utils/errors');
+const { errors, httpStatusCode } = require('../utils/errors');
 
 function validadeDisplayName(displayName) {
-  if (displayName.length <= 8) {
+  if (displayName === undefined) {
+    return { message: errors.requiredError('displayName') };
+  }
+
+  if (displayName.length < 8) {
     return { message: errors.lengthError('displayName', 8) };
   }
 }
@@ -40,20 +44,19 @@ function validateEmail(email) {
 async function verifyUserEmail(email) {
   const alreadyExists = await userModel.findUserByEmail(email);
 
-  if (alreadyExists) return alreadyExists;
+  const responseError = { status: httpStatusCode.conflit, message: errors.userAlreadyExistError };
+
+  if (alreadyExists) return responseError;
 }
 
 async function validadeFields(email, password, displayName) {
-  if (displayName) {
-    const displayNameError = validadeDisplayName(displayName);
-
-    if (displayNameError) {
-      return displayNameError;
-    }
-  }
-
+  const displayNameError = validadeDisplayName(displayName);
   const emailError = validateEmail(email);
   const passwordError = validadePassword(password);
+
+  if (displayNameError) {
+    return displayNameError;
+  }
 
   if (emailError) {
     return emailError;

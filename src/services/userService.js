@@ -1,3 +1,5 @@
+require('dotenv/config');
+
 const jwt = require('jsonwebtoken');
 
 const { errors, httpStatusCode } = require('../utils/errors');
@@ -15,15 +17,18 @@ function generateToken(id) {
 
 module.exports = {
   async createUser(displayName, email, password, image) {
-    const errorMessage = validadeFields(email, password, displayName) 
+    const errorMessage = await validadeFields(email, password, displayName) 
     || await verifyUserEmail(email);
 
-    if (errorMessage) {
-      return { status: errorMessage.status ? errorMessage.status : httpStatusCode.badRequest,
-        message: errorMessage.message,
-      };
-    }
+    console.log(errorMessage);
 
+    const status = errorMessage 
+    && errorMessage.status ? errorMessage.status : httpStatusCode.badRequest;
+
+    if (errorMessage) {
+      return { status, message: errorMessage.message };
+    } 
+    
     const user = await userModel.createUser(
       displayName,
       email,
