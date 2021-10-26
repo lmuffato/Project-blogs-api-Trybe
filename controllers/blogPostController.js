@@ -28,7 +28,7 @@ const createPost = rescue(async (req, res) => {
   const findAllPosts = rescue(async (req, res) => {
     try {
         const findPosts = await service.findAllPosts();
-        
+         console.log(findAllPosts);
         if (findPosts === '!exists') {
           return res.status(409).json({ message: 'Post not found' });
         }
@@ -39,4 +39,18 @@ const createPost = rescue(async (req, res) => {
       }
   });
 
-  module.exports = { createPost, findAllPosts };
+  const findPostsById = rescue(async (req, res) => {
+    const { id } = req.params;
+    try {
+        const postsById = await service.findPostsById(id);
+         console.log(findAllPosts);
+        if (postsById.message) {
+          return res.status(404).json(postsById);
+        }
+        return res.status(200).json(postsById);
+      } catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: 'Algo deu errado' });
+      }
+  });
+  module.exports = { createPost, findAllPosts, findPostsById };

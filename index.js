@@ -36,5 +36,8 @@ app.post('/categories',
 
   app.get('/post', 
   [validateJWT, controllerBlogPost.findAllPosts]);
+  
+  app.get('/post/:id', 
+  [validateJWT, controllerBlogPost.findPostsById]);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
