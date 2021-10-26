@@ -20,20 +20,6 @@ module.exports = {
       );
   },
 
-  async login(req, res) {
-    const { email, password } = req.body;
-
-    const response = await userService.login(email, password);
-
-    return res
-      .status(response.status)
-      .json(
-        response.token
-          ? { token: response.token }
-          : { message: response.message },
-      );
-  },
-
   async index(req, res) {
     const { id } = req.params;
     const token = req.headers.authorization;

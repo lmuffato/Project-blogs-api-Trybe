@@ -1,12 +1,13 @@
 const express = require('express');
 const categoriesController = require('./controllers/categoriesController');
+const loginController = require('./controllers/loginController');
 // const postController = require('./controllers/postController');
 const userController = require('./controllers/userController');
 require('dotenv/config');
 
 const routes = express.Router();
 
-routes.post('/login', userController.login);
+routes.post('/login', loginController.login);
 
 routes.post('/user', userController.create);
 routes.get('/user', userController.index);
