@@ -1,5 +1,5 @@
 const { Category } = require('../models');
-const { CREATED, OK, NOT_FOUND } = require('../utils/status');
+const { CREATED, OK } = require('../utils/status');
 
 const create = async (name) => {
   const category = await Category.create({ name });
@@ -17,17 +17,4 @@ const getAll = async () => {
   };
 };
 
-const getOne = async (id) => {
-  const category = await Category.findByPk(id);
-  if (!category) {
-    return {
-      status: NOT_FOUND,
-      message: { message: 'Category does not exist' },
-    };
-  }
-  return {
-    status: OK,
-    message: category,
-  };
-};
-module.exports = { create, getAll, getOne };
+module.exports = { create, getAll };
