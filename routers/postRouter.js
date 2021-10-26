@@ -7,6 +7,7 @@ const router = Router();
 
 router.post('/', auth.tokenAuth,
   middlewares.postValidation,
+  middlewares.categoryIdValidation,
   postController.create);
 
 router.get('/', auth.tokenAuth,

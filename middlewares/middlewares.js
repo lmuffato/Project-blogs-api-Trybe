@@ -156,9 +156,19 @@ const postValidation = async (req, res, next) => {
   if (categoryIds === undefined) {
     return res.status(categoryIdsRequiredError.status).json(categoryIdsRequiredError.errorMessage);
   }
-  const categoryId = categoryIds[0]; 
-  const findedCategory = await Category.findOne({ where: { id: categoryId } });
-  if (findedCategory === null) {
+  next();
+};
+
+const categoryIdValidation = async (req, res, next) => {
+  const { categoryIds } = req.body;
+  const categoryPromises = categoryIds.map(async (categoryId) => {
+    const category = await Category.findOne({ where: { id: categoryId } });
+    if (category === null) return false;
+    return category;
+  });
+  const categories = await Promise.all(categoryPromises);
+  const validCategories = categories.find((category) => category === false);
+  if (validCategories === false) {
         return res.status(invalidCategoryError.status).json(invalidCategoryError.errorMessage);
   }
   next();
@@ -172,4 +182,5 @@ module.exports = {
   passwordLoginValidation,
   categoryValidation,
   postValidation,
+  categoryIdValidation,
 }; 
