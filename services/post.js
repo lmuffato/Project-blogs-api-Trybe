@@ -27,21 +27,23 @@ const getAll = () => BlogPost.findAll({
   ],
 }).then((res) => res);
 
-const getById = (id) => BlogPost
-  .findOne({ 
-    where: { id },
-      include: [
-          { model: User, as: 'user', attributes: { exclude: ['password'] } },
-          { model: Category, as: 'categories', through: { attributes: [] } },  
-      ],
-  })
-  .then((res) => { 
-    if (res === null) throw ValidateError(NOT_FOUND, 'Post does not exist');
-    return res;
-  });
+const getById = (id) => BlogPost.findOne({ 
+  where: { id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },  
+    ] }).then((res) => { 
+      if (res === null) throw ValidateError(NOT_FOUND, 'Post does not exist');
+      return res;
+    });
+
+const update = async ({ title, content, id }) => {
+  await BlogPost.update({ title, content }, { where: { id } });
+};
 
 module.exports = {
   create,
   getAll,
   getById,
+  update,
 };
