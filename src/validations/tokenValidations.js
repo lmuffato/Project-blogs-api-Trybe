@@ -11,14 +11,16 @@ function validateToken(token) {
     };
   }
 
-  try {
-    jwt.verify(token, SECRET);
-  } catch (error) {
+  const decodedJson = jwt.decode(token, SECRET);
+
+  if (!decodedJson || !decodedJson.id) {
     return {
       status: httpStatusCode.unauthorized,
       message: 'Expired or invalid token',
     };
   }
+
+  return decodedJson;
 }
 
 module.exports = validateToken;

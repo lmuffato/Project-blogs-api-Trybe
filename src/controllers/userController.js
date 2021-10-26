@@ -8,17 +8,15 @@ module.exports = {
       displayName,
       email,
       password,
-      image,
+      image
     );
-
-    console.log({ response });
 
     return res
       .status(response.status)
       .json(
         response.token
           ? { token: response.token }
-          : { message: response.message },
+          : { message: response.message }
       );
   },
 
@@ -32,7 +30,7 @@ module.exports = {
       .json(
         response.token
           ? { token: response.token }
-          : { message: response.message },
+          : { message: response.message }
       );
   },
 

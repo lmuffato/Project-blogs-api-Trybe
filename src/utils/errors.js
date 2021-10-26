@@ -7,8 +7,8 @@ const errors = {
   validEmail: () => '"email" must be a valid email',
   emptyFieldError: (field) => `"${field}" is not allowed to be empty`,
   loginError: 'Invalid fields',
-  userError: 'User does not exist',
-  userExistError: 'User already registered',
+  userNotExistError: 'User does not exist',
+  userAlreadyExistError: 'User already registered',
 };
 
 const httpStatusCode = {

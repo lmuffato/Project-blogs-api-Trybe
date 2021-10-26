@@ -11,7 +11,7 @@ module.exports = {
       .status(response.status)
       .json(
         response.newCategory
-          ? { id: response.newCategory.id, name: response.newCategory.name }
+          ? response.newCategory
           : { message: response.message },
       );
   },
@@ -19,13 +19,13 @@ module.exports = {
   async index(req, res) {
     const token = req.headers.authorization;
 
-    const response = await categoriesService.getAllCategories(token);
+    const response = await categoriesService.findAll(token);
 
     return res
       .status(response.status)
       .json(
-        response.categories
-          ? response.categories
+        response.allCategories
+          ? response.allCategories
           : { message: response.message },
       );
   },

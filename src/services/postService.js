@@ -6,19 +6,29 @@ const validateToken = require('../validations/tokenValidations');
 
 module.exports = {
   async createPost(token, title, content, categoriesIds) {
-    const userId = validateToken(token);
-    
-    const validations = validatePostFields(title, content, categoriesIds);
+    const decodedToken = validateToken(token);
+
+    if (!decodedToken.id) return decodedToken;
+
+    const validations = await validatePostFields(title, content, categoriesIds);
 
     if (validations) {
       return validations;
     }
 
-    const post = await postsModel.createPost(userId, title, content);
+    console.log({ userId: decodedToken.id, title, content });
+    const post = await postsModel.createPost(decodedToken.id, title, content);
+
+    if (post) {
+      return {
+        status: httpStatusCode.created,
+        post,
+      };
+    }
 
     return {
-      status: httpStatusCode.created,
-      post,
+      status: httpStatusCode.badRequest,
+      message: 'num foi possivi',
     };
   },
 };

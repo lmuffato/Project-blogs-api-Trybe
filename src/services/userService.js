@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const { errors, httpStatusCode } = require('../utils/errors');
 const userModel = require('../models/userModel');
 const validadeFields = require('../validations/userValidations');
+const validateToken = require('../validations/tokenValidations');
 
 const { SECRET } = process.env;
 
@@ -14,12 +15,23 @@ function generateToken(id) {
 
 module.exports = {
   async createUser(displayName, email, password, image) {
-    const errorMessage = await validadeFields(email, password, displayName);
+    const errorMessage = validadeFields(email, password, displayName);
 
     if (errorMessage) {
       return {
-        status: errorMessage.status ? errorMessage.status : httpStatusCode.badRequest,
+        status: errorMessage.status
+          ? errorMessage.status
+          : httpStatusCode.badRequest,
         message: errorMessage.message,
+      };
+    }
+
+    const alreadyExists = await userModel.findUserByEmail(email);
+
+    if (alreadyExists) {
+      return {
+        status: httpStatusCode.conflit,
+        message: errors.userAlreadyExistError,
       };
     }
 
@@ -27,7 +39,7 @@ module.exports = {
       displayName,
       email,
       password,
-      image,
+      image
     );
 
     const token = generateToken(user.id);
@@ -44,8 +56,21 @@ module.exports = {
     if (errorMessage) {
       return {
         status: httpStatusCode.badRequest,
-        message: errorMessage,
+        message: errorMessage.message,
       };
+    }
+
+    const user = await userModel.findUserByEmail(email);
+
+    if (user) {
+      if (user.password === password) {
+        const token = generateToken(user.id);
+
+        return {
+          status: httpStatusCode.ok,
+          token,
+        };
+      }
     }
 
     return {
@@ -55,41 +80,35 @@ module.exports = {
   },
 
   async getAllUsers(token) {
-    try {
-      const decoded = jwt.decode(token, SECRET);
+    const decodedToken = validateToken(token);
 
-      if (decoded.id) {
-        const users = await userModel.getAllUsers();
+    if (!decodedToken.id) return decodedToken;
 
-        return {
-          status: httpStatusCode.ok,
-          users,
-        };
-      }
-    } catch (err) {
-      return {
-        status: httpStatusCode.unauthorized,
-        message: 'Expired or invalid token',
-      };
-    }
+    const users = await userModel.getAllUsers();
+
+    return {
+      status: httpStatusCode.ok,
+      users,
+    };
   },
 
   async getUser(token, id) {
-      const decoded = jwt.decode(token, SECRET);
+    const decodedToken = validateToken(token);
 
-      if (decoded.id) {
-        const user = await userModel.getUserById(id);
+    if (!decodedToken.id) return decodedToken;
 
-        if (user) {
-          return {
-            status: httpStatusCode.ok,
-            user,
-          };
-        }
-      }
+    const user = await userModel.getUserById(id);
+
+    if (!user) {
       return {
-        status: httpStatusCode.unauthorized,
-        message: 'Expired or invalid token',
+        status: httpStatusCode.notFound,
+        message: errors.userNotExistError,
       };
+    }
+
+    return {
+      status: httpStatusCode.ok,
+      user,
+    };
   },
 };

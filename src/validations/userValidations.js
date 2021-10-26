@@ -1,4 +1,3 @@
-const userModel = require('../models/userModel');
 const { errors } = require('../utils/errors');
 
 function validadeDisplayName(displayName) {
@@ -21,7 +20,7 @@ function validadePassword(password) {
   }
 }
 
-async function validateEmail(email) {
+function validateEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (email === undefined) {
@@ -35,15 +34,9 @@ async function validateEmail(email) {
   if (!emailRegex.test(email)) {
     return { message: errors.validEmail() };
   }
-
-  const user = await userModel.findUserByEmail(email);
-
-  if (user) {
-    return { message: errors.userExistError, status: 409 };
-  }
 }
 
-async function validadeFields(email, password, displayName) {
+function validadeFields(email, password, displayName) {
   if (displayName) {
     const displayNameError = validadeDisplayName(displayName);
 
@@ -51,16 +44,18 @@ async function validadeFields(email, password, displayName) {
       return displayNameError;
     }
   }
- 
-  const passwordError = validadePassword(password);
-  const emailError = await validateEmail(email);
 
-  if (passwordError) {
-    return passwordError;
-  }
+  const emailError = validateEmail(email);
+  const passwordError = validadePassword(password);
+
+  console.log({ emailError, password });
 
   if (emailError) {
     return emailError;
+  }
+
+  if (passwordError) {
+    return passwordError;
   }
 }
 

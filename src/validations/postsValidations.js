@@ -1,5 +1,5 @@
-const categoriesModel = require('../models/categoriesModel');
 const { httpStatusCode, errors } = require('../utils/errors');
+const categoriesModel = require('../models/categoriesModel');
 
 function validateTitle(title) {
   if (!title) {
@@ -19,32 +19,31 @@ function validateContent(content) {
   }
 }
 
-function validadeCategoriesIds(categoriesIds) {
+async function validadeCategoriesIds(categoriesIds) {
+  if (categoriesIds) {
+    const isNotValid = await Promise.all(
+      categoriesIds.map((category) => categoriesModel.getOneCategory(category)),
+      ).then((res) => res.some((categorie) => !categorie));
+  
+    if (isNotValid) {
+      return {
+        status: httpStatusCode.notFound,
+        message: '"categoryIds" not found',
+      }; 
+    }
+  }
   if (!categoriesIds) {
     return {
-      status: 422,
-      message: '"categoryIds" is required',
+      status: httpStatusCode.badRequest,
+      message: errors.requiredError('categoryIds'),
     };
-  }
-
-  if (categoriesIds.length > 0) {
-    categoriesIds.forEach(async (category) => {
-      const findCategory = await categoriesModel.getOneCategory(category);
-
-      if (findCategory) {
-        return {
-          status: 410,
-          message: 'sem categoria',
-        };
-      }
-    });
   }
 }
 
-function validatePostFields(title, content, categoriesIds) {
+async function validatePostFields(title, content, categoriesIds) {
   const response = validateTitle(title) 
-  || validateContent(content)
-  || validadeCategoriesIds(categoriesIds);
+    || validateContent(content)
+    || await validadeCategoriesIds(categoriesIds);
 
   return response;
 }
