@@ -3,6 +3,7 @@ const email = require('./email');
 const password = require('./password');
 const login = require('./login');
 const token = require('./token');
+const categories = require('./categories');
 
 module.exports = {
   user,
@@ -10,4 +11,5 @@ module.exports = {
   password,
   login,
   token,
+  categories,
 };

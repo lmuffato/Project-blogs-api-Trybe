@@ -69,4 +69,12 @@ module.exports = {
       message: 'Invalid fields',
     },
   },
+  categories: {
+    name: {
+     required: {
+      status: BAD_REQUEST,
+      message: '"name" is required',
+     },
+    },
+  },
 };
