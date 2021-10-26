@@ -46,8 +46,8 @@ const nameValidation = (req, res, next) => {
 const emailValidation = (req, res, next) => {
   const { email } = req.body;
   const regex = /\S+@\S+\.\S+/;
-  if (!email) return res.status(badRequest).json(emailIsRequired);
   if (email === '') return res.status(badRequest).json(noEmail);
+  if (!email) return res.status(badRequest).json(emailIsRequired);
   const validEmail = regex.test(email);
   if (!validEmail) return res.status(badRequest).json(emailInvalid);
   next();
