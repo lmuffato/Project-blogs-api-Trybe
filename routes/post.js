@@ -5,7 +5,7 @@ const { authMiddleware, validatePostData } = require('../middlewares');
 const router = Router();
 
 router
-  .post('/', authMiddleware, validatePostData, Post.create);
-  // .get('/', authMiddleware, Post.getAll);
+  .post('/', authMiddleware, validatePostData, Post.create)
+  .get('/', authMiddleware, Post.getAll);
 
 module.exports = router;
