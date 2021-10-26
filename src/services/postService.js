@@ -1,5 +1,4 @@
-const { BlogPost } = require('../models');
-const { User } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 const postValidation = require('../validations/postValidation');
 
 const addPost = async (title, categoryIds, content, token) => {
@@ -16,6 +15,22 @@ const addPost = async (title, categoryIds, content, token) => {
   return { status: 201, response: newPost.dataValues };
 };
 
+const getAllPosts = async (token) => {
+  postValidation.validateToken(token);
+  const posts = await BlogPost.findAll({
+    include: [
+      {
+        model: User, as: 'user', attributes: { exclude: ['password'] },
+      },
+      {
+        model: Category, as: 'categories', attributes: { through: [] },
+      },
+    ],
+  });
+  return { status: 200, response: posts }; 
+};
+
 module.exports = {
   addPost,
+  getAllPosts,
 };

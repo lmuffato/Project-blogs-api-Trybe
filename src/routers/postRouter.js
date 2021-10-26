@@ -6,5 +6,6 @@ const postController = require('../controllers/postController');
 const postRouter = express.Router();
 
 postRouter.post('/', rescue(postController.addPost));
+postRouter.get('/', rescue(postController.getAllPosts));
 
 module.exports = postRouter;
