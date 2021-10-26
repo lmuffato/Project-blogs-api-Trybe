@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { httpStatusCode } = require('../utils/errors');
 
-const { SECRET } = process.env;
+const { JWT_SECRET } = process.env;
 
 function validateToken(token) {
   if (!token) {
@@ -11,7 +11,7 @@ function validateToken(token) {
     };
   }
 
-  const decodedJson = jwt.decode(token, SECRET);
+  const decodedJson = jwt.decode(token, JWT_SECRET);
 
   if (!decodedJson || !decodedJson.id) {
     return {
