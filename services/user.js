@@ -44,9 +44,12 @@ const getById = (id) => User
     return res;
    });
 
+const exclude = (id) => User.destroy({ where: { id } }).then((res) => res);
+
 module.exports = {
   create,
   login,
   getAll,
   getById,
+  exclude,
 };

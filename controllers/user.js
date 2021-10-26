@@ -1,5 +1,5 @@
 const { User } = require('../services');
-const { SUCCESS_CREATED, SUCCESS_OK } = require('../utils/statusCode');
+const { SUCCESS_CREATED, SUCCESS_OK, SUCCESS_NO_CONTENT } = require('../utils/statusCode');
 
 const create = (req, res, next) => {
   const { displayName, email, password, image } = req.body;
@@ -29,9 +29,17 @@ const getById = (req, res, next) => {
     .catch((err) => next(err));
 };
 
+const exclude = async (req, res, next) => {
+  const { userId } = req;
+  User.exclude(userId)
+      .then((result) => res.status(SUCCESS_NO_CONTENT).json(result))
+      .catch((err) => next(err));
+};
+
 module.exports = {
   create,
   login,
   getAll,
   getById,
+  exclude,
 };
