@@ -1,20 +1,17 @@
 const serviceUsers = require('../services/users');
 
 const create = async (req, res) => {
-  try {
-    const { displayNmae, email, password, image } = req.body;
-    const token = await serviceUsers.create({
-      displayNmae,
-      email,
-      password,
-      image,
-    });
+  const { displayName, email, password, image } = req.body;
+  const response = await serviceUsers.create({
+    displayName,
+    email,
+    password,
+    image,
+  });
+  const body = response.token ? { token: response.token } : { message: response.message };
 
-    // console.log('o service esta retornando isso: ', newUser);
-    res.status(201).json({ token });
-  } catch (e) {
-    res.status(500).json({ message: 'Algo deu errado' });
-  }
+  // console.log('o service esta retornando isso: ', newUser);
+  res.status(response.status).json(body);
 };
 
 module.exports = {
