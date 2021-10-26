@@ -13,7 +13,7 @@ const getAll = async () => {
   const categories = await Category.findAll();
   return {
     status: OK,
-    message: categories,
+    message: categories.reverse(),
   };
 };
 
