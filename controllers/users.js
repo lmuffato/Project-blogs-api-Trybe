@@ -27,32 +27,32 @@ const {
     // categoryIdNotFound,
 } = require('../utils/messages');
 
-// const {
-//     ok,
-//     created,
-//     // noContent,
-//     badRequest,
-//     // unauthorized,
-//     notFound,
-//     // conflict,
-// } = require('../utils/anwers');
+const {
+    ok,
+    created,
+    // noContent,
+    badRequest,
+    // unauthorized,
+    notFound,
+    // conflict,
+} = require('../utils/anwers');
 
 const getAll = async (_req, res) => {
     const allUsers = await User.findAll();
-    res.status(200).json(allUsers);
+    return res.status(ok).json(allUsers);
 };
 
 const create = async (req, res) => {
     const { displayName, email, password, image } = req.body;
     const userData = await User.create({ displayName, email, password, image });
-    res.status(201).json(userData);
+    return res.status(created).json(userData);
 };
 
 const getByEmail = async (user) => {
-    const email = user.password
+    const userEmail = user.password
       ? await User.findAll({ where: { email: user.email, password: user.password } })
       : await User.findAll({ where: { email: user.email } });
-    return email;
+    return userEmail;
 };
 
 const getToken = (user) => {
@@ -63,17 +63,17 @@ const getToken = (user) => {
 const findUser = async (req, res) => {
     const { email, password } = req.body;
     const [user] = await getByEmail({ email, password });
-    if (!user) return res.status(400).json(invalidFields);
+    if (!user) return res.status(badRequest).json(invalidFields);
     const { email: dataEmail, password: dataPassword } = user.dataValues;
     const token = getToken({ dataEmail, dataPassword });
-    res.status(200).json(token);
+    return res.status(ok).json(token);
 };
   
 const getById = async (req, res) => {
     const { id } = req.params;
     const [user] = await User.findAll({ where: { id } });
-    if (!user) return res.status(404).json(userNotExists);
-    res.status(200).json({
+    if (!user) return res.status(notFound).json(userNotExists);
+    return res.status(ok).json({
       id: user.id,
       displayName: user.displayName,
       email: user.email,

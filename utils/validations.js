@@ -55,8 +55,8 @@ const emailValidation = (req, res, next) => {
 
 const passwordValidation = (req, res, next) => {
   const { password } = req.body;
-  if (!password) return res.status(badRequest).json(passwordIsRequired);
   if (password === '') return res.status(badRequest).json(noPassword);
+  if (!password) return res.status(badRequest).json(passwordIsRequired);
   if (password.length < 6) {
     return res.status(badRequest).json(shortPassword);
   }

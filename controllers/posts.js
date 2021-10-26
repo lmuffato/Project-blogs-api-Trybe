@@ -2,14 +2,14 @@ const { BlogPost, User, Category } = require('../models');
 
 const {
     ok,
-    // created,
+    created,
 } = require('../utils/anwers');
 
 const create = async (req, res) => {
   const { title, content } = req.body;
   const userId = req.user;
   const createdPost = await BlogPost.create({ title, content, userId });
-  res.status(200).json(createdPost);
+  return res.status(created).json(createdPost);
 };
 
 const getAll = async (_req, res) => {
@@ -18,7 +18,7 @@ const getAll = async (_req, res) => {
     { model: User, as: 'user', attributes: { exclude: ['password'] } },
     { model: Category, as: 'categories', through: { attributes: [] } }],
   });
-  res.status(ok).json(allPosts);
+  return res.status(ok).json(allPosts);
 };
 
 module.exports = {
