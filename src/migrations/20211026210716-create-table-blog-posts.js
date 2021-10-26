@@ -6,13 +6,13 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       content: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -21,8 +21,8 @@ module.exports = {
         onDelete: 'CASCADE',
         references: {
           model: 'Users',
-          key: id,
-        }
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,
