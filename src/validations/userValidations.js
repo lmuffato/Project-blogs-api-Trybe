@@ -1,3 +1,4 @@
+const userModel = require('../models/userModel');
 const { errors } = require('../utils/errors');
 
 function validadeDisplayName(displayName) {
@@ -36,7 +37,13 @@ function validateEmail(email) {
   }
 }
 
-function validadeFields(email, password, displayName) {
+async function verifyUserEmail(email) {
+  const alreadyExists = await userModel.findUserByEmail(email);
+
+  if (alreadyExists) return alreadyExists;
+}
+
+async function validadeFields(email, password, displayName) {
   if (displayName) {
     const displayNameError = validadeDisplayName(displayName);
 
@@ -48,8 +55,6 @@ function validadeFields(email, password, displayName) {
   const emailError = validateEmail(email);
   const passwordError = validadePassword(password);
 
-  console.log({ emailError, password });
-
   if (emailError) {
     return emailError;
   }
@@ -59,4 +64,4 @@ function validadeFields(email, password, displayName) {
   }
 }
 
-module.exports = validadeFields;
+module.exports = { validadeFields, verifyUserEmail };

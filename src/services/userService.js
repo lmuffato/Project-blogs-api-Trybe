@@ -2,36 +2,25 @@ const jwt = require('jsonwebtoken');
 
 const { errors, httpStatusCode } = require('../utils/errors');
 const userModel = require('../models/userModel');
-const validadeFields = require('../validations/userValidations');
+const { validadeFields, verifyUserEmail } = require('../validations/userValidations');
 const validateToken = require('../validations/tokenValidations');
 
 const { SECRET } = process.env;
 
 function generateToken(id) {
-  return jwt.sign({ id }, process.env.SECRET, {
+  return jwt.sign({ id }, SECRET, {
     expiresIn: 86400,
   });
 }
 
 module.exports = {
   async createUser(displayName, email, password, image) {
-    const errorMessage = validadeFields(email, password, displayName);
+    const errorMessage = validadeFields(email, password, displayName) 
+    || await verifyUserEmail(email);
 
     if (errorMessage) {
-      return {
-        status: errorMessage.status
-          ? errorMessage.status
-          : httpStatusCode.badRequest,
+      return { status: errorMessage.status ? errorMessage.status : httpStatusCode.badRequest,
         message: errorMessage.message,
-      };
-    }
-
-    const alreadyExists = await userModel.findUserByEmail(email);
-
-    if (alreadyExists) {
-      return {
-        status: httpStatusCode.conflit,
-        message: errors.userAlreadyExistError,
       };
     }
 
@@ -39,7 +28,7 @@ module.exports = {
       displayName,
       email,
       password,
-      image
+      image,
     );
 
     const token = generateToken(user.id);
@@ -54,23 +43,18 @@ module.exports = {
     const errorMessage = validadeFields(email, password);
 
     if (errorMessage) {
-      return {
-        status: httpStatusCode.badRequest,
-        message: errorMessage.message,
-      };
+      return { status: httpStatusCode.badRequest, message: errorMessage.message };
     }
 
     const user = await userModel.findUserByEmail(email);
 
-    if (user) {
-      if (user.password === password) {
-        const token = generateToken(user.id);
+    if (user && user.password === password) {
+      const token = generateToken(user.id);
 
-        return {
-          status: httpStatusCode.ok,
-          token,
-        };
-      }
+      return {
+        status: httpStatusCode.ok,
+        token,
+      };
     }
 
     return {
