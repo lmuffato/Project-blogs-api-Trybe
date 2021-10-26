@@ -37,7 +37,9 @@ const update = async (req, res, next) => {
 
 const exclude = async (req, res, next) => {
   const { id } = req.params;
-  await Post.getById(id);
+
+  await Post.getById(id)
+    .catch((err) => next(err));
   Post.exclude(id)
       .then((result) => res.status(SUCCESS_NO_CONTENT).json(result))
       .catch((err) => next(err));
