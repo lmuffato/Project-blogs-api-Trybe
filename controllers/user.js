@@ -31,7 +31,7 @@ const getById = (req, res, next) => {
 
 const exclude = async (req, res, next) => {
   const { userId } = req;
-  User.exclude(userId)
+  return User.exclude(userId)
       .then((result) => res.status(SUCCESS_NO_CONTENT).json(result))
       .catch((err) => next(err));
 };
