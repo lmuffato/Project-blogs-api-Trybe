@@ -16,7 +16,16 @@ const getAll = (req, res, next) => {
     .catch((err) => next(err));
 };
 
+const getById = (req, res, next) => {
+  const { id } = req.params;
+  console.log(id);
+  Post.getById(id)
+    .then((result) => res.status(SUCCESS_OK).json(result))
+    .catch((err) => next(err));
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };

@@ -1,7 +1,7 @@
 const Categories = require('./categories');
 const { BlogPost, User, Category } = require('../models');
 const { ValidateError } = require('../utils');
-const { BAD_REQUEST } = require('../utils/statusCode');
+const { BAD_REQUEST, NOT_FOUND } = require('../utils/statusCode');
 
 const verifyCategory = async (categoryIds) => {
   const CategoriesAll = await Categories.getAll()
@@ -27,7 +27,21 @@ const getAll = () => BlogPost.findAll({
   ],
 }).then((res) => res);
 
+const getById = (id) => BlogPost
+  .findOne({ 
+    where: { id },
+      include: [
+          { model: User, as: 'user', attributes: { exclude: ['password'] } },
+          { model: Category, as: 'categories', through: { attributes: [] } },  
+      ],
+  })
+  .then((res) => { 
+    if (res === null) throw ValidateError(NOT_FOUND, 'Post does not exist');
+    return res;
+  });
+
 module.exports = {
   create,
   getAll,
+  getById,
 };
