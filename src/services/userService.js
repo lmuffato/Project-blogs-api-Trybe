@@ -3,6 +3,7 @@ require('dotenv/config');
 const { errors, httpStatusCode } = require('../utils/errors');
 
 const userModel = require('../models/userModel');
+const { User } = require('../../models');
 const { validadeFields } = require('../validations/userValidations');
 
 const { verifyUserEmail } = require('../validations/validations');
@@ -68,5 +69,24 @@ module.exports = {
       status: httpStatusCode.ok,
       user,
     };
+  },
+
+  async deleteUser(token) {
+    const decodedToken = validateToken(token);
+
+    if (!decodedToken.id) return decodedToken;
+
+    try {
+      await User.destroy({ where: { id: decodedToken.id } });
+
+      return {
+        status: httpStatusCode.notContent,
+      };
+    } catch (err) {
+      return {
+        status: httpStatusCode.notFound,
+        message: errors.userNotExistError,
+      };
+    }
   },
 };

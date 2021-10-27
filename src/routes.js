@@ -12,6 +12,7 @@ routes.post('/login', loginController.login);
 routes.post('/user', userController.create);
 routes.get('/user', userController.index);
 routes.get('/user/:id', userController.index);
+routes.delete('/user/me', userController.delete);
 
 routes.post('/categories', categoriesController.create);
 routes.get('/categories', categoriesController.index);

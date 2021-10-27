@@ -38,4 +38,14 @@ module.exports = {
       .status(response.status)
       .json(response.users ? response.users : { message: response.message });
   },
+
+  async delete(req, res) {
+    const token = req.headers.authorization;
+
+    const response = await userService.deleteUser(token);
+
+    return res
+      .status(response.status)
+      .json(response.message && { message: response.message });
+  },
 };
