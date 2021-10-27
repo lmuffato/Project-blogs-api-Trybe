@@ -8,7 +8,7 @@ module.exports = async (req, _res, next) => {
   
   Post.getById(id)
       .then((result) => {
-        if (result.userId !== userId) next(ValidateError(UNAUTHORIZED, 'Unauthorized user'));
+        if (result.userId !== userId) return next(ValidateError(UNAUTHORIZED, 'Unauthorized user'));
       })
       .catch((err) => next(err));
 
