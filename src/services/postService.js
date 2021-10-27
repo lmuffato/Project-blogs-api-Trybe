@@ -47,8 +47,29 @@ const getPostById = async (id, token) => {
   return { status: 200, response: post };
 };
 
+const editPost = async (requestParams) => {
+  const { id, token, title, content, categoryIds } = requestParams;
+  postValidation.validatePostTitle(title);
+  postValidation.validatePostContent(content);
+  postValidation.validateCategoryExists(categoryIds);
+  const user = await postValidation.validateToken(token);
+  console.log(` user id${user}`);
+  const getPost = await BlogPost.findByPk(id);
+  postValidation.validatePostExists(getPost);
+  postValidation.validateUserPost(getPost.userId, user);
+  await BlogPost.update({ title, content }, {
+    where: { id },
+  });
+  const updatedPost = await BlogPost.findOne({
+    where: { id },
+    include: [{ model: Category, as: 'categories', through: { attributes: [] } }],
+  });
+  return { status: 200, response: updatedPost };
+};
+
 module.exports = {
   addPost,
   getAllPosts,
   getPostById,
+  editPost,
 };

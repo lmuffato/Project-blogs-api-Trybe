@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { Category } = require('../models');
+const { Category, User } = require('../models');
 require('dotenv').config();
 
 const titleIsRequired = {
@@ -51,6 +51,20 @@ const postNotFound = {
   },
 };
 
+const categoryCannotBeEdited = {
+  status: 400,
+  error: {
+    message: 'Categories cannot be edited',
+  },
+};
+
+const unauthorizedUser = {
+  status: 401,
+  error: {
+    message: 'Unauthorized user',
+  },
+};
+
 const validatePostTitle = (title) => {
   if (!title) throw titleIsRequired;
 };
@@ -70,11 +84,12 @@ const validatePostCategory = async (categoryIds) => {
   if (!categories) throw categoryIdNotFound;
 };
 
-const validateToken = (token) => {
+const validateToken = async (token) => {
   if (!token) throw tokenNotFound;
   try {
     const { email } = jwt.verify(token, process.env.JWT_SECRET);
-    return email;
+    const { id } = await User.findOne({ where: { email } });
+    return id;
   } catch (err) {
     throw tokenInvalid;
   }
@@ -84,10 +99,20 @@ const validatePostExists = (post) => {
   if (!post) throw postNotFound;
 };
 
+const validateCategoryExists = (categoryIds) => {
+  if (categoryIds) throw categoryCannotBeEdited;
+};
+
+const validateUserPost = (userId, id) => {
+  if (userId !== id) throw unauthorizedUser;
+};
+
 module.exports = {
   validatePostTitle,
   validatePostContent,
   validatePostCategory,
   validateToken,
   validatePostExists,
+  validateCategoryExists,
+  validateUserPost,
 };
