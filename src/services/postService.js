@@ -3,6 +3,7 @@ const { httpStatusCode, errors } = require('../utils/errors');
 const postsModel = require('../models/postsModel');
 const { validatePostFields, validatePostUpdateFields } = require('../validations/postsValidations');
 const validateToken = require('../validations/tokenValidations');
+const { validatePostDeleteFields } = require('../validations/postDeleteValidations');
 
 module.exports = {
   async createPost(token, title, content, categoryIds) {
@@ -74,5 +75,26 @@ module.exports = {
       status: httpStatusCode.ok,
       allPosts,
     };
+  },
+
+  async deletePost(token, id) {
+    const decodedToken = validateToken(token);
+    if (!decodedToken.id) return decodedToken;
+
+    const validations = await validatePostDeleteFields(id, decodedToken.id);
+    if (validations) return validations;
+
+    try {
+      await postsModel.deletePost(id);
+      
+      return {
+        status: httpStatusCode.notContent,
+      };
+    } catch (err) {
+      return {
+        status: httpStatusCode.badRequest,
+        message: err.message,
+      };
+    }
   },
 };

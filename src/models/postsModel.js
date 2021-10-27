@@ -48,4 +48,8 @@ module.exports = {
       console.log(err.message);
     }
   },
+
+  async deletePost(id) {
+    await BlogPost.destroy({ where: { id } });
+  },
 };

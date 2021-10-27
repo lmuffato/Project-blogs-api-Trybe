@@ -1,6 +1,6 @@
 const { httpStatusCode, errors } = require('../utils/errors');
 const categoriesModel = require('../models/categoriesModel');
-const postsModel = require('../models/postsModel');
+const validateOwner = require('./validatePostOwner');
 
 function validateTitle(title) {
   if (!title) {
@@ -37,17 +37,6 @@ async function validadeCategoriesIds(categoryIds) {
     return {
       status: httpStatusCode.badRequest,
       message: errors.requiredError('categoryIds'),
-    };
-  }
-}
-
-async function validateOwner(postId, userId) {
-  const storagePost = await postsModel.findPost(postId);
-
-  if (storagePost.userId !== userId) {
-    return {
-      status: httpStatusCode.unauthorized,
-      message: 'Unauthorized user',
     };
   }
 }

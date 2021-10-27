@@ -66,4 +66,22 @@ module.exports = {
       .status(response.status)
       .json(response.allPosts ? response.allPosts : { message: response.message });
   },
+
+  async delete(req, res) {
+    const { id } = req.params;
+    const token = req.headers.authorization;
+
+    try {
+      const response = await postService.deletePost(token, id);
+
+      return res
+        .status(response.status)
+        .json(response.message && { message: response.message });
+    } catch (err) {
+      return {
+        status: 401,
+        message: err.message,
+      };
+    }
+  },
 };
