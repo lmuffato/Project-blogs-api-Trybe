@@ -16,7 +16,7 @@ const addPost = async (title, categoryIds, content, token) => {
 };
 
 const getAllPosts = async (token) => {
-  postValidation.validateToken(token);
+  await postValidation.validateToken(token);
   const posts = await BlogPost.findAll({
     include: [
       {
@@ -31,7 +31,7 @@ const getAllPosts = async (token) => {
 };
 
 const getPostById = async (id, token) => {
-  postValidation.validateToken(token);
+  await postValidation.validateToken(token);
   const post = await BlogPost.findOne({
     where: { id },
     include: [

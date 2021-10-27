@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const userValidation = require('../validations/userValidation');
+const postValidation = require('../validations/postValidation');
 require('dotenv').config();
 
 const jwtConfig = {
@@ -31,8 +32,15 @@ const getUserById = async (id, token) => {
   return { status: 200, response: user.dataValues };
 };
 
+const deleteUser = async (token) => {
+  const id = await postValidation.validateToken(token);
+  await User.destroy({ where: { id } });
+  return { status: 204 };
+};
+
 module.exports = {
   addUser,
   getUsers,
   getUserById,
+  deleteUser,
 };
