@@ -11,7 +11,7 @@ const validateDisplayName = (displayName) => {
 };
 
 const emailFormat = async (email) => {
-  const regexEmail = /^([\w.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/igm; // => https://regexr.com;
+  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!regexEmail.test(email)) {
     return { status: httpStatusCode.badRequest, message: errors.validEmail() };
   }
