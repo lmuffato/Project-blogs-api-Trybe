@@ -5,8 +5,8 @@ const addPost = async (title, categoryIds, content, token) => {
   postValidation.validatePostTitle(title);
   postValidation.validatePostContent(content);
   await postValidation.validatePostCategory(categoryIds);
-  const email = await postValidation.validateToken(token);
-  const findUser = await User.findOne({ where: { email } });
+  const id = await postValidation.validateToken(token);
+  const findUser = await User.findOne({ where: { id } });
   const newPost = await BlogPost.create({
     userId: findUser.id,
     title,
