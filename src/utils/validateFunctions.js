@@ -28,9 +28,19 @@ const validatePost = (bodyObject) => {
   if (error) throw error;
 };
 
+const EditPostParams = (paramsObj) => {
+  const { error } = Joi.object({
+    id: Joi.number().required(),
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+  }).validate(paramsObj);
+  if (error) throw error;
+};
+
 module.exports = {
   validatePassword,
   validateEmail,
   validateName,
   validatePost,
+  EditPostParams,
 };

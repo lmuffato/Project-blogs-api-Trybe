@@ -73,6 +73,11 @@ const categoryNotFound = {
   status: 400,
 };
 
+const unauthorizedUser = {
+  message: 'Unauthorized user',
+  status: 401,
+};
+
 module.exports = {
   tokenNotFound,
   expOrInvalidToken,
@@ -89,4 +94,5 @@ module.exports = {
   nameRequired,
   categoryNotFound,
   postDoesNotExist,
+  unauthorizedUser,
 };
