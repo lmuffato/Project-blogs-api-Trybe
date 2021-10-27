@@ -11,6 +11,12 @@ const validateDisplayName = (displayName) => {
 
 const validateEmail = (email) => {
   const regexEmail = /^([\w.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/igm; // => https://regexr.com;
+  if (!email || email === '') {
+    return {
+      status: httpStatusCode.badRequest,
+      message: errors.requiredError('email'),
+    };
+  }
   if (!regexEmail.test(email)) {
     return {
       status: httpStatusCode.badRequest,

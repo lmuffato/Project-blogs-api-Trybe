@@ -15,7 +15,7 @@ const create = async ({ displayName, email, password, image }) => {
     // console.log('returno do model User:', teste);
     const token = createToken.create(email);
     // console.log('retorno da funcao create token:', token);
-    return { status: httpStatusCode.ok, token };
+    return { status: httpStatusCode.created, token };
   } catch (e) {
     return { status: httpStatusCode.badRequest, message: e.message };
   }
