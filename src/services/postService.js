@@ -67,9 +67,19 @@ const editPost = async (requestParams) => {
   return { status: 200, response: updatedPost };
 };
 
+const deletePost = async (id, token) => {
+  const getPost = await BlogPost.findByPk(id);
+  postValidation.validatePostExists(getPost);
+  const user = await postValidation.validateToken(token);
+  postValidation.validateUserPost(getPost.userId, user);
+  await BlogPost.destroy({ where: { id } });
+  return { status: 204 };
+};
+
 module.exports = {
   addPost,
   getAllPosts,
   getPostById,
   editPost,
+  deletePost,
 };
