@@ -2,6 +2,7 @@ const serviceUsers = require('../services/users');
 
 const create = async (req, res) => {
   const { displayName, email, password, image } = req.body;
+  
   const response = await serviceUsers.create({
     displayName,
     email,

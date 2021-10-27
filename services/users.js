@@ -7,14 +7,15 @@ const create = async ({ displayName, email, password, image }) => {
   const validateDisplayName = validations.validateDisplayName(displayName);
   if (validateDisplayName) return validateDisplayName;
 
-  const validateEmail = validations.validateEmail(email);
+  const validateEmail = await validations.validateEmail(email);
+  // console.log('retorno da ValidateEmail', validateEmail);
   if (validateEmail) return validateEmail;
 
   const validatePassword = validations.validatePassword(password);
   if (validatePassword) return validatePassword;
 
   try {
-    await User.create(displayName, email, password, image);
+    await User.create({ displayName, email, password, image });
     // console.log('returno do model User:', teste);
     const token = createToken.create(email);
     // console.log('retorno da funcao create token:', token);

@@ -13,5 +13,6 @@ app.get('/', (request, response) => {
 });
 
 app.post('/user', controllerUsers.create);
+// app.get('/user', controllerUsers.getAll);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
