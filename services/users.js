@@ -10,6 +10,9 @@ const create = async ({ displayName, email, password, image }) => {
   const validateEmail = validations.validateEmail(email);
   if (validateEmail) return validateEmail;
 
+  const validatePassword = validations.validatePassword(password);
+  if (validatePassword) return validatePassword;
+
   try {
     await User.create(displayName, email, password, image);
     // console.log('returno do model User:', teste);

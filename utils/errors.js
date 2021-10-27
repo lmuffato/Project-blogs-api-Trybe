@@ -1,3 +1,4 @@
+// Solução realizada com apoio de Daniel Ribeiro - Turma 10-A
 const errors = {
   requiredError: (field) => `"${field}" is required`,
   lengthError: (field, lengthSize) =>

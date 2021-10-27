@@ -25,7 +25,23 @@ const validateEmail = (email) => {
   }
 };
 
+const validatePassword = (password) => {
+  if (!password || password === '') {
+    return {
+      status: httpStatusCode.badRequest,
+      message: errors.requiredError('password'),
+    };
+  }
+  if (password.length < 6) {
+    return {
+      status: httpStatusCode.badRequest,
+      message: errors.passwordLengthError('password', 6),
+    };
+  }
+};
+
 module.exports = {
   validateDisplayName,
   validateEmail,
+  validatePassword,
 };
