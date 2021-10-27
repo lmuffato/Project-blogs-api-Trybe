@@ -17,6 +17,7 @@ routes.post('/categories', categoriesController.create);
 routes.get('/categories', categoriesController.index);
 
 routes.post('/post', postController.create);
+routes.put('/post/:id', postController.update);
 routes.get('/post', postController.index);
 routes.get('/post/:id', postController.index);
 

@@ -23,6 +23,31 @@ module.exports = {
     }
   },
 
+  async update(req, res) {
+    const { title, content, categoryIds } = req.body;
+    const { id } = req.params;
+    const token = req.headers.authorization;
+    const post = { title, content, categoryIds };
+
+    try {
+      const response = await postService.updatePost(token, id, post);
+
+      if (response === undefined) {
+        return res.status(400).json({ message: 'Mano?' });
+      }
+
+      const responseMessage = response.updatedPost 
+      ? response.updatedPost : { message: response.message };
+
+      return res.status(response.status).json(responseMessage);
+    } catch (err) {
+      return {
+        status: 401,
+        message: err.message,
+      };
+    }
+  },
+
   async index(req, res) {
     const { id } = req.params;
     const token = req.headers.authorization;

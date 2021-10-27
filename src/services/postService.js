@@ -1,7 +1,7 @@
 const { httpStatusCode, errors } = require('../utils/errors');
 
 const postsModel = require('../models/postsModel');
-const validatePostFields = require('../validations/postsValidations');
+const { validatePostFields, validatePostUpdateFields } = require('../validations/postsValidations');
 const validateToken = require('../validations/tokenValidations');
 
 module.exports = {
@@ -27,8 +27,30 @@ module.exports = {
 
     return {
       status: httpStatusCode.badRequest,
-      message: 'num foi possivi',
+      message: 'erro ao criar',
     };
+  },
+
+  async updatePost(token, id, post) {
+    const decodedToken = validateToken(token);
+    if (!decodedToken.id) return decodedToken;
+
+    const validations = await validatePostUpdateFields(post, id, decodedToken.id);
+    if (validations) return validations;
+
+    try {
+      const updatedPost = await postsModel.updatePost(id, post);
+      
+      return {
+        status: httpStatusCode.ok,
+        updatedPost,
+      };
+    } catch (err) {
+      return {
+        status: httpStatusCode.badRequest,
+        message: err.message,
+      };
+    }
   },
 
   async getPost(token, id) {

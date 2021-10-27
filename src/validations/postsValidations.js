@@ -1,5 +1,6 @@
 const { httpStatusCode, errors } = require('../utils/errors');
 const categoriesModel = require('../models/categoriesModel');
+const postsModel = require('../models/postsModel');
 
 function validateTitle(title) {
   if (!title) {
@@ -40,6 +41,35 @@ async function validadeCategoriesIds(categoryIds) {
   }
 }
 
+async function validateOwner(postId, userId) {
+  const storagePost = await postsModel.findPost(postId);
+
+  if (storagePost.userId !== userId) {
+    return {
+      status: httpStatusCode.unauthorized,
+      message: 'Unauthorized user',
+    };
+  }
+}
+
+function validateCategoriesInUpdate(categoryIds) {
+  if (categoryIds !== undefined) {
+    return {
+      status: httpStatusCode.badRequest,
+      message: 'Categories cannot be edited',
+    };
+  }
+}
+
+async function validatePostUpdateFields(post, postId, userId) {
+  const response = validateTitle(post.title) 
+  || validateContent(post.content)
+  || validateCategoriesInUpdate(post.categoryIds)
+  || await validateOwner(postId, userId);
+
+  return response;
+}
+
 async function validatePostFields(title, content, categoryIds) {
   const response = validateTitle(title) 
     || validateContent(content)
@@ -48,4 +78,4 @@ async function validatePostFields(title, content, categoryIds) {
   return response;
 }
 
-module.exports = validatePostFields;
+module.exports = { validatePostFields, validatePostUpdateFields };

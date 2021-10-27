@@ -33,4 +33,19 @@ module.exports = {
 
     return allPosts;
   },
+
+  async updatePost(id, post) {
+    try {
+      await BlogPost.update(
+        post,
+        { where: { id } },
+      );
+  
+      const updatedPost = this.findPost(id);
+
+      return updatedPost;
+    } catch (err) {
+      console.log(err.message);
+    }
+  },
 };
