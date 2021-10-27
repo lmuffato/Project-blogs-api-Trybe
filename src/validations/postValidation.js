@@ -44,6 +44,13 @@ const tokenInvalid = {
   },
 };
 
+const postNotFound = {
+  status: 404,
+  error: {
+    message: 'Post does not exist',
+  },
+};
+
 const validatePostTitle = (title) => {
   if (!title) throw titleIsRequired;
 };
@@ -73,9 +80,14 @@ const validateToken = (token) => {
   }
 };
 
+const validatePostExists = (post) => {
+  if (!post) throw postNotFound;
+};
+
 module.exports = {
   validatePostTitle,
   validatePostContent,
   validatePostCategory,
   validateToken,
+  validatePostExists,
 };

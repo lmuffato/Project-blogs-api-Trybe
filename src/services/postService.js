@@ -30,7 +30,25 @@ const getAllPosts = async (token) => {
   return { status: 200, response: posts }; 
 };
 
+const getPostById = async (id, token) => {
+  postValidation.validateToken(token);
+  const post = await BlogPost.findOne({
+    where: { id },
+    include: [
+      {
+        model: User, as: 'user', attributes: { exclude: ['password'] },
+      },
+      {
+        model: Category, as: 'categories', attributes: { through: [] },
+      },
+    ],
+  });
+  postValidation.validatePostExists(post);
+  return { status: 200, response: post };
+};
+
 module.exports = {
   addPost,
   getAllPosts,
+  getPostById,
 };
