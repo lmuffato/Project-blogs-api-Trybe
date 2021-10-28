@@ -47,4 +47,8 @@ module.exports = {
     message: 'User does not exist',
     code: 404,
   },
+  NAME_IS_REQUIRED: {
+    message: '"name" is required',
+    code: 400,
+  },
 };
