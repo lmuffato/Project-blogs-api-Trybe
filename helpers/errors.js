@@ -51,4 +51,20 @@ module.exports = {
     message: '"name" is required',
     code: 400,
   },
+  TITLE_IS_REQUIRED: {
+    message: '"title" is required',
+    code: 400,
+  },
+  CONTENT_IS_REQUIRED: {
+    message: '"content" is required',
+    code: 400,
+  },
+  CATEGORYIDS_IS_REQUIRED: {
+    message: '"categoryIds" is required',
+    code: 400,
+  },
+  CATEGORYIDS_NOT_FOUND: {
+    message: '"categoryIds" not found',
+    code: 400,
+  },
 };
