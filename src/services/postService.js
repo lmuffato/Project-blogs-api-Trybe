@@ -1,34 +1,31 @@
-const { httpStatusCode, errors } = require('../utils/errors');
+const { Post, User, Category } = require('../../models');
+const errors = require('../utils/errors');
+const httpStatusCode = require('../utils/httpStatusCode');
 
-const postsModel = require('../models/postsModel');
-const { validatePostFields, validatePostUpdateFields } = require('../validations/postsValidations');
-const validateToken = require('../validations/tokenValidations');
-const { validatePostDeleteFields } = require('../validations/postDeleteValidations');
+const validateToken = require('../validations/token/validateToken');
+const { 
+  validatePostFields, validatePostUpdateFields } = require('../validations/post/validateFields');
+const { validatePostDeleteFields } = require('../validations/post/validateFieldsDelete');
 
 module.exports = {
   async createPost(token, title, content, categoryIds) {
     const decodedToken = validateToken(token);
-
     if (!decodedToken.id) return decodedToken;
 
     const validations = await validatePostFields(title, content, categoryIds);
+    if (validations) return validations;
 
-    if (validations) {
-      return validations;
-    }
+    try {
+      const post = await Post.create({ userId: decodedToken.id, title, content });
 
-    const post = await postsModel.createPost(decodedToken.id, title, content);
-
-    if (post) {
-      return {
-        status: httpStatusCode.created,
-        post,
-      };
+      if (post) return { status: httpStatusCode.created, post };
+    } catch (err) {
+      console.log(err.message);
     }
 
     return {
       status: httpStatusCode.badRequest,
-      message: 'erro ao criar',
+      message: 'nao foi possivel criar',
     };
   },
 
@@ -37,15 +34,19 @@ module.exports = {
     if (!decodedToken.id) return decodedToken;
 
     const validations = await validatePostUpdateFields(post, id, decodedToken.id);
+
     if (validations) return validations;
 
     try {
-      const updatedPost = await postsModel.updatePost(id, post);
-      
-      return {
-        status: httpStatusCode.ok,
-        updatedPost,
-      };
+      await Post.update(post, { where: { id } });
+
+      const updatedPost = await Post.findOne({ where: { id },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ] });
+
+      return { status: httpStatusCode.ok, updatedPost };
     } catch (err) {
       return {
         status: httpStatusCode.badRequest,
@@ -54,13 +55,16 @@ module.exports = {
     }
   },
 
-  async getPost(token, id) {
+  async show(token, id) {
     const decodedToken = validateToken(token);
 
     if (!decodedToken.id) return decodedToken;
 
     if (id) {
-      const post = await postsModel.findPost(id);
+      const post = await Post.findByPk(id, {
+        include: [
+          { model: User, as: 'user', attributes: { exclude: 'password' } },
+          { model: Category, as: 'categories', through: { attributes: [] } }] });
 
       if (!post) {
         return { status: httpStatusCode.notFound, message: errors.postNotExistError };
@@ -68,8 +72,19 @@ module.exports = {
 
       return { status: httpStatusCode.ok, post };
     }
+  },
 
-    const allPosts = await postsModel.findPost();
+  async index(token) {
+    const decodedToken = validateToken(token);
+
+    if (!decodedToken.id) return decodedToken;
+
+    const allPosts = await Post.findAll({
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
 
     return {
       status: httpStatusCode.ok,
@@ -85,7 +100,7 @@ module.exports = {
     if (validations) return validations;
 
     try {
-      await postsModel.deletePost(id);
+      await Post.destroy({ where: { id } });
       
       return {
         status: httpStatusCode.notContent,

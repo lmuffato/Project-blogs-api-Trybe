@@ -1,8 +1,7 @@
-const categoriesModel = require('../models/categoriesModel');
-
-const { httpStatusCode } = require('../utils/errors');
-const validadeCategory = require('../validations/categoriesValidations');
-const validateToken = require('../validations/tokenValidations');
+const { Category } = require('../../models');
+const httpStatusCode = require('../utils/httpStatusCode');
+const validadeCategory = require('../validations/categories/validateCategory');
+const validateToken = require('../validations/token/validateToken');
 
 module.exports = {
   async createCategory(token, name) {
@@ -14,7 +13,7 @@ module.exports = {
 
     if (validations) return validations;
 
-    const newCategory = await categoriesModel.createCategory(name);
+    const newCategory = await Category.create({ name });
 
     if (newCategory) {
       return {
@@ -29,7 +28,7 @@ module.exports = {
 
     if (!decodedToken.id) return decodedToken;
 
-    const allCategories = await categoriesModel.getAllCategories();
+    const allCategories = await Category.findAll();
 
     if (allCategories) {
       return {

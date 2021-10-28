@@ -1,4 +1,5 @@
-const { validateEmail, validatePassword } = require('./validations');
+const validateEmail = require('../user/validateEmail');
+const validatePassword = require('../user/validatePassword');
 
 async function validadeLoginFields(email, password) {
   const emailError = validateEmail(email);

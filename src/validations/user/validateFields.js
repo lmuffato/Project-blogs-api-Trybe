@@ -1,4 +1,6 @@
-const { validadeDisplayName, validateEmail, validatePassword } = require('./validations');
+const validadeDisplayName = require('./validateDisplayName');
+const validateEmail = require('./validateEmail');
+const validatePassword = require('./validatePassword');
 
 async function validadeFields(email, password, displayName) {
   const displayNameError = validadeDisplayName(displayName);
@@ -18,4 +20,4 @@ async function validadeFields(email, password, displayName) {
   }
 }
 
-module.exports = { validadeFields };
+module.exports = validadeFields;

@@ -1,9 +1,7 @@
-const validateOwner = require('./validatePostOwner');
+const validateOwner = require('./validateOwner');
 
 async function validatePostDeleteFields(postId, userId) {
   const response = await validateOwner(postId, userId);
-
-  console.log(response);
 
   return response;
 }

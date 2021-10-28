@@ -1,4 +1,5 @@
-const { httpStatusCode, errors } = require('../utils/errors');
+const errors = require('../../utils/errors');
+const httpStatusCode = require('../../utils/httpStatusCode');
 
 function validadeCategory(name) {
   if (!name) {
