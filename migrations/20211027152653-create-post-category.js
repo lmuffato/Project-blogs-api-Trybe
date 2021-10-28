@@ -1,7 +1,5 @@
 'use strict';
 
-const { DataTypes } = require("sequelize/types");
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('PostCategories', {
@@ -24,8 +22,8 @@ module.exports = {
           model: 'BlogPosts',
           key: 'id',  
         },
-        onUpdate: 'Categories',
-        onDelete: 'id',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       }
     });
   },
