@@ -43,6 +43,13 @@ const create = async ({ displayName, email, password, image }) => {
   return { token, code: 201 };
 };
 
+const getUsers = async () => {
+  let users = await User.findAll();
+  if (!users) users = [];
+  return users;
+};
+
 module.exports = {
   create,
+  getUsers,
 };
