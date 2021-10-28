@@ -17,6 +17,7 @@ routes.delete('/user/me', userController.delete);
 routes.post('/categories', categoriesController.create);
 routes.get('/categories', categoriesController.index);
 
+routes.get('/post/search', postController.index);
 routes.post('/post', postController.create);
 routes.put('/post/:id', postController.update);
 routes.delete('/post/:id', postController.delete);

@@ -45,6 +45,7 @@ module.exports = {
   async index(req, res) {
     const { id } = req.params;
     const token = req.headers.authorization;
+    const { q } = req.query;
 
     if (id) {
       const response = await postService.show(token, id);
@@ -54,7 +55,9 @@ module.exports = {
         .json(response.post ? response.post : { message: response.message });
     }
 
-    const response = await postService.index(token);
+    console.log(q);
+
+    const response = await postService.index(token, q);
 
     return res
       .status(response.status)

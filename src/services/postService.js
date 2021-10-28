@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { Post, User, Category } = require('../../models');
 const errors = require('../utils/errors');
 const httpStatusCode = require('../utils/httpStatusCode');
@@ -74,12 +75,18 @@ module.exports = {
     }
   },
 
-  async index(token) {
+  async index(token, searchTerm) {
     const decodedToken = validateToken(token);
-
     if (!decodedToken.id) return decodedToken;
 
+    console.log({ searchTerm });
+
+    const findParams = searchTerm
+      ? { where: { [Op.or]: [{ title: searchTerm }, { content: searchTerm }] } }
+      : {};
+  
     const allPosts = await Post.findAll({
+      ...findParams,
       include: [
         { model: User, as: 'user', attributes: { exclude: ['password'] } },
         { model: Category, as: 'categories', through: { attributes: [] } },
