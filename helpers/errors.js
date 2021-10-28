@@ -23,4 +23,16 @@ module.exports = {
     message: 'User already registered',
     code: 409,
   },
+  INVALID_FIELDS: {
+    message: 'Invalid fields',
+    code: 400,
+  },
+  EMAIL_IS_EMPTY: {
+    message: '"email" is not allowed to be empty',
+    code: 400,
+  },
+  PASSWORD_IS_EMPTY: {
+    message: '"password" is not allowed to be empty',
+    code: 400,
+  },
 };
