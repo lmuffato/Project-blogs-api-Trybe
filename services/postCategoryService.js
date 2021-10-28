@@ -25,6 +25,13 @@ const create = async ({ title, content, categoryIds }, userId = 1) => {
   return { post, code: 201 };
 };
 
+const getPosts = async () => {
+  let posts = await BlogPost.findAll({ include: [{ all: true }] });
+  if (!posts) posts = [];
+  return posts;
+};
+
 module.exports = {
   create,
+  getPosts,
 };
