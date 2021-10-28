@@ -43,4 +43,8 @@ module.exports = {
     message: 'Expired or invalid token',
     code: 401,
   },
+  USER_NOT_EXISTS: {
+    message: 'User does not exist',
+    code: 404,
+  },
 };
