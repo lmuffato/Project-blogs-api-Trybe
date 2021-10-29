@@ -34,9 +34,9 @@ const create = async ({ displayName, email, password, image }) => {
   
   if (check) return ERROR.USER_ALREADY_REGISTERED;
   
-  const { dataValues } = await User.create({ displayName, email, password, image });
+  const { id } = await User.create({ displayName, email, password, image });
 
-  const token = jwt.sign({ id: dataValues.id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: 300,
   });
 

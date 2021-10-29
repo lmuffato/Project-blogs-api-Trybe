@@ -1,6 +1,7 @@
 const { Op } = require('sequelize');
 const ERROR = require('../helpers/errors');
 const { BlogPost, User, Category } = require('../models');
+const getUserId = require('../helpers/jwt');
 
 const checkCategories = async (categoryIds) => {
   const hasAllCategories = await User.findAll({ where: { id: { [Op.in]: categoryIds } } });
@@ -17,7 +18,8 @@ const validations = async ({ title, content, categoryIds }) => {
   return false;
 };
 
-const create = async ({ title, content, categoryIds }, userId = 1) => {
+const create = async ({ title, content, categoryIds, token }) => {
+  const userId = await getUserId(token);
   const isInvalid = await validations({ title, content, categoryIds });
   if (isInvalid) return isInvalid;
   await BlogPost.create({ title, content, userId });
@@ -49,8 +51,18 @@ const getPostById = async (id) => {
   return post;
 };
 
+const deleteById = async (id, token) => {
+  const post = await getPostById(id);
+  if (!post.dataValues) return ERROR.POST_NOT_FOUND;
+  const userId = await getUserId(token);
+  if (post.userId !== userId) return ERROR.UNAUTHORIZED;
+  const deletedPost = await BlogPost.destroy({ where: { id } });
+  return deletedPost;
+};
+
 module.exports = {
   create,
   getPosts,
   getPostById,
+  deleteById,
 };

@@ -71,4 +71,8 @@ module.exports = {
     message: 'Post does not exist',
     code: 404,
   },
+  UNAUTHORIZED: {
+    message: 'Unauthorized user',
+    code: 401,
+  },
 };
