@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const ERROR = require('../helpers/errors');
-const { BlogPost, User } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 
 const checkCategories = async (categoryIds) => {
   const hasAllCategories = await User.findAll({ where: { id: { [Op.in]: categoryIds } } });
@@ -31,7 +31,26 @@ const getPosts = async () => {
   return posts;
 };
 
+const getPostById = async (id) => {
+  const post = await BlogPost.findOne(
+    {
+      where: { id },
+      include: [
+        {
+          model: User, as: 'user', attributes: { exclude: ['password'] },
+        },
+        {
+          model: Category, as: 'categories', through: { attributes: [] },
+        },
+      ],
+    },
+  );
+  if (!post) return ERROR.POST_NOT_FOUND;
+  return post;
+};
+
 module.exports = {
   create,
   getPosts,
+  getPostById,
 };

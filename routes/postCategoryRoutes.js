@@ -7,5 +7,6 @@ const { verifyToken } = require('../middlewares/verifyToken');
 
 routes.post('/', verifyToken, postCategoryController.create);
 routes.get('/', verifyToken, postCategoryController.getPosts);
+routes.get('/:id', verifyToken, postCategoryController.getPostById);
 
 module.exports = routes;

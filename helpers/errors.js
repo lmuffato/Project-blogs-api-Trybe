@@ -67,4 +67,8 @@ module.exports = {
     message: '"categoryIds" not found',
     code: 400,
   },
+  POST_NOT_FOUND: {
+    message: 'Post does not exist',
+    code: 404,
+  },
 };

@@ -22,7 +22,18 @@ const getPosts = async (req, res) => {
   return res.status(200).json(posts);
 };
 
+const getPostById = async (req, res) => {
+  const { id } = req.params;
+  const post = await postCategory.getPostById(id);
+  if (post.message) {
+    const { message, code } = post;
+    return res.status(code).json({ message });
+  }
+  return res.status(200).json(post);
+};
+
 module.exports = {
   create,
   getPosts,
+  getPostById,
 };

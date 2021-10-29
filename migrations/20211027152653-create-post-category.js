@@ -8,7 +8,7 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         references: {
-          model: 'BlogPosts',
+          model: 'Categories',
           key: 'id',  
         },
         onUpdate: 'CASCADE',
@@ -19,7 +19,7 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         references: {
-          model: 'Categories',
+          model: 'BlogPosts',
           key: 'id',
         },
         onUpdate: 'CASCADE',
