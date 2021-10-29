@@ -60,9 +60,29 @@ const deleteById = async (id, token) => {
   return deletedPost;
 };
 
+// Fiz essa questão estudando um pouco do código do Iago, disponível no link abaixo:
+// https://github.com/tryber/sd-010-a-project-blogs-api/blob/iagopferreira-sd-010-a-project-blogs-api/services/postService.js
+const searchPost = async (query) => {
+  const allPosts = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        { title: { [Op.like]: `%${query}%` } },
+        { content: { [Op.like]: `%${query}%` } },
+      ],
+    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  if (!allPosts) return ERROR.POST_NOT_FOUND;
+  return allPosts;
+};
+
 module.exports = {
   create,
   getPosts,
   getPostById,
   deleteById,
+  searchPost,
 };
