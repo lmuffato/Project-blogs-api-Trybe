@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const ERROR = require('../helpers/errors');
 const { User } = require('../models');
+const getUserId = require('../helpers/jwt');
 
 const checkUser = async ({ email }) => User.findOne({ where: { email } });
 
@@ -55,8 +56,21 @@ const getById = async (id) => {
   return user.dataValues;
 };
 
+const deleteUser = async (token) => {
+  const id = await getUserId(token);
+
+  const user = await getById(id);
+
+  if (user.message) return user;
+  
+  const deletedUser = await User.destroy({ where: { id } });
+
+  return deletedUser;
+};
+
 module.exports = {
   create,
   getUsers,
   getById,
+  deleteUser,
 };
