@@ -3,14 +3,8 @@ const jwt = require('jsonwebtoken');
 const SECRET = 'segredo';
 
 const {
-  // STATUS_OK,
-  // STATUS_CREATE,
   STATUS_BAD_REQUEST,
   STATUS_UNAUTHORIZED,
-  // STATUS_NOT_FOUND,
-  // STATUS_UNPROCESSABLE,
-  // STATUS_CONFLICT,
-  // STATUS_NO_CONTENT,
 } = require('../utils/httpStatus');
 
 const verifyToken = (req, res, next) => {
@@ -19,7 +13,6 @@ const verifyToken = (req, res, next) => {
   try {
     const payload = jwt.verify(authorization, SECRET);
     req.user = payload;
-    console.log(payload);
     return next();
   } catch (_e) {
     return res.status(STATUS_UNAUTHORIZED).json({ message: 'Expired or invalid token' });

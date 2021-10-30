@@ -1,5 +1,6 @@
 const { STATUS_CREATE, STATUS_OK } = require('../utils/httpStatus');
-const { createUserS, getUsersS, getByIdS } = require('../services/userService');
+const { createUserS, getUsersS, getByIdS, findByEmailS,
+  deleteUserS } = require('../services/userService');
 
 const createUserC = async (req, res) => {
   const { displayName,
@@ -26,8 +27,20 @@ const getByIdC = async (req, res) => {
   return res.status(STATUS_OK).json({ id: parseInt(id, 10), displayName, email, image });
 };
 
+const deleteUserC = async (req, res) => {
+  const { email } = req.user;
+  const foundUser = await findByEmailS(email);
+  const { id: userId } = foundUser; // userId vindo do token
+  try {
+    await deleteUserS(userId);
+    return res.status(204).send();
+  } catch (error) {
+    return res.status(402).json({ message: 'Erro interno' });
+  }
+};
 module.exports = {
   createUserC,
   getUsersC,
   getByIdC,
+  deleteUserC,
 };

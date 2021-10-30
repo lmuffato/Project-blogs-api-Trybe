@@ -8,14 +8,12 @@ const createCategoryC = async (req, res) => {
     return res.status(STATUS_CREATE)
       .json({ id: parseInt(id, 10), name: nome });
   } catch (_e) {
-    // console.log('Erro interno!');
     return res.status(404).json({ message: 'Erro interno' });
   }
 };
 
 const getAllCategoriesC = async (req, res) => {
   const allCategories = await getAllCategoriesS();
-  // console.log(allCategories);
   return res.status(STATUS_OK).json(allCategories);
 };
 

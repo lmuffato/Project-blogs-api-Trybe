@@ -1,7 +1,7 @@
 const { Category, BlogPost, User } = require('../models');
 
 // verifyCategories foi inspiração no codigo do colega abaixo
-// // https://github.com/tryber/sd-010-a-project-blogs-api/blob/rodolfo-oliveira-blogs-api/src/services/postService.js
+// https://github.com/tryber/sd-010-a-project-blogs-api/blob/rodolfo-oliveira-blogs-api/src/services/postService.js
 
 const verifyCategories = async (arrCatIds) => {
   const categoriesOk = await Category.findAll({ where: { id: arrCatIds } });
@@ -10,7 +10,6 @@ const verifyCategories = async (arrCatIds) => {
 
 const createPostS = async (newPost) => {
   const { categoryIds } = newPost; // its array
-  // console.log('------------ create post ----------');
   const itsOk = await verifyCategories(categoryIds);
   if (!itsOk) {
     return null;

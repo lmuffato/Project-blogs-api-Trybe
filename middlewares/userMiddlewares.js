@@ -1,12 +1,6 @@
 const {
-  // STATUS_OK,
-  // STATUS_CREATE,
   STATUS_BAD_REQUEST,
-  // STATUS_UNAUTHORIZED,
-  // STATUS_NOT_FOUND,
-  // STATUS_UNPROCESSABLE,
   STATUS_CONFLICT,
-  // STATUS_NO_CONTENT,
 } = require('../utils/httpStatus');
 
 const { findByEmailS } = require('../services/userService');

@@ -10,6 +10,7 @@ const { createPostC, getAllPostsC, getPostC,
   updatePostC, deletePostC } = require('./controllers/postsController');
 const { verifyEntriesPost, verifyEntriesUpdate } = require('./middlewares/postsMiddlewares');
 const { authDelete } = require('./middlewares/validateDelete');
+const { deleteUserC } = require('./controllers/userController');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -28,6 +29,8 @@ app.get('/post', verifyToken, getAllPostsC);
 app.get('/post/:id', verifyToken, getPostC);
 app.put('/post/:id', verifyToken, verifyEntriesUpdate, updatePostC);
 app.delete('/post/:id', verifyToken, authDelete, deletePostC);
+app.delete('/user/me', verifyToken, deleteUserC);
+
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}`));
 
 // não remova esse endpoint, e para o avaliador funcionar
