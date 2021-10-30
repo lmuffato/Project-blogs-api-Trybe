@@ -1,4 +1,4 @@
-const { Category, BlogPost } = require('../models');
+const { Category, BlogPost, User } = require('../models');
 
 // verifyCategories foi inspiração no codigo do colega abaixo
 // // https://github.com/tryber/sd-010-a-project-blogs-api/blob/rodolfo-oliveira-blogs-api/src/services/postService.js
@@ -18,7 +18,18 @@ const createPostS = async (newPost) => {
   const createdPost = await BlogPost.create(newPost);
   return createdPost;
 };
+// https://sequelize.org/v5/manual/querying.html#relations---associations
+const getAllPostsS = async () => {
+  const posts = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return posts;
+};
 
 module.exports = {
   createPostS,
+  getAllPostsS,
 };

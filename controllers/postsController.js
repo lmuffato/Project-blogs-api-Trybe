@@ -1,4 +1,4 @@
-const { createPostS } = require('../services/postService');
+const { createPostS, getAllPostsS } = require('../services/postService');
 const { findByEmailS } = require('../services/userService');
 
 const createPostC = async (req, res) => {
@@ -13,6 +13,16 @@ const createPostC = async (req, res) => {
   return res.status(201).json(newPost);
 };
 
+const getAllPostsC = async (req, res) => {
+  const posts = await getAllPostsS();
+  if (!posts) {
+    return res.status(404).json({ message: 'No posts found' });
+  }
+
+  return res.status(200).json(posts);
+};
+
 module.exports = {
   createPostC,
+  getAllPostsC,
 };

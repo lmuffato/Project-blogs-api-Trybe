@@ -15,7 +15,7 @@ const createCategoryC = async (req, res) => {
 
 const getAllCategoriesC = async (req, res) => {
   const allCategories = await getAllCategoriesS();
-  console.log(allCategories);
+  // console.log(allCategories);
   return res.status(STATUS_OK).json(allCategories);
 };
 
