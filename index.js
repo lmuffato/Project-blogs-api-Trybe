@@ -6,7 +6,7 @@ const { verifyToken } = require('./middlewares/loginMiddlewares');
 const { getUsersC, getByIdC } = require('./controllers/userController');
 const { verifyName } = require('./middlewares/categoryMiddlewares');
 const { createCategoryC, getAllCategoriesC } = require('./controllers/categoryController');
-const { createPostC, getAllPostsC } = require('./controllers/postsController');
+const { createPostC, getAllPostsC, getPostC } = require('./controllers/postsController');
 const { verifyEntriesPost } = require('./middlewares/postsMiddlewares');
 
 const PORT = process.env.PORT || 3000;
@@ -23,6 +23,7 @@ app.post('/categories', verifyToken, verifyName, createCategoryC);
 app.get('/categories', verifyToken, getAllCategoriesC);
 app.post('/post', verifyToken, verifyEntriesPost, createPostC);
 app.get('/post', verifyToken, getAllPostsC);
+app.get('/post/:id', verifyToken, getPostC);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}`));
 
