@@ -3,7 +3,7 @@ const shell = require('shelljs');
 
 const url = 'http://localhost:3000';
 
-describe.skip('11 - Sua aplicação deve ter o endpoint DELETE `post/:id`', () => {
+describe('11 - Sua aplicação deve ter o endpoint DELETE `post/:id`', () => {
   beforeEach(() => {
     shell.exec('npx sequelize-cli db:drop $');
     shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate $');

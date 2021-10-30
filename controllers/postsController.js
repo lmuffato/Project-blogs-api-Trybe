@@ -1,4 +1,5 @@
-const { createPostS, getAllPostsS, getPostS, updatePostS } = require('../services/postService');
+const { createPostS, getAllPostsS, getPostS, updatePostS,
+  deletePostS } = require('../services/postService');
 const { findByEmailS } = require('../services/userService');
 
 const createPostC = async (req, res) => {
@@ -44,9 +45,20 @@ const updatePostC = async (req, res) => {
   }
   return res.status(200).json(updated);
 };
+
+const deletePostC = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await deletePostS(id);
+    return res.status(204).send();
+  } catch (error) {
+    return res.status(401).json({ message: 'erro interno' });
+  }
+};
 module.exports = {
   createPostC,
   getAllPostsC,
   getPostC,
   updatePostC,
+  deletePostC,
 };

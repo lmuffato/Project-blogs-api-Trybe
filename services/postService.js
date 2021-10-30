@@ -42,22 +42,20 @@ const getPostS = async (id) => {
 
 const updatePostS = async ({ userId, title, content, id }) => {
   const post = await getPostS(id);
-  // se o id do post do usuario for diferente
-  console.log('---------- POST ANTIGO -----------');
-  console.log(post);
   if (post.dataValues.userId !== userId) {
     return null;
   }
   await BlogPost.update({ title, content }, { where: { id } });
   const updatedPost = await getPostS(id);
-  console.log(' ------------------------ POST NOVO ----------------');
-  console.log(updatedPost);
   return updatedPost;
 };
+
+const deletePostS = async (id) => BlogPost.destroy({ where: { id } });
 
 module.exports = {
   createPostS,
   getAllPostsS,
   getPostS,
   updatePostS,
+  deletePostS,
 };
