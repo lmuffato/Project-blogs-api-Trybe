@@ -1,4 +1,4 @@
-const { createPostS, getAllPostsS, getPostS } = require('../services/postService');
+const { createPostS, getAllPostsS, getPostS, updatePostS } = require('../services/postService');
 const { findByEmailS } = require('../services/userService');
 
 const createPostC = async (req, res) => {
@@ -31,8 +31,22 @@ const getPostC = async (req, res) => {
   return res.status(200).json(post);
 };
 
+const updatePostC = async (req, res) => {
+  const { title, content } = req.body;
+  const { id } = req.params;
+  const { email } = req.user;
+  const foundUser = await findByEmailS(email);
+  const { id: userId } = foundUser; // userId vindo do token
+  const updatePostData = { userId, title, content, id };
+  const updated = await updatePostS(updatePostData);
+  if (!updated) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+  return res.status(200).json(updated);
+};
 module.exports = {
   createPostC,
   getAllPostsC,
   getPostC,
+  updatePostC,
 };

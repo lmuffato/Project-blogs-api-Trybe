@@ -38,10 +38,26 @@ const getPostS = async (id) => {
     ],
   });
   return post;
-}; 
+};
+
+const updatePostS = async ({ userId, title, content, id }) => {
+  const post = await getPostS(id);
+  // se o id do post do usuario for diferente
+  console.log('---------- POST ANTIGO -----------');
+  console.log(post);
+  if (post.dataValues.userId !== userId) {
+    return null;
+  }
+  await BlogPost.update({ title, content }, { where: { id } });
+  const updatedPost = await getPostS(id);
+  console.log(' ------------------------ POST NOVO ----------------');
+  console.log(updatedPost);
+  return updatedPost;
+};
 
 module.exports = {
   createPostS,
   getAllPostsS,
   getPostS,
+  updatePostS,
 };

@@ -6,8 +6,9 @@ const { verifyToken } = require('./middlewares/loginMiddlewares');
 const { getUsersC, getByIdC } = require('./controllers/userController');
 const { verifyName } = require('./middlewares/categoryMiddlewares');
 const { createCategoryC, getAllCategoriesC } = require('./controllers/categoryController');
-const { createPostC, getAllPostsC, getPostC } = require('./controllers/postsController');
-const { verifyEntriesPost } = require('./middlewares/postsMiddlewares');
+const { createPostC, getAllPostsC, getPostC,
+  updatePostC } = require('./controllers/postsController');
+const { verifyEntriesPost, verifyEntriesUpdate } = require('./middlewares/postsMiddlewares');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -24,6 +25,7 @@ app.get('/categories', verifyToken, getAllCategoriesC);
 app.post('/post', verifyToken, verifyEntriesPost, createPostC);
 app.get('/post', verifyToken, getAllPostsC);
 app.get('/post/:id', verifyToken, getPostC);
+app.put('/post/:id', verifyToken, verifyEntriesUpdate, updatePostC);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}`));
 
