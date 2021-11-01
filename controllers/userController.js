@@ -1,10 +1,13 @@
-const userService = require('../services/userService');
+const userServices = require('../services/userService');
 
-const addUser = async (req, res) => {
-  const { status, response } = await userService.addUsers(req.body);
-  return res.status(status).json(response);
+const createUser = async (req, res) => {
+  const user = await userServices.createUser(req.body);
+  if (user === 'exist') {
+    return res.status(409).json({ message: 'User already registered' });
+  }
+  return res.status(201).json(user);
 };
 
 module.exports = {
-  addUser,
+  createUser,
 }; 

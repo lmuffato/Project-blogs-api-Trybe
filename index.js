@@ -1,19 +1,20 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+require('dotenv').config();
 
 const app = express();
-const userRouter = require('./routers.js/userRouter');
+app.use(bodyParser.json());
 
-app.use(express.json());
-app.use('/user', userRouter);
+const PORT = process.env.PORT || 3000;
 
-app.use((err, _req, res, _next) => {
-  console.log(err);
-  return res.status(err.status).json(err.error);
-});
+const validateUser = require('./middlewares/validateUser');
+const userController = require('./controllers/userController');
+
+app.post('/user', validateUser, userController.createUser);
+
+app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
 });
-
-app.listen(3000, () => console.log('ouvindo porta 3000!'));
