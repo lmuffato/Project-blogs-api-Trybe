@@ -104,14 +104,23 @@ const contentValidation = (req, res, next) => {
 
 const categoryIdValidation = async (req, res, next) => {
   const { categoryIds } = req.body;
-  if (!categoryIds) return res.status(badRequest).json(categoryIdNotFound);
+  if (!categoryIds) return res.status(badRequest).json(noCategoryId);
 
-  const idValidation = await Promise.all(categoryIds.map(async (e) => (
-    getCategoriesIds(e)
-  )));
-  const isValid = idValidation.every((e) => e.length !== 0);
+  let check = true;
+  await Promise.all(categoryIds.forEach(async (id) => {
+    const answer = await getCategoriesIds(id);
+    if (!answer) check = false;
+  }));
+  if (check === false) {
+    return res.status(badRequest).json(categoryIdNotFound);
+  }
 
-  if (!isValid) return res.status(badRequest).json(noCategoryId);
+  // const idValidation = await Promise.all(categoryIds.map(async (e) => (
+  //   getCategoriesIds(e)
+  // )));
+  // const isValid = idValidation.every((e) => e.length !== 0);
+
+  // if (!isValid) return res.status(badRequest).json(noCategoryId);
   next();
 };
 
