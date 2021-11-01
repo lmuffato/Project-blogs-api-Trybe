@@ -27,9 +27,9 @@ const getAll = async (_req, res) => {
 };
 
 const getById = async (req, res) => {
-  const { id } = req.body;
+  const { userId } = req.body;
   const idPost = await BlogPost.findOne({
-      where: { id },
+      where: { userId },
       include: [
         {
           model: User, as: 'user', attributes: { exclude: ['password'] },
