@@ -43,6 +43,8 @@ app.get('post', tokenAuthentication, posts.getAll);
 
 app.post('/login', emailValidation, passwordValidation, users.findUser);
 
+app.get('/post/:id', tokenAuthentication, posts.getById);
+
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();

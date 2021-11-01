@@ -66,6 +66,10 @@ const noCategoryId = {
     message: '"categoryIds" is required',
 };
 
+const postNotExist = {
+  message: 'Post does not exist',
+};
+
 module.exports = {
     shortName,
     emailInvalid,
@@ -84,4 +88,5 @@ module.exports = {
     noContent,
     noCategoryId,
     categoryIdNotFound,
+    postNotExist,
 };

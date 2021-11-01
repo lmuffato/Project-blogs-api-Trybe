@@ -3,7 +3,12 @@ const { BlogPost, User, Category } = require('../models');
 const {
     ok,
     created,
+    notFound,
 } = require('../utils/anwers');
+
+const {
+  postNotExist,
+} = require('../utils/messages');
 
 const create = async (req, res) => {
   const { title, content } = req.body;
@@ -21,7 +26,25 @@ const getAll = async (_req, res) => {
   return res.status(ok).json(allPosts);
 };
 
+const getById = async (req, res) => {
+  const { id } = req.body;
+  const idPost = await BlogPost.findOne({
+      where: { id },
+      include: [
+        {
+          model: User, as: 'user', attributes: { exclude: ['password'] },
+        },
+        {
+          model: Category, as: 'categories', through: { attributes: [] },
+        },
+      ],
+    });
+  if (!idPost) return res.status(notFound).json(postNotExist);
+  return res.status(ok).json(idPost);
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };
