@@ -6,11 +6,7 @@ const {
     notFound,
 } = require('../utils/anwers');
 
-const {
-  postNotExist,
-  notFound,
-  
-} = require('../utils/messages');
+const messages = require('../utils/messages');
 
 const create = async (req, res) => {
   const { title, content } = req.body;
@@ -29,9 +25,9 @@ const getAll = async (_req, res) => {
 };
 
 const getById = async (req, res) => {
-  const { userId } = req.body;
+  const { id } = req.params;
   const idPost = await BlogPost.findOne({
-      where: { userId },
+      where: { id },
       include: [
         {
           model: User, as: 'user', attributes: { exclude: ['password'] },
@@ -41,7 +37,8 @@ const getById = async (req, res) => {
         },
       ],
     });
-  if (!idPost) return res.status(notFound).json(postNotExist);
+    console.log(idPost);
+  if (!idPost) return res.status(notFound).json(messages.postNotExist);
   return res.status(ok).json(idPost);
 };
 

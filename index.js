@@ -43,7 +43,7 @@ app.get('/post', tokenAuthentication, posts.getAll);
 
 app.post('/login', emailValidation, passwordValidation, users.findUser);
 
-// app.get('/post/:id', tokenAuthentication, posts.getById);
+app.get('/post/:id', tokenAuthentication, posts.getById);
 
 // app.put('/post/:id', tokenAuthentication, posts.update);
 
