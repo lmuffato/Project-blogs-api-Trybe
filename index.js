@@ -50,6 +50,8 @@ app.put('/post/:id', [tokenAuthentication, titleValidation,
 
 app.delete('/post/:id', tokenAuthentication, posts.deletePost);
 
+app.delete('/user/me', tokenAuthentication, users.deleteUser);
+
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();

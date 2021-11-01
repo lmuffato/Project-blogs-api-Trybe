@@ -82,10 +82,18 @@ const getById = async (req, res) => {
     });
 };
 
+// função de deletar vista no repositório da Micaela Alves
+// https://github.com/tryber/sd-010-a-project-blogs-api/pull/122
+const deleteUser = async (id) => {
+    User.destroy({ where: { id } })
+    .then((res) => res);
+};
+
 module.exports = {
     getAll,
     create,
     getByEmail,
     findUser,
     getById,
+    deleteUser,
 };
