@@ -1,9 +1,14 @@
 const { BlogPost, User, Category } = require('../models');
 
+const users = require('./users');
+
 const {
     ok,
     created,
     notFound,
+    badRequest,
+    noContent,
+    unauthorized,
 } = require('../utils/anwers');
 
 const messages = require('../utils/messages');
@@ -37,13 +42,39 @@ const getById = async (req, res) => {
         },
       ],
     });
-    console.log(idPost);
   if (!idPost) return res.status(notFound).json(messages.postNotExist);
   return res.status(ok).json(idPost);
+};
+
+const update = async ({ id }, { title, content, categoryIds }, res) => {
+  if (!title) { return res.status(badRequest).json(messages.noTitle); }
+  if (!content) return res.status(badRequest).json(messages.noContent);
+  if (categoryIds) return res.status(badRequest).json(messages.categoriesNotEdited);
+
+  await BlogPost.update({ ...BlogPost, title, content }, { where: { id } });
+  const updatedPost = await BlogPost.findByPk(id, 
+  { 
+    include: { model: Category, as: 'categories', through: { attributes: [] } },
+  });
+  return updatedPost;
+};
+
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  // const token = req.headers.authorization;
+  const postFound = await getById(id);
+  const userId = users.getById(id);
+  if (postFound !== userId) {
+    return res.status(unauthorized).json(messages.unauthorized);
+  }
+  await BlogPost.destroy({ where: { id } });
+  return res.status(noContent).end();
 };
 
 module.exports = {
   create,
   getAll,
   getById,
+  update,
+  deletePost,
 };

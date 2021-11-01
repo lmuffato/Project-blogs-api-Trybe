@@ -84,19 +84,19 @@ const tokenAuthentication = async (req, res, next) => {
   }
 };
 
-const validateName = (req, res, next) => {
+const validateName = async (req, res, next) => {
   const { name } = req.body;
   if (!name) return res.status(badRequest).json(noName);
   next();
 };
 
-const titleValidation = (req, res, next) => {
+const titleValidation = async (req, res, next) => {
   const { title } = req.body;
   if (!title) return res.status(badRequest).json(noTitle);
   next();
 };
 
-const contentValidation = (req, res, next) => {
+const contentValidation = async (req, res, next) => {
   const { content } = req.body;
   if (!content) return res.status(badRequest).json(noContent);
   next();

@@ -70,6 +70,10 @@ const postNotExist = {
   message: 'Post does not exist',
 };
 
+const categoriesNotEdited = {
+  message: 'Categories cannot be edited',
+};
+
 module.exports = {
     shortName,
     emailInvalid,
@@ -89,4 +93,5 @@ module.exports = {
     noCategoryId,
     categoryIdNotFound,
     postNotExist,
+    categoriesNotEdited,
 };
