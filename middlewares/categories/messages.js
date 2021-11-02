@@ -1,6 +1,6 @@
 const {
   status: { BAD_REQUEST, CONFLICT, UNAUTHORIZED },
-} = require('../utils');
+} = require('../../utils');
 
 module.exports = {
   user: {

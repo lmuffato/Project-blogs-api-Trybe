@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User } = require('../../models');
 const messages = require('./messages');
 
 const REGEX_EMAIL = /\S+@\S+\.\S+/;

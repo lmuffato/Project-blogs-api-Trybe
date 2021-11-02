@@ -1,5 +1,4 @@
-const { token } = require('../utils');
-const { status: { OK } } = require('../utils');
+const { status: { OK }, token } = require('../utils');
 
 const access = (email, password) => {
   const accessToken = token.create(email, password);

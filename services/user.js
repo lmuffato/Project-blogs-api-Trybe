@@ -1,6 +1,5 @@
 const { User } = require('../models');
-const { token } = require('../utils');
-const { CREATED, OK, NOT_FOUND } = require('../utils/status');
+const { status: { CREATED, OK, NOT_FOUND }, token } = require('../utils');
 
 const create = async (user) => {
   const { email, displayName } = user;

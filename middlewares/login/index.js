@@ -1,5 +1,5 @@
 const messages = require('./messages');
-const { User } = require('../models');
+const { User } = require('../../models');
 
 const emailValidate = (email) => {
   if (email === undefined) {
