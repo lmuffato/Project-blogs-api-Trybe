@@ -12,7 +12,7 @@ const token = (userData) => {
   return tokenUser;  
 };
 
-const validateToken = async (req, res, next) => {
+const validateToken = (req, res, next) => {
   try {  
   const tokenUser = req.headers.authorization;
   if (!tokenUser) {
